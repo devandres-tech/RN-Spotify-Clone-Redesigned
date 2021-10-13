@@ -1,19 +1,46 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, Image, Animated } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 
+import { icons, COLORS } from '../constants'
+
 const TabBarIcon = ({ focused, name, source }) => {
+  const animation = new Animated.Value(0)
+  const inputRange = [0, 1]
+  const outputRange = [0.9, 0.7]
+  const scale = animation.interpolate({ inputRange, outputRange })
+
+  const onPressIn = () => {
+    Animated.timing(animation, {
+      toValue: 1,
+      useNativeDriver: true,
+    }).start()
+  }
+  const onPressOut = () => {
+    Animated.timing(animation, {
+      toValue: 0,
+      useNativeDriver: true,
+    }).start()
+  }
+
   return (
-    <TouchableOpacity>
-      <View
-        style={{
-          justifyContent: 'center',
-          alignItems: 'center',
-          backgroundColor: focused ? COLORS.primary : '',
-          borderRadius: 100,
-          height: 60,
-          width: 60,
-        }}
+    <TouchableOpacity
+      activeOpacity={0.5}
+      onPressIn={onPressIn}
+      onPressOut={onPressOut}
+    >
+      <Animated.View
+        style={[
+          {
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: focused ? COLORS.primary : '',
+            borderRadius: 100,
+            height: 60,
+            width: 60,
+          },
+          { transform: [{ scale }] },
+        ]}
       >
         <Image
           style={{
@@ -31,7 +58,7 @@ const TabBarIcon = ({ focused, name, source }) => {
         >
           {name.toUpperCase()}
         </Text>
-      </View>
+      </Animated.View>
     </TouchableOpacity>
   )
 }

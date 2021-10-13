@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { StyleSheet, Text, View, Image, Animated } from 'react-native'
+import { StyleSheet } from 'react-native'
 import { CLIENT_ID, CLIENT_SECRET, REDIRECT_URL } from '@env'
 import { authorize, refresh } from 'react-native-app-auth'
 import SplashScreen from 'react-native-splash-screen'
@@ -8,7 +8,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
 import { Home, Library, Search, Profile } from './screens'
 import { icons, COLORS } from './constants'
-import { TouchableOpacity } from 'react-native-gesture-handler'
+import TabBarIcon from './components/TabBarIcon'
 
 // const stack = creat
 const Tab = createBottomTabNavigator()
@@ -30,46 +30,6 @@ const spotifyAuthConfig = {
     authorizationEndpoint: 'https://accounts.spotify.com/authorize',
     tokenEndpoint: 'https://accounts.spotify.com/api/token',
   },
-}
-
-const TabBarIcon = ({ focused, name, source }) => {
-  const animated = new Animated.Value(0)
-
-  const interpolation = animated.interpolate({
-    inputRange: [0, 1],
-    outputRange: [1, 0.99],
-  })
-  return (
-    <TouchableOpacity>
-      <View
-        style={{
-          justifyContent: 'center',
-          alignItems: 'center',
-          backgroundColor: focused ? COLORS.primary : '',
-          borderRadius: 100,
-          height: 60,
-          width: 60,
-        }}
-      >
-        <Image
-          style={{
-            tintColor: focused ? COLORS.white : COLORS.lightGray,
-            height: 28,
-            width: 28,
-          }}
-          source={source}
-        />
-        <Text
-          style={{
-            color: focused ? COLORS.white : COLORS.lightGray,
-            fontSize: 10,
-          }}
-        >
-          {name.toUpperCase()}
-        </Text>
-      </View>
-    </TouchableOpacity>
-  )
 }
 
 const App = () => {

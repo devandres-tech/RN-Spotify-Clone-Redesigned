@@ -5784,6 +5784,11 @@
     "invariant" "^2.2.4"
     "prop-types" "^15.7.2"
 
+"react-native-linear-gradient@^2.5.6":
+  "integrity" "sha512-HDwEaXcQIuXXCV70O+bK1rizFong3wj+5Q/jSyifKFLg0VWF95xh8XQgfzXwtq0NggL9vNjPKXa016KuFu+VFg=="
+  "resolved" "https://registry.npmjs.org/react-native-linear-gradient/-/react-native-linear-gradient-2.5.6.tgz"
+  "version" "2.5.6"
+
 "react-native-reanimated@^2.3.0-beta.2":
   "integrity" "sha512-J0cBgOh0O05fNtGgHgrWfKtsYtzcAIhdNju6GVbRo6mVPp1jnuNmNQ2Dd7yXAF54+waj4w4h4pfP9D5J6EixkQ=="
   "resolved" "https://registry.npmjs.org/react-native-reanimated/-/react-native-reanimated-2.3.0-beta.2.tgz"
@@ -5813,7 +5818,7 @@
   "resolved" "https://registry.npmjs.org/react-native-splash-screen/-/react-native-splash-screen-3.2.0.tgz"
   "version" "3.2.0"
 
-"react-native@*", "react-native@^0.66.0", "react-native@>=0.57", "react-native@>=0.57.0", "react-native@>=0.63.0":
+"react-native@*", "react-native@^0.66.0", "react-native@>=0.55", "react-native@>=0.57", "react-native@>=0.57.0", "react-native@>=0.63.0":
   "integrity" "sha512-m26TKwzsfHVdZ1hDG+7mZ4M4ftxFFZrhtiT0OXuwfBzmNtB3xhsJtYszPeizw33c9YNp8rvehKT3c4ldDCW6kA=="
   "resolved" "https://registry.npmjs.org/react-native/-/react-native-0.66.0.tgz"
   "version" "0.66.0"
