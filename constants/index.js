@@ -1,4 +1,4 @@
 import icons from './icons'
-import { COLORS } from './theme'
+import { COLORS, FONTS, SIZES } from './theme'
 
-export { icons, COLORS }
+export { icons, COLORS, FONTS, SIZES }

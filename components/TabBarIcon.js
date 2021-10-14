@@ -1,8 +1,8 @@
 import React from 'react'
-import { View, Text, Image, Animated } from 'react-native'
+import { Text, Image, Animated } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 
-import { icons, COLORS } from '../constants'
+import { COLORS } from '../constants'
 
 const TabBarIcon = ({ focused, name, source }) => {
   const animation = new Animated.Value(0)
