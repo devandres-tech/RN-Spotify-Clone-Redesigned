@@ -54,7 +54,7 @@ const MainTabNavigator = () => {
 
 const App = () => {
   const auth = useSelector((state) => state.auth)
-  console.log('user', auth)
+  console.log('App.auth', auth)
 
   useEffect(() => {}, [SplashScreen.hide()])
 

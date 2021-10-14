@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react'
-import { View, Text, TouchableOpacity } from 'react-native'
-import { useSelector, useDispatch } from 'react-redux'
+import React from 'react'
+import { View } from 'react-native'
+import { useDispatch } from 'react-redux'
 
 import { COLORS, FONTS } from '../constants'
-import * as userActions from '../store/actions/user'
+import * as authActions from '../store/actions/auth'
 import { TextButton } from '../components'
 
 const Authorize = ({ navigation }) => {
@@ -19,7 +19,7 @@ const Authorize = ({ navigation }) => {
       }}
     >
       <TextButton
-        onPress={() => dispatch(userActions.authenticate())}
+        onPress={() => dispatch(authActions.authenticate())}
         label='LOG IN TO SPOTIFY'
       />
     </View>

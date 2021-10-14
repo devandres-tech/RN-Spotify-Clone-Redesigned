@@ -4,7 +4,7 @@ export const USER_PROFILE = 'USER_PROFILE'
 
 export const getProfile = () => {
   return async (dispatch, getState) => {
-    const accessToken = getState().user.accessToken
+    const accessToken = getState().auth.accessToken
     try {
       const response = await fetch(`${BASE_URL}/me`, {
         method: 'GET',
@@ -14,8 +14,9 @@ export const getProfile = () => {
           Authorization: `Bearer ${accessToken}`,
         },
       })
-      console.log('respones', response)
-      dispatch({ type: USER_PROFILE, data: response })
+      const data = await response.json()
+
+      dispatch({ type: USER_PROFILE, data })
     } catch (error) {
       console.log('error', error)
     }

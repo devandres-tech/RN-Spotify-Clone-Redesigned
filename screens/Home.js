@@ -2,10 +2,20 @@ import React, { useEffect } from 'react'
 import { View, Text, ScrollView } from 'react-native'
 
 import { COLORS, FONTS, SIZES } from '../constants'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import * as userActions from '../store/actions/user'
 
 const Home = () => {
-  const auth = useSelector((state) => state.auth)
+  const user = useSelector((state) => state.user.data)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    console.log('Home.useEffect.getProfile()')
+    dispatch(userActions.getProfile())
+  }, [])
+
+  console.log('Home:user', user.display_name)
+
   return (
     <View
       style={{
@@ -18,7 +28,7 @@ const Home = () => {
         {/* header  */}
         <View style={{ paddingTop: 40 }}>
           <Text style={{ color: COLORS.white, ...FONTS.h1 }}>
-            Good morning 'name'
+            Good morning {user.display_name}
           </Text>
         </View>
         {/* recently played */}
