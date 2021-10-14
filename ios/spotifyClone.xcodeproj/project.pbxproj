@@ -11,8 +11,10 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		3F9E9F346BE244F69B477864 /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 189D5DA5B9014BC7972D21F4 /* Montserrat-Regular.ttf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		9A01FEE84576E1F859542A1C /* libPods-spotifyClone-spotifyCloneTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0141EEC80E2E18902A39C3C8 /* libPods-spotifyClone-spotifyCloneTests.a */; };
+		AE742D049EEC4BC298EFE7B8 /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 747FE0144F6F45758CECE816 /* Montserrat-Bold.ttf */; };
 		B3DCA9AD239E892841C56D90 /* libPods-spotifyClone.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D03A09309C890AED4058BAC8 /* libPods-spotifyClone.a */; };
 /* End PBXBuildFile section */
 
@@ -37,6 +39,8 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = spotifyClone/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = spotifyClone/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = spotifyClone/main.m; sourceTree = "<group>"; };
+		189D5DA5B9014BC7972D21F4 /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-Regular.ttf"; path = "../assets/fonts/Montserrat-Regular.ttf"; sourceTree = "<group>"; };
+		747FE0144F6F45758CECE816 /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-Bold.ttf"; path = "../assets/fonts/Montserrat-Bold.ttf"; sourceTree = "<group>"; };
 		7B5397E9CC96BF72AD0666DA /* Pods-spotifyClone.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spotifyClone.release.xcconfig"; path = "Target Support Files/Pods-spotifyClone/Pods-spotifyClone.release.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = spotifyClone/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A1DA571B6B3BCD417CDB674D /* Pods-spotifyClone.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spotifyClone.debug.xcconfig"; path = "Target Support Files/Pods-spotifyClone/Pods-spotifyClone.debug.xcconfig"; sourceTree = "<group>"; };
@@ -106,6 +110,16 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		31FF72B0215440C7B9A3D2AF /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				747FE0144F6F45758CECE816 /* Montserrat-Bold.ttf */,
+				189D5DA5B9014BC7972D21F4 /* Montserrat-Regular.ttf */,
+			);
+			name = Resources;
+			path = "";
+			sourceTree = "<group>";
+		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
@@ -122,6 +136,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				AE673108EB4D23CDD9230333 /* Pods */,
+				31FF72B0215440C7B9A3D2AF /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -245,6 +260,8 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				AE742D049EEC4BC298EFE7B8 /* Montserrat-Bold.ttf in Resources */,
+				3F9E9F346BE244F69B477864 /* Montserrat-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
