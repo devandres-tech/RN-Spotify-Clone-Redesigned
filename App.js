@@ -1,15 +1,13 @@
 import React, { useEffect } from 'react'
-import { StyleSheet } from 'react-native'
 import SplashScreen from 'react-native-splash-screen'
 import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { Provider } from 'react-redux'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
+import { ActivityIndicator, View } from 'react-native'
 
-import store from './store'
 import { Home, Library, Search, Profile, Authorize } from './screens'
-import { icons, COLORS } from './constants'
+import { icons, COLORS, SIZES } from './constants'
 import { TabBarIcon } from './components'
 
 const Tab = createBottomTabNavigator()
@@ -60,18 +58,34 @@ const App = () => {
 
   useEffect(() => {}, [SplashScreen.hide()])
 
+  if (user.tokenIsLoading) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          justifyContent: 'center',
+          backgroundColor: COLORS.black,
+          paddingHorizontal: SIZES.padding,
+        }}
+      >
+        <ActivityIndicator size='large' color={COLORS.primary} />
+      </View>
+    )
+  }
+
   return (
-    // <Provider store={store}>
     <NavigationContainer>
       <Stack.Navigator
         initialRouteName='Authorize'
         screenOptions={{ headerShown: false }}
       >
-        <Stack.Screen name='Authorize' component={Authorize} />
-        <Stack.Screen name='Main' component={MainTabNavigator} />
+        {user.accessToken !== null ? (
+          <Stack.Screen name='Main' component={MainTabNavigator} />
+        ) : (
+          <Stack.Screen name='Authorize' component={Authorize} />
+        )}
       </Stack.Navigator>
     </NavigationContainer>
-    // </Provider>
   )
 }
 
