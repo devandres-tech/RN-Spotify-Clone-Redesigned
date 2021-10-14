@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { View, Text, ScrollView } from 'react-native'
 
 import { COLORS, FONTS, SIZES } from '../constants'
+import { useSelector } from 'react-redux'
 
 const Home = () => {
+  const auth = useSelector((state) => state.auth)
   return (
     <View
       style={{

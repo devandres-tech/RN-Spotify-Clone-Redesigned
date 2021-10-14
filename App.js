@@ -18,7 +18,7 @@ const MainTabNavigator = () => {
     <Tab.Navigator
       initialRouteName='Home'
       screenOptions={({ route }) => ({
-        tabBarIcon: ({ focused, color, size }) => {
+        tabBarIcon: ({ focused }) => {
           let iconSrc
           if (route.name === 'Search') iconSrc = icons.search
           if (route.name === 'Home') iconSrc = icons.home
@@ -53,12 +53,12 @@ const MainTabNavigator = () => {
 }
 
 const App = () => {
-  const user = useSelector((state) => state.user)
-  console.log('user', user)
+  const auth = useSelector((state) => state.auth)
+  console.log('user', auth)
 
   useEffect(() => {}, [SplashScreen.hide()])
 
-  if (user.tokenIsLoading) {
+  if (auth.tokenIsLoading) {
     return (
       <View
         style={{
@@ -79,7 +79,7 @@ const App = () => {
         initialRouteName='Authorize'
         screenOptions={{ headerShown: false }}
       >
-        {user.accessToken !== null ? (
+        {auth.accessToken !== null ? (
           <Stack.Screen name='Main' component={MainTabNavigator} />
         ) : (
           <Stack.Screen name='Authorize' component={Authorize} />
