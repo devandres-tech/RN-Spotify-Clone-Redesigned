@@ -9,6 +9,7 @@ export const COLORS = {
 export const FONTS = {
   h1: { fontFamily: 'Montserrat-Bold', fontSize: 25, letterSpacing: -1 },
   btn: { fontFamily: 'Montserrat-Bold', fontSize: 14, letterSpacing: 1 },
+  greeting: { fontFamily: 'Montserrat-Bold', fontSize: 16 },
 }
 
 export const SIZES = {

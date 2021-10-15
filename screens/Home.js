@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
-import { View, Text, ScrollView } from 'react-native'
+import { View, Text, ScrollView, Image } from 'react-native'
 
-import { COLORS, FONTS, SIZES } from '../constants'
+import { COLORS, FONTS, SIZES, icons } from '../constants'
 import { useSelector, useDispatch } from 'react-redux'
 import * as userActions from '../store/actions/user'
 
@@ -27,9 +27,19 @@ const Home = () => {
       <ScrollView>
         {/* header  */}
         <View style={{ paddingTop: 40 }}>
-          <Text style={{ color: COLORS.white, ...FONTS.h1 }}>
-            Good morning {user.display_name}
-          </Text>
+          <View>
+            <Image
+              style={{
+                tintColor: '#fff',
+                height: 25,
+                width: 25,
+              }}
+              source={icons.spotifyLogoWhite}
+            />
+            <Text style={{ color: COLORS.white, ...FONTS.greeting }}>
+              GOOD MORNING {user.display_name.toUpperCase()}
+            </Text>
+          </View>
         </View>
         {/* recently played */}
         {/* wrapped  */}
