@@ -68,21 +68,24 @@ const App = () => {
     const tryLogin = async () => {
       const authData = await AsyncStorage.getItem('authData')
       if (!authData) {
-        setIsAuth(false)
         return
       }
       const { accessToken, refreshToken, accessTokenExpirationDate } =
         await JSON.parse(authData)
+
       if (
         new Date(accessTokenExpirationDate) <= new Date() ||
         !accessToken ||
         !refreshToken
       ) {
-        // TODO: token has expired request refresh token
-        // dispatch(authActions.requestRefreshedAccessToken())
-        // console.log('App.useEffect()', accessTokenExpirationDate, new Date())
-        // setIsAuth(false)
-        // return
+        console.log(
+          'App.useEffect() token expired getting new ones',
+          refreshToken
+        )
+        dispatch(authActions.requestRefreshedAccessToken(refreshToken))
+
+        dispatch(authActions.requestRefreshedAccessToken(refreshToken))
+        return
       }
       dispatch(authActions.setTokens(accessToken, refreshToken))
       setIsAuth(true)

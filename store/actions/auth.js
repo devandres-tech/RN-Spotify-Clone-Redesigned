@@ -1,12 +1,12 @@
 import { authorize, refresh } from 'react-native-app-auth'
-import { CLIENT_ID, CLIENT_SECRET, REDIRECT_URL, BASE_URL } from '@env'
+import { CLIENT_ID, CLIENT_SECRET, REDIRECT_URL } from '@env'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export const AUTHENTICATE_SUCCESS = 'AUTHENTICATE_SUCCESS'
 export const AUTHENTICATE_FAIL = 'AUTHENTICATE_FAIL'
 export const AUTHENTICATE_LOADING = 'AUTHENTICATE_LOADING'
 export const SET_TOKENS = 'SET_TOKENS'
-// export
+export const REQUEST_REFRESHED_TOKEN = 'REQUEST_REFRESHED_TOKEN'
 
 const spotifyAuthConfig = {
   clientId: CLIENT_ID,
@@ -29,26 +29,38 @@ const spotifyAuthConfig = {
   },
 }
 
+const saveTokensToAsyncStorage = (
+  accessToken,
+  refreshToken,
+  accessTokenExpirationDate
+) => {
+  AsyncStorage.setItem(
+    'authData',
+    JSON.stringify({
+      accessToken,
+      refreshToken,
+      accessTokenExpirationDate,
+    })
+  )
+}
+
 export const authenticate = () => {
   return async (dispatch) => {
     try {
       dispatch({ type: AUTHENTICATE_LOADING, tokenIsLoading: true })
       const { accessToken, refreshToken, accessTokenExpirationDate } =
         await authorize(spotifyAuthConfig)
+
       dispatch({
         type: AUTHENTICATE_SUCCESS,
         accessToken,
         refreshToken,
         tokenIsLoading: false,
       })
-      // save to device storage
-      AsyncStorage.setItem(
-        'authData',
-        JSON.stringify({
-          accessToken,
-          refreshToken,
-          accessTokenExpirationDate,
-        })
+      saveTokensToAsyncStorage(
+        accessToken,
+        refreshToken,
+        accessTokenExpirationDate
       )
     } catch (error) {
       dispatch({
@@ -62,28 +74,37 @@ export const authenticate = () => {
   }
 }
 
-export const setTokens = (
-  accessToken,
-  refreshToken,
-  accessTokenExpirationDate
-) => {
+export const setTokens = (accessToken, refreshToken) => {
   return async (dispatch) => {
     dispatch({
       type: SET_TOKENS,
       accessToken,
       refreshToken,
-      accessTokenExpirationDate,
     })
   }
 }
 
-export const requestRefreshedAccessToken = (refreshToken) => {
-  return async (dispatch, getState) => {
-    const refreshToken = getState().auth.refreshToken
+export const requestRefreshedAccessToken = (refreshTokenFromStorage) => {
+  return async (dispatch) => {
+    try {
+      const { accessToken, refreshToken, accessTokenExpirationDate } =
+        await refresh(spotifyAuthConfig, {
+          refreshToken: refreshTokenFromStorage,
+        })
 
-    const result = await refresh(spotifyAuthConfig, {
-      refreshToken,
-    })
-    console.log('result', result)
+      dispatch({
+        type: REQUEST_REFRESHED_TOKEN,
+        accessToken,
+        refreshToken,
+      })
+      saveTokensToAsyncStorage(
+        accessToken,
+        refreshToken,
+        accessTokenExpirationDate
+      )
+    } catch (error) {
+      console.log('error', error)
+      throw error
+    }
   }
 }

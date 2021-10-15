@@ -3,6 +3,7 @@ import {
   AUTHENTICATE_FAIL,
   AUTHENTICATE_LOADING,
   SET_TOKENS,
+  REQUEST_REFRESHED_TOKEN,
 } from '../actions/auth'
 
 const initialState = {
@@ -34,6 +35,12 @@ export default (state = initialState, action) => {
       }
 
     case SET_TOKENS:
+      return {
+        accessToken: action.accessToken,
+        refreshToken: action.refreshToken,
+      }
+
+    case REQUEST_REFRESHED_TOKEN:
       return {
         accessToken: action.accessToken,
         refreshToken: action.refreshToken,
