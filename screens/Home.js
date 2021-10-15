@@ -7,14 +7,14 @@ import * as userActions from '../store/actions/user'
 
 const Home = () => {
   const user = useSelector((state) => state.user.data)
+  const auth = useSelector((state) => state.auth)
   const dispatch = useDispatch()
 
   useEffect(() => {
-    console.log('Home.useEffect.getProfile()')
     dispatch(userActions.getProfile())
   }, [])
 
-  console.log('Home:user', user.display_name)
+  console.log('Home.auth', auth)
 
   return (
     <View

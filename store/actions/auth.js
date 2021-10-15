@@ -1,9 +1,11 @@
 import { authorize } from 'react-native-app-auth'
-import { CLIENT_ID, CLIENT_SECRET, REDIRECT_URL, BASE_URL } from '@env'
+import { CLIENT_ID, CLIENT_SECRET, REDIRECT_URL } from '@env'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export const AUTHENTICATE_SUCCESS = 'AUTHENTICATE_SUCCESS'
 export const AUTHENTICATE_FAIL = 'AUTHENTICATE_FAIL'
 export const AUTHENTICATE_LOADING = 'AUTHENTICATE_LOADING'
+export const SET_TOKENS = 'SET_TOKENS'
 
 const spotifyAuthConfig = {
   clientId: CLIENT_ID,
@@ -30,15 +32,23 @@ export const authenticate = () => {
   return async (dispatch) => {
     try {
       dispatch({ type: AUTHENTICATE_LOADING, tokenIsLoading: true })
-      const response = await authorize(spotifyAuthConfig)
-      const accessToken = response['accessToken']
-      const refreshToken = response['refreshToken']
+      const { accessToken, refreshToken, accessTokenExpirationDate } =
+        await authorize(spotifyAuthConfig)
       dispatch({
         type: AUTHENTICATE_SUCCESS,
         accessToken,
         refreshToken,
         tokenIsLoading: false,
       })
+      // save to device storage
+      AsyncStorage.setItem(
+        'authData',
+        JSON.stringify({
+          accessToken,
+          refreshToken,
+          accessTokenExpirationDate: new Date(accessTokenExpirationDate),
+        })
+      )
     } catch (error) {
       dispatch({
         type: AUTHENTICATE_FAIL,
@@ -48,5 +58,20 @@ export const authenticate = () => {
         error: error,
       })
     }
+  }
+}
+
+export const setTokens = (
+  accessToken,
+  refreshToken,
+  accessTokenExpirationDate
+) => {
+  return async (dispatch) => {
+    dispatch({
+      type: SET_TOKENS,
+      accessToken,
+      refreshToken,
+      accessTokenExpirationDate,
+    })
   }
 }

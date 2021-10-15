@@ -1,14 +1,16 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import SplashScreen from 'react-native-splash-screen'
 import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { ActivityIndicator, View } from 'react-native'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import { Home, Library, Search, Profile, Authorize } from './screens'
 import { icons, COLORS, SIZES } from './constants'
 import { TabBarIcon } from './components'
+import * as authActions from './store/actions/auth'
 
 const Tab = createBottomTabNavigator()
 const Stack = createNativeStackNavigator()
@@ -54,9 +56,37 @@ const MainTabNavigator = () => {
 
 const App = () => {
   const auth = useSelector((state) => state.auth)
-  console.log('App.auth', auth)
+  const [isAuth, setIsAuth] = useState(false)
 
-  useEffect(() => {}, [SplashScreen.hide()])
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    SplashScreen.hide()
+  }, [])
+
+  useEffect(() => {
+    const tryLogin = async () => {
+      const authData = await AsyncStorage.getItem('authData')
+      if (!authData) {
+        setIsAuth(false)
+        return
+      }
+      const { accessToken, refreshToken, accessTokenExpirationDate } =
+        await JSON.parse(authData)
+      if (
+        accessTokenExpirationDate <= new Date() ||
+        !accessToken ||
+        !refreshToken
+      ) {
+        // TODO: token has expired request refresh token
+        setIsAuth(false)
+        return
+      }
+      dispatch(authActions.setTokens(accessToken, refreshToken))
+      setIsAuth(true)
+    }
+    tryLogin()
+  }, [dispatch])
 
   if (auth.tokenIsLoading) {
     return (
@@ -79,7 +109,7 @@ const App = () => {
         initialRouteName='Authorize'
         screenOptions={{ headerShown: false }}
       >
-        {auth.accessToken !== null ? (
+        {isAuth ? (
           <Stack.Screen name='Main' component={MainTabNavigator} />
         ) : (
           <Stack.Screen name='Authorize' component={Authorize} />

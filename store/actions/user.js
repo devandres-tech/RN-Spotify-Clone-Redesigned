@@ -15,6 +15,7 @@ export const getProfile = () => {
         },
       })
       const data = await response.json()
+      console.log('user.getProfile()', data, accessToken)
 
       dispatch({ type: USER_PROFILE, data })
     } catch (error) {

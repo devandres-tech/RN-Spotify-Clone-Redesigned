@@ -2,6 +2,7 @@ import {
   AUTHENTICATE_SUCCESS,
   AUTHENTICATE_FAIL,
   AUTHENTICATE_LOADING,
+  SET_TOKENS,
 } from '../actions/auth'
 
 const initialState = {
@@ -18,6 +19,7 @@ export default (state = initialState, action) => {
         refreshToken: action.refreshToken,
         tokenIsLoading: action.tokenIsLoading,
       }
+
     case AUTHENTICATE_FAIL:
       return {
         accessToken: action.accessToken,
@@ -25,9 +27,16 @@ export default (state = initialState, action) => {
         tokenIsLoading: action.tokenIsLoading,
         error: action.error,
       }
+
     case AUTHENTICATE_LOADING:
       return {
         tokenIsLoading: action.tokenIsLoading,
+      }
+
+    case SET_TOKENS:
+      return {
+        accessToken: action.accessToken,
+        refreshToken: action.refreshToken,
       }
 
     default:
