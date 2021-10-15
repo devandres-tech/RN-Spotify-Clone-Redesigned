@@ -14,8 +14,13 @@ export const getProfile = () => {
           Authorization: `Bearer ${accessToken}`,
         },
       })
+      // if (!response.ok) {
+      //   const {
+      //     error: { message },
+      //   } = await response.json()
+      //   throw message
+      // }
       const data = await response.json()
-      console.log('user.getProfile()', data, accessToken)
 
       dispatch({ type: USER_PROFILE, data })
     } catch (error) {

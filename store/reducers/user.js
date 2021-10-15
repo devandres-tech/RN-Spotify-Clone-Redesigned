@@ -1,7 +1,9 @@
 import { USER_PROFILE } from '../actions/user'
 
 const initialState = {
-  data: '',
+  data: {
+    display_name: '',
+  },
 }
 
 export default (state = initialState, action) => {

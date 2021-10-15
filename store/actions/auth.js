@@ -1,11 +1,12 @@
-import { authorize } from 'react-native-app-auth'
-import { CLIENT_ID, CLIENT_SECRET, REDIRECT_URL } from '@env'
+import { authorize, refresh } from 'react-native-app-auth'
+import { CLIENT_ID, CLIENT_SECRET, REDIRECT_URL, BASE_URL } from '@env'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export const AUTHENTICATE_SUCCESS = 'AUTHENTICATE_SUCCESS'
 export const AUTHENTICATE_FAIL = 'AUTHENTICATE_FAIL'
 export const AUTHENTICATE_LOADING = 'AUTHENTICATE_LOADING'
 export const SET_TOKENS = 'SET_TOKENS'
+// export
 
 const spotifyAuthConfig = {
   clientId: CLIENT_ID,
@@ -46,7 +47,7 @@ export const authenticate = () => {
         JSON.stringify({
           accessToken,
           refreshToken,
-          accessTokenExpirationDate: new Date(accessTokenExpirationDate),
+          accessTokenExpirationDate,
         })
       )
     } catch (error) {
@@ -73,5 +74,16 @@ export const setTokens = (
       refreshToken,
       accessTokenExpirationDate,
     })
+  }
+}
+
+export const requestRefreshedAccessToken = (refreshToken) => {
+  return async (dispatch, getState) => {
+    const refreshToken = getState().auth.refreshToken
+
+    const result = await refresh(spotifyAuthConfig, {
+      refreshToken,
+    })
+    console.log('result', result)
   }
 }

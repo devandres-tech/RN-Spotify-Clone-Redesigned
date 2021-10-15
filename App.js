@@ -4,7 +4,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { useSelector, useDispatch } from 'react-redux'
-import { ActivityIndicator, View } from 'react-native'
+import { ActivityIndicator, View, StatusBar } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import { Home, Library, Search, Profile, Authorize } from './screens'
@@ -74,13 +74,15 @@ const App = () => {
       const { accessToken, refreshToken, accessTokenExpirationDate } =
         await JSON.parse(authData)
       if (
-        accessTokenExpirationDate <= new Date() ||
+        new Date(accessTokenExpirationDate) <= new Date() ||
         !accessToken ||
         !refreshToken
       ) {
         // TODO: token has expired request refresh token
-        setIsAuth(false)
-        return
+        // dispatch(authActions.requestRefreshedAccessToken())
+        // console.log('App.useEffect()', accessTokenExpirationDate, new Date())
+        // setIsAuth(false)
+        // return
       }
       dispatch(authActions.setTokens(accessToken, refreshToken))
       setIsAuth(true)
