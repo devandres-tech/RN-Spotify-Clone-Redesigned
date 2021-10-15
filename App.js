@@ -4,8 +4,12 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { useSelector, useDispatch } from 'react-redux'
-import { ActivityIndicator, View, StatusBar } from 'react-native'
+import { ActivityIndicator, StatusBar, View } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import {
+  SafeAreaProvider,
+  useSafeAreaInsets,
+} from 'react-native-safe-area-context'
 
 import { Home, Library, Search, Profile, Authorize } from './screens'
 import { icons, COLORS, SIZES } from './constants'
@@ -14,6 +18,19 @@ import * as authActions from './store/actions/auth'
 
 const Tab = createBottomTabNavigator()
 const Stack = createNativeStackNavigator()
+
+const CustomStatusBar = ({ backgroundColor }) => {
+  const insets = useSafeAreaInsets()
+  return (
+    <StatusBar
+      translucent={true}
+      animated={true}
+      // backgroundColor={backgroundColor}
+      backgroundColor={'transparent'}
+      barStyle={'light-content'}
+    />
+  )
+}
 
 const MainTabNavigator = () => {
   return (
@@ -72,18 +89,11 @@ const App = () => {
       }
       const { accessToken, refreshToken, accessTokenExpirationDate } =
         await JSON.parse(authData)
-
       if (
         new Date(accessTokenExpirationDate) <= new Date() ||
         !accessToken ||
         !refreshToken
       ) {
-        console.log(
-          'App.useEffect() token expired getting new ones',
-          refreshToken
-        )
-        dispatch(authActions.requestRefreshedAccessToken(refreshToken))
-
         dispatch(authActions.requestRefreshedAccessToken(refreshToken))
         return
       }
@@ -109,18 +119,21 @@ const App = () => {
   }
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-        initialRouteName='Authorize'
-        screenOptions={{ headerShown: false }}
-      >
-        {isAuth ? (
-          <Stack.Screen name='Main' component={MainTabNavigator} />
-        ) : (
-          <Stack.Screen name='Authorize' component={Authorize} />
-        )}
-      </Stack.Navigator>
-    </NavigationContainer>
+    <SafeAreaProvider style={{ backgroundColor: 'transparent' }}>
+      <CustomStatusBar backgroundColor='#000' />
+      <NavigationContainer>
+        <Stack.Navigator
+          initialRouteName='Authorize'
+          screenOptions={{ headerShown: false }}
+        >
+          {isAuth ? (
+            <Stack.Screen name='Main' component={MainTabNavigator} />
+          ) : (
+            <Stack.Screen name='Authorize' component={Authorize} />
+          )}
+        </Stack.Navigator>
+      </NavigationContainer>
+    </SafeAreaProvider>
   )
 }
 

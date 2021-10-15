@@ -14,6 +14,8 @@ target 'spotifyClone' do
 
   pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-async-storage/async-storage'
 
+  pod 'react-native-safe-area-context', :path => '../node_modules/react-native-safe-area-context'
+
   target 'spotifyCloneTests' do
     inherit! :complete
     # Pods for testing
