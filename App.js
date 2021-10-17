@@ -102,7 +102,7 @@ const App = () => {
           flex: 1,
           justifyContent: 'center',
           backgroundColor: COLORS.black,
-          paddingHorizontal: SIZES.padding,
+          paddingHorizontal: SIZES.paddingTop, //24
         }}
       >
         <ActivityIndicator size='large' color={COLORS.primary} />

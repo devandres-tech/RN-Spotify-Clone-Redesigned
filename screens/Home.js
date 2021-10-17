@@ -21,7 +21,7 @@ const Home = () => {
     return (
       <View
         style={{
-          paddingTop: SIZES.padding,
+          paddingTop: SIZES.paddingTop,
           paddingBottom: 30,
           paddingHorizontal: 10,
         }}
@@ -32,7 +32,7 @@ const Home = () => {
               tintColor: COLORS.white,
               height: 25,
               width: 25,
-              marginRight: 10,
+              marginRight: SIZES.padding,
             }}
             source={icons.spotifyLogoWhite}
           />
@@ -52,7 +52,7 @@ const Home = () => {
             color: COLORS.white,
             ...FONTS.h1,
             paddingBottom: 15,
-            paddingHorizontal: 10,
+            paddingHorizontal: SIZES.padding,
           }}
         >
           MY PLAYLISTS
@@ -65,7 +65,10 @@ const Home = () => {
           renderItem={({ item }) => {
             return (
               <TouchableOpacity
-                style={{ paddingRight: 10, paddingHorizontal: 10 }}
+                style={{
+                  paddingRight: SIZES.padding,
+                  paddingHorizontal: SIZES.padding,
+                }}
               >
                 <Image
                   source={{ uri: item.images[0].url }}
@@ -81,7 +84,7 @@ const Home = () => {
                     color: '#fff',
                     position: 'absolute',
                     bottom: 10,
-                    paddingLeft: 10,
+                    paddingLeft: 20,
                     ...FONTS.btn,
                   }}
                 >
@@ -99,7 +102,7 @@ const Home = () => {
     <View
       style={{
         flex: 1,
-        paddingTop: SIZES.padding,
+        paddingTop: SIZES.paddingTop,
         backgroundColor: COLORS.black,
       }}
     >
@@ -113,7 +116,7 @@ const Home = () => {
                 flex: 1,
                 flexDirection: 'row',
                 justifyContent: 'space-between',
-                paddingHorizontal: 10,
+                paddingHorizontal: SIZES.padding,
               }}
             >
               <TextButton

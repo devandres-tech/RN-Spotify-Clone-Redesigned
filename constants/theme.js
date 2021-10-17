@@ -14,5 +14,6 @@ export const FONTS = {
 }
 
 export const SIZES = {
-  padding: 24,
+  padding: 10,
+  paddingTop: 24,
 }
