@@ -54,7 +54,6 @@ const Home = () => {
           showsHorizontalScrollIndicator={false}
           keyExtractor={({ id }) => `${id}`}
           renderItem={({ item }) => {
-            console.log('Home ', item.images)
             return (
               <TouchableOpacity style={{ paddingRight: 10 }}>
                 <Image
