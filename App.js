@@ -40,12 +40,8 @@ const MainTabNavigator = () => {
           backgroundColor: COLORS.black,
           marginHorizontal: 12,
           borderRadius: 100,
-          height: 100,
+          height: 90,
           borderTopColor: COLORS.black,
-          // borderTopColor: COLORS.lightGray2,
-          // borderTopWidth: 2,
-          // borderColor: COLORS.lightGray2,
-          // borderWidth: 2,
         },
       })}
     >
@@ -71,6 +67,7 @@ const App = () => {
     const tryLogin = async () => {
       const authData = await AsyncStorage.getItem('authData')
       if (!authData) {
+        console.log('no auth data in storeage', auth)
         return
       }
       const { accessToken, refreshToken, accessTokenExpirationDate } =
@@ -80,9 +77,11 @@ const App = () => {
         !accessToken ||
         !refreshToken
       ) {
+        console.log('Token expired', auth)
         dispatch(authActions.requestRefreshedAccessToken(refreshToken))
         return
       }
+      console.log('sucessfulyy data in storage', auth)
       dispatch(authActions.setTokens(accessToken, refreshToken))
       setIsAuth(true)
     }
