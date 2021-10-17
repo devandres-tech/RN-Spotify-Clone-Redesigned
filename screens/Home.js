@@ -13,6 +13,7 @@ const Home = () => {
   useEffect(() => {
     dispatch(userActions.getProfile())
     dispatch(userActions.getPlaylists(10))
+    dispatch(userActions.getRecentlyPlayed(10))
   }, [dispatch])
 
   const renderHeader = () => {
@@ -97,9 +98,6 @@ const Home = () => {
         ListHeaderComponent={renderHeader()}
         ListFooterComponent={renderUserPlaylists()}
       />
-
-      {/* header  */}
-      {/* user playlists  */}
       {/* <View>
           <Text style={{ color: COLORS.white, ...FONTS.h1 }}>MY PLAYLISTS</Text>
           <FlatList />

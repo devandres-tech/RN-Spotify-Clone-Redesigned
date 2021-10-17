@@ -1,10 +1,15 @@
-import { GET_PLAYLISTS, USER_PROFILE } from '../actions/user'
+import {
+  GET_PLAYLISTS,
+  USER_PROFILE,
+  GET_RECENTLY_PLAYED,
+} from '../actions/user'
 
 const initialState = {
   data: {
     display_name: '',
   },
   playlists: [{ id: '', name: '', images: [{ url: '' }] }],
+  recentlyPlayed: [],
 }
 
 export default (state = initialState, action) => {
@@ -17,6 +22,10 @@ export default (state = initialState, action) => {
 
     case GET_PLAYLISTS:
       return { ...state, playlists: action.playlists }
+
+    case GET_RECENTLY_PLAYED: {
+      return { ...state, recentlyPlayed: action.recentlyPlayed }
+    }
 
     default:
       return state
