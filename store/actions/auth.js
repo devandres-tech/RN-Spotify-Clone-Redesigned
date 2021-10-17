@@ -48,8 +48,10 @@ export const authenticate = () => {
   return async (dispatch) => {
     try {
       dispatch({ type: AUTHENTICATE_LOADING, tokenIsLoading: true })
+      console.log('auth.authenticate() sending request')
       const { accessToken, refreshToken, accessTokenExpirationDate } =
         await authorize(spotifyAuthConfig)
+      console.log('auth.authenticate() request passed')
 
       dispatch({
         type: AUTHENTICATE_SUCCESS,

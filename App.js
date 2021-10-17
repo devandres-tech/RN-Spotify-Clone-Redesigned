@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import SplashScreen from 'react-native-splash-screen'
 import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
@@ -64,10 +64,18 @@ const App = () => {
   }, [])
 
   useEffect(() => {
+    const getTokensFromAsyncStorage = async () => {
+      const authData = await AsyncStorage.getItem('authData')
+      const { accessToken, refreshToken } = await JSON.parse(authData)
+      dispatch(authActions.setTokens(accessToken, refreshToken))
+    }
+    getTokensFromAsyncStorage()
+  }, [dispatch])
+
+  useEffect(() => {
     const tryLogin = async () => {
       const authData = await AsyncStorage.getItem('authData')
       if (!authData) {
-        console.log('no auth data in storeage', auth)
         return
       }
       const { accessToken, refreshToken, accessTokenExpirationDate } =
@@ -77,16 +85,13 @@ const App = () => {
         !accessToken ||
         !refreshToken
       ) {
-        console.log('Token expired', auth)
         dispatch(authActions.requestRefreshedAccessToken(refreshToken))
         return
       }
-      console.log('sucessfulyy data in storage', auth)
-      dispatch(authActions.setTokens(accessToken, refreshToken))
       setIsAuth(true)
     }
     tryLogin()
-  }, [dispatch])
+  }, [dispatch, auth])
 
   if (auth.tokenIsLoading) {
     return (
