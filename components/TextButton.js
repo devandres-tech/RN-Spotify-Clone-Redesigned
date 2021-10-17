@@ -20,7 +20,7 @@ const TextButton = ({ label, labelStyle, onPress, buttonContainerStyle }) => {
       }}
     >
       <Text style={{ color: COLORS.white, ...FONTS.btn, ...labelStyle }}>
-        {label}
+        {label.toUpperCase()}
       </Text>
     </TouchableOpacity>
   )

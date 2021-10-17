@@ -45,6 +45,7 @@ export const getPlaylists = (limit) => {
         headers: setHeaders(accessToken),
       })
       const data = await response.json()
+      // console.log('playlists()', data.items)
       dispatch({ type: GET_PLAYLISTS, playlists: data.items })
     } catch (error) {
       console.log('error')
@@ -65,9 +66,7 @@ export const getRecentlyPlayed = (limit) => {
         }
       )
       const data = await response.json()
-      data.items.forEach((item) =>
-        console.log('------', item.track.album.artists[0].name)
-      )
+      console.log('recentlyPlayed()', data.items)
       dispatch({ type: GET_RECENTLY_PLAYED, recentlyPlayed: data.items })
     } catch (error) {
       console.log('error', error)
