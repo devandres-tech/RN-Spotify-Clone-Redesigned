@@ -6,10 +6,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { useSelector, useDispatch } from 'react-redux'
 import { ActivityIndicator, StatusBar, View } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import {
-  SafeAreaProvider,
-  useSafeAreaInsets,
-} from 'react-native-safe-area-context'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
 
 import { Home, Library, Search, Profile, Authorize } from './screens'
 import { icons, COLORS, SIZES } from './constants'
@@ -18,19 +15,6 @@ import * as authActions from './store/actions/auth'
 
 const Tab = createBottomTabNavigator()
 const Stack = createNativeStackNavigator()
-
-const CustomStatusBar = ({ backgroundColor }) => {
-  const insets = useSafeAreaInsets()
-  return (
-    <StatusBar
-      translucent={true}
-      animated={true}
-      // backgroundColor={backgroundColor}
-      backgroundColor={'transparent'}
-      barStyle={'light-content'}
-    />
-  )
-}
 
 const MainTabNavigator = () => {
   return (
@@ -57,7 +41,7 @@ const MainTabNavigator = () => {
           marginHorizontal: 12,
           borderRadius: 100,
           borderColor: 'red',
-          height: 100,
+          height: 80,
           borderColor: COLORS.lightGray2,
           borderWidth: 2,
         },
@@ -120,7 +104,12 @@ const App = () => {
 
   return (
     <SafeAreaProvider style={{ backgroundColor: 'transparent' }}>
-      <CustomStatusBar backgroundColor='#000' />
+      <StatusBar
+        translucent={true}
+        animated={true}
+        backgroundColor={'transparent'}
+        barStyle={'light-content'}
+      />
       <NavigationContainer>
         <Stack.Navigator
           initialRouteName='Authorize'
