@@ -37,21 +37,45 @@ const Home = () => {
   }
 
   const renderUserPlaylists = () => {
-    console.log('dispatchn-------------------------')
     return (
       <View>
-        <Text style={{ color: COLORS.white, ...FONTS.h1 }}>MY PLAYLISTS</Text>
+        <Text
+          style={{
+            color: COLORS.white,
+            ...FONTS.h1,
+            paddingBottom: 15,
+          }}
+        >
+          MY PLAYLISTS
+        </Text>
         <FlatList
           data={user.playlists}
           horizontal
           showsHorizontalScrollIndicator={false}
           keyExtractor={({ id }) => `${id}`}
           renderItem={({ item }) => {
-            console.log('item -------', item.images[0].url)
             return (
-              <TouchableOpacity>
-                <Text style={{ color: '#fff' }}>{item.name}</Text>
-                {/* <Image source={item.images[0].url} /> */}
+              <TouchableOpacity style={{ paddingRight: 10 }}>
+                <Image
+                  source={{ uri: item.images[0].url }}
+                  style={{
+                    width: 135,
+                    height: 135,
+                    borderRadius: 15,
+                    opacity: 0.6,
+                  }}
+                />
+                <Text
+                  style={{
+                    color: '#fff',
+                    position: 'absolute',
+                    bottom: 10,
+                    paddingLeft: 10,
+                    ...FONTS.btn,
+                  }}
+                >
+                  {item.name.toUpperCase()}
+                </Text>
               </TouchableOpacity>
             )
           }}

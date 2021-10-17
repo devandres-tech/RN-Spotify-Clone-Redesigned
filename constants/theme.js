@@ -10,6 +10,7 @@ export const FONTS = {
   h1: { fontFamily: 'Montserrat', fontSize: 20, letterSpacing: 2 },
   btn: { fontFamily: 'Montserrat-Bold', fontSize: 14, letterSpacing: 1 },
   greeting: { fontFamily: 'Montserrat-Bold', fontSize: 16 },
+  card: { fontFamily: 'Montserrat-Bold', fontSize: 14 },
 }
 
 export const SIZES = {

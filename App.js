@@ -40,10 +40,12 @@ const MainTabNavigator = () => {
           backgroundColor: COLORS.black,
           marginHorizontal: 12,
           borderRadius: 100,
-          borderColor: 'red',
-          height: 80,
-          borderColor: COLORS.lightGray2,
-          borderWidth: 2,
+          height: 100,
+          borderTopColor: COLORS.black,
+          // borderTopColor: COLORS.lightGray2,
+          // borderTopWidth: 2,
+          // borderColor: COLORS.lightGray2,
+          // borderWidth: 2,
         },
       })}
     >
