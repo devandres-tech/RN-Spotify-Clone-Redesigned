@@ -54,9 +54,10 @@ const Home = () => {
           showsHorizontalScrollIndicator={false}
           keyExtractor={({ id }) => `${id}`}
           renderItem={({ item }) => {
+            console.log('Home ', item.images)
             return (
               <TouchableOpacity style={{ paddingRight: 10 }}>
-                <Image
+                {/* <Image
                   source={{ uri: item.images[0].url }}
                   style={{
                     width: 135,
@@ -64,7 +65,7 @@ const Home = () => {
                     borderRadius: 15,
                     opacity: 0.6,
                   }}
-                />
+                /> */}
                 <Text
                   style={{
                     color: '#fff',

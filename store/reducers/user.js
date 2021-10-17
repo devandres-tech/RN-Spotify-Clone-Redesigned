@@ -4,7 +4,7 @@ const initialState = {
   data: {
     display_name: '',
   },
-  playlists: [{ id: '', name: '' }],
+  playlists: [{ id: '', name: '', images: [] }],
 }
 
 export default (state = initialState, action) => {

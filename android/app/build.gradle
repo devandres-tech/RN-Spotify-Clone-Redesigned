@@ -131,14 +131,14 @@ android {
     compileSdkVersion rootProject.ext.compileSdkVersion
 
     defaultConfig {
-        manifestPlaceholders = [
-            appAuthRedirectScheme: 'spotify-clone'
-        ]
         applicationId "com.spotifyclone"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+        manifestPlaceholders = [
+            appAuthRedirectScheme: "com.spotifyclone"
+        ]
     }
     splits {
         abi {

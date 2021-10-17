@@ -23,7 +23,6 @@ export const getProfile = () => {
         throw message
       }
       const data = await response.json()
-      // console.log('response ----', data)
 
       dispatch({ type: USER_PROFILE, data })
     } catch (error) {
@@ -45,7 +44,6 @@ export const getPlaylists = (limit) => {
         },
       })
       const data = await response.json()
-      console.log('data -----', data.items.length)
       dispatch({ type: GET_PLAYLISTS, playlists: data.items })
     } catch (error) {
       console.log('error')
