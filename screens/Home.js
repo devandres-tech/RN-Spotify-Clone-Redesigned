@@ -98,6 +98,60 @@ const Home = () => {
     )
   }
 
+  const renderRecentlyPlayed = () => {
+    return (
+      <View style={{ paddingBottom: 20, width: '100%' }}>
+        <Text
+          style={{
+            color: COLORS.white,
+            ...FONTS.h1,
+            paddingBottom: 15,
+            paddingHorizontal: SIZES.padding,
+          }}
+        >
+          RECENTLY PLAYED
+        </Text>
+        <FlatList
+          data={user.playlists}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          keyExtractor={({ id }) => `${id}`}
+          renderItem={({ item }) => {
+            return (
+              <TouchableOpacity
+                style={{
+                  paddingRight: SIZES.padding,
+                  paddingHorizontal: SIZES.padding,
+                }}
+              >
+                <Image
+                  source={{ uri: item.images[0].url }}
+                  style={{
+                    width: 135,
+                    height: 135,
+                    borderRadius: 15,
+                    opacity: 0.6,
+                  }}
+                />
+                <Text
+                  style={{
+                    color: '#fff',
+                    position: 'absolute',
+                    bottom: 10,
+                    paddingLeft: 20,
+                    ...FONTS.btn,
+                  }}
+                >
+                  {item.name.toUpperCase()}
+                </Text>
+              </TouchableOpacity>
+            )
+          }}
+        />
+      </View>
+    )
+  }
+
   return (
     <View
       style={{
@@ -117,6 +171,7 @@ const Home = () => {
                 flexDirection: 'row',
                 justifyContent: 'space-between',
                 paddingHorizontal: SIZES.padding,
+                paddingBottom: 20,
               }}
             >
               <TextButton
@@ -133,20 +188,10 @@ const Home = () => {
                 }}
               />
             </View>
+            {renderRecentlyPlayed()}
           </View>
         }
       />
-      {/* <View>
-          <Text style={{ color: COLORS.white, ...FONTS.h1 }}>MY PLAYLISTS</Text>
-          <FlatList />
-        </View> */}
-
-      {/* recently played */}
-      {/* wrapped  */}
-      {/* popular */}
-      {/* featured */}
-      {/* new releases */}
-      {/* </StatusBar> */}
     </View>
   )
 }

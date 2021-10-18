@@ -65,7 +65,6 @@ const App = () => {
 
   useEffect(() => {
     const getTokensFromAsyncStorage = async () => {
-      // await AsyncStorage.clear()
       console.log('App.useEffect().token', auth)
       const authData = await AsyncStorage.getItem('authData')
       const { accessToken, refreshToken } = await JSON.parse(authData)
