@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react'
 import { View, Text, Image, FlatList } from 'react-native'
+import { TouchableOpacity } from 'react-native-gesture-handler'
+import { useSelector, useDispatch } from 'react-redux'
 
 import { COLORS, FONTS, SIZES, icons } from '../constants'
-import { useSelector, useDispatch } from 'react-redux'
 import * as userActions from '../store/actions/user'
-import { TouchableOpacity } from 'react-native-gesture-handler'
-import { TextButton } from '../components'
+import { TextButton, HorizontalCardContainer } from '../components'
 
 const Home = () => {
   const user = useSelector((state) => state.user)
@@ -44,114 +44,6 @@ const Home = () => {
     )
   }
 
-  const renderUserPlaylists = () => {
-    return (
-      <View style={{ paddingBottom: 20, width: '100%' }}>
-        <Text
-          style={{
-            color: COLORS.white,
-            ...FONTS.h1,
-            paddingBottom: 15,
-            paddingHorizontal: SIZES.padding,
-          }}
-        >
-          MY PLAYLISTS
-        </Text>
-        <FlatList
-          data={user.playlists}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          keyExtractor={({ id }) => `${id}`}
-          renderItem={({ item }) => {
-            return (
-              <TouchableOpacity
-                style={{
-                  paddingRight: SIZES.padding,
-                  paddingHorizontal: SIZES.padding,
-                }}
-              >
-                <Image
-                  source={{ uri: item.images[0].url }}
-                  style={{
-                    width: 135,
-                    height: 135,
-                    borderRadius: 15,
-                    opacity: 0.6,
-                  }}
-                />
-                <Text
-                  style={{
-                    color: '#fff',
-                    position: 'absolute',
-                    bottom: 10,
-                    paddingLeft: 20,
-                    ...FONTS.btn,
-                  }}
-                >
-                  {item.name.toUpperCase()}
-                </Text>
-              </TouchableOpacity>
-            )
-          }}
-        />
-      </View>
-    )
-  }
-
-  const renderRecentlyPlayed = () => {
-    return (
-      <View style={{ paddingBottom: 20, width: '100%' }}>
-        <Text
-          style={{
-            color: COLORS.white,
-            ...FONTS.h1,
-            paddingBottom: 15,
-            paddingHorizontal: SIZES.padding,
-          }}
-        >
-          RECENTLY PLAYED
-        </Text>
-        <FlatList
-          data={user.playlists}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          keyExtractor={({ id }) => `${id}`}
-          renderItem={({ item }) => {
-            return (
-              <TouchableOpacity
-                style={{
-                  paddingRight: SIZES.padding,
-                  paddingHorizontal: SIZES.padding,
-                }}
-              >
-                <Image
-                  source={{ uri: item.images[0].url }}
-                  style={{
-                    width: 135,
-                    height: 135,
-                    borderRadius: 15,
-                    opacity: 0.6,
-                  }}
-                />
-                <Text
-                  style={{
-                    color: '#fff',
-                    position: 'absolute',
-                    bottom: 10,
-                    paddingLeft: 20,
-                    ...FONTS.btn,
-                  }}
-                >
-                  {item.name.toUpperCase()}
-                </Text>
-              </TouchableOpacity>
-            )
-          }}
-        />
-      </View>
-    )
-  }
-
   return (
     <View
       style={{
@@ -164,14 +56,17 @@ const Home = () => {
         ListHeaderComponent={renderHeader()}
         ListFooterComponent={
           <View>
-            {renderUserPlaylists()}
+            <HorizontalCardContainer
+              data={user.playlists}
+              label='MY PLAYLISTS'
+            />
             <View
               style={{
                 flex: 1,
                 flexDirection: 'row',
                 justifyContent: 'space-between',
                 paddingHorizontal: SIZES.padding,
-                paddingBottom: 20,
+                paddingBottom: SIZES.paddingBottom,
               }}
             >
               <TextButton
@@ -188,7 +83,11 @@ const Home = () => {
                 }}
               />
             </View>
-            {renderRecentlyPlayed()}
+
+            <HorizontalCardContainer
+              data={user.recentlyPlayed}
+              label='RECENTLY PLAYED'
+            />
           </View>
         }
       />
