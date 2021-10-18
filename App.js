@@ -35,7 +35,7 @@ const MainTabNavigator = () => {
         tabBarShowLabel: false,
         tabBarStyle: {
           position: 'absolute',
-          marginBottom: 30,
+          marginBottom: 10,
           paddingBottom: 0,
           backgroundColor: COLORS.black,
           marginHorizontal: 12,

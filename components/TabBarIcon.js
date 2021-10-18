@@ -2,7 +2,7 @@ import React from 'react'
 import { Text, Image, Animated } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 
-import { COLORS } from '../constants'
+import { COLORS, FONTS } from '../constants'
 
 const TabBarIcon = ({ focused, name, source }) => {
   const animation = new Animated.Value(0)
@@ -54,6 +54,7 @@ const TabBarIcon = ({ focused, name, source }) => {
           style={{
             color: focused ? COLORS.white : COLORS.lightGray,
             fontSize: 10,
+            ...FONTS.icon,
           }}
         >
           {name.toUpperCase()}

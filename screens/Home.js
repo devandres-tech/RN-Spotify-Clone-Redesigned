@@ -1,11 +1,10 @@
 import React, { useEffect } from 'react'
-import { View, Text, Image, FlatList } from 'react-native'
-import { TouchableOpacity } from 'react-native-gesture-handler'
+import { View, FlatList } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 
-import { COLORS, FONTS, SIZES, icons } from '../constants'
+import { COLORS, SIZES } from '../constants'
 import * as userActions from '../store/actions/user'
-import { TextButton, HorizontalCardContainer } from '../components'
+import { TextButton, HorizontalCardContainer, Header } from '../components'
 
 const Home = () => {
   const user = useSelector((state) => state.user)
@@ -17,33 +16,6 @@ const Home = () => {
     dispatch(userActions.getRecentlyPlayed(10))
   }, [dispatch])
 
-  const renderHeader = () => {
-    return (
-      <View
-        style={{
-          paddingTop: SIZES.paddingTop,
-          paddingBottom: 30,
-          paddingHorizontal: 10,
-        }}
-      >
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-          <Image
-            style={{
-              tintColor: COLORS.white,
-              height: 25,
-              width: 25,
-              marginRight: SIZES.padding,
-            }}
-            source={icons.spotifyLogoWhite}
-          />
-          <Text style={{ color: COLORS.white, ...FONTS.greeting }}>
-            GOOD MORNING {user.data.display_name.toUpperCase()}
-          </Text>
-        </View>
-      </View>
-    )
-  }
-
   return (
     <View
       style={{
@@ -53,10 +25,13 @@ const Home = () => {
       }}
     >
       <FlatList
-        ListHeaderComponent={renderHeader()}
+        ListHeaderComponent={
+          <Header name={user.data.display_name.split(' ')[0]} />
+        }
         ListFooterComponent={
           <View>
             <HorizontalCardContainer
+              cardItemTextStyle={{ paddingLeft: 20 }}
               data={user.playlists}
               label='MY PLAYLISTS'
             />

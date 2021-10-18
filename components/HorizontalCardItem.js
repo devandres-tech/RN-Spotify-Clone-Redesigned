@@ -34,14 +34,13 @@ const HorizontalCardItem = ({
           color: COLORS.white,
           position: 'absolute',
           bottom: SIZES.padding,
-          paddingLeft: 20,
           ...FONTS.cardItemText,
           ...cardItemTextStyle,
         }}
       >
         {label.length > 18
           ? label.toUpperCase().substr(0, 18) + '...'
-          : label.toUpperCase()}
+          : label.toUpperCase().trim()}
       </Text>
     </TouchableOpacity>
   )

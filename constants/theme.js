@@ -7,14 +7,14 @@ export const COLORS = {
 }
 
 export const FONTS = {
-  h1: { fontFamily: 'Montserrat', fontSize: 20, letterSpacing: 2 },
+  h1: { fontFamily: 'Montserrat-Bold', fontSize: 18, letterSpacing: 2 },
   btn: { fontFamily: 'Montserrat-Bold', fontSize: 14, letterSpacing: 1 },
   greeting: { fontFamily: 'Montserrat-Bold', fontSize: 16 },
   cardItemText: {
     fontFamily: 'Montserrat-Bold',
-    fontSize: 12,
-    letterSpacing: 1,
+    fontSize: 11,
   },
+  icon: { fontFamily: 'Montserrat-Bold', fontSize: 8 },
 }
 
 export const SIZES = {

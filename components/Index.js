@@ -3,6 +3,7 @@ import TextButton from './TextButton'
 import HorizontalCardItem from './HorizontalCardItem'
 import TextTitle from './TextTitle'
 import HorizontalCardContainer from './HorizontalCardContainer'
+import Header from './Header'
 
 export {
   TabBarIcon,
@@ -10,4 +11,5 @@ export {
   HorizontalCardItem,
   TextTitle,
   HorizontalCardContainer,
+  Header,
 }
