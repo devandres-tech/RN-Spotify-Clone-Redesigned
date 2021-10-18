@@ -83,8 +83,9 @@ const Home = () => {
                 }}
               />
             </View>
-
             <HorizontalCardContainer
+              cardItemImageStyle={{ opacity: 1 }}
+              cardItemTextStyle={{ position: 'relative', paddingTop: 15 }}
               data={user.recentlyPlayed}
               label='RECENTLY PLAYED'
             />

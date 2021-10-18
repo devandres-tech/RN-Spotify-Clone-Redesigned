@@ -4,10 +4,22 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 
 import { COLORS, SIZES, FONTS } from '../constants'
 import TextTitle from './TextTitle'
+import HorizontalCardItem from './HorizontalCardItem'
 
-const HorizontalCardContainer = ({ data, label, imageUrl }) => {
+const HorizontalCardContainer = ({
+  data,
+  label,
+  containerStyle,
+  cardItemImageStyle,
+  cardItemTextStyle,
+}) => {
   return (
-    <View style={{ paddingBottom: SIZES.paddingBottom, width: '100%' }}>
+    <View
+      style={{
+        paddingBottom: SIZES.paddingBottom,
+        ...containerStyle,
+      }}
+    >
       <TextTitle label={label} />
       <FlatList
         data={data}
@@ -16,34 +28,12 @@ const HorizontalCardContainer = ({ data, label, imageUrl }) => {
         keyExtractor={({ id }) => `${id}`}
         renderItem={({ item }) => {
           return (
-            <TouchableOpacity
-              activeOpacity={0.5}
-              style={{
-                paddingRight: SIZES.padding,
-                paddingHorizontal: SIZES.padding,
-              }}
-            >
-              <Image
-                source={{ uri: item.images[0].url }}
-                style={{
-                  width: 135,
-                  height: 135,
-                  borderRadius: 15,
-                  opacity: 0.6,
-                }}
-              />
-              <Text
-                style={{
-                  color: COLORS.white,
-                  position: 'absolute',
-                  bottom: 10,
-                  paddingLeft: 20,
-                  ...FONTS.btn,
-                }}
-              >
-                {item.name.toUpperCase()}
-              </Text>
-            </TouchableOpacity>
+            <HorizontalCardItem
+              cardItemTextStyle={cardItemTextStyle}
+              cardItemImageStyle={cardItemImageStyle}
+              label={item.name}
+              imageUrl={item.images[0].url}
+            />
           )
         }}
       />

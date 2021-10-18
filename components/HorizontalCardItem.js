@@ -4,12 +4,19 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 
 import { COLORS, FONTS, SIZES } from '../constants'
 
-const HorizontalCardItem = ({ imageUrl, label }) => {
+const HorizontalCardItem = ({
+  imageUrl,
+  label,
+  cardItemImageStyle,
+  cardItemTextStyle,
+}) => {
   return (
     <TouchableOpacity
+      activeOpacity={0.7}
       style={{
         paddingRight: SIZES.padding,
         paddingHorizontal: SIZES.padding,
+        width: 145,
       }}
     >
       <Image
@@ -19,6 +26,7 @@ const HorizontalCardItem = ({ imageUrl, label }) => {
           height: 135,
           borderRadius: 15,
           opacity: 0.6,
+          ...cardItemImageStyle,
         }}
       />
       <Text
@@ -27,10 +35,13 @@ const HorizontalCardItem = ({ imageUrl, label }) => {
           position: 'absolute',
           bottom: SIZES.padding,
           paddingLeft: 20,
-          ...FONTS.btn,
+          ...FONTS.cardItemText,
+          ...cardItemTextStyle,
         }}
       >
-        {label.toUpperCase()}
+        {label.length > 18
+          ? label.toUpperCase().substr(0, 18) + '...'
+          : label.toUpperCase()}
       </Text>
     </TouchableOpacity>
   )
