@@ -30,7 +30,7 @@ export default (state = initialState, action) => {
     }
 
     case GET_TOP_ARTISTS: {
-      return { ...state, recentlyPlayed: action.topArtists }
+      return { ...state, topArtists: action.topArtists }
     }
 
     default:

@@ -119,7 +119,7 @@ const App = () => {
       />
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName='Authorize'
+          initialRouteName='Home'
           screenOptions={{ headerShown: false }}
         >
           {isAuth ? (
