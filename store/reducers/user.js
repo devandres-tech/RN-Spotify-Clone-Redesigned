@@ -2,6 +2,7 @@ import {
   GET_PLAYLISTS,
   USER_PROFILE,
   GET_RECENTLY_PLAYED,
+  GET_TOP_ARTISTS,
 } from '../actions/user'
 
 const initialState = {
@@ -10,6 +11,7 @@ const initialState = {
   },
   playlists: [{ id: '', name: '', images: [{ url: '' }] }],
   recentlyPlayed: [],
+  topArtists: [],
 }
 
 export default (state = initialState, action) => {
@@ -25,6 +27,10 @@ export default (state = initialState, action) => {
 
     case GET_RECENTLY_PLAYED: {
       return { ...state, recentlyPlayed: action.recentlyPlayed }
+    }
+
+    case GET_TOP_ARTISTS: {
+      return { ...state, recentlyPlayed: action.topArtists }
     }
 
     default:

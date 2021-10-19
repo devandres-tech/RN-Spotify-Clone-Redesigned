@@ -14,6 +14,7 @@ const Home = () => {
     dispatch(userActions.getProfile())
     dispatch(userActions.getPlaylists(10))
     dispatch(userActions.getRecentlyPlayed(10))
+    dispatch(userActions.getTopArtists('long_term', 3))
   }, [dispatch])
 
   return (
