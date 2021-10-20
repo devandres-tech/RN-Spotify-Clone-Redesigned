@@ -1,8 +1,7 @@
 import React from 'react'
-import { View, FlatList, Image, Text } from 'react-native'
-import { TouchableOpacity } from 'react-native-gesture-handler'
+import { View, FlatList } from 'react-native'
 
-import { COLORS, SIZES, FONTS } from '../constants'
+import { SIZES } from '../constants'
 import TextTitle from './TextTitle'
 import HorizontalCardItem from './HorizontalCardItem'
 
