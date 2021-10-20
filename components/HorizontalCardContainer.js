@@ -24,7 +24,7 @@ const HorizontalCardContainer = ({
         data={data}
         horizontal
         showsHorizontalScrollIndicator={false}
-        keyExtractor={({ id }) => `${id}`}
+        keyExtractor={({ id, name }) => `${id}-${name}`}
         renderItem={({ item }) => {
           return (
             <HorizontalCardItem
