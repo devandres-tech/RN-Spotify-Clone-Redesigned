@@ -21,7 +21,9 @@ export const getCategoryPlaylist = (categoryId, limit) => {
           headers: setHeaders(accessToken),
         }
       )
-      const { items } = await response.json()
+      const {
+        playlists: { items },
+      } = await response.json()
       dispatch({ type: GET_CATEGORIES_PLAYLIST, topLists: items })
     } catch (error) {
       console.log('Error', error)

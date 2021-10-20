@@ -5,10 +5,16 @@ import { useSelector, useDispatch } from 'react-redux'
 import { COLORS, FONTS, SIZES } from '../constants'
 import * as userActions from '../store/actions/user'
 import * as playlistActions from '../store/actions/playlist'
-import { TextButton, HorizontalCardContainer, Header } from '../components'
+import {
+  TextButton,
+  HorizontalCardContainer,
+  Header,
+  TextTitle,
+} from '../components'
 
 const Home = () => {
   const user = useSelector((state) => state.user)
+  const playlist = useSelector((state) => state.playlist)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -49,60 +55,61 @@ const Home = () => {
 
   const renderTopArtistsAndTracksContainer = () => {
     return (
-      <TouchableOpacity
-        activeOpacity={0.7}
-        style={{
-          paddingRight: SIZES.padding,
-          paddingHorizontal: SIZES.padding,
-          backgroundColor: COLORS.lightGray3,
-          padding: 10,
-          borderRadius: 20,
-          paddingBottom: SIZES.paddingBottom,
-        }}
-      >
-        <View
-          style={{
-            justifyContent: 'flex-end',
-            alignItems: 'center',
-            flexDirection: 'row-reverse',
-          }}
+      <>
+        <TouchableOpacity
+          activeOpacity={0.7}
+          style={{ paddingBottom: SIZES.paddingBottom }}
         >
+          <TextTitle label='TOP ARTIST AND TRACKS' />
           <View
             style={{
-              paddingLeft: 45,
-              paddingRight: 80,
-              justifyContent: 'center',
+              paddingRight: SIZES.padding,
+              paddingHorizontal: SIZES.padding,
+              backgroundColor: COLORS.lightGray3,
+              padding: 10,
+              borderRadius: 20,
+              justifyContent: 'flex-end',
+              alignItems: 'center',
+              flexDirection: 'row-reverse',
             }}
           >
-            <Text
+            <View
               style={{
-                color: COLORS.white,
-                paddingBottom: 30,
-                ...FONTS.h2,
+                paddingLeft: 45,
+                paddingRight: 80,
+                justifyContent: 'center',
               }}
             >
-              SEE YOUR ALL TIME TOP ARTISTS AND TRACKS
-            </Text>
-            <Text style={{ color: COLORS.white, ...FONTS.body }}>
-              Your top tracks and artist throughout your listening history
-            </Text>
+              <Text
+                style={{
+                  color: COLORS.white,
+                  paddingBottom: 30,
+                  ...FONTS.h2,
+                }}
+              >
+                SEE YOUR ALL TIME TOP ARTISTS AND TRACKS
+              </Text>
+              <Text style={{ color: COLORS.white, ...FONTS.body }}>
+                Your top tracks and artist throughout your listening history
+              </Text>
+            </View>
+            {user.topArtists.reverse().map((artist) => {
+              return (
+                <View style={{ width: 30 }}>
+                  <Image
+                    style={{
+                      height: 135,
+                      width: 68,
+                      borderRadius: 20,
+                    }}
+                    source={{ uri: artist.images[0].url }}
+                  />
+                </View>
+              )
+            })}
           </View>
-          {user.topArtists.reverse().map((artist) => {
-            return (
-              <View style={{ width: 30 }}>
-                <Image
-                  style={{
-                    height: 135,
-                    width: 68,
-                    borderRadius: 20,
-                  }}
-                  source={{ uri: artist.images[0].url }}
-                />
-              </View>
-            )
-          })}
-        </View>
-      </TouchableOpacity>
+        </TouchableOpacity>
+      </>
     )
   }
 
@@ -135,6 +142,12 @@ const Home = () => {
               label='RECENTLY PLAYED'
             />
             {renderTopArtistsAndTracksContainer()}
+            <HorizontalCardContainer
+              cardItemImageStyle={{ opacity: 1 }}
+              cardItemTextStyle={{ position: 'relative', paddingTop: 15 }}
+              data={playlist.topLists}
+              label='POPULAR'
+            />
           </View>
         }
       />

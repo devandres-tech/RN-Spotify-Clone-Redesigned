@@ -7,12 +7,13 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case GET_CATEGORIES_PLAYLIST:
+      console.log('plalist.reducer()', action)
       return {
         ...state,
         topLists: action.topLists,
       }
 
     default:
-      return state
+      return { ...state }
   }
 }

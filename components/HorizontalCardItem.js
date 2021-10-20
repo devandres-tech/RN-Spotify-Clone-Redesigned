@@ -13,10 +13,8 @@ const HorizontalCardItem = ({
   cardItemImageStyle,
   cardItemTextStyle,
 }) => {
-  const [opacity, setOpacity] = useState(0.7)
   return (
     <TouchableOpacity
-      // delayPressIn={1000}
       activeOpacity={0.7}
       style={{
         paddingRight: SIZES.padding,
