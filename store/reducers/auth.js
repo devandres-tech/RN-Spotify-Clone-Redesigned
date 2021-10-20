@@ -1,4 +1,3 @@
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import {
   AUTHENTICATE_SUCCESS,
   AUTHENTICATE_FAIL,
@@ -6,19 +5,6 @@ import {
   SET_TOKENS,
   REQUEST_REFRESHED_TOKEN,
 } from '../actions/auth'
-
-// const getTokensFromAsyncStorage = async () => {
-//   const authData = await AsyncStorage.getItem('authData')
-//   const { accessToken, refreshToken, accessTokenExpirationDate } =
-//     await JSON.parse(authData)
-//   console.log('AUTH.REDUX STORE', accessToken, refreshToken)
-//   return {
-//     accessToken,
-//     refreshToken,
-//     accessTokenExpirationDate,
-//   }
-// }
-// console.log(getTokensFromAsyncStorage())
 
 const initialState = {
   accessToken: null,

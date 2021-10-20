@@ -1,6 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Text, Image } from 'react-native'
-import { TouchableOpacity } from 'react-native-gesture-handler'
+import {
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+} from 'react-native-gesture-handler'
 
 import { COLORS, FONTS, SIZES } from '../constants'
 
@@ -10,8 +13,10 @@ const HorizontalCardItem = ({
   cardItemImageStyle,
   cardItemTextStyle,
 }) => {
+  const [opacity, setOpacity] = useState(0.7)
   return (
     <TouchableOpacity
+      // delayPressIn={1000}
       activeOpacity={0.7}
       style={{
         paddingRight: SIZES.padding,

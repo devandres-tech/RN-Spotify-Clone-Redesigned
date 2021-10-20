@@ -55,8 +55,6 @@ const MainTabNavigator = () => {
 
 const App = () => {
   const auth = useSelector((state) => state.auth)
-  const [isAuth, setIsAuth] = useState(false)
-
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -65,7 +63,6 @@ const App = () => {
 
   useEffect(() => {
     const getTokensFromAsyncStorage = async () => {
-      console.log('App.useEffect().token', auth)
       const authData = await AsyncStorage.getItem('authData')
       const { accessToken, refreshToken } = await JSON.parse(authData)
       dispatch(authActions.setTokens(accessToken, refreshToken))
@@ -89,7 +86,6 @@ const App = () => {
         dispatch(authActions.requestRefreshedAccessToken(refreshToken))
         return
       }
-      setIsAuth(true)
     }
     tryLogin()
   }, [dispatch, auth])
@@ -101,7 +97,7 @@ const App = () => {
           flex: 1,
           justifyContent: 'center',
           backgroundColor: COLORS.black,
-          paddingHorizontal: SIZES.paddingTop, //24
+          paddingHorizontal: SIZES.paddingTop,
         }}
       >
         <ActivityIndicator size='large' color={COLORS.primary} />
@@ -122,7 +118,7 @@ const App = () => {
           initialRouteName='Home'
           screenOptions={{ headerShown: false }}
         >
-          {isAuth ? (
+          {auth.accessToken ? (
             <Stack.Screen name='Main' component={MainTabNavigator} />
           ) : (
             <Stack.Screen name='Authorize' component={Authorize} />

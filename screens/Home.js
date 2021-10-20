@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react'
-import { View, FlatList, Image, Text } from 'react-native'
+import { View, FlatList, Image, Text, TouchableOpacity } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { COLORS, FONTS, SIZES } from '../constants'
 import * as userActions from '../store/actions/user'
+import * as playlistActions from '../store/actions/playlist'
 import { TextButton, HorizontalCardContainer, Header } from '../components'
-import { TouchableOpacity } from 'react-native-gesture-handler'
 
 const Home = () => {
   const user = useSelector((state) => state.user)
@@ -16,6 +16,7 @@ const Home = () => {
     dispatch(userActions.getPlaylists(10))
     dispatch(userActions.getRecentlyPlayed(10))
     dispatch(userActions.getTopArtists('long_term', 3))
+    dispatch(playlistActions.getCategoryPlaylist('toplists', 10))
   }, [dispatch])
 
   const renderButtons = () => {
@@ -115,6 +116,7 @@ const Home = () => {
       }}
     >
       <FlatList
+        showsVerticalScrollIndicator={false}
         ListHeaderComponent={
           <Header name={user.data.display_name.split(' ')[0]} />
         }

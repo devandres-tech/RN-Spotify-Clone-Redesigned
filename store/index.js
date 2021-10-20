@@ -4,10 +4,12 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 
 import user from './reducers/user'
 import auth from './reducers/auth'
+import playlist from './reducers/playlist'
 
 const rootReducer = combineReducers({
   user,
   auth,
+  playlist,
 })
 
 const store = createStore(
