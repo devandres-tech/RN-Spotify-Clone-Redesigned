@@ -1,9 +1,9 @@
 import { BASE_URL } from '@env'
 
-export const USER_PROFILE = 'USER_PROFILE'
-export const GET_PLAYLISTS = 'GET_PLAYLISTS'
-export const GET_RECENTLY_PLAYED = 'GET_RECENTLY_PLAYED'
-export const GET_TOP_ARTISTS = 'GET_TOP_ARTISTS'
+export const GET_USER_PROFILE = 'GET_USER_PROFILE'
+export const GET_USER_PLAYLISTS = 'GET_USER_PLAYLISTS'
+export const GET_USER_RECENTLY_PLAYED = 'GET_USER_RECENTLY_PLAYED'
+export const GET_USER_TOP_ARTISTS = 'GET_USER_TOP_ARTISTS'
 
 const setHeaders = (accessToken) => {
   return {
@@ -30,7 +30,7 @@ export const getProfile = () => {
       }
       const data = await response.json()
 
-      dispatch({ type: USER_PROFILE, data })
+      dispatch({ type: GET_USER_PROFILE, data })
     } catch (error) {
       console.log('error', error)
     }
@@ -46,7 +46,7 @@ export const getPlaylists = (limit) => {
         headers: setHeaders(accessToken),
       })
       const data = await response.json()
-      dispatch({ type: GET_PLAYLISTS, playlists: data.items })
+      dispatch({ type: GET_USER_PLAYLISTS, playlists: data.items })
     } catch (error) {
       console.log('error')
       throw error
@@ -70,7 +70,7 @@ export const getRecentlyPlayed = (limit) => {
         const trackName = item.track.name
         return { ...item.track.album, name: trackName }
       })
-      dispatch({ type: GET_RECENTLY_PLAYED, recentlyPlayed: albums })
+      dispatch({ type: GET_USER_RECENTLY_PLAYED, recentlyPlayed: albums })
     } catch (error) {
       console.log('error', error)
       throw error
@@ -90,7 +90,7 @@ export const getTopArtists = (time_range, limit) => {
         }
       )
       const data = await response.json()
-      dispatch({ type: GET_TOP_ARTISTS, topArtists: data.items })
+      dispatch({ type: GET_USER_TOP_ARTISTS, topArtists: data.items })
     } catch (error) {
       console.log('error')
       throw error

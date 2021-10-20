@@ -1,8 +1,8 @@
 import {
-  GET_PLAYLISTS,
-  USER_PROFILE,
-  GET_RECENTLY_PLAYED,
-  GET_TOP_ARTISTS,
+  GET_USER_PLAYLISTS,
+  GET_USER_PROFILE,
+  GET_USER_RECENTLY_PLAYED,
+  GET_USER_TOP_ARTISTS,
 } from '../actions/user'
 
 const initialState = {
@@ -16,20 +16,20 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case USER_PROFILE:
+    case GET_USER_PROFILE:
       return {
         ...state,
         data: action.data,
       }
 
-    case GET_PLAYLISTS:
+    case GET_USER_PLAYLISTS:
       return { ...state, playlists: action.playlists }
 
-    case GET_RECENTLY_PLAYED: {
+    case GET_USER_RECENTLY_PLAYED: {
       return { ...state, recentlyPlayed: action.recentlyPlayed }
     }
 
-    case GET_TOP_ARTISTS: {
+    case GET_USER_TOP_ARTISTS: {
       return { ...state, topArtists: action.topArtists }
     }
 

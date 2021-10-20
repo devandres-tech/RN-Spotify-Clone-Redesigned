@@ -23,6 +23,7 @@ const Home = () => {
     dispatch(userActions.getRecentlyPlayed(10))
     dispatch(userActions.getTopArtists('long_term', 3))
     dispatch(playlistActions.getCategoryPlaylist('toplists', 10))
+    dispatch(playlistActions.getFeaturedPlaylists(1))
   }, [dispatch])
 
   const renderButtons = () => {
