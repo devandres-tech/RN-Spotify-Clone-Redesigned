@@ -14,18 +14,20 @@ const TabBarIcon = ({ focused, name, source }) => {
     Animated.timing(animation, {
       toValue: 1,
       useNativeDriver: true,
+      duration: 500,
     }).start()
   }
   const onPressOut = () => {
     Animated.timing(animation, {
       toValue: 0,
       useNativeDriver: true,
+      duration: 500,
     }).start()
   }
 
   return (
     <TouchableOpacity
-      activeOpacity={0.5}
+      activeOpacity={0.7}
       onPressIn={onPressIn}
       onPressOut={onPressOut}
     >

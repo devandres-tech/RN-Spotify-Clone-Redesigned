@@ -1,5 +1,12 @@
 import React, { useEffect } from 'react'
-import { View, FlatList, Image, Text, TouchableOpacity } from 'react-native'
+import {
+  View,
+  FlatList,
+  Image,
+  Text,
+  TouchableOpacity,
+  ImageBackground,
+} from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { COLORS, FONTS, SIZES } from '../constants'
@@ -12,18 +19,30 @@ import {
   TextTitle,
 } from '../components'
 
+const featured = [
+  {
+    images: [
+      {
+        url: 'https://i.scdn.co/image/ab67706f00000003487cfbde23e0179f7bcf37d5',
+      },
+    ],
+    name: 'Fresh Finds Presents... Class of 2019',
+    description: 'Our editors picks of the freshet finds of the year',
+  },
+]
+
 const Home = () => {
   const user = useSelector((state) => state.user)
   const playlist = useSelector((state) => state.playlist)
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(userActions.getProfile())
-    dispatch(userActions.getPlaylists(10))
-    dispatch(userActions.getRecentlyPlayed(10))
-    dispatch(userActions.getTopArtists('long_term', 3))
-    dispatch(playlistActions.getCategoryPlaylist('toplists', 10))
-    dispatch(playlistActions.getFeaturedPlaylists(1))
+    // dispatch(userActions.getProfile())
+    // dispatch(userActions.getPlaylists(10))
+    // dispatch(userActions.getRecentlyPlayed(10))
+    // dispatch(userActions.getTopArtists('long_term', 3))
+    // dispatch(playlistActions.getCategoryPlaylist('toplists', 10))
+    // dispatch(playlistActions.getFeaturedPlaylists(1))
   }, [dispatch])
 
   const renderButtons = () => {
@@ -56,61 +75,59 @@ const Home = () => {
 
   const renderTopArtistsAndTracksContainer = () => {
     return (
-      <>
-        <TouchableOpacity
-          activeOpacity={0.7}
-          style={{ paddingBottom: SIZES.paddingBottom }}
+      <TouchableOpacity
+        activeOpacity={0.7}
+        style={{ paddingBottom: SIZES.paddingBottom }}
+      >
+        <TextTitle label='TOP ARTIST AND TRACKS' />
+        <View
+          style={{
+            paddingRight: SIZES.padding,
+            paddingHorizontal: SIZES.padding,
+            backgroundColor: COLORS.lightGray3,
+            padding: 10,
+            borderRadius: 20,
+            justifyContent: 'flex-end',
+            alignItems: 'center',
+            flexDirection: 'row-reverse',
+          }}
         >
-          <TextTitle label='TOP ARTIST AND TRACKS' />
           <View
             style={{
-              paddingRight: SIZES.padding,
-              paddingHorizontal: SIZES.padding,
-              backgroundColor: COLORS.lightGray3,
-              padding: 10,
-              borderRadius: 20,
-              justifyContent: 'flex-end',
-              alignItems: 'center',
-              flexDirection: 'row-reverse',
+              paddingLeft: 45,
+              paddingRight: 80,
+              justifyContent: 'center',
             }}
           >
-            <View
+            <Text
               style={{
-                paddingLeft: 45,
-                paddingRight: 80,
-                justifyContent: 'center',
+                color: COLORS.white,
+                paddingBottom: 30,
+                ...FONTS.h2,
               }}
             >
-              <Text
-                style={{
-                  color: COLORS.white,
-                  paddingBottom: 30,
-                  ...FONTS.h2,
-                }}
-              >
-                SEE YOUR ALL TIME TOP ARTISTS AND TRACKS
-              </Text>
-              <Text style={{ color: COLORS.white, ...FONTS.body }}>
-                Your top tracks and artist throughout your listening history
-              </Text>
-            </View>
-            {user.topArtists.reverse().map((artist) => {
-              return (
-                <View style={{ width: 30 }}>
-                  <Image
-                    style={{
-                      height: 135,
-                      width: 68,
-                      borderRadius: 20,
-                    }}
-                    source={{ uri: artist.images[0].url }}
-                  />
-                </View>
-              )
-            })}
+              SEE YOUR ALL TIME TOP ARTISTS AND TRACKS
+            </Text>
+            <Text style={{ color: COLORS.white, ...FONTS.body }}>
+              Your top tracks and artist throughout your listening history
+            </Text>
           </View>
-        </TouchableOpacity>
-      </>
+          {user.topArtists.reverse().map((artist) => {
+            return (
+              <View style={{ width: 30 }}>
+                <Image
+                  style={{
+                    height: 135,
+                    width: 68,
+                    borderRadius: 20,
+                  }}
+                  source={{ uri: artist.images[0].url }}
+                />
+              </View>
+            )
+          })}
+        </View>
+      </TouchableOpacity>
     )
   }
 
@@ -149,6 +166,35 @@ const Home = () => {
               data={playlist.topLists}
               label='POPULAR'
             />
+            <View>
+              <TextTitle label='FEATURED' />
+              <View
+                style={{
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              >
+                <ImageBackground
+                  source={{ uri: featured[0].images[0].url }}
+                  style={{
+                    width: '100%',
+                    height: 200,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}
+                >
+                  <TextButton
+                    label='CHECK IT OUT'
+                    buttonContainerStyle={{
+                      backgroundColor: 'transparent',
+                      borderWidth: 1,
+                      borderColor: COLORS.white,
+                    }}
+                  />
+                </ImageBackground>
+              </View>
+            </View>
           </View>
         }
       />
