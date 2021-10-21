@@ -25,7 +25,6 @@ const Home = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(userActions.getProfile())
     dispatch(userActions.getPlaylists(10))
     dispatch(userActions.getRecentlyPlayed(10))
     dispatch(userActions.getTopArtists('long_term', 3))
@@ -131,9 +130,7 @@ const Home = () => {
     >
       <FlatList
         showsVerticalScrollIndicator={false}
-        ListHeaderComponent={
-          <Header name={user.data.display_name.split(' ')[0]} />
-        }
+        ListHeaderComponent={<Header />}
         ListFooterComponent={
           <View style={{ paddingBottom: 120 }}>
             <HorizontalCardContainer

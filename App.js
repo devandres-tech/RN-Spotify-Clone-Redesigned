@@ -19,7 +19,7 @@ const Stack = createNativeStackNavigator()
 const MainTabNavigator = () => {
   return (
     <Tab.Navigator
-      initialRouteName='Home'
+      initialRouteName='Search'
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused }) => {
           let iconSrc
@@ -124,7 +124,7 @@ const App = () => {
       />
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName='Home'
+          initialRouteName='Authorize'
           screenOptions={{ headerShown: false }}
         >
           {auth.accessToken ? (

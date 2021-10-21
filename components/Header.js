@@ -1,10 +1,18 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { View, Text, Image } from 'react-native'
-import {} from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
 import { COLORS, FONTS, SIZES, icons } from '../constants'
+import * as userActions from '../store/actions/user'
 
-const Header = ({ name }) => {
+const Header = () => {
+  const user = useSelector((state) => state.user)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(userActions.getProfile())
+  }, [dispatch])
+
   return (
     <View
       style={{
@@ -24,7 +32,7 @@ const Header = ({ name }) => {
           source={icons.spotifyLogoWhite}
         />
         <Text style={{ color: COLORS.white, ...FONTS.greeting }}>
-          GOOD MORNING {name.toUpperCase()}!
+          GOOD MORNING {user.data.display_name.split(' ')[0].toUpperCase()}!
         </Text>
       </View>
     </View>
