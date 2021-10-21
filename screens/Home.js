@@ -19,30 +19,19 @@ import {
   TextTitle,
 } from '../components'
 
-const featured = [
-  {
-    images: [
-      {
-        url: 'https://i.scdn.co/image/ab67706f00000003487cfbde23e0179f7bcf37d5',
-      },
-    ],
-    name: 'Fresh Finds Presents... Class of 2019',
-    description: 'Our editors picks of the freshet finds of the year',
-  },
-]
-
 const Home = () => {
   const user = useSelector((state) => state.user)
   const playlist = useSelector((state) => state.playlist)
   const dispatch = useDispatch()
 
   useEffect(() => {
-    // dispatch(userActions.getProfile())
-    // dispatch(userActions.getPlaylists(10))
-    // dispatch(userActions.getRecentlyPlayed(10))
-    // dispatch(userActions.getTopArtists('long_term', 3))
-    // dispatch(playlistActions.getCategoryPlaylist('toplists', 10))
-    // dispatch(playlistActions.getFeaturedPlaylists(1))
+    dispatch(userActions.getProfile())
+    dispatch(userActions.getPlaylists(10))
+    dispatch(userActions.getRecentlyPlayed(10))
+    dispatch(userActions.getTopArtists('long_term', 3))
+    dispatch(playlistActions.getCategoryPlaylist('toplists', 10))
+    dispatch(playlistActions.getFeaturedPlaylists(1))
+    dispatch(playlistActions.getNewReleases(10))
   }, [dispatch])
 
   const renderButtons = () => {
@@ -166,7 +155,7 @@ const Home = () => {
               data={playlist.topLists}
               label='POPULAR'
             />
-            <View>
+            <View style={{ paddingBottom: SIZES.paddingBottom }}>
               <TextTitle label='FEATURED' />
               <View
                 style={{
@@ -176,7 +165,8 @@ const Home = () => {
                 }}
               >
                 <ImageBackground
-                  source={{ uri: featured[0].images[0].url }}
+                  resizeMode='stretch'
+                  source={{ url: playlist.featured[0].images[0].url }}
                   style={{
                     width: '100%',
                     height: 200,
@@ -195,6 +185,12 @@ const Home = () => {
                 </ImageBackground>
               </View>
             </View>
+            <HorizontalCardContainer
+              cardItemImageStyle={{ opacity: 1 }}
+              cardItemTextStyle={{ position: 'relative', paddingTop: 15 }}
+              data={playlist.newReleases}
+              label='NEW RELEASES'
+            />
           </View>
         }
       />

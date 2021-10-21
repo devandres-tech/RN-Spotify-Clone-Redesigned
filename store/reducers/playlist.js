@@ -1,11 +1,13 @@
 import {
   GET_CATEGORIES_PLAYLISTS,
   GET_FEATURED_PLAYLISTS,
+  GET_NEW_RELEASES,
 } from '../actions/playlist'
 
 const initialState = {
   topLists: [],
-  featured: [],
+  featured: [{ images: [{ url: '' }] }],
+  newReleases: [],
 }
 
 export default (state = initialState, action) => {
@@ -20,6 +22,12 @@ export default (state = initialState, action) => {
       return {
         ...state,
         featured: action.featured,
+      }
+
+    case GET_NEW_RELEASES:
+      return {
+        ...state,
+        newReleases: action.newReleases,
       }
 
     default:
