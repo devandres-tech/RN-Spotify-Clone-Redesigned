@@ -9,7 +9,7 @@ import { COLORS, FONTS, SIZES } from '../constants'
 
 const HorizontalCardItem = ({
   imageUrl,
-  label,
+  cardLabel,
   cardItemImageStyle,
   cardItemTextStyle,
 }) => {
@@ -41,9 +41,9 @@ const HorizontalCardItem = ({
           ...cardItemTextStyle,
         }}
       >
-        {label.length > 18
-          ? label.toUpperCase().substr(0, 18) + '...'
-          : label.toUpperCase().trim()}
+        {cardLabel.length > 18
+          ? cardLabel.toUpperCase().substr(0, 18) + '...'
+          : cardLabel.toUpperCase().trim()}
       </Text>
     </TouchableOpacity>
   )

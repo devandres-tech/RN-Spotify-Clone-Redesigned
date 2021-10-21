@@ -30,7 +30,7 @@ const HorizontalCardContainer = ({
             <HorizontalCardItem
               cardItemTextStyle={cardItemTextStyle}
               cardItemImageStyle={cardItemImageStyle}
-              label={item.name}
+              cardLabel={item.name}
               imageUrl={item.images[0].url}
             />
           )

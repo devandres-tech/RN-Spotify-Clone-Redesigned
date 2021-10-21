@@ -29,8 +29,8 @@ const Home = () => {
     dispatch(userActions.getPlaylists(10))
     dispatch(userActions.getRecentlyPlayed(10))
     dispatch(userActions.getTopArtists('long_term', 3))
-    dispatch(playlistActions.getCategoryPlaylist('toplists', 10))
     dispatch(playlistActions.getFeaturedPlaylists(1))
+    dispatch(playlistActions.getCategoryPlaylist('toplists', 10))
     dispatch(playlistActions.getNewReleases(10))
   }, [dispatch])
 
@@ -165,11 +165,11 @@ const Home = () => {
                 }}
               >
                 <ImageBackground
-                  resizeMode='stretch'
-                  source={{ url: playlist.featured[0].images[0].url }}
+                  resizeMode='repeat'
+                  source={{ uri: playlist.featured[0].images[0].url }}
                   style={{
                     width: '100%',
-                    height: 200,
+                    height: 210,
                     justifyContent: 'center',
                     alignItems: 'center',
                   }}
