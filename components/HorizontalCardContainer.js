@@ -26,12 +26,15 @@ const HorizontalCardContainer = ({
         showsHorizontalScrollIndicator={false}
         keyExtractor={({ id, name }) => `${id}-${name}`}
         renderItem={({ item }) => {
+          console.log('item --------', item)
           return (
             <HorizontalCardItem
               cardItemTextStyle={cardItemTextStyle}
               cardItemImageStyle={cardItemImageStyle}
               cardLabel={item.name}
               imageUrl={item.images[0].url}
+              type={item.type}
+              date={item.release_date}
             />
           )
         }}

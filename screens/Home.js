@@ -137,7 +137,11 @@ const Home = () => {
         ListFooterComponent={
           <View style={{ paddingBottom: 120 }}>
             <HorizontalCardContainer
-              cardItemTextStyle={{ paddingLeft: 20 }}
+              cardItemTextStyle={{
+                paddingLeft: 20,
+                position: 'absolute',
+                bottom: SIZES.padding,
+              }}
               data={user.playlists}
               label='MY PLAYLISTS'
             />
@@ -155,6 +159,7 @@ const Home = () => {
               data={playlist.topLists}
               label='POPULAR'
             />
+            {/* featured */}
             <View style={{ paddingBottom: SIZES.paddingBottom }}>
               <TextTitle label='FEATURED' />
               <View

@@ -17,6 +17,10 @@ export const FONTS = {
     fontFamily: 'Montserrat-Bold',
     fontSize: 11,
   },
+  cardItemSubText: {
+    fontFamily: 'Montserrat',
+    fontSize: 11,
+  },
   icon: { fontFamily: 'Montserrat-Bold', fontSize: 8 },
 }
 

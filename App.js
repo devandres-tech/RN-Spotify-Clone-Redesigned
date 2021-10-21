@@ -115,7 +115,7 @@ const App = () => {
   }
 
   return (
-    <SafeAreaProvider style={{ backgroundColor: 'transparent' }}>
+    <SafeAreaProvider>
       <StatusBar
         translucent={true}
         animated={true}
