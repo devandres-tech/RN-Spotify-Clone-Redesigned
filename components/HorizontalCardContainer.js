@@ -26,7 +26,6 @@ const HorizontalCardContainer = ({
         showsHorizontalScrollIndicator={false}
         keyExtractor={({ id, name }) => `${id}-${name}`}
         renderItem={({ item }) => {
-          console.log('item --------', item)
           return (
             <HorizontalCardItem
               cardItemTextStyle={cardItemTextStyle}
