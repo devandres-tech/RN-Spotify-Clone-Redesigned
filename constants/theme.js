@@ -8,8 +8,9 @@ export const COLORS = {
 }
 
 export const FONTS = {
-  h1: { fontFamily: 'Montserrat-Bold', fontSize: 18, letterSpacing: 2 },
-  h2: { fontFamily: 'Montserrat-Bold', fontSize: 16, letterSpacing: 0 },
+  h1: { fontFamily: 'Montserrat-Bold', fontSize: 22, letterSpacing: 2 },
+  h2: { fontFamily: 'Montserrat-Bold', fontSize: 18, letterSpacing: 2 },
+  h3: { fontFamily: 'Montserrat-Bold', fontSize: 16, letterSpacing: 0 },
   body: { fontFamily: 'Montserrat', fontSize: 12 },
   btn: { fontFamily: 'Montserrat-Bold', fontSize: 14, letterSpacing: 1 },
   greeting: { fontFamily: 'Montserrat-Bold', fontSize: 16 },

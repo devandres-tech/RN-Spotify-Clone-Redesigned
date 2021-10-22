@@ -5,11 +5,11 @@ import {
   Image,
   Text,
   TouchableOpacity,
-  ImageBackground,
+  TextInput,
 } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 
-import { COLORS, FONTS, SIZES } from '../constants'
+import { COLORS, FONTS, SIZES, icons } from '../constants'
 import * as browseActions from '../store/actions/browse'
 import { Header } from '../components'
 
@@ -100,15 +100,57 @@ const Search = () => {
         paddingTop: SIZES.paddingTop,
         backgroundColor: COLORS.black,
         width: '100%',
-        paddingHorizontal: SIZES.padding,
       }}
     >
       <FlatList
         showsVerticalScrollIndicator={false}
-        ListHeaderComponent={<Header />}
-        ListFooterComponent={
-          <View style={{ paddingBottom: 120 }}>{renderCardItems()}</View>
+        ListHeaderComponent={
+          <View>
+            <Header />
+            <Text
+              style={{
+                color: COLORS.white,
+                ...FONTS.h1,
+                paddingBottom: 20,
+                paddingHorizontal: SIZES.padding,
+              }}
+            >
+              SEARCH
+            </Text>
+            <View
+              style={{
+                marginHorizontal: SIZES.padding,
+                paddingHorizontal: 15,
+                borderColor: COLORS.white,
+                borderWidth: 1,
+                borderRadius: 50,
+                flexDirection: 'row',
+                height: 50,
+                alignItems: 'center',
+              }}
+            >
+              <TextInput
+                placeholder='Search...'
+                selectionColor={COLORS.primary}
+                placeholderTextColor={'#fff'}
+                style={{
+                  height: 60,
+                  flex: 1,
+                  marginLeft: 10,
+                  color: COLORS.white,
+                  ...FONTS.body,
+                }}
+              />
+              <Image
+                source={icons.search}
+                style={{ height: 25, width: 25, tintColor: COLORS.white }}
+              />
+            </View>
+          </View>
         }
+        // ListFooterComponent={
+        //   <View style={{ paddingBottom: 120 }}>{renderCardItems()}</View>
+        // }
       />
     </View>
   )

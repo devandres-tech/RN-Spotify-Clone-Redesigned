@@ -18,7 +18,7 @@ const Header = () => {
       style={{
         paddingTop: SIZES.paddingTop,
         paddingBottom: 30,
-        paddingHorizontal: 10,
+        paddingHorizontal: SIZES.padding,
       }}
     >
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>

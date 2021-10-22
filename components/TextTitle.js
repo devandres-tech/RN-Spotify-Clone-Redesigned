@@ -8,7 +8,7 @@ const TextTitle = ({ label }) => {
     <Text
       style={{
         color: COLORS.white,
-        ...FONTS.h1,
+        ...FONTS.h2,
         paddingBottom: 15,
         paddingHorizontal: SIZES.padding,
       }}

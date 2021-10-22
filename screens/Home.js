@@ -91,7 +91,7 @@ const Home = () => {
               style={{
                 color: COLORS.white,
                 paddingBottom: 30,
-                ...FONTS.h2,
+                ...FONTS.h3,
               }}
             >
               SEE YOUR ALL TIME TOP ARTISTS AND TRACKS
