@@ -45,6 +45,7 @@ export const getBrowseCategoriesPlaylists = (limit, id) => {
       )
 
       const data = await response.json()
+      console.log('data', data)
       if (data.error) throw 'Invalid request'
 
       dispatch({

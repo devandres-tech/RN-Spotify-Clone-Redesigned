@@ -40,6 +40,7 @@ const Library = () => {
 
   useEffect(() => {
     dispatch(libraryActions.getTopArtists())
+    dispatch(libraryActions.getTopTracks())
   }, [dispatch])
 
   const renderMadeForYouContainer = () => {
@@ -53,6 +54,12 @@ const Library = () => {
           cardItemTextStyle={{ position: 'relative', paddingTop: 15 }}
           data={library.topArtists}
           label='YOUR TOP ARTISTS'
+        />
+        <HorizontalCardContainer
+          cardItemImageStyle={{ opacity: 1 }}
+          cardItemTextStyle={{ position: 'relative', paddingTop: 15 }}
+          data={library.topTracks}
+          label='YOUR TOP TRACKS'
         />
       </View>
     )

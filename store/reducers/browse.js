@@ -10,6 +10,9 @@ const initialState = {
   pop: [{ description: '', images: [{ url: '' }] }],
   country: [{ description: '', images: [{ url: '' }] }],
   rock: [{ description: '', images: [{ url: '' }] }],
+  latin: [{ description: '', images: [{ url: '' }] }],
+  in_the_car: [{ description: '', images: [{ url: '' }] }],
+  regional_mexican: [{ description: '', images: [{ url: '' }] }],
 }
 
 export default (state = initialState, action) => {

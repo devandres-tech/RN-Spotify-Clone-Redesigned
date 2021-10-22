@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, Image, Platform, View } from 'react-native'
+import { Text, Image, View } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 
 import { COLORS, FONTS, SIZES } from '../constants'
@@ -12,6 +12,10 @@ const HorizontalCardItem = ({
   cardItemContainerStyle,
   date,
   type,
+  index,
+  albumName,
+  albumType,
+  artists,
 }) => {
   return (
     <TouchableOpacity
@@ -19,6 +23,7 @@ const HorizontalCardItem = ({
       style={{
         marginRight: 10,
         width: 145,
+        marginLeft: index === 0 ? SIZES.padding : 0,
         ...cardItemContainerStyle,
       }}
     >
@@ -36,13 +41,13 @@ const HorizontalCardItem = ({
       <Text
         style={{
           color: COLORS.white,
-          alignSelf: type === 'artist' ? 'center' : '',
+          alignSelf: type === 'artist' ? 'center' : 'flex-start',
           ...FONTS.cardItemText,
           ...cardItemTextStyle,
         }}
       >
         {cardLabel.length > 18
-          ? cardLabel.toUpperCase().substr(0, 18) + '...'
+          ? cardLabel.toUpperCase().substring(0, 18) + '...'
           : cardLabel.toUpperCase().trim()}
       </Text>
 
@@ -63,7 +68,6 @@ const HorizontalCardItem = ({
           >
             {date.substr(0, 4)}
           </Text>
-
           <Text
             style={{
               color: COLORS.lightGray,
@@ -79,7 +83,37 @@ const HorizontalCardItem = ({
               ...FONTS.cardItemSubText,
             }}
           >
-            Album
+            {albumType === 'single' ? 'Single' : 'Album'}
+          </Text>
+          <Text
+            style={{
+              color: COLORS.lightGray,
+              paddingHorizontal: 4,
+              fontSize: 4,
+            }}
+          >
+            {'\u25CF'}
+          </Text>
+
+          <Text
+            style={{
+              color: COLORS.lightGray,
+              ...FONTS.cardItemSubText,
+            }}
+          >
+            {albumType === 'single' ? (
+              <Text>
+                {artists[0].name.length > 10
+                  ? `${artists[0].name.substring(0, 8).trim()}...`
+                  : artists[0].name}
+              </Text>
+            ) : (
+              <Text>
+                {albumName.length > 10
+                  ? `${albumName.substring(0, 8).trim()}...`
+                  : albumName}
+              </Text>
+            )}
           </Text>
         </View>
       ) : null}

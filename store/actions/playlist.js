@@ -65,10 +65,14 @@ export const getNewReleases = (limit) => {
           headers: setHeaders(accessToken),
         }
       )
-      const {
-        albums: { items },
-      } = await response.json()
-      dispatch({ type: GET_NEW_RELEASES, newReleases: items })
+
+      const data = await response.json()
+      const albums = data.albums.items.map((item) => {
+        const albumName = item.name
+        return { ...item, name: albumName, albumName }
+      })
+
+      dispatch({ type: GET_NEW_RELEASES, newReleases: albums })
     } catch (error) {
       console.log('error', error)
     }

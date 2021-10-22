@@ -68,7 +68,8 @@ export const getRecentlyPlayed = (limit) => {
       const data = await response.json()
       const albums = data.items.map((item) => {
         const trackName = item.track.name
-        return { ...item.track.album, name: trackName }
+        const albumName = item.album.name
+        return { ...item.track.album, name: trackName, albumName }
       })
       dispatch({ type: GET_USER_RECENTLY_PLAYED, recentlyPlayed: albums })
     } catch (error) {
