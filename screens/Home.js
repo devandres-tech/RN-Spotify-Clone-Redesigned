@@ -135,7 +135,7 @@ const Home = () => {
           <View style={{ paddingBottom: 120 }}>
             <HorizontalCardContainer
               cardItemTextStyle={{
-                paddingLeft: 20,
+                paddingLeft: 10,
                 position: 'absolute',
                 bottom: SIZES.padding,
               }}

@@ -9,6 +9,7 @@ const HorizontalCardItem = ({
   cardLabel,
   cardItemImageStyle,
   cardItemTextStyle,
+  cardItemContainerStyle,
   date,
   type,
 }) => {
@@ -16,19 +17,14 @@ const HorizontalCardItem = ({
     <TouchableOpacity
       activeOpacity={0.7}
       style={{
-        // paddingRight: SIZES.padding,
         marginRight: 10,
-        // paddingRight: 60,
-        // paddingHorizontal: SIZES.padding,
-        // marginHorizontal: SIZES.padding,
         width: 145,
-        // backgroundColor: 'red',
+        ...cardItemContainerStyle,
       }}
     >
       <Image
         source={{ uri: imageUrl }}
         style={{
-          // width: 135,
           height: 135,
           borderRadius: type === 'album' ? 15 : type === 'artist' ? 70 : 0,
           opacity: 0.6,
@@ -41,10 +37,8 @@ const HorizontalCardItem = ({
         style={{
           color: COLORS.white,
           alignSelf: type === 'artist' ? 'center' : '',
-          // alignSelf: 'center',
           ...FONTS.cardItemText,
           ...cardItemTextStyle,
-          // backgroundColor: 'green',
         }}
       >
         {cardLabel.length > 18
