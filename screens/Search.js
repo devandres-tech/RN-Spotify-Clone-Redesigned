@@ -38,30 +38,46 @@ const Search = () => {
           activeOpacity={0.7}
           style={{ paddingBottom: SIZES.paddingBottom }}
         >
-          {/* <TextTitle label='TOP ARTIST AND TRACKS' /> */}
           <View
             style={{
-              paddingRight: SIZES.padding,
-              paddingHorizontal: SIZES.padding,
               backgroundColor: COLORS.lightGray3,
               padding: 10,
               borderRadius: 20,
-              justifyContent: 'flex-end',
-              alignItems: 'center',
               flexDirection: 'row-reverse',
             }}
           >
+            {browse[catId].reverse().map((categoryPlaylist) => {
+              return (
+                <View
+                  style={{
+                    width: 30,
+                    position: 'relative',
+                    left: 50,
+                  }}
+                >
+                  <Image
+                    style={{
+                      height: 135,
+                      width: 80,
+                      borderRadius: 20,
+                    }}
+                    source={{ uri: categoryPlaylist.images[0].url }}
+                  />
+                </View>
+              )
+            })}
+
             <View
               style={{
-                paddingLeft: 45,
-                paddingRight: 80,
+                width: 185,
+                marginRight: 58,
                 justifyContent: 'center',
               }}
             >
               <Text
                 style={{
                   color: COLORS.white,
-                  paddingBottom: 30,
+                  paddingBottom: 10,
                   ...FONTS.h2,
                 }}
               >
@@ -71,20 +87,6 @@ const Search = () => {
                 {browse[catId][0].description}
               </Text>
             </View>
-            {browse[catId].reverse().map((categoryPlaylist) => {
-              return (
-                <View style={{ width: 30 }}>
-                  <Image
-                    style={{
-                      height: 135,
-                      width: 68,
-                      borderRadius: 20,
-                    }}
-                    source={{ uri: categoryPlaylist.images[0].url }}
-                  />
-                </View>
-              )
-            })}
           </View>
         </TouchableOpacity>
       )
@@ -98,10 +100,16 @@ const Search = () => {
         paddingTop: SIZES.paddingTop,
         backgroundColor: COLORS.black,
         width: '100%',
+        paddingHorizontal: SIZES.padding,
       }}
     >
-      <Header />
-      {renderCardItems()}
+      <FlatList
+        showsVerticalScrollIndicator={false}
+        ListHeaderComponent={<Header />}
+        ListFooterComponent={
+          <View style={{ paddingBottom: 120 }}>{renderCardItems()}</View>
+        }
+      />
     </View>
   )
 }

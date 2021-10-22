@@ -23,8 +23,8 @@ const MainTabNavigator = () => {
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused }) => {
           let iconSrc
-          if (route.name === 'Search') iconSrc = icons.search
           if (route.name === 'Home') iconSrc = icons.home
+          if (route.name === 'Search') iconSrc = icons.search
           if (route.name === 'Library') iconSrc = icons.library
           if (route.name === 'Profile') iconSrc = icons.profile
           return (
