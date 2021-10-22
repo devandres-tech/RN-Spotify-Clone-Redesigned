@@ -3,14 +3,15 @@ import { Text } from 'react-native'
 
 import { COLORS, FONTS, SIZES } from '../constants'
 
-const TextTitle = ({ label }) => {
+const TextTitle = ({ label, containerStyle }) => {
   return (
     <Text
       style={{
         color: COLORS.white,
-        ...FONTS.h2,
         paddingBottom: 15,
         paddingHorizontal: SIZES.padding,
+        ...FONTS.h2,
+        ...containerStyle,
       }}
     >
       {label}

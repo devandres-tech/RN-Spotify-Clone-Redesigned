@@ -12,6 +12,7 @@ export const FONTS = {
   h2: { fontFamily: 'Montserrat-Bold', fontSize: 18, letterSpacing: 2 },
   h3: { fontFamily: 'Montserrat-Bold', fontSize: 16, letterSpacing: 0 },
   body: { fontFamily: 'Montserrat', fontSize: 12 },
+  menuText: { fontFamily: 'Montserrat', fontSize: 14 },
   btn: { fontFamily: 'Montserrat-Bold', fontSize: 14, letterSpacing: 1 },
   greeting: { fontFamily: 'Montserrat-Bold', fontSize: 16 },
   cardItemText: {

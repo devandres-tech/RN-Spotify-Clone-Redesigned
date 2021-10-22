@@ -11,7 +11,7 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import { COLORS, FONTS, SIZES, icons } from '../constants'
 import * as browseActions from '../store/actions/browse'
-import { Header } from '../components'
+import { Header, TextTitle } from '../components'
 
 const Search = () => {
   const browse = useSelector((state) => state.browse)
@@ -107,16 +107,8 @@ const Search = () => {
         ListHeaderComponent={
           <View>
             <Header />
-            <Text
-              style={{
-                color: COLORS.white,
-                ...FONTS.h1,
-                paddingBottom: 20,
-                paddingHorizontal: SIZES.padding,
-              }}
-            >
-              SEARCH
-            </Text>
+            {/* search component */}
+            <TextTitle containerStyle={{ ...FONTS.h1 }} label='SEARCH' />
             <View
               style={{
                 marginHorizontal: SIZES.padding,
@@ -127,6 +119,7 @@ const Search = () => {
                 flexDirection: 'row',
                 height: 50,
                 alignItems: 'center',
+                marginBottom: SIZES.paddingBottom,
               }}
             >
               <TextInput
@@ -148,9 +141,13 @@ const Search = () => {
             </View>
           </View>
         }
-        // ListFooterComponent={
-        //   <View style={{ paddingBottom: 120 }}>{renderCardItems()}</View>
-        // }
+        ListFooterComponent={
+          <View
+            style={{ paddingBottom: 120, paddingHorizontal: SIZES.padding }}
+          >
+            {renderCardItems()}
+          </View>
+        }
       />
     </View>
   )

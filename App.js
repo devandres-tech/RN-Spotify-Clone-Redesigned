@@ -10,7 +10,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context'
 
 import { Home, Library, Search, Profile, Authorize } from './screens'
 import { icons, COLORS, SIZES } from './constants'
-import { TabBarIcon } from './components'
+import { Header, TabBarIcon } from './components'
 import * as authActions from './store/actions/auth'
 
 const Tab = createBottomTabNavigator()
@@ -19,7 +19,7 @@ const Stack = createNativeStackNavigator()
 const MainTabNavigator = () => {
   return (
     <Tab.Navigator
-      initialRouteName='Search'
+      initialRouteName='Library'
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused }) => {
           let iconSrc
@@ -125,7 +125,9 @@ const App = () => {
       <NavigationContainer>
         <Stack.Navigator
           initialRouteName='Authorize'
-          screenOptions={{ headerShown: false }}
+          screenOptions={() => ({
+            headerShown: false,
+          })}
         >
           {auth.accessToken ? (
             <Stack.Screen name='Main' component={MainTabNavigator} />
