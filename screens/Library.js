@@ -1,8 +1,15 @@
-import React, { useState } from 'react'
-import { View, Text, FlatList, TouchableOpacity } from 'react-native'
-import { Header, TextTitle, HorizontalMenu } from '../components'
+import React, { useState, useEffect } from 'react'
+import { View, Text, FlatList } from 'react-native'
+import {
+  Header,
+  TextTitle,
+  HorizontalMenu,
+  HorizontalCardContainer,
+} from '../components'
+import { useSelector, useDispatch } from 'react-redux'
 
 import { COLORS, SIZES, FONTS } from '../constants'
+import * as libraryActions from '../store/actions/library'
 
 const menuItems = [
   {
@@ -24,7 +31,32 @@ const menuItems = [
 ]
 
 const Library = () => {
-  const [activeMenuItem, setActiveMenuItem] = useState(1)
+  const [activeMenuItem, setActiveMenuItem] = useState({
+    title: 'Made For You',
+    id: 1,
+  })
+  const library = useSelector((state) => state.library)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(libraryActions.getTopArtists())
+  }, [dispatch])
+
+  const renderMadeForYouContainer = () => {
+    // top artists
+    // top tracks
+    // recomemendations
+    return (
+      <View>
+        <HorizontalCardContainer
+          cardItemImageStyle={{ opacity: 1 }}
+          cardItemTextStyle={{ position: 'relative', paddingTop: 15 }}
+          data={library.topArtists}
+          label='YOUR TOP ARTISTS'
+        />
+      </View>
+    )
+  }
 
   return (
     <View
@@ -41,7 +73,19 @@ const Library = () => {
           <View>
             <Header />
             <TextTitle containerStyle={{ ...FONTS.h1 }} label='YOUR LIBRARY' />
-            <HorizontalMenu menuItems={menuItems} />
+            <HorizontalMenu
+              activeMenuItem={activeMenuItem}
+              setActiveMenuItem={setActiveMenuItem}
+              menuItems={menuItems}
+            />
+          </View>
+        }
+        ListFooterComponent={
+          <View>
+            {activeMenuItem.id === 1 && renderMadeForYouContainer()}
+            {activeMenuItem.id === 2 && (
+              <Text style={{ color: COLORS.white }}>Recently played</Text>
+            )}
           </View>
         }
       />

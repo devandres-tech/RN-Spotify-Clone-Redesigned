@@ -1,11 +1,9 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { View, Text, FlatList, TouchableOpacity } from 'react-native'
 
 import { COLORS, SIZES, FONTS } from '../constants'
 
-const HorizontalMenu = ({ menuItems }) => {
-  const [activeMenuItem, setActiveMenuItem] = useState(1)
-
+const HorizontalMenu = ({ menuItems, activeMenuItem, setActiveMenuItem }) => {
   return (
     <View
       style={{
@@ -24,7 +22,7 @@ const HorizontalMenu = ({ menuItems }) => {
         renderItem={({ item }) => {
           return (
             <TouchableOpacity
-              onPress={() => setActiveMenuItem(item.id)}
+              onPress={() => setActiveMenuItem(item)}
               style={{
                 marginRight: 20,
                 height: 55,
@@ -35,10 +33,10 @@ const HorizontalMenu = ({ menuItems }) => {
               <Text
                 style={{
                   color:
-                    item.id === activeMenuItem
+                    item.id === activeMenuItem.id
                       ? COLORS.white
                       : COLORS.lightGray,
-                  fontWeight: item.id === activeMenuItem ? 'bold' : 'normal',
+                  fontWeight: item.id === activeMenuItem.id ? 'bold' : 'normal',
                   ...FONTS.menuText,
                 }}
               >
@@ -51,7 +49,9 @@ const HorizontalMenu = ({ menuItems }) => {
                   justifyContent: 'center',
                   width: 35,
                   backgroundColor:
-                    item.id === activeMenuItem ? COLORS.primary : 'transparent',
+                    item.id === activeMenuItem.id
+                      ? COLORS.primary
+                      : 'transparent',
                   height: 3,
                   borderRadius: 50,
                 }}

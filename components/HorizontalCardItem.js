@@ -26,7 +26,7 @@ const HorizontalCardItem = ({
         style={{
           width: 135,
           height: 135,
-          borderRadius: type === 'album' ? 15 : 0,
+          borderRadius: type === 'album' ? 15 : type === 'artist' ? 70 : 0,
           opacity: 0.6,
           marginBottom: -5,
           ...cardItemImageStyle,
@@ -36,6 +36,8 @@ const HorizontalCardItem = ({
       <Text
         style={{
           color: COLORS.white,
+          // alignSelf: type === 'artist' ? 'center' : 'center',
+          alignSelf: 'center',
           ...FONTS.cardItemText,
           ...cardItemTextStyle,
         }}
