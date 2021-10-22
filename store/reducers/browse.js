@@ -13,6 +13,9 @@ const initialState = {
   latin: [{ description: '', images: [{ url: '' }] }],
   in_the_car: [{ description: '', images: [{ url: '' }] }],
   regional_mexican: [{ description: '', images: [{ url: '' }] }],
+  mood: [{ description: '', images: [{ url: '' }] }],
+  equal: [{ description: '', images: [{ url: '' }] }],
+  at_home: [{ description: '', images: [{ url: '' }] }],
 }
 
 export default (state = initialState, action) => {
