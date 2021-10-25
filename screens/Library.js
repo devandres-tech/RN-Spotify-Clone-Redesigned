@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, FlatList } from 'react-native'
+import { View, Text, FlatList, Image } from 'react-native'
 import {
   Header,
   TextTitle,
@@ -7,8 +7,9 @@ import {
   HorizontalCardContainer,
 } from '../components'
 import { useSelector, useDispatch } from 'react-redux'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 
-import { COLORS, SIZES, FONTS } from '../constants'
+import { COLORS, SIZES, FONTS, icons } from '../constants'
 import * as libraryActions from '../store/actions/library'
 import * as playlistActions from '../store/actions/playlist'
 import * as userActions from '../store/actions/user'
@@ -50,7 +51,6 @@ const Library = () => {
   }, [dispatch])
 
   const renderMadeForYouContainer = () => {
-    // recomemendations
     return (
       <View>
         <HorizontalCardContainer
@@ -100,14 +100,55 @@ const Library = () => {
         ListFooterComponent={
           <View style={{ paddingBottom: 120 }}>
             {activeMenuItem.id === 1 && renderMadeForYouContainer()}
-            {activeMenuItem.id === 2 && (
-              <HorizontalCardContainer
-                cardItemImageStyle={{ opacity: 1 }}
-                cardItemTextStyle={{ position: 'relative', paddingTop: 15 }}
-                data={user.recentlyPlayed}
-                label='RECENTLY PLAYED'
-              />
-            )}
+            {activeMenuItem.id === 2 &&
+              user.recentlyPlayed.map((track) => {
+                return (
+                  <TouchableOpacity activeOpacity={0.7}>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        justifyContent: 'flex-start',
+                        alignItems: 'center',
+                        marginBottom: 30,
+                        paddingHorizontal: SIZES.padding,
+                      }}
+                    >
+                      {/* album cover */}
+                      <Image
+                        style={{
+                          width: 40,
+                          height: 40,
+                          borderRadius: 50,
+                          marginRight: 20,
+                        }}
+                        source={{ uri: track.images[0].url }}
+                      />
+                      {/* play / mute icon  */}
+                      <Image
+                        style={{
+                          height: 15,
+                          width: 15,
+                          marginRight: 20,
+                          tintColor: COLORS.white,
+                        }}
+                        source={icons.play}
+                      />
+                      <View>
+                        <Text style={{ color: COLORS.white, ...FONTS.body }}>
+                          {track.name}
+                        </Text>
+                        <Text
+                          style={{ color: COLORS.lightGray, ...FONTS.body }}
+                        >
+                          {track.albumName.length > 30
+                            ? track.albumName.substring(0, 30) + '...'
+                            : track.albumName.trim()}
+                        </Text>
+                      </View>
+                    </View>
+                  </TouchableOpacity>
+                )
+              })}
           </View>
         }
       />
