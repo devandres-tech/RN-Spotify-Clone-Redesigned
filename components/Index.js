@@ -5,8 +5,10 @@ import TextTitle from './TextTitle'
 import HorizontalCardContainer from './HorizontalCardContainer'
 import Header from './Header'
 import HorizontalMenu from './HorizontalMenu'
+import TrackItem from './TrackItem'
 
 export {
+  TrackItem,
   TabBarIcon,
   TextButton,
   HorizontalCardItem,
