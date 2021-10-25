@@ -1,11 +1,13 @@
 import {
   GET_LIBRARY_TOP_ARTISTS,
   GET_LIBRARY_TOP_TRACKS,
+  GET_LIBRARY_USER_TRACKS,
 } from '../actions/library'
 
 const initialState = {
   topArtists: [],
   topTracks: [],
+  userTracks: [],
 }
 
 export default (state = initialState, action) => {
@@ -20,6 +22,12 @@ export default (state = initialState, action) => {
       return {
         ...state,
         topTracks: action.topTracks,
+      }
+
+    case GET_LIBRARY_USER_TRACKS:
+      return {
+        ...state,
+        userTracks: action.userTracks,
       }
 
     default:
