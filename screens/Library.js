@@ -10,6 +10,8 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import { COLORS, SIZES, FONTS } from '../constants'
 import * as libraryActions from '../store/actions/library'
+import * as playlistActions from '../store/actions/playlist'
+import * as userActions from '../store/actions/user'
 
 const menuItems = [
   {
@@ -36,16 +38,18 @@ const Library = () => {
     id: 1,
   })
   const library = useSelector((state) => state.library)
+  const playlist = useSelector((state) => state.playlist)
+  const user = useSelector((state) => state.user)
   const dispatch = useDispatch()
 
   useEffect(() => {
     dispatch(libraryActions.getTopArtists())
     dispatch(libraryActions.getTopTracks())
+    dispatch(userActions.getRecentlyPlayed(10))
+    dispatch(playlistActions.getNewReleases(10))
   }, [dispatch])
 
   const renderMadeForYouContainer = () => {
-    // top artists
-    // top tracks
     // recomemendations
     return (
       <View>
@@ -60,6 +64,12 @@ const Library = () => {
           cardItemTextStyle={{ position: 'relative', paddingTop: 15 }}
           data={library.topTracks}
           label='YOUR TOP TRACKS'
+        />
+        <HorizontalCardContainer
+          cardItemImageStyle={{ opacity: 1 }}
+          cardItemTextStyle={{ position: 'relative', paddingTop: 15 }}
+          data={playlist.newReleases}
+          label='NEW RELEASES'
         />
       </View>
     )
@@ -88,10 +98,15 @@ const Library = () => {
           </View>
         }
         ListFooterComponent={
-          <View>
+          <View style={{ paddingBottom: 120 }}>
             {activeMenuItem.id === 1 && renderMadeForYouContainer()}
             {activeMenuItem.id === 2 && (
-              <Text style={{ color: COLORS.white }}>Recently played</Text>
+              <HorizontalCardContainer
+                cardItemImageStyle={{ opacity: 1 }}
+                cardItemTextStyle={{ position: 'relative', paddingTop: 15 }}
+                data={user.recentlyPlayed}
+                label='RECENTLY PLAYED'
+              />
             )}
           </View>
         }

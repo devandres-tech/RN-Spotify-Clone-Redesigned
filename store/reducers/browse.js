@@ -16,6 +16,7 @@ const initialState = {
   mood: [{ description: '', images: [{ url: '' }] }],
   equal: [{ description: '', images: [{ url: '' }] }],
   at_home: [{ description: '', images: [{ url: '' }] }],
+  pride: [{ description: '', images: [{ url: '' }] }],
 }
 
 export default (state = initialState, action) => {
