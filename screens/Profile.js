@@ -2,7 +2,12 @@ import React, { useEffect, useState } from 'react'
 import { View, FlatList, Image, Text } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 
-import { Header, HorizontalMenu, HorizontalCardContainer } from '../components'
+import {
+  Header,
+  HorizontalMenu,
+  HorizontalCardContainer,
+  TextButton,
+} from '../components'
 import { COLORS, FONTS, SIZES } from '../constants'
 import * as userActions from '../store/actions/user'
 import * as playlistActions from '../store/actions/playlist'
@@ -131,6 +136,58 @@ const Profile = () => {
     )
   }
 
+  const renderUserFollows = () => {
+    return (
+      <View>
+        {user.follows.map((artist) => {
+          return (
+            <TouchableOpacity
+              activeOpacity={0.7}
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                marginBottom: 10,
+              }}
+            >
+              <Image
+                style={{
+                  width: 70,
+                  height: 70,
+                  borderRadius: 35,
+                  marginRight: 10,
+                }}
+                source={{ uri: artist.images[0].url }}
+              />
+              <View style={{ flex: 2 }}>
+                <Text
+                  style={{ color: COLORS.white, paddingBottom: 4, ...FONTS.h3 }}
+                >
+                  {artist.name}
+                </Text>
+                <Text style={{ color: COLORS.white, ...FONTS.body }}>
+                  {Number(artist.followers.total.toFixed(2)).toLocaleString(
+                    'en-US'
+                  )}{' '}
+                  followers
+                </Text>
+              </View>
+              <TextButton
+                buttonContainerStyle={{
+                  alignSelf: 'flex-end',
+                  paddingHorizontal: 20,
+                  backgroundColor: 'transparent',
+                  borderWidth: 1,
+                  borderColor: COLORS.white,
+                }}
+                label='following'
+              />
+            </TouchableOpacity>
+          )
+        })}
+      </View>
+    )
+  }
+
   return (
     <View
       style={{
@@ -154,9 +211,12 @@ const Profile = () => {
           </View>
         }
         ListFooterComponent={
-          <View style={{ paddingBottom: 120 }}>
+          <View
+            style={{ paddingBottom: 120, paddingHorizontal: SIZES.padding }}
+          >
             {activeMenuItem.id === 1 && renderOverview()}
             {activeMenuItem.id === 2 && renderUserPublicPlaylists()}
+            {activeMenuItem.id === 3 && renderUserFollows()}
           </View>
         }
       />
