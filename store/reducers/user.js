@@ -3,6 +3,7 @@ import {
   GET_USER_PROFILE,
   GET_USER_RECENTLY_PLAYED,
   GET_USER_TOP_ARTISTS,
+  GET_USER_FOLLOWS,
 } from '../actions/user'
 
 const initialState = {
@@ -12,6 +13,7 @@ const initialState = {
   playlists: [{ id: '', name: '', images: [{ url: '' }] }],
   recentlyPlayed: [],
   topArtists: [],
+  follows: [],
 }
 
 export default (state = initialState, action) => {
@@ -31,6 +33,10 @@ export default (state = initialState, action) => {
 
     case GET_USER_TOP_ARTISTS: {
       return { ...state, topArtists: action.topArtists }
+    }
+
+    case GET_USER_FOLLOWS: {
+      return { ...state, follows: action.follows }
     }
 
     default:

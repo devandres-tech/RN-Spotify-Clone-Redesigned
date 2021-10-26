@@ -20,6 +20,7 @@ const spotifyAuthConfig = {
     'user-library-read',
     'user-top-read',
     'user-read-recently-played',
+    'user-follow-read',
   ],
   serviceConfiguration: {
     authorizationEndpoint: 'https://accounts.spotify.com/authorize',

@@ -4,6 +4,7 @@ export const GET_USER_PROFILE = 'GET_USER_PROFILE'
 export const GET_USER_PLAYLISTS = 'GET_USER_PLAYLISTS'
 export const GET_USER_RECENTLY_PLAYED = 'GET_USER_RECENTLY_PLAYED'
 export const GET_USER_TOP_ARTISTS = 'GET_USER_TOP_ARTISTS'
+export const GET_USER_FOLLOWS = 'GET_USER_FOLLOWS'
 
 const setHeaders = (accessToken) => {
   return {
@@ -92,6 +93,26 @@ export const getTopArtists = (time_range, limit) => {
       )
       const data = await response.json()
       dispatch({ type: GET_USER_TOP_ARTISTS, topArtists: data.items })
+    } catch (error) {
+      console.log('error')
+      throw error
+    }
+  }
+}
+
+export const getUserFollows = (limit) => {
+  return async (dispatch, getState) => {
+    const accessToken = getState().auth.accessToken
+    try {
+      const response = await fetch(
+        `${BASE_URL}/me/following?type=artist&limit=${limit}`,
+        {
+          method: 'GET',
+          headers: setHeaders(accessToken),
+        }
+      )
+      const data = await response.json()
+      dispatch({ type: GET_USER_FOLLOWS, follows: data.artists.items })
     } catch (error) {
       console.log('error')
       throw error

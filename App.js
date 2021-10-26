@@ -19,7 +19,7 @@ const Stack = createNativeStackNavigator()
 const MainTabNavigator = () => {
   return (
     <Tab.Navigator
-      initialRouteName='Library'
+      initialRouteName='Profile'
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused }) => {
           let iconSrc
