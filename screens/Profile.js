@@ -5,9 +5,11 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Header, HorizontalMenu, HorizontalCardContainer } from '../components'
 import { COLORS, FONTS, SIZES } from '../constants'
 import * as userActions from '../store/actions/user'
+import * as playlistActions from '../store/actions/playlist'
 
 const Profile = () => {
   const user = useSelector((state) => state.user)
+  const playlist = useSelector((state) => state.playlist)
   const [activeMenuItem, setActiveMenuItem] = useState({
     title: 'Overview',
     id: 1,
@@ -17,6 +19,8 @@ const Profile = () => {
   useEffect(() => {
     dispatch(userActions.getProfile())
     dispatch(userActions.getUserFollows(10))
+    dispatch(userActions.getRecentlyPlayed(10))
+    dispatch(playlistActions.getNewReleases(10))
   }, [dispatch])
 
   const menuItems = [
@@ -60,7 +64,23 @@ const Profile = () => {
   }
 
   const renderOverview = () => {
-    return <View>{/* currently playing track  */}</View>
+    return (
+      <View>
+        {/* currently playing track  */}
+        <HorizontalCardContainer
+          cardItemImageStyle={{ opacity: 1 }}
+          cardItemTextStyle={{ position: 'relative', paddingTop: 15 }}
+          data={user.recentlyPlayed}
+          label='RECENTLY PLAYED'
+        />
+        <HorizontalCardContainer
+          cardItemImageStyle={{ opacity: 1 }}
+          cardItemTextStyle={{ position: 'relative', paddingTop: 15 }}
+          data={playlist.newReleases}
+          label='DISCOVER NEW MUSIC'
+        />
+      </View>
+    )
   }
 
   return (
