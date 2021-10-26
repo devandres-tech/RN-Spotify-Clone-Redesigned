@@ -9,8 +9,17 @@ import {
 const initialState = {
   data: {
     display_name: '',
+    images: [{ url: '' }],
   },
-  playlists: [{ id: '', name: '', images: [{ url: '' }] }],
+  playlists: [
+    {
+      id: '',
+      name: '',
+      images: [{ url: '' }],
+      owner: { display_name: '' },
+      tracks: { total: '' },
+    },
+  ],
   recentlyPlayed: [],
   topArtists: [],
   follows: [],

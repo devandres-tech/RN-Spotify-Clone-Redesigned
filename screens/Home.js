@@ -25,7 +25,7 @@ const Home = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(userActions.getPlaylists(10))
+    dispatch(userActions.getPlaylists(40))
     dispatch(userActions.getRecentlyPlayed(10))
     dispatch(userActions.getTopArtists('long_term', 3))
     dispatch(playlistActions.getFeaturedPlaylists(1))

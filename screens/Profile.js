@@ -6,6 +6,7 @@ import { Header, HorizontalMenu, HorizontalCardContainer } from '../components'
 import { COLORS, FONTS, SIZES } from '../constants'
 import * as userActions from '../store/actions/user'
 import * as playlistActions from '../store/actions/playlist'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 
 const Profile = () => {
   const user = useSelector((state) => state.user)
@@ -20,6 +21,7 @@ const Profile = () => {
     dispatch(userActions.getProfile())
     dispatch(userActions.getUserFollows(10))
     dispatch(userActions.getRecentlyPlayed(10))
+    dispatch(userActions.getPlaylists(40))
     dispatch(playlistActions.getNewReleases(10))
   }, [dispatch])
 
@@ -83,6 +85,52 @@ const Profile = () => {
     )
   }
 
+  const renderUserPublicPlaylists = () => {
+    return (
+      <View>
+        {user.playlists
+          .filter(
+            (playlist) =>
+              playlist.owner.display_name === user.data.display_name &&
+              playlist.public
+          )
+          .map((filteredPlaylist) => {
+            return (
+              <TouchableOpacity activeOpacity={0.7}>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    marginBottom: 30,
+                    paddingHorizontal: SIZES.padding,
+                  }}
+                >
+                  <Image
+                    style={{ width: 60, height: 60, marginRight: 20 }}
+                    source={{ uri: filteredPlaylist.images[0].url }}
+                  />
+                  <View>
+                    <Text
+                      style={{
+                        color: COLORS.white,
+                        paddingBottom: 5,
+                        ...FONTS.h3,
+                      }}
+                    >
+                      {filteredPlaylist.name}
+                    </Text>
+                    <Text style={{ color: COLORS.white, ...FONTS.body }}>
+                      Total tracks: {filteredPlaylist.tracks.total}
+                    </Text>
+                  </View>
+                </View>
+              </TouchableOpacity>
+            )
+          })}
+      </View>
+    )
+  }
+
   return (
     <View
       style={{
@@ -108,6 +156,7 @@ const Profile = () => {
         ListFooterComponent={
           <View style={{ paddingBottom: 120 }}>
             {activeMenuItem.id === 1 && renderOverview()}
+            {activeMenuItem.id === 2 && renderUserPublicPlaylists()}
           </View>
         }
       />
