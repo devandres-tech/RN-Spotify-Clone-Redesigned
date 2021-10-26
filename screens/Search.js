@@ -33,63 +33,65 @@ const Search = () => {
   const renderCardItems = () => {
     return categories.map((category) => {
       let catId = category.id
-      return (
-        <TouchableOpacity
-          activeOpacity={0.7}
-          style={{ paddingBottom: SIZES.paddingBottom }}
-        >
-          <View
-            style={{
-              backgroundColor: COLORS.lightGray3,
-              padding: 10,
-              borderRadius: 20,
-              flexDirection: 'row-reverse',
-            }}
+      if (browse[catId]) {
+        return (
+          <TouchableOpacity
+            activeOpacity={0.7}
+            style={{ paddingBottom: SIZES.paddingBottom }}
           >
-            {browse[catId].reverse().map((categoryPlaylist) => {
-              return (
-                <View
-                  style={{
-                    width: 30,
-                    position: 'relative',
-                    left: 50,
-                  }}
-                >
-                  <Image
-                    style={{
-                      height: 135,
-                      width: 80,
-                      borderRadius: 20,
-                    }}
-                    source={{ uri: categoryPlaylist.images[0].url }}
-                  />
-                </View>
-              )
-            })}
-
             <View
               style={{
-                width: 185,
-                marginRight: 58,
-                justifyContent: 'center',
+                backgroundColor: COLORS.lightGray3,
+                padding: 10,
+                borderRadius: 20,
+                flexDirection: 'row-reverse',
               }}
             >
-              <Text
+              {browse[catId].reverse().map((categoryPlaylist) => {
+                return (
+                  <View
+                    style={{
+                      width: 30,
+                      position: 'relative',
+                      left: 50,
+                    }}
+                  >
+                    <Image
+                      style={{
+                        height: 135,
+                        width: 80,
+                        borderRadius: 20,
+                      }}
+                      source={{ uri: categoryPlaylist.images[0].url }}
+                    />
+                  </View>
+                )
+              })}
+
+              <View
                 style={{
-                  color: COLORS.white,
-                  paddingBottom: 10,
-                  ...FONTS.h2,
+                  width: 185,
+                  marginRight: 58,
+                  justifyContent: 'center',
                 }}
               >
-                {category.name.toUpperCase()}
-              </Text>
-              <Text style={{ color: COLORS.white, ...FONTS.body }}>
-                {browse[catId][0].description}
-              </Text>
+                <Text
+                  style={{
+                    color: COLORS.white,
+                    paddingBottom: 10,
+                    ...FONTS.h2,
+                  }}
+                >
+                  {category.name.toUpperCase()}
+                </Text>
+                <Text style={{ color: COLORS.white, ...FONTS.body }}>
+                  {browse[catId][0].description}
+                </Text>
+              </View>
             </View>
-          </View>
-        </TouchableOpacity>
-      )
+          </TouchableOpacity>
+        )
+      }
     })
   }
 

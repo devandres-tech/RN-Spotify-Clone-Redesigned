@@ -4,7 +4,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 
 import { COLORS, SIZES, FONTS, icons } from '../constants'
 
-const TrackItem = ({ trackName, albumName, albumImageUrl }) => {
+const TrackItem = ({ trackName, albumName, albumImageUrl, artist }) => {
   return (
     <TouchableOpacity
       activeOpacity={0.7}
@@ -41,9 +41,14 @@ const TrackItem = ({ trackName, albumName, albumImageUrl }) => {
           source={icons.play}
         />
         <View>
-          <Text style={{ color: COLORS.white, ...FONTS.body }}>
-            {trackName}
-          </Text>
+          {trackName && (
+            <Text style={{ color: COLORS.white, ...FONTS.body }}>
+              {trackName}
+            </Text>
+          )}
+          {artist && (
+            <Text style={{ color: COLORS.white, ...FONTS.body }}>{artist}</Text>
+          )}
           <Text style={{ color: COLORS.lightGray, ...FONTS.body }}>
             {albumName.length > 30
               ? albumName.substring(0, 30) + '...'

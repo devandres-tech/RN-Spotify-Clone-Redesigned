@@ -47,6 +47,7 @@ const Library = () => {
     dispatch(libraryActions.getTopArtists())
     dispatch(libraryActions.getTopTracks())
     dispatch(libraryActions.getUserTracks())
+    dispatch(libraryActions.getUserAlbums())
     dispatch(userActions.getRecentlyPlayed(10))
     dispatch(playlistActions.getNewReleases(10))
   }, [dispatch])
@@ -118,6 +119,16 @@ const Library = () => {
                     albumName={track.albumName}
                     trackName={track.name}
                     albumImageUrl={track.album.images[0].url}
+                  />
+                )
+              })}
+            {activeMenuItem.id === 4 &&
+              library.userAlbums.map((album) => {
+                return (
+                  <TrackItem
+                    artist={album.artists[0].name}
+                    albumName={album.albumName}
+                    albumImageUrl={album.images[0].url}
                   />
                 )
               })}

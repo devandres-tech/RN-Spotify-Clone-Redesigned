@@ -3,6 +3,7 @@ import { BASE_URL } from '@env'
 export const GET_LIBRARY_TOP_ARTISTS = 'GET_LIBRARY_TOP_ARTISTS'
 export const GET_LIBRARY_TOP_TRACKS = 'GET_LIBRARY_TOP_TRACKS'
 export const GET_LIBRARY_USER_TRACKS = 'GET_LIBRARY_USER_TRACKS'
+export const GET_LIBRARY_USER_ALBUMS = 'GET_LIBRARY_USER_ALBUMS'
 
 const setHeaders = (accessToken) => {
   return {
@@ -75,8 +76,30 @@ export const getUserTracks = () => {
         const id = item.track.id
         return { ...item.track, name: trackName, albumName, id }
       })
-      console.log('data', albums)
       dispatch({ type: GET_LIBRARY_USER_TRACKS, userTracks: albums })
+    } catch (error) {
+      console.log('error')
+      throw error
+    }
+  }
+}
+
+export const getUserAlbums = () => {
+  return async (dispatch, getState) => {
+    const accessToken = getState().auth.accessToken
+    try {
+      const response = await fetch(`${BASE_URL}/me/albums?limit=20`, {
+        method: 'GET',
+        headers: setHeaders(accessToken),
+      })
+
+      const data = await response.json()
+      const albums = data.items.map((item) => {
+        const albumName = item.album.name
+        const id = item.album.id
+        return { ...item.album, albumName, id }
+      })
+      dispatch({ type: GET_LIBRARY_USER_ALBUMS, userAlbums: albums })
     } catch (error) {
       console.log('error')
       throw error
