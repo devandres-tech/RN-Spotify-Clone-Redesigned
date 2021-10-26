@@ -34,10 +34,7 @@ const menuItems = [
 ]
 
 const Library = () => {
-  const [activeMenuItem, setActiveMenuItem] = useState({
-    title: 'Made For You',
-    id: 1,
-  })
+  const [activeMenuItem, setActiveMenuItem] = useState(menuItems[0])
   const library = useSelector((state) => state.library)
   const playlist = useSelector((state) => state.playlist)
   const user = useSelector((state) => state.user)
