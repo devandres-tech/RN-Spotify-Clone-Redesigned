@@ -20,7 +20,11 @@ const HorizontalCardItem = ({
   navigation,
 }) => {
   const onCardItemHandler = () => {
-    navigation.navigate('Tracks', { id })
+    navigation.navigate('Tracks', {
+      id,
+      albumImageUrl: imageUrl,
+      playlistTitle: cardLabel,
+    })
   }
 
   return (

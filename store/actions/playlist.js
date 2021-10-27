@@ -92,7 +92,7 @@ export const getPlaylistTracks = (playlistId) => {
         }
       )
       const data = await response.json()
-      dispatch({ type: GET_PLAYLIST_TRACKS, tracks: data })
+      dispatch({ type: GET_PLAYLIST_TRACKS, tracks: data.items })
     } catch (error) {
       console.log('error')
       throw error
