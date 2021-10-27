@@ -8,9 +8,9 @@ import { ActivityIndicator, StatusBar, View } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 
-import { Home, Library, Search, Profile, Authorize } from './screens'
+import { Home, Library, Search, Profile, Authorize, Tracks } from './screens'
 import { icons, COLORS, SIZES } from './constants'
-import { Header, TabBarIcon } from './components'
+import { TabBarIcon } from './components'
 import * as authActions from './store/actions/auth'
 
 const Tab = createBottomTabNavigator()
@@ -19,7 +19,7 @@ const Stack = createNativeStackNavigator()
 const MainTabNavigator = () => {
   return (
     <Tab.Navigator
-      initialRouteName='Profile'
+      initialRouteName='Home'
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused }) => {
           let iconSrc
@@ -124,13 +124,15 @@ const App = () => {
       />
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName='Authorize'
           screenOptions={() => ({
             headerShown: false,
           })}
         >
           {auth.accessToken ? (
-            <Stack.Screen name='Main' component={MainTabNavigator} />
+            <Stack.Group>
+              <Stack.Screen name='Main' component={MainTabNavigator} />
+              <Stack.Screen name='Tracks' component={Tracks} />
+            </Stack.Group>
           ) : (
             <Stack.Screen name='Authorize' component={Authorize} />
           )}
