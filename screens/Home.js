@@ -19,7 +19,7 @@ import {
   TextTitle,
 } from '../components'
 
-const Home = () => {
+const Home = ({ navigation }) => {
   const user = useSelector((state) => state.user)
   const playlist = useSelector((state) => state.playlist)
   const dispatch = useDispatch()
@@ -134,6 +134,7 @@ const Home = () => {
         ListFooterComponent={
           <View style={{ paddingBottom: 120 }}>
             <HorizontalCardContainer
+              navigation={navigation}
               cardItemTextStyle={{
                 paddingLeft: 10,
                 position: 'absolute',

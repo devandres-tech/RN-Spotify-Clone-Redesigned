@@ -16,9 +16,16 @@ const HorizontalCardItem = ({
   albumName,
   albumType,
   artists,
+  id,
+  navigation,
 }) => {
+  const onCardItemHandler = () => {
+    navigation.navigate('Tracks', { id })
+  }
+
   return (
     <TouchableOpacity
+      onPress={() => onCardItemHandler()}
       activeOpacity={0.7}
       style={{
         marginRight: 10,

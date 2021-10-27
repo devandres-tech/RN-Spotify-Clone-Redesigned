@@ -11,6 +11,7 @@ const HorizontalCardContainer = ({
   containerStyle,
   cardItemImageStyle,
   cardItemTextStyle,
+  navigation,
 }) => {
   return (
     <View
@@ -28,6 +29,8 @@ const HorizontalCardContainer = ({
         renderItem={({ item, index }) => {
           return (
             <HorizontalCardItem
+              navigation={navigation}
+              id={item.id}
               index={index}
               cardItemTextStyle={cardItemTextStyle}
               cardItemImageStyle={cardItemImageStyle}
