@@ -180,7 +180,7 @@ const Home = ({ navigation }) => {
                   <TextButton
                     label='CHECK IT OUT'
                     buttonContainerStyle={{
-                      backgroundColor: 'transparent',
+                      backgroundColor: COLORS.black,
                       borderWidth: 1,
                       borderColor: COLORS.white,
                     }}
