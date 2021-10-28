@@ -9,11 +9,10 @@ import {
   StyleSheet,
 } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
-import { SafeAreaProvider } from 'react-native-safe-area-context'
 import LinearGradient from 'react-native-linear-gradient'
 import HTMLView from 'react-native-htmlview'
 
-import { COLORS, FONTS, SIZES } from '../constants'
+import { COLORS, FONTS } from '../constants'
 import * as playlistActions from '../store/actions/playlist'
 import { TextTitle } from '../components'
 
@@ -28,7 +27,6 @@ const Tracks = ({ route: { params } }) => {
 
   return (
     <SafeAreaView style={{ backgroundColor: COLORS.black, flex: 1 }}>
-      {/* <View> */}
       <StatusBar
         animated={true}
         barStyle={'light-content'}
@@ -36,10 +34,8 @@ const Tracks = ({ route: { params } }) => {
       />
       <View
         style={{
-          // justifyContent: 'center',
           alignItems: 'center',
-
-          height: 400,
+          height: 410,
         }}
       >
         <Image
@@ -49,13 +45,13 @@ const Tracks = ({ route: { params } }) => {
           }}
           source={{ uri: albumImageUrl }}
         />
+
         <LinearGradient
           style={{
             position: 'absolute',
             height: 210,
             width: '100%',
             bottom: 0,
-            // bottom: 'auto',
           }}
           colors={[
             'rgba(7, 7, 7, 0.00)',
@@ -66,35 +62,31 @@ const Tracks = ({ route: { params } }) => {
             'rgb(7, 7, 7)',
           ]}
         />
-        {/* <Text style={{ color: COLORS.white }}>{description}</Text> */}
-        <HTMLView stylesheet={styles} value={`<p>${description}</p>`} />
         <TextTitle
           containerStyle={{
             textAlign: 'center',
-
             position: 'relative',
             bottom: 120,
           }}
           label={playlistTitle.toUpperCase()}
         />
+        <HTMLView stylesheet={styles} value={`<p>${description}</p>`} />
       </View>
-      {/* </View> */}
     </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
   a: {
-    color: '#FF3366', // make links coloured pink
+    color: COLORS.primary,
   },
   p: {
     position: 'relative',
     bottom: 120,
-    color: COLORS.white,
+    color: COLORS.lightGray,
     textAlign: 'center',
     paddingHorizontal: 10,
     paddingBottom: 25,
-
     ...FONTS.body,
   },
 })
