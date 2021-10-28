@@ -6,13 +6,7 @@ import { COLORS, SIZES, FONTS, icons } from '../constants'
 
 const TrackItem = ({ trackName, albumName, albumImageUrl, artist }) => {
   return (
-    <TouchableOpacity
-      activeOpacity={0.7}
-      style={{
-        borderBottomColor: COLORS.lightGray3,
-        borderWidth: 1,
-      }}
-    >
+    <TouchableOpacity activeOpacity={0.7}>
       <View
         style={{
           flexDirection: 'row',
@@ -20,6 +14,7 @@ const TrackItem = ({ trackName, albumName, albumImageUrl, artist }) => {
           alignItems: 'center',
           paddingVertical: 10,
           paddingHorizontal: SIZES.padding,
+          marginBottom: 10,
         }}
       >
         <Image
@@ -49,11 +44,13 @@ const TrackItem = ({ trackName, albumName, albumImageUrl, artist }) => {
           {artist && (
             <Text style={{ color: COLORS.white, ...FONTS.body }}>{artist}</Text>
           )}
-          <Text style={{ color: COLORS.lightGray, ...FONTS.body }}>
-            {albumName.length > 30
-              ? albumName.substring(0, 30) + '...'
-              : albumName.trim()}
-          </Text>
+          {albumName && (
+            <Text style={{ color: COLORS.lightGray, ...FONTS.body }}>
+              {albumName.length > 30
+                ? albumName.substring(0, 30) + '...'
+                : albumName.trim()}
+            </Text>
+          )}
         </View>
       </View>
     </TouchableOpacity>

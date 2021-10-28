@@ -92,7 +92,10 @@ export const getPlaylistTracks = (playlistId) => {
         }
       )
       const data = await response.json()
-      dispatch({ type: GET_PLAYLIST_TRACKS, tracks: data.items })
+      const tracks = data.items.map((item) => {
+        return item.track
+      })
+      dispatch({ type: GET_PLAYLIST_TRACKS, tracks })
     } catch (error) {
       console.log('error')
       throw error
