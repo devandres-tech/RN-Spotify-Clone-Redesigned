@@ -82,6 +82,7 @@ const Tracks = ({ route: { params } }) => {
         renderItem={({ item }) => {
           return (
             <TrackItem
+              duration={item.duration_ms}
               trackName={item.name}
               artist={item.album.artists[0].name}
               albumImageUrl={item.album.images[0].url}

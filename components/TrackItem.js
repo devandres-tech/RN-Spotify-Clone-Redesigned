@@ -4,13 +4,21 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 
 import { COLORS, SIZES, FONTS, icons } from '../constants'
 
-const TrackItem = ({ trackName, albumName, albumImageUrl, artist }) => {
+const TrackItem = ({
+  trackName,
+  albumName,
+  albumImageUrl,
+  artist,
+  duration,
+}) => {
+  const date = new Date(duration)
   return (
     <TouchableOpacity activeOpacity={0.7}>
       <View
         style={{
+          flex: 1,
           flexDirection: 'row',
-          justifyContent: 'flex-start',
+          // justifyContent: 'flex-start',
           alignItems: 'center',
           paddingVertical: 10,
           paddingHorizontal: SIZES.padding,
@@ -37,12 +45,16 @@ const TrackItem = ({ trackName, albumName, albumImageUrl, artist }) => {
         />
         <View>
           {trackName && (
-            <Text style={{ color: COLORS.white, ...FONTS.body }}>
+            <Text
+              style={{ color: COLORS.white, fontWeight: 'bold', ...FONTS.body }}
+            >
               {trackName}
             </Text>
           )}
           {artist && (
-            <Text style={{ color: COLORS.white, ...FONTS.body }}>{artist}</Text>
+            <Text style={{ color: COLORS.lightGray, ...FONTS.body }}>
+              {artist}
+            </Text>
           )}
           {albumName && (
             <Text style={{ color: COLORS.lightGray, ...FONTS.body }}>
@@ -50,6 +62,19 @@ const TrackItem = ({ trackName, albumName, albumImageUrl, artist }) => {
                 ? albumName.substring(0, 30) + '...'
                 : albumName.trim()}
             </Text>
+          )}
+        </View>
+
+        <View
+          style={{
+            flex: 2,
+            alignItems: 'flex-end',
+          }}
+        >
+          {duration && (
+            <Text
+              style={{ color: COLORS.lightGray, ...FONTS.body }}
+            >{`${date.getMinutes()}:${date.getSeconds()}`}</Text>
           )}
         </View>
       </View>

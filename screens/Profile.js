@@ -178,6 +178,7 @@ const Profile = () => {
                   backgroundColor: 'transparent',
                   borderWidth: 1,
                   borderColor: COLORS.white,
+                  height: 35,
                 }}
                 label='following'
               />

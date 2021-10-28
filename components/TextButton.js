@@ -13,7 +13,7 @@ const TextButton = ({ label, labelStyle, onPress, buttonContainerStyle }) => {
         backgroundColor: COLORS.primary,
         alignItems: 'center',
         justifyContent: 'center',
-        height: 45,
+        height: 40,
         borderRadius: 50,
         paddingHorizontal: 40,
         ...buttonContainerStyle,
