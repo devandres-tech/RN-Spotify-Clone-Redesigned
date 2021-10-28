@@ -182,7 +182,6 @@ const Home = ({ navigation }) => {
                     buttonContainerStyle={{
                       backgroundColor: COLORS.black,
                       borderWidth: 1,
-                      borderColor: COLORS.white,
                     }}
                   />
                 </ImageBackground>
