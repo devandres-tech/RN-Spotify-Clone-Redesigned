@@ -21,7 +21,7 @@ const Tracks = ({ route: { params } }) => {
   const playlist = useSelector((state) => state.playlist)
   const album = useSelector((state) => state.album)
   const dispatch = useDispatch()
-  const { id, albumImageUrl, playlistTitle, description, type } = params
+  const { id, type } = params
 
   useEffect(() => {
     if (type === 'playlist') {
@@ -31,7 +31,13 @@ const Tracks = ({ route: { params } }) => {
     }
   }, [id, dispatch, type])
 
-  const renderHeader = () => {
+  const renderHeader = (
+    imageUrl,
+    title,
+    totalTracks,
+    mediaDescription,
+    followers
+  ) => {
     return (
       <View
         style={{
@@ -44,7 +50,7 @@ const Tracks = ({ route: { params } }) => {
             height: '100%',
             width: '100%',
           }}
-          source={{ uri: albumImageUrl }}
+          source={{ uri: imageUrl }}
         />
         <LinearGradient
           style={{
@@ -68,19 +74,43 @@ const Tracks = ({ route: { params } }) => {
             position: 'relative',
             bottom: 120,
           }}
-          label={playlistTitle.toUpperCase()}
+          label={title}
         />
         <Text
           style={{
-            color: COLORS.lightGray,
             position: 'relative',
             bottom: 130,
+            color: COLORS.lightGray,
             ...FONTS.body,
           }}
         >
           {type.toUpperCase()}
+          <Text
+            style={{
+              color: COLORS.lightGray,
+              paddingHorizontal: 4,
+              fontSize: 10,
+            }}
+          >
+            {' \u25CF '}
+          </Text>
+          <Text>{totalTracks} songs</Text>
         </Text>
-        <HTMLView stylesheet={styles} value={`<p>${description}</p>`} />
+        {mediaDescription && (
+          <HTMLView stylesheet={styles} value={`<p>${mediaDescription}</p>`} />
+        )}
+        {followers && (
+          <Text
+            style={{
+              color: COLORS.lightGray,
+              position: 'relative',
+              bottom: 130,
+              ...FONTS.body,
+            }}
+          >
+            {Number(followers.toFixed(2)).toLocaleString('en-US')} followers
+          </Text>
+        )}
       </View>
     )
   }
@@ -97,7 +127,6 @@ const Tracks = ({ route: { params } }) => {
   }
 
   const renderAlbumTracks = ({ item }) => {
-    console.log('albumtracks ', item)
     return (
       <TrackItem
         trackName={item.name}
@@ -116,7 +145,13 @@ const Tracks = ({ route: { params } }) => {
       />
       {type === 'playlist' && (
         <FlatList
-          ListHeaderComponent={renderHeader()}
+          ListHeaderComponent={renderHeader(
+            playlist.album.images[0].url,
+            playlist.album.name,
+            playlist.album.tracks.items.length,
+            undefined,
+            playlist.album.followers.total
+          )}
           data={playlist.album.tracks.items}
           renderItem={renderPlaylistTracks}
         />

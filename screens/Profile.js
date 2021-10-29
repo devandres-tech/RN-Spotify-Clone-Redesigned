@@ -73,7 +73,6 @@ const Profile = () => {
   const renderOverview = () => {
     return (
       <View>
-        {/* currently playing track  */}
         <HorizontalCardContainer
           cardItemImageStyle={{ opacity: 1 }}
           cardItemTextStyle={{ position: 'relative', paddingTop: 15 }}

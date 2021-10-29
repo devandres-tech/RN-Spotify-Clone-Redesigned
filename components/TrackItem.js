@@ -8,17 +8,18 @@ const TrackItem = ({
   trackName,
   albumName,
   albumImageUrl,
-  artist,
+  artists,
   duration,
 }) => {
   const date = new Date(duration)
+  const artistsNames = artists.map((artist) => artist.name).join(', ')
+
   return (
     <TouchableOpacity activeOpacity={0.7}>
       <View
         style={{
           flex: 1,
           flexDirection: 'row',
-          // justifyContent: 'flex-start',
           alignItems: 'center',
           paddingVertical: 10,
           paddingHorizontal: SIZES.padding,
@@ -51,9 +52,11 @@ const TrackItem = ({
               {trackName}
             </Text>
           )}
-          {artist && (
+          {artists && (
             <Text style={{ color: COLORS.lightGray, ...FONTS.body }}>
-              {artist}
+              {artistsNames.length > 32
+                ? artistsNames.substring(0, 32) + '...'
+                : artistsNames.trim()}
             </Text>
           )}
           {albumName && (

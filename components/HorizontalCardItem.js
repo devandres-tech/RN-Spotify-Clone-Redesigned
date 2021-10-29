@@ -18,14 +18,10 @@ const HorizontalCardItem = ({
   artists,
   id,
   navigation,
-  description,
 }) => {
   const onCardItemHandler = () => {
     navigation.navigate('Tracks', {
       id,
-      albumImageUrl: imageUrl,
-      playlistTitle: cardLabel,
-      description,
       type,
     })
   }
