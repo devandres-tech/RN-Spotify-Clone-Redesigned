@@ -7,8 +7,10 @@ import auth from './reducers/auth'
 import playlist from './reducers/playlist'
 import browse from './reducers/browse'
 import library from './reducers/library'
+import album from './reducers/album'
 
 const rootReducer = combineReducers({
+  album,
   user,
   auth,
   playlist,

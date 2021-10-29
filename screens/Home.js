@@ -145,6 +145,7 @@ const Home = ({ navigation }) => {
             />
             {renderButtons()}
             <HorizontalCardContainer
+              navigation={navigation}
               cardItemImageStyle={{ opacity: 1 }}
               cardItemTextStyle={{ position: 'relative', paddingTop: 15 }}
               data={user.recentlyPlayed}
@@ -152,6 +153,7 @@ const Home = ({ navigation }) => {
             />
             {renderTopArtistsAndTracksContainer()}
             <HorizontalCardContainer
+              navigation={navigation}
               cardItemImageStyle={{ opacity: 1 }}
               cardItemTextStyle={{ position: 'relative', paddingTop: 15 }}
               data={playlist.topLists}
@@ -188,6 +190,7 @@ const Home = ({ navigation }) => {
               </View>
             </View>
             <HorizontalCardContainer
+              navigation={navigation}
               cardItemImageStyle={{ opacity: 1 }}
               cardItemTextStyle={{ position: 'relative', paddingTop: 15 }}
               data={playlist.newReleases}

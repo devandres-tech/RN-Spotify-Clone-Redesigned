@@ -4,6 +4,7 @@ export const GET_CATEGORIES_PLAYLISTS = 'GET_CATEGORIES_PLAYLISTS'
 export const GET_FEATURED_PLAYLISTS = 'GET_FEATURED_PLAYLISTS'
 export const GET_NEW_RELEASES = 'GET_NEW_RELEASES'
 export const GET_PLAYLIST_TRACKS = 'GET_PLAYLIST_TRACKS'
+export const GET_ALBUM_TRACKS = 'GET_ALBUM_TRACKS'
 
 const setHeaders = (accessToken) => {
   return {
@@ -80,22 +81,17 @@ export const getNewReleases = (limit) => {
   }
 }
 
-export const getPlaylistTracks = (playlistId) => {
+export const getPlaylist = (playlistId) => {
   return async (dispatch, getState) => {
     const accessToken = getState().auth.accessToken
     try {
-      const response = await fetch(
-        `${BASE_URL}/playlists/${playlistId}/tracks`,
-        {
-          method: 'GET',
-          headers: setHeaders(accessToken),
-        }
-      )
-      const data = await response.json()
-      const tracks = data.items.map((item) => {
-        return item.track
+      const response = await fetch(`${BASE_URL}/playlists/${playlistId}`, {
+        method: 'GET',
+        headers: setHeaders(accessToken),
       })
-      dispatch({ type: GET_PLAYLIST_TRACKS, tracks })
+      const data = await response.json()
+      console.log('data----', data)
+      dispatch({ type: GET_PLAYLIST_TRACKS, playlistTracks: data })
     } catch (error) {
       console.log('error')
       throw error

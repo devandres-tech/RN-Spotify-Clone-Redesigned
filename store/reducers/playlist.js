@@ -9,7 +9,7 @@ const initialState = {
   topLists: [],
   featured: [{ images: [{ url: '' }] }],
   newReleases: [],
-  tracks: [],
+  album: { tracks: { items: [] } },
 }
 
 export default (state = initialState, action) => {
@@ -35,7 +35,7 @@ export default (state = initialState, action) => {
     case GET_PLAYLIST_TRACKS:
       return {
         ...state,
-        tracks: action.tracks,
+        album: action.playlistTracks,
       }
 
     default:

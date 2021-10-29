@@ -26,6 +26,7 @@ const HorizontalCardItem = ({
       albumImageUrl: imageUrl,
       playlistTitle: cardLabel,
       description,
+      type,
     })
   }
 

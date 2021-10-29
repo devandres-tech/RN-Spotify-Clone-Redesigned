@@ -14,16 +14,22 @@ import HTMLView from 'react-native-htmlview'
 
 import { COLORS, FONTS, SIZES } from '../constants'
 import * as playlistActions from '../store/actions/playlist'
+import * as albumActions from '../store/actions/album'
 import { TextTitle, TrackItem } from '../components'
 
 const Tracks = ({ route: { params } }) => {
   const playlist = useSelector((state) => state.playlist)
+  const album = useSelector((state) => state.album)
   const dispatch = useDispatch()
-  const { id, albumImageUrl, playlistTitle, description } = params
+  const { id, albumImageUrl, playlistTitle, description, type } = params
 
   useEffect(() => {
-    dispatch(playlistActions.getPlaylistTracks(id))
-  }, [id])
+    if (type === 'playlist') {
+      dispatch(playlistActions.getPlaylist(id))
+    } else if (type === 'album') {
+      dispatch(albumActions.getAlbum(id))
+    }
+  }, [id, dispatch, type])
 
   const renderHeader = () => {
     return (
@@ -64,8 +70,40 @@ const Tracks = ({ route: { params } }) => {
           }}
           label={playlistTitle.toUpperCase()}
         />
+        <Text
+          style={{
+            color: COLORS.lightGray,
+            position: 'relative',
+            bottom: 130,
+            ...FONTS.body,
+          }}
+        >
+          {type.toUpperCase()}
+        </Text>
         <HTMLView stylesheet={styles} value={`<p>${description}</p>`} />
       </View>
+    )
+  }
+
+  const renderPlaylistTracks = ({ item: { track } }) => {
+    return (
+      <TrackItem
+        duration={track.duration_ms}
+        trackName={track.name}
+        artists={track.album.artists}
+        albumImageUrl={track.album.images[0].url}
+      />
+    )
+  }
+
+  const renderAlbumTracks = ({ item }) => {
+    console.log('albumtracks ', item)
+    return (
+      <TrackItem
+        trackName={item.name}
+        artists={item.artists}
+        duration={item.duration_ms}
+      />
     )
   }
 
@@ -76,20 +114,20 @@ const Tracks = ({ route: { params } }) => {
         barStyle={'light-content'}
         backgroundColor={COLORS.black}
       />
-      <FlatList
-        ListHeaderComponent={renderHeader()}
-        data={playlist.tracks}
-        renderItem={({ item }) => {
-          return (
-            <TrackItem
-              duration={item.duration_ms}
-              trackName={item.name}
-              artist={item.album.artists[0].name}
-              albumImageUrl={item.album.images[0].url}
-            />
-          )
-        }}
-      />
+      {type === 'playlist' && (
+        <FlatList
+          ListHeaderComponent={renderHeader()}
+          data={playlist.album.tracks.items}
+          renderItem={renderPlaylistTracks}
+        />
+      )}
+      {type === 'album' && (
+        <FlatList
+          ListHeaderComponent={renderHeader()}
+          data={album.album.tracks.items}
+          renderItem={renderAlbumTracks}
+        />
+      )}
     </SafeAreaView>
   )
 }
