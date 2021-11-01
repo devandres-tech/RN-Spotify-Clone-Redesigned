@@ -94,7 +94,7 @@ const Tracks = ({ route: { params } }) => {
             style={{
               color: COLORS.lightGray,
               paddingHorizontal: 4,
-              fontSize: Platform.OS === 'ios' ? 5 : 5,
+              fontSize: 5,
             }}
           >
             {' \u25CF '}
@@ -109,7 +109,7 @@ const Tracks = ({ route: { params } }) => {
                 style={{
                   color: COLORS.lightGray,
                   paddingHorizontal: 4,
-                  fontSize: Platform.OS === 'ios' ? 5 : 5,
+                  fontSize: 5,
                 }}
               >
                 {' \u25CF '}
@@ -126,12 +126,12 @@ const Tracks = ({ route: { params } }) => {
             </>
           )}
           {releaseDate.length > 0 && (
-            <Text>
+            <>
               <Text
                 style={{
                   color: COLORS.lightGray,
                   paddingHorizontal: 4,
-                  fontSize: 10,
+                  fontSize: 5,
                 }}
               >
                 {' \u25CF '}
@@ -139,14 +139,12 @@ const Tracks = ({ route: { params } }) => {
               <Text
                 style={{
                   color: COLORS.lightGray,
-                  position: 'relative',
-                  bottom: 130,
                   ...FONTS.body,
                 }}
               >
                 {releaseDate.substring(0, 4)}
               </Text>
-            </Text>
+            </>
           )}
         </View>
 
