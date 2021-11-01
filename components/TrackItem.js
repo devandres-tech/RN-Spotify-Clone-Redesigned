@@ -74,8 +74,8 @@ const TrackItem = ({
                 <View style={{ marginRight: 5 }}>
                   <Image
                     style={{
-                      height: 15,
-                      width: 15,
+                      height: 13,
+                      width: 13,
                       tintColor: COLORS.lightGray,
                     }}
                     source={icons.explicit}

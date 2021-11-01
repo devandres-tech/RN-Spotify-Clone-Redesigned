@@ -7,6 +7,7 @@ import {
   StatusBar,
   SafeAreaView,
   StyleSheet,
+  Platform,
 } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 import LinearGradient from 'react-native-linear-gradient'
@@ -77,32 +78,38 @@ const Tracks = ({ route: { params } }) => {
           }}
           label={title}
         />
-        <Text
+        <View
           style={{
             position: 'relative',
             bottom: 130,
-            color: COLORS.lightGray,
-            ...FONTS.body,
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
           }}
         >
-          {type.toUpperCase()}
+          <Text style={{ color: COLORS.lightGray, ...FONTS.body }}>
+            {type.toUpperCase()}
+          </Text>
           <Text
             style={{
               color: COLORS.lightGray,
               paddingHorizontal: 4,
-              fontSize: 10,
+              fontSize: Platform.OS === 'ios' ? 5 : 5,
             }}
           >
             {' \u25CF '}
           </Text>
-          <Text>{totalTracks} songs</Text>
+
+          <Text style={{ color: COLORS.lightGray, ...FONTS.body }}>
+            {totalTracks} songs
+          </Text>
           {followers > 0 && (
             <>
               <Text
                 style={{
                   color: COLORS.lightGray,
                   paddingHorizontal: 4,
-                  fontSize: 10,
+                  fontSize: Platform.OS === 'ios' ? 5 : 5,
                 }}
               >
                 {' \u25CF '}
@@ -111,7 +118,6 @@ const Tracks = ({ route: { params } }) => {
                 style={{
                   color: COLORS.lightGray,
                   position: 'relative',
-                  bottom: 130,
                   ...FONTS.body,
                 }}
               >
@@ -119,8 +125,8 @@ const Tracks = ({ route: { params } }) => {
               </Text>
             </>
           )}
-          {releaseDate && (
-            <>
+          {releaseDate.length > 0 && (
+            <Text>
               <Text
                 style={{
                   color: COLORS.lightGray,
@@ -140,11 +146,17 @@ const Tracks = ({ route: { params } }) => {
               >
                 {releaseDate.substring(0, 4)}
               </Text>
-            </>
+            </Text>
           )}
-        </Text>
+        </View>
+
         {mediaDescription.length > 0 && (
-          <HTMLView stylesheet={styles} value={`<p>${mediaDescription}</p>`} />
+          <Text>
+            <HTMLView
+              stylesheet={styles}
+              value={`<p>${mediaDescription}</p>`}
+            />
+          </Text>
         )}
       </View>
     )
