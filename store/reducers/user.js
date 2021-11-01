@@ -21,7 +21,7 @@ const initialState = {
     },
   ],
   recentlyPlayed: [],
-  topArtists: [],
+  topArtists: [{ images: [{ url: '' }] }],
   follows: [],
 }
 

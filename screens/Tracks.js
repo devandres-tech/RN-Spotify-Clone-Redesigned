@@ -12,7 +12,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import LinearGradient from 'react-native-linear-gradient'
 import HTMLView from 'react-native-htmlview'
 
-import { COLORS, FONTS, SIZES } from '../constants'
+import { COLORS, FONTS, SIZES, icons } from '../constants'
 import * as playlistActions from '../store/actions/playlist'
 import * as albumActions from '../store/actions/album'
 import { TextTitle, TrackItem } from '../components'
@@ -151,12 +151,17 @@ const Tracks = ({ route: { params } }) => {
   }
 
   const renderPlaylistTracks = ({ item: { track } }) => {
+    const images = track.album.images
+    if (track.album.images) {
+      console.log('music albums', typeof icons.musicAlbum)
+    }
     return (
       <TrackItem
+        explicit={track.explicit}
         duration={track.duration_ms}
         trackName={track.name}
         artists={track.album.artists}
-        albumImageUrl={track.album.images[0].url}
+        albumImageUrl={images.length > 0 ? images[0].url : icons.musicAlbum}
       />
     )
   }

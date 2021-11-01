@@ -103,7 +103,7 @@ const Library = () => {
               user.recentlyPlayed.map((track) => {
                 return (
                   <TrackItem
-                    albumName={track.albumName}
+                    artists={track.artists}
                     trackName={track.name}
                     albumImageUrl={track.images[0].url}
                   />
@@ -113,7 +113,7 @@ const Library = () => {
               library.userTracks.map((track) => {
                 return (
                   <TrackItem
-                    albumName={track.albumName}
+                    artists={track.artists}
                     trackName={track.name}
                     albumImageUrl={track.album.images[0].url}
                   />
@@ -123,7 +123,7 @@ const Library = () => {
               library.userAlbums.map((album) => {
                 return (
                   <TrackItem
-                    artist={album.artists[0].name}
+                    artists={album.artists}
                     albumName={album.albumName}
                     albumImageUrl={album.images[0].url}
                   />

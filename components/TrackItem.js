@@ -10,6 +10,7 @@ const TrackItem = ({
   albumImageUrl,
   artists,
   duration,
+  explicit,
 }) => {
   const date = new Date(duration)
   const artistsNames = artists.map((artist) => artist.name).join(', ')
@@ -26,15 +27,23 @@ const TrackItem = ({
           marginBottom: 10,
         }}
       >
-        <Image
-          style={{
-            width: 40,
-            height: 40,
-            borderRadius: 50,
-            marginRight: 20,
-          }}
-          source={{ uri: albumImageUrl }}
-        />
+        {albumImageUrl && (
+          <Image
+            style={{
+              width: 40,
+              height: 40,
+              borderRadius: 50,
+              marginRight: 20,
+              tintColor:
+                typeof albumImageUrl === 'string' ? null : COLORS.lightGray,
+            }}
+            source={
+              typeof albumImageUrl === 'string'
+                ? { uri: albumImageUrl }
+                : albumImageUrl
+            }
+          />
+        )}
         <Image
           style={{
             height: 15,
@@ -55,11 +64,35 @@ const TrackItem = ({
             </Text>
           )}
           {artists && (
-            <Text style={{ color: COLORS.lightGray, ...FONTS.body }}>
-              {artistsNames.length > 32
-                ? artistsNames.substring(0, 32) + '...'
-                : artistsNames.trim()}
-            </Text>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}
+            >
+              {explicit ? (
+                <View style={{ marginRight: 5 }}>
+                  <Image
+                    style={{
+                      height: 15,
+                      width: 15,
+                      tintColor: COLORS.lightGray,
+                    }}
+                    source={icons.explicit}
+                  />
+                </View>
+              ) : null}
+              <Text
+                style={{
+                  color: COLORS.lightGray,
+                  ...FONTS.body,
+                }}
+              >
+                {artistsNames.length > 32
+                  ? artistsNames.substring(0, 32) + '...'
+                  : artistsNames.trim()}
+              </Text>
+            </View>
           )}
           {albumName && (
             <Text style={{ color: COLORS.lightGray, ...FONTS.body }}>
