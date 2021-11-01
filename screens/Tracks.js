@@ -35,8 +35,9 @@ const Tracks = ({ route: { params } }) => {
     imageUrl,
     title,
     totalTracks,
-    mediaDescription,
-    followers
+    mediaDescription = '',
+    followers = 0,
+    releaseDate = ''
   ) => {
     return (
       <View
@@ -95,21 +96,55 @@ const Tracks = ({ route: { params } }) => {
             {' \u25CF '}
           </Text>
           <Text>{totalTracks} songs</Text>
+          {followers > 0 && (
+            <>
+              <Text
+                style={{
+                  color: COLORS.lightGray,
+                  paddingHorizontal: 4,
+                  fontSize: 10,
+                }}
+              >
+                {' \u25CF '}
+              </Text>
+              <Text
+                style={{
+                  color: COLORS.lightGray,
+                  position: 'relative',
+                  bottom: 130,
+                  ...FONTS.body,
+                }}
+              >
+                {Number(followers.toFixed(2)).toLocaleString('en-US')} followers
+              </Text>
+            </>
+          )}
+          {releaseDate && (
+            <>
+              <Text
+                style={{
+                  color: COLORS.lightGray,
+                  paddingHorizontal: 4,
+                  fontSize: 10,
+                }}
+              >
+                {' \u25CF '}
+              </Text>
+              <Text
+                style={{
+                  color: COLORS.lightGray,
+                  position: 'relative',
+                  bottom: 130,
+                  ...FONTS.body,
+                }}
+              >
+                {releaseDate.substring(0, 4)}
+              </Text>
+            </>
+          )}
         </Text>
-        {mediaDescription && (
+        {mediaDescription.length > 0 && (
           <HTMLView stylesheet={styles} value={`<p>${mediaDescription}</p>`} />
-        )}
-        {followers && (
-          <Text
-            style={{
-              color: COLORS.lightGray,
-              position: 'relative',
-              bottom: 130,
-              ...FONTS.body,
-            }}
-          >
-            {Number(followers.toFixed(2)).toLocaleString('en-US')} followers
-          </Text>
         )}
       </View>
     )
@@ -149,7 +184,7 @@ const Tracks = ({ route: { params } }) => {
             playlist.album.images[0].url,
             playlist.album.name,
             playlist.album.tracks.items.length,
-            undefined,
+            playlist.album.description,
             playlist.album.followers.total
           )}
           data={playlist.album.tracks.items}
@@ -158,7 +193,14 @@ const Tracks = ({ route: { params } }) => {
       )}
       {type === 'album' && (
         <FlatList
-          ListHeaderComponent={renderHeader()}
+          ListHeaderComponent={renderHeader(
+            album.album.images[0].url,
+            album.album.name,
+            album.album.total_tracks,
+            undefined,
+            undefined,
+            album.album.release_date
+          )}
           data={album.album.tracks.items}
           renderItem={renderAlbumTracks}
         />

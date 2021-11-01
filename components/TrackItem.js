@@ -49,7 +49,9 @@ const TrackItem = ({
             <Text
               style={{ color: COLORS.white, fontWeight: 'bold', ...FONTS.body }}
             >
-              {trackName}
+              {trackName.length > 30
+                ? trackName.substring(0, 30) + '...'
+                : trackName.trim()}
             </Text>
           )}
           {artists && (

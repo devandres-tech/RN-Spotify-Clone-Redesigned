@@ -9,7 +9,11 @@ const initialState = {
   topLists: [],
   featured: [{ images: [{ url: '' }] }],
   newReleases: [],
-  album: { tracks: { items: [] } },
+  album: {
+    tracks: { items: [] },
+    images: [{ url: '' }],
+    followers: { total: 0 },
+  },
 }
 
 export default (state = initialState, action) => {
