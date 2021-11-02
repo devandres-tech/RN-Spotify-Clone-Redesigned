@@ -90,7 +90,6 @@ export const getPlaylist = (playlistId) => {
         headers: setHeaders(accessToken),
       })
       const data = await response.json()
-      console.log('data----', data)
       dispatch({ type: GET_PLAYLIST_TRACKS, playlistTracks: data })
     } catch (error) {
       console.log('error')

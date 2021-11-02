@@ -7,18 +7,31 @@ import {
   StatusBar,
   SafeAreaView,
   StyleSheet,
-  Platform,
+  Button,
+  Dimensions,
 } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 import LinearGradient from 'react-native-linear-gradient'
 import HTMLView from 'react-native-htmlview'
+import Animated, {
+  useSharedValue,
+  useAnimatedScrollHandler,
+  useAnimatedStyle,
+  interpolate,
+  Extrapolate,
+} from 'react-native-reanimated'
+
+const AnimatedFlatList = Animated.createAnimatedComponent(FlatList)
 
 import { COLORS, FONTS, SIZES, icons } from '../constants'
 import * as playlistActions from '../store/actions/playlist'
 import * as albumActions from '../store/actions/album'
 import { TextTitle, TrackItem } from '../components'
 
-const Tracks = ({ route: { params } }) => {
+const { height } = Dimensions.get('window')
+
+const Tracks = ({ route: { params }, navigation }) => {
+  const scrollY = useSharedValue(0)
   const playlist = useSelector((state) => state.playlist)
   const album = useSelector((state) => state.album)
   const dispatch = useDispatch()
@@ -32,6 +45,37 @@ const Tracks = ({ route: { params } }) => {
     }
   }, [id, dispatch, type])
 
+  const scrollHandler = useAnimatedScrollHandler({
+    onScroll: (e) => {
+      scrollY.value = e.contentOffset.y
+    },
+  })
+
+  const animatedStyles = useAnimatedStyle(() => {
+    const scale = interpolate(
+      scrollY.value,
+      [height * (1 - 1 / (1 + Math.sqrt(5) / 2)), 0],
+      [-0.5, 1],
+      'clamp'
+    )
+
+    return {
+      transform: [{ scale: scale }],
+    }
+  })
+  const animateOpacity = useAnimatedStyle(() => {
+    const opacity = interpolate(
+      scrollY.value,
+      [0, 200, 400, height * (1 - 1 / (1 + Math.sqrt(5) / 2))],
+      [0, 0, 0, 1],
+      'clamp'
+    )
+
+    return {
+      opacity: opacity,
+    }
+  })
+
   const renderHeader = (
     imageUrl,
     title,
@@ -41,30 +85,37 @@ const Tracks = ({ route: { params } }) => {
     releaseDate = ''
   ) => {
     return (
-      <View
-        style={{
-          alignItems: 'center',
-          height: 410,
-        }}
+      <Animated.View
+        style={[
+          {
+            alignItems: 'center',
+            height: 520,
+          },
+        ]}
       >
-        <Image
-          style={{
-            height: '100%',
-            width: '100%',
-          }}
+        <Animated.Image
+          style={[
+            {
+              height: '100%',
+              width: '100%',
+            },
+            animatedStyles,
+          ]}
+          resizeMode={'cover'}
           source={{ uri: imageUrl }}
         />
+        {/* </Animated.View> */}
         <LinearGradient
           style={{
             position: 'absolute',
-            height: 240,
+            height: 280,
             width: '100%',
             bottom: 0,
           }}
           colors={[
             'rgba(7, 7, 7, 0.00)',
             'rgba(7, 7, 7, 0.34)',
-            'rgba(63, 63, 63, 0.71)',
+            'rgba(7, 7, 7, 0.55)',
             COLORS.black,
             COLORS.black,
             COLORS.black,
@@ -156,15 +207,12 @@ const Tracks = ({ route: { params } }) => {
             />
           </Text>
         )}
-      </View>
+      </Animated.View>
     )
   }
 
   const renderPlaylistTracks = ({ item: { track } }) => {
     const images = track.album.images
-    if (track.album.images) {
-      console.log('music albums', typeof icons.musicAlbum)
-    }
     return (
       <TrackItem
         explicit={track.explicit}
@@ -193,33 +241,54 @@ const Tracks = ({ route: { params } }) => {
         barStyle={'light-content'}
         backgroundColor={COLORS.black}
       />
-      {type === 'playlist' && (
-        <FlatList
-          ListHeaderComponent={renderHeader(
-            playlist.album.images[0].url,
-            playlist.album.name,
-            playlist.album.tracks.items.length,
-            playlist.album.description,
-            playlist.album.followers.total
-          )}
-          data={playlist.album.tracks.items}
-          renderItem={renderPlaylistTracks}
-        />
-      )}
-      {type === 'album' && (
-        <FlatList
-          ListHeaderComponent={renderHeader(
-            album.album.images[0].url,
-            album.album.name,
-            album.album.total_tracks,
-            undefined,
-            undefined,
-            album.album.release_date
-          )}
-          data={album.album.tracks.items}
-          renderItem={renderAlbumTracks}
-        />
-      )}
+      <Animated.View
+        style={[
+          {
+            height: 80,
+            width: '100%',
+            backgroundColor: COLORS.lightGray3,
+            position: 'static',
+            alignItems: 'center',
+            justifyContent: 'center',
+          },
+          animateOpacity,
+        ]}
+      >
+        <Animated.Text style={[{ color: COLORS.white }]}>
+          Go back fellas
+        </Animated.Text>
+      </Animated.View>
+      <Animated.View>
+        {type === 'playlist' && (
+          <AnimatedFlatList
+            scrollEventThrottle={1}
+            onScroll={scrollHandler}
+            ListHeaderComponent={renderHeader(
+              playlist.album.images[0].url,
+              playlist.album.name,
+              playlist.album.tracks.items.length,
+              playlist.album.description,
+              playlist.album.followers.total
+            )}
+            data={playlist.album.tracks.items}
+            renderItem={renderPlaylistTracks}
+          />
+        )}
+        {type === 'album' && (
+          <FlatList
+            ListHeaderComponent={renderHeader(
+              album.album.images[0].url,
+              album.album.name,
+              album.album.total_tracks,
+              undefined,
+              undefined,
+              album.album.release_date
+            )}
+            data={album.album.tracks.items}
+            renderItem={renderAlbumTracks}
+          />
+        )}
+      </Animated.View>
     </SafeAreaView>
   )
 }
