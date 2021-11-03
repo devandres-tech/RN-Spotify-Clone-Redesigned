@@ -1,18 +1,6 @@
-import {  Dimensions} from 'react-native'
-import Animated, {
-  useSharedValue,
-  useAnimatedScrollHandler,
-  useAnimatedStyle,
-  interpolate,
-} from 'react-native-reanimated'
+import { Dimensions } from 'react-native'
+import { useAnimatedStyle, interpolate } from 'react-native-reanimated'
 const { height } = Dimensions.get('window')
-
-export const scrollHandler = (property) =>
-  useAnimatedScrollHandler({
-    onScroll: (e) => {
-      property.value = e.contentOffset.y
-    },
-  })
 
 export const animateScale = (property) =>
   useAnimatedStyle(() => {

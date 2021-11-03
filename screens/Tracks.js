@@ -1,39 +1,25 @@
 import React, { useEffect } from 'react'
 import {
-  View,
-  Text,
   FlatList,
   Image,
   StatusBar,
   SafeAreaView,
   StyleSheet,
   Button,
-  Dimensions,
 } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
-import LinearGradient from 'react-native-linear-gradient'
-import HTMLView from 'react-native-htmlview'
 import Animated, {
   useSharedValue,
   useAnimatedScrollHandler,
-  useAnimatedStyle,
-  interpolate,
 } from 'react-native-reanimated'
-
-const AnimatedFlatList = Animated.createAnimatedComponent(FlatList)
 
 import { COLORS, FONTS, SIZES, icons } from '../constants'
 import * as playlistActions from '../store/actions/playlist'
 import * as albumActions from '../store/actions/album'
-import { TextTitle, TrackItem, TracksHeader } from '../components'
-import {
-  scrollHandler,
-  animateOpacity,
-  animateHeight,
-  animateScale,
-} from '../utils/helpers'
+import { TrackItem, TracksHeader, TextTitle } from '../components'
+import { animateOpacity, animateHeight, animateScale } from '../utils/helpers'
 
-const { height } = Dimensions.get('window')
+const AnimatedFlatList = Animated.createAnimatedComponent(FlatList)
 
 const Tracks = ({ route: { params }, navigation }) => {
   const scrollY = useSharedValue(0)
@@ -56,8 +42,6 @@ const Tracks = ({ route: { params }, navigation }) => {
     },
   })
 
-  // TODO: remove and make one function,
-  // make the parameters have the same
   const renderPlaylistTracks = ({ item: { track } }) => {
     const images = track.album.images
     return (
@@ -91,19 +75,15 @@ const Tracks = ({ route: { params }, navigation }) => {
       />
       <Animated.View
         style={[
-          {
-            width: '100%',
-            backgroundColor: COLORS.lightGray3,
-            position: 'static',
-            alignItems: 'center',
-            justifyContent: 'center',
-          },
+          styles.headerContainer,
           animateOpacity(scrollY),
           animateHeight(scrollY),
         ]}
       >
         <Animated.Text style={[{ color: COLORS.white }]}>
-          Go back fellas
+          {/* back button */}
+          {type === 'playlist' && <TextTitle label={playlist.album.name} />}
+          {type === 'album' && <TextTitle label={album.album.name} />}
         </Animated.Text>
       </Animated.View>
       <Animated.View>
@@ -150,6 +130,13 @@ const Tracks = ({ route: { params }, navigation }) => {
 }
 
 const styles = StyleSheet.create({
+  headerContainer: {
+    width: '100%',
+    backgroundColor: COLORS.lightGray3,
+    position: 'static',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   a: {
     color: COLORS.primary,
   },
