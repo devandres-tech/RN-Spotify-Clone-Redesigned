@@ -18,7 +18,6 @@ import Animated, {
   useAnimatedScrollHandler,
   useAnimatedStyle,
   interpolate,
-  Extrapolate,
 } from 'react-native-reanimated'
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList)
@@ -26,7 +25,13 @@ const AnimatedFlatList = Animated.createAnimatedComponent(FlatList)
 import { COLORS, FONTS, SIZES, icons } from '../constants'
 import * as playlistActions from '../store/actions/playlist'
 import * as albumActions from '../store/actions/album'
-import { TextTitle, TrackItem } from '../components'
+import { TextTitle, TrackItem, TracksHeader } from '../components'
+import {
+  scrollHandler,
+  animateOpacity,
+  animateHeight,
+  animateScale,
+} from '../utils/helpers'
 
 const { height } = Dimensions.get('window')
 
@@ -51,166 +56,8 @@ const Tracks = ({ route: { params }, navigation }) => {
     },
   })
 
-  const animatedStyles = useAnimatedStyle(() => {
-    const scale = interpolate(
-      scrollY.value,
-      [height * (1 - 1 / (1 + Math.sqrt(5) / 2)), 0],
-      [-0.5, 1],
-      'clamp'
-    )
-
-    return {
-      transform: [{ scale: scale }],
-    }
-  })
-  const animateOpacity = useAnimatedStyle(() => {
-    const opacity = interpolate(
-      scrollY.value,
-      [0, 200, 400, height * (1 - 1 / (1 + Math.sqrt(5) / 2))],
-      [0, 0, 0, 1],
-      'clamp'
-    )
-
-    return {
-      opacity: opacity,
-    }
-  })
-
-  const renderHeader = (
-    imageUrl,
-    title,
-    totalTracks,
-    mediaDescription = '',
-    followers = 0,
-    releaseDate = ''
-  ) => {
-    return (
-      <Animated.View
-        style={[
-          {
-            alignItems: 'center',
-            height: 520,
-          },
-        ]}
-      >
-        <Animated.Image
-          style={[
-            {
-              height: '100%',
-              width: '100%',
-            },
-            animatedStyles,
-          ]}
-          resizeMode={'cover'}
-          source={{ uri: imageUrl }}
-        />
-        {/* </Animated.View> */}
-        <LinearGradient
-          style={{
-            position: 'absolute',
-            height: 280,
-            width: '100%',
-            bottom: 0,
-          }}
-          colors={[
-            'rgba(7, 7, 7, 0.00)',
-            'rgba(7, 7, 7, 0.34)',
-            'rgba(7, 7, 7, 0.55)',
-            COLORS.black,
-            COLORS.black,
-            COLORS.black,
-          ]}
-        />
-        <TextTitle
-          containerStyle={{
-            textAlign: 'center',
-            position: 'relative',
-            bottom: 120,
-          }}
-          label={title}
-        />
-        <View
-          style={{
-            position: 'relative',
-            bottom: 130,
-            flexDirection: 'row',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <Text style={{ color: COLORS.lightGray, ...FONTS.body }}>
-            {type.toUpperCase()}
-          </Text>
-          <Text
-            style={{
-              color: COLORS.lightGray,
-              paddingHorizontal: 4,
-              fontSize: 5,
-            }}
-          >
-            {' \u25CF '}
-          </Text>
-
-          <Text style={{ color: COLORS.lightGray, ...FONTS.body }}>
-            {totalTracks} songs
-          </Text>
-          {followers > 0 && (
-            <>
-              <Text
-                style={{
-                  color: COLORS.lightGray,
-                  paddingHorizontal: 4,
-                  fontSize: 5,
-                }}
-              >
-                {' \u25CF '}
-              </Text>
-              <Text
-                style={{
-                  color: COLORS.lightGray,
-                  position: 'relative',
-                  ...FONTS.body,
-                }}
-              >
-                {Number(followers.toFixed(2)).toLocaleString('en-US')} followers
-              </Text>
-            </>
-          )}
-          {releaseDate.length > 0 && (
-            <>
-              <Text
-                style={{
-                  color: COLORS.lightGray,
-                  paddingHorizontal: 4,
-                  fontSize: 5,
-                }}
-              >
-                {' \u25CF '}
-              </Text>
-              <Text
-                style={{
-                  color: COLORS.lightGray,
-                  ...FONTS.body,
-                }}
-              >
-                {releaseDate.substring(0, 4)}
-              </Text>
-            </>
-          )}
-        </View>
-
-        {mediaDescription.length > 0 && (
-          <Text>
-            <HTMLView
-              stylesheet={styles}
-              value={`<p>${mediaDescription}</p>`}
-            />
-          </Text>
-        )}
-      </Animated.View>
-    )
-  }
-
+  // TODO: remove and make one function,
+  // make the parameters have the same
   const renderPlaylistTracks = ({ item: { track } }) => {
     const images = track.album.images
     return (
@@ -220,6 +67,7 @@ const Tracks = ({ route: { params }, navigation }) => {
         trackName={track.name}
         artists={track.album.artists}
         albumImageUrl={images.length > 0 ? images[0].url : icons.musicAlbum}
+        animateScale={() => animateScale(scrollY)}
       />
     )
   }
@@ -244,14 +92,14 @@ const Tracks = ({ route: { params }, navigation }) => {
       <Animated.View
         style={[
           {
-            height: 80,
             width: '100%',
             backgroundColor: COLORS.lightGray3,
             position: 'static',
             alignItems: 'center',
             justifyContent: 'center',
           },
-          animateOpacity,
+          animateOpacity(scrollY),
+          animateHeight(scrollY),
         ]}
       >
         <Animated.Text style={[{ color: COLORS.white }]}>
@@ -263,27 +111,35 @@ const Tracks = ({ route: { params }, navigation }) => {
           <AnimatedFlatList
             scrollEventThrottle={1}
             onScroll={scrollHandler}
-            ListHeaderComponent={renderHeader(
-              playlist.album.images[0].url,
-              playlist.album.name,
-              playlist.album.tracks.items.length,
-              playlist.album.description,
-              playlist.album.followers.total
-            )}
+            ListHeaderComponent={
+              <TracksHeader
+                type={type}
+                imageUrl={playlist.album.images[0].url}
+                title={playlist.album.name}
+                totalTracks={playlist.album.tracks.items.length}
+                mediaDescription={playlist.album.description}
+                followers={playlist.album.followers.total}
+                scrollY={scrollY}
+                animateScale={() => animateScale(scrollY)}
+              />
+            }
             data={playlist.album.tracks.items}
             renderItem={renderPlaylistTracks}
           />
         )}
         {type === 'album' && (
           <FlatList
-            ListHeaderComponent={renderHeader(
-              album.album.images[0].url,
-              album.album.name,
-              album.album.total_tracks,
-              undefined,
-              undefined,
-              album.album.release_date
-            )}
+            ListHeaderComponent={
+              <TracksHeader
+                type={type}
+                imageUrl={album.album.images[0].url}
+                title={album.album.name}
+                totalTracks={album.album.total_tracks}
+                releaseDate={album.album.release_date}
+                scrollY={scrollY}
+                animateScale={() => animateScale(scrollY)}
+              />
+            }
             data={album.album.tracks.items}
             renderItem={renderAlbumTracks}
           />

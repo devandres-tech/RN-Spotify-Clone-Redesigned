@@ -70,6 +70,7 @@ const App = () => {
     SplashScreen.hide()
   }, [])
 
+  // TODO refactor useeffect
   useEffect(() => {
     const getTokensFromAsyncStorage = async () => {
       const authData = await AsyncStorage.getItem('authData')

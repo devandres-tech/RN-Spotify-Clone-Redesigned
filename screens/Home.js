@@ -19,6 +19,8 @@ import {
   TextTitle,
 } from '../components'
 
+// TRY to refactor to only show styles
+
 const Home = ({ navigation }) => {
   const user = useSelector((state) => state.user)
   const playlist = useSelector((state) => state.playlist)

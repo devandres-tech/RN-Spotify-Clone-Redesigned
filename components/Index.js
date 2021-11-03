@@ -6,8 +6,10 @@ import HorizontalCardContainer from './HorizontalCardContainer'
 import Header from './Header'
 import HorizontalMenu from './HorizontalMenu'
 import TrackItem from './TrackItem'
+import TracksHeader from './TracksHeader'
 
 export {
+  TracksHeader,
   TrackItem,
   TabBarIcon,
   TextButton,
