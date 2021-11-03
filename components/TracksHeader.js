@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import Animated from 'react-native-reanimated'
-import { COLORS, FONTS } from '../constants'
+import { COLORS, FONTS, SIZES } from '../constants'
 import LinearGradient from 'react-native-linear-gradient'
 import HTMLView from 'react-native-htmlview'
 
@@ -17,7 +17,10 @@ const TracksHeader = ({
   animateScale,
   type,
   scrollY,
+  artists,
 }) => {
+  const artistsNames = artists.map((artist) => artist.name).join(', ')
+
   return (
     <Animated.View style={styles.containerView}>
       <Animated.Image
@@ -76,11 +79,37 @@ const TracksHeader = ({
       {mediaDescription.length > 0 && (
         <HTMLView stylesheet={styles} value={`<p>${mediaDescription}</p>`} />
       )}
+      {artists.length > 0 && (
+        <Text
+          style={{
+            color: COLORS.white,
+            ...FONTS.body,
+            position: 'relative',
+            bottom: 120,
+          }}
+        >
+          {artistsNames.length > 32
+            ? artistsNames.substring(0, 32) + '...'
+            : artistsNames.trim()}
+        </Text>
+      )}
     </Animated.View>
   )
 }
 
 const styles = StyleSheet.create({
+  a: {
+    color: COLORS.primary,
+  },
+  p: {
+    position: 'relative',
+    bottom: 120,
+    color: COLORS.lightGray,
+    textAlign: 'center',
+    paddingHorizontal: SIZES.padding,
+    paddingBottom: 25,
+    ...FONTS.body,
+  },
   containerView: {
     alignItems: 'center',
     height: 520,

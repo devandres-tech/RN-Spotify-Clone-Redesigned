@@ -108,12 +108,15 @@ const Tracks = ({ route: { params }, navigation }) => {
           />
         )}
         {type === 'album' && (
-          <FlatList
+          <AnimatedFlatList
+            scrollEventThrottle={1}
+            onScroll={scrollHandler}
             ListHeaderComponent={
               <TracksHeader
                 type={type}
                 imageUrl={album.album.images[0].url}
                 title={album.album.name}
+                artists={album.album.artists}
                 totalTracks={album.album.total_tracks}
                 releaseDate={album.album.release_date}
                 scrollY={scrollY}
@@ -136,18 +139,6 @@ const styles = StyleSheet.create({
     position: 'static',
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  a: {
-    color: COLORS.primary,
-  },
-  p: {
-    position: 'relative',
-    bottom: 120,
-    color: COLORS.lightGray,
-    textAlign: 'center',
-    paddingHorizontal: SIZES.padding,
-    paddingBottom: 25,
-    ...FONTS.body,
   },
 })
 
