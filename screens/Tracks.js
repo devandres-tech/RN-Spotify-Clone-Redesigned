@@ -1,23 +1,28 @@
 import React, { useEffect } from 'react'
 import {
+  View,
   FlatList,
   Image,
   StatusBar,
   SafeAreaView,
   StyleSheet,
-  Button,
+  Text,
+  Dimensions,
 } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 import Animated, {
   useSharedValue,
   useAnimatedScrollHandler,
 } from 'react-native-reanimated'
+import LinearGradient from 'react-native-linear-gradient'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 
-import { COLORS, FONTS, SIZES, icons } from '../constants'
+import { COLORS, icons, FONTS } from '../constants'
 import * as playlistActions from '../store/actions/playlist'
 import * as albumActions from '../store/actions/album'
 import { TrackItem, TracksHeader, TextTitle } from '../components'
 import { animateOpacity, animateHeight, animateScale } from '../utils/helpers'
+const { height } = Dimensions.get('window')
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList)
 
@@ -44,13 +49,18 @@ const Tracks = ({ route: { params }, navigation }) => {
 
   const renderPlaylistTracks = ({ item: { track } }) => {
     const images = track.album.images
+    let albumImage = icons.musicAlbum
+    if (images.length > 0) {
+      albumImage = images[0].url
+    }
+
     return (
       <TrackItem
         explicit={track.explicit}
         duration={track.duration_ms}
         trackName={track.name}
         artists={track.album.artists}
-        albumImageUrl={images.length > 0 ? images[0].url : icons.musicAlbum}
+        albumImageUrl={albumImage}
         animateScale={() => animateScale(scrollY)}
       />
     )
@@ -59,6 +69,7 @@ const Tracks = ({ route: { params }, navigation }) => {
   const renderAlbumTracks = ({ item }) => {
     return (
       <TrackItem
+        trackNumber={item.track_number}
         trackName={item.name}
         artists={item.artists}
         duration={item.duration_ms}
@@ -66,6 +77,7 @@ const Tracks = ({ route: { params }, navigation }) => {
     )
   }
 
+  console.log('scrollYY', height)
   return (
     <SafeAreaView style={{ backgroundColor: COLORS.black, flex: 1 }}>
       <StatusBar
@@ -73,6 +85,7 @@ const Tracks = ({ route: { params }, navigation }) => {
         barStyle={'light-content'}
         backgroundColor={COLORS.black}
       />
+
       <Animated.View
         style={[
           styles.headerContainer,
@@ -80,11 +93,46 @@ const Tracks = ({ route: { params }, navigation }) => {
           animateHeight(scrollY),
         ]}
       >
-        <Animated.Text style={[{ color: COLORS.white }]}>
-          {/* back button */}
-          {type === 'playlist' && <TextTitle label={playlist.album.name} />}
-          {type === 'album' && <TextTitle label={album.album.name} />}
-        </Animated.Text>
+        <LinearGradient
+          style={styles.linearGradient}
+          colors={[
+            COLORS.black,
+            COLORS.black,
+            COLORS.black,
+            'rgba(7, 7, 7, 0.55)',
+            'rgba(7, 7, 7, 0.50)',
+          ]}
+        />
+        <TouchableOpacity
+          activeOpacity={0.7}
+          onPress={() => navigation.goBack()}
+        >
+          <Image style={styles.backIcon} source={icons.back} />
+        </TouchableOpacity>
+        {type === 'playlist' && (
+          <Text
+            style={{
+              color: COLORS.white,
+              ...FONTS.h3,
+            }}
+          >
+            {playlist.album.name.length > 35
+              ? playlist.album.name.substring(0, 35) + '...'
+              : playlist.album.name.trim()}
+          </Text>
+        )}
+        {type === 'album' && (
+          <Text
+            style={{
+              color: COLORS.white,
+              ...FONTS.h3,
+            }}
+          >
+            {album.album.name.length > 35
+              ? album.album.name.substring(0, 35) + '...'
+              : album.album.name.trim()}
+          </Text>
+        )}
       </Animated.View>
       <Animated.View>
         {type === 'playlist' && (
@@ -103,6 +151,7 @@ const Tracks = ({ route: { params }, navigation }) => {
                 animateScale={() => animateScale(scrollY)}
               />
             }
+            ListFooterComponent={<View style={{ paddingBottom: 120 }} />}
             data={playlist.album.tracks.items}
             renderItem={renderPlaylistTracks}
           />
@@ -134,11 +183,27 @@ const Tracks = ({ route: { params }, navigation }) => {
 
 const styles = StyleSheet.create({
   headerContainer: {
+    marginTop: 20,
+    height: 280,
     width: '100%',
     backgroundColor: COLORS.lightGray3,
     position: 'static',
+    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
+  },
+  backIcon: {
+    width: 25,
+    height: 25,
+    tintColor: COLORS.white,
+    marginRight: 20,
+    marginLeft: 20,
+  },
+  linearGradient: {
+    height: '100%',
+    width: '100%',
+    position: 'absolute',
+    bottom: 0,
+    backgroundColor: 'transparent',
   },
 })
 

@@ -19,7 +19,7 @@ export const getAlbum = (albumId) => {
         headers: setHeaders(accessToken),
       })
       const data = await response.json()
-      // console.log('ALUMS', data)
+      console.log('ALUMS', data.tracks.items)
       dispatch({ type: GET_ALBUM, album: data })
     } catch (error) {
       console.log(error)

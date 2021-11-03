@@ -13,6 +13,7 @@ const initialState = {
     tracks: { items: [] },
     images: [{ url: '' }],
     followers: { total: 0 },
+    name: '',
   },
 }
 

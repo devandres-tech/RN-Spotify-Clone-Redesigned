@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import Animated from 'react-native-reanimated'
-import { COLORS, FONTS, SIZES } from '../constants'
+import { COLORS, FONTS, SIZES, icons } from '../constants'
 import LinearGradient from 'react-native-linear-gradient'
 import HTMLView from 'react-native-htmlview'
 
@@ -17,7 +17,7 @@ const TracksHeader = ({
   animateScale,
   type,
   scrollY,
-  artists,
+  artists = [],
 }) => {
   const artistsNames = artists.map((artist) => artist.name).join(', ')
 
@@ -54,7 +54,6 @@ const TracksHeader = ({
             <Text
               style={{
                 color: COLORS.lightGray,
-                position: 'relative',
                 ...FONTS.body,
               }}
             >
@@ -104,7 +103,7 @@ const styles = StyleSheet.create({
   p: {
     position: 'relative',
     bottom: 120,
-    color: COLORS.lightGray,
+    color: COLORS.white,
     textAlign: 'center',
     paddingHorizontal: SIZES.padding,
     paddingBottom: 25,

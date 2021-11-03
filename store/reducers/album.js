@@ -1,7 +1,7 @@
 import { GET_ALBUM } from '../actions/album'
 
 const initialState = {
-  album: { tracks: { items: [] }, images: [{ url: '' }] },
+  album: { tracks: { items: [] }, images: [{ url: '' }], name: '' },
 }
 
 export default (state = initialState, action) => {

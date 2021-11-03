@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, Image } from 'react-native'
+import { View, Text, Image, StyleSheet } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 
 import { COLORS, SIZES, FONTS, icons } from '../constants'
@@ -11,29 +11,18 @@ const TrackItem = ({
   artists,
   duration,
   explicit,
+  trackNumber,
 }) => {
   const date = new Date(duration)
   const artistsNames = artists.map((artist) => artist.name).join(', ')
 
   return (
     <TouchableOpacity activeOpacity={0.7}>
-      <View
-        style={{
-          flex: 1,
-          flexDirection: 'row',
-          alignItems: 'center',
-          paddingVertical: 10,
-          paddingHorizontal: SIZES.padding,
-          marginBottom: 10,
-        }}
-      >
+      <View style={styles.trackItemContainer}>
         {albumImageUrl && (
           <Image
             style={{
-              width: 40,
-              height: 40,
-              borderRadius: 50,
-              marginRight: 20,
+              ...styles.albumImage,
               tintColor:
                 typeof albumImageUrl === 'string' ? null : COLORS.lightGray,
             }}
@@ -44,15 +33,12 @@ const TrackItem = ({
             }
           />
         )}
-        <Image
-          style={{
-            height: 15,
-            width: 15,
-            marginRight: 20,
-            tintColor: COLORS.white,
-          }}
-          source={icons.play}
-        />
+        <Image style={styles.playIcon} source={icons.play} />
+        <Text
+          style={{ color: COLORS.lightGray, marginRight: 20, ...FONTS.body }}
+        >
+          {trackNumber}
+        </Text>
         <View>
           {trackName && (
             <Text
@@ -72,14 +58,7 @@ const TrackItem = ({
             >
               {explicit ? (
                 <View style={{ marginRight: 5 }}>
-                  <Image
-                    style={{
-                      height: 13,
-                      width: 13,
-                      tintColor: COLORS.lightGray,
-                    }}
-                    source={icons.explicit}
-                  />
+                  <Image style={styles.artistImage} source={icons.explicit} />
                 </View>
               ) : null}
               <Text
@@ -119,5 +98,24 @@ const TrackItem = ({
     </TouchableOpacity>
   )
 }
+
+const styles = StyleSheet.create({
+  trackItemContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 10,
+    paddingHorizontal: SIZES.padding,
+    marginBottom: 10,
+  },
+  albumImage: {
+    width: 40,
+    height: 40,
+    borderRadius: 50,
+    marginRight: 20,
+  },
+  playIcon: { height: 15, width: 15, marginRight: 20, tintColor: COLORS.white },
+  artistImage: { height: 13, width: 13, tintColor: COLORS.lightGray },
+})
 
 export default TrackItem
