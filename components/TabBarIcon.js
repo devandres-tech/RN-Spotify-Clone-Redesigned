@@ -2,12 +2,18 @@ import React from 'react'
 import { Text, Image, Animated } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { SvgXml } from 'react-native-svg'
+// svg icons
 import HomeSvg from '../assets/icons/ic_home.svg'
+import HomeSelectedSvg from '../assets/icons/ic_home_selected.svg'
 import SearchSvg from '../assets/icons/ic_search.svg'
+import LibrarySvg from '../assets/icons/ic_library.svg'
+import LibrarySelectedSvg from '../assets/icons/ic_library_selected.svg'
+import ProfileSvg from '../assets/icons/ic_profile.svg'
+import ProfileSelectedSvg from '../assets/icons/ic_profile_selected.svg'
 
 import { COLORS, FONTS } from '../constants'
 
-const TabBarIcon = ({ focused, name, source }) => {
+const TabBarIcon = ({ isFocused, name, source }) => {
   const animation = new Animated.Value(0)
   const inputRange = [0, 1]
   const outputRange = [0.9, 0.7]
@@ -41,7 +47,7 @@ const TabBarIcon = ({ focused, name, source }) => {
           {
             justifyContent: 'center',
             alignItems: 'center',
-            backgroundColor: focused ? COLORS.primary : '',
+            backgroundColor: isFocused ? COLORS.primary : '',
             borderRadius: 100,
             height: 60,
             width: 60,
@@ -51,32 +57,31 @@ const TabBarIcon = ({ focused, name, source }) => {
       >
         {name === 'Home' && (
           <SvgXml
-            // backgroundColor='red'
             width='25'
             height='25'
-            xml={HomeSvg}
+            xml={isFocused ? HomeSelectedSvg : HomeSvg}
           />
         )}
-        {name === 'Search' && (
+        {name === 'Search' && <SvgXml width='25' height='25' xml={SearchSvg} />}
+        {name === 'Library' && (
           <SvgXml
-            // backgroundColor='red'
             width='25'
             height='25'
-            xml={SearchSvg}
+            xml={isFocused ? LibrarySelectedSvg : LibrarySvg}
           />
         )}
-        {/* <Image
-          style={{
-            tintColor: focused ? COLORS.white : COLORS.lightGray,
-            height: 28,
-            width: 28,
-          }}
-          source={source}
-        /> */}
+        {name === 'Profile' && (
+          <SvgXml
+            width='25'
+            height='25'
+            xml={isFocused ? ProfileSelectedSvg : ProfileSvg}
+          />
+        )}
         <Text
           style={{
-            color: focused ? COLORS.white : COLORS.lightGray,
+            color: isFocused ? COLORS.white : COLORS.lightGray,
             fontSize: 10,
+            marginTop: 5,
             ...FONTS.icon,
           }}
         >

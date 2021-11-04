@@ -29,7 +29,7 @@ const MainTabNavigator = () => {
           // if (route.name === 'Search') iconSrc = SearchSvg
           // if (route.name === 'Library') iconSrc = icons.library
           // if (route.name === 'Profile') iconSrc = icons.profile
-          return <TabBarIcon focused={focused} name={route.name} />
+          return <TabBarIcon isFocused={focused} name={route.name} />
         },
         headerShown: false,
         tabBarShowLabel: false,

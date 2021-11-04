@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react'
 import { View, Text, Image } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
-import { SvgXml } from 'react-native-svg'
-import HomeSvg from '../assets/icons/ic_home.svg'
 
 import { COLORS, FONTS, SIZES, icons } from '../constants'
 import * as userActions from '../store/actions/user'
@@ -24,7 +22,6 @@ const Header = () => {
       }}
     >
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <SvgXml width='25' height='25' xml={HomeSvg} />
         <Image
           style={{
             tintColor: COLORS.white,
