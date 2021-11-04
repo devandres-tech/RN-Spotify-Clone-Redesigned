@@ -147,6 +147,7 @@ const Profile = ({ navigation }) => {
                 flexDirection: 'row',
                 alignItems: 'center',
                 marginBottom: 10,
+                paddingHorizontal: SIZES.padding,
               }}
             >
               <Image
@@ -212,9 +213,7 @@ const Profile = ({ navigation }) => {
           </View>
         }
         ListFooterComponent={
-          <View
-            style={{ paddingBottom: 120, paddingHorizontal: SIZES.padding }}
-          >
+          <View style={{ paddingBottom: 120 }}>
             {activeMenuItem.id === 1 && renderOverview()}
             {activeMenuItem.id === 2 && renderUserPublicPlaylists()}
             {activeMenuItem.id === 3 && renderUserFollows()}
