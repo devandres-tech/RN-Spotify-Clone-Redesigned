@@ -1,6 +1,9 @@
 import React from 'react'
 import { Text, Image, Animated } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
+import { SvgXml } from 'react-native-svg'
+import HomeSvg from '../assets/icons/ic_home.svg'
+import SearchSvg from '../assets/icons/ic_search.svg'
 
 import { COLORS, FONTS } from '../constants'
 
@@ -25,6 +28,8 @@ const TabBarIcon = ({ focused, name, source }) => {
     }).start()
   }
 
+  console.log('source', source)
+
   return (
     <TouchableOpacity
       activeOpacity={0.7}
@@ -44,14 +49,30 @@ const TabBarIcon = ({ focused, name, source }) => {
           { transform: [{ scale }] },
         ]}
       >
-        <Image
+        {name === 'Home' && (
+          <SvgXml
+            // backgroundColor='red'
+            width='25'
+            height='25'
+            xml={HomeSvg}
+          />
+        )}
+        {name === 'Search' && (
+          <SvgXml
+            // backgroundColor='red'
+            width='25'
+            height='25'
+            xml={SearchSvg}
+          />
+        )}
+        {/* <Image
           style={{
             tintColor: focused ? COLORS.white : COLORS.lightGray,
             height: 28,
             width: 28,
           }}
           source={source}
-        />
+        /> */}
         <Text
           style={{
             color: focused ? COLORS.white : COLORS.lightGray,

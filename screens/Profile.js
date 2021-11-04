@@ -13,7 +13,7 @@ import * as userActions from '../store/actions/user'
 import * as playlistActions from '../store/actions/playlist'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 
-const Profile = () => {
+const Profile = ({ navigation }) => {
   const user = useSelector((state) => state.user)
   const playlist = useSelector((state) => state.playlist)
   const [activeMenuItem, setActiveMenuItem] = useState({
@@ -80,6 +80,7 @@ const Profile = () => {
           label='RECENTLY PLAYED'
         />
         <HorizontalCardContainer
+          navigation={navigation}
           cardItemImageStyle={{ opacity: 1 }}
           cardItemTextStyle={{ position: 'relative', paddingTop: 15 }}
           data={playlist.newReleases}

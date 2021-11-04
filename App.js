@@ -10,6 +10,8 @@ import { SafeAreaProvider } from 'react-native-safe-area-context'
 
 import { Home, Library, Search, Profile, Authorize, Tracks } from './screens'
 import { icons, COLORS, SIZES } from './constants'
+import HomeSvg from './assets/icons/ic_home.svg'
+import SearchSvg from './assets/icons/ic_search.svg'
 import { TabBarIcon } from './components'
 import * as authActions from './store/actions/auth'
 
@@ -22,14 +24,12 @@ const MainTabNavigator = () => {
       initialRouteName='Home'
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused }) => {
-          let iconSrc
-          if (route.name === 'Home') iconSrc = icons.home
-          if (route.name === 'Search') iconSrc = icons.search
-          if (route.name === 'Library') iconSrc = icons.library
-          if (route.name === 'Profile') iconSrc = icons.profile
-          return (
-            <TabBarIcon focused={focused} name={route.name} source={iconSrc} />
-          )
+          // let iconSrc = HomeSvg
+          // if (route.name === 'Home') iconSrc = HomeSvg
+          // if (route.name === 'Search') iconSrc = SearchSvg
+          // if (route.name === 'Library') iconSrc = icons.library
+          // if (route.name === 'Profile') iconSrc = icons.profile
+          return <TabBarIcon focused={focused} name={route.name} />
         },
         headerShown: false,
         tabBarShowLabel: false,

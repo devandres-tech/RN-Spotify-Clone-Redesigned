@@ -33,7 +33,7 @@ const menuItems = [
   },
 ]
 
-const Library = () => {
+const Library = ({ navigation }) => {
   const [activeMenuItem, setActiveMenuItem] = useState(menuItems[0])
   const library = useSelector((state) => state.library)
   const playlist = useSelector((state) => state.playlist)
@@ -53,18 +53,21 @@ const Library = () => {
     return (
       <View>
         <HorizontalCardContainer
+          navigation={navigation}
           cardItemImageStyle={{ opacity: 1 }}
           cardItemTextStyle={{ position: 'relative', paddingTop: 15 }}
           data={library.topArtists}
           label='YOUR TOP ARTISTS'
         />
         <HorizontalCardContainer
+          navigation={navigation}
           cardItemImageStyle={{ opacity: 1 }}
           cardItemTextStyle={{ position: 'relative', paddingTop: 15 }}
           data={library.topTracks}
           label='YOUR TOP TRACKS'
         />
         <HorizontalCardContainer
+          navigation={navigation}
           cardItemImageStyle={{ opacity: 1 }}
           cardItemTextStyle={{ position: 'relative', paddingTop: 15 }}
           data={playlist.newReleases}
