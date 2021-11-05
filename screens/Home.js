@@ -6,6 +6,7 @@ import {
   Text,
   TouchableOpacity,
   ImageBackground,
+  StyleSheet,
 } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 
@@ -18,8 +19,6 @@ import {
   Header,
   TextTitle,
 } from '../components'
-
-// TRY to refactor to only show styles
 
 const Home = ({ navigation }) => {
   const user = useSelector((state) => state.user)
@@ -37,27 +36,14 @@ const Home = ({ navigation }) => {
 
   const renderButtons = () => {
     return (
-      <View
-        style={{
-          flex: 1,
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          paddingHorizontal: SIZES.padding,
-          paddingBottom: SIZES.paddingBottom,
-        }}
-      >
+      <View style={styles.buttonContainer}>
         <TextButton
           label='explore'
           buttonContainerStyle={{ paddingHorizontal: 26 }}
         />
         <TextButton
           label='upgrade to premium'
-          buttonContainerStyle={{
-            paddingHorizontal: 26,
-            backgroundColor: COLORS.black,
-            borderColor: COLORS.white,
-            borderWidth: 1,
-          }}
+          buttonContainerStyle={styles.textButton}
         />
       </View>
     )
@@ -70,32 +56,9 @@ const Home = ({ navigation }) => {
         style={{ paddingBottom: SIZES.paddingBottom }}
       >
         <TextTitle label='TOP ARTIST AND TRACKS' />
-        <View
-          style={{
-            paddingRight: SIZES.padding,
-            paddingHorizontal: SIZES.padding,
-            backgroundColor: COLORS.lightGray3,
-            padding: 10,
-            borderRadius: 20,
-            justifyContent: 'flex-end',
-            alignItems: 'center',
-            flexDirection: 'row-reverse',
-          }}
-        >
-          <View
-            style={{
-              paddingLeft: 45,
-              paddingRight: 80,
-              justifyContent: 'center',
-            }}
-          >
-            <Text
-              style={{
-                color: COLORS.white,
-                paddingBottom: 30,
-                ...FONTS.h3,
-              }}
-            >
+        <View style={styles.artistsAndTracksContainer}>
+          <View style={styles.textContainer}>
+            <Text style={styles.topArtistAndTracksText}>
               SEE YOUR ALL TIME TOP ARTISTS AND TRACKS
             </Text>
             <Text style={{ color: COLORS.white, ...FONTS.body }}>
@@ -106,11 +69,7 @@ const Home = ({ navigation }) => {
             return (
               <View style={{ width: 30 }}>
                 <Image
-                  style={{
-                    height: 135,
-                    width: 68,
-                    borderRadius: 20,
-                  }}
+                  style={styles.topArtistAndTracksImage}
                   source={{ uri: artist.images[0].url }}
                 />
               </View>
@@ -122,14 +81,7 @@ const Home = ({ navigation }) => {
   }
 
   return (
-    <View
-      style={{
-        flex: 1,
-        paddingTop: SIZES.paddingTop,
-        backgroundColor: COLORS.black,
-        width: '100%',
-      }}
-    >
+    <View style={styles.container}>
       <FlatList
         showsVerticalScrollIndicator={false}
         ListHeaderComponent={<Header />}
@@ -137,11 +89,7 @@ const Home = ({ navigation }) => {
           <View style={{ paddingBottom: 120 }}>
             <HorizontalCardContainer
               navigation={navigation}
-              cardItemTextStyle={{
-                paddingLeft: 10,
-                position: 'absolute',
-                bottom: SIZES.padding,
-              }}
+              cardItemTextStyle={styles.playlistTextStyle}
               data={user.playlists}
               label='MY PLAYLISTS'
             />
@@ -164,22 +112,11 @@ const Home = ({ navigation }) => {
             {/* featured */}
             <View style={{ paddingBottom: SIZES.paddingBottom }}>
               <TextTitle label='FEATURED' />
-              <View
-                style={{
-                  flexDirection: 'column',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}
-              >
+              <View style={styles.featuredContainer}>
                 <ImageBackground
                   resizeMode='repeat'
                   source={{ uri: playlist.featured[0].images[0].url }}
-                  style={{
-                    width: '100%',
-                    height: 210,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}
+                  style={styles.featuredImage}
                 >
                   <TextButton
                     label='CHECK IT OUT'
@@ -204,5 +141,68 @@ const Home = ({ navigation }) => {
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingTop: SIZES.paddingTop,
+    backgroundColor: COLORS.black,
+    width: '100%',
+  },
+  buttonContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: SIZES.padding,
+    paddingBottom: SIZES.paddingBottom,
+  },
+  textButton: {
+    paddingHorizontal: 26,
+    backgroundColor: COLORS.black,
+    borderColor: COLORS.white,
+    borderWidth: 1,
+  },
+  artistsAndTracksContainer: {
+    paddingRight: SIZES.padding,
+    paddingHorizontal: SIZES.padding,
+    backgroundColor: COLORS.lightGray3,
+    padding: 10,
+    borderRadius: 20,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    flexDirection: 'row-reverse',
+  },
+  textContainer: {
+    paddingLeft: 45,
+    paddingRight: 80,
+    justifyContent: 'center',
+  },
+  topArtistAndTracksText: {
+    color: COLORS.white,
+    paddingBottom: 30,
+    ...FONTS.h3,
+  },
+  topArtistAndTracksImage: {
+    height: 135,
+    width: 68,
+    borderRadius: 20,
+  },
+  playlistTextStyle: {
+    paddingLeft: 10,
+    position: 'absolute',
+    bottom: SIZES.padding,
+  },
+  featuredContainer: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  featuredImage: {
+    width: '100%',
+    height: 210,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+})
 
 export default Home
