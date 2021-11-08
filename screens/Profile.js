@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, FlatList, Image, Text } from 'react-native'
+import { View, FlatList, Image, Text, StyleSheet } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 
 import {
@@ -47,15 +47,9 @@ const Profile = ({ navigation }) => {
 
   const renderUserProfile = () => {
     return (
-      <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          paddingHorizontal: SIZES.padding,
-        }}
-      >
+      <View style={styles.userProfileContainer}>
         <Image
-          style={{ width: 100, height: 100, borderRadius: 60, marginRight: 18 }}
+          style={styles.userImage}
           source={{ uri: user.data.images[0].url }}
         />
         <View>
@@ -102,26 +96,13 @@ const Profile = ({ navigation }) => {
           .map((filteredPlaylist) => {
             return (
               <TouchableOpacity activeOpacity={0.7}>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    marginBottom: 30,
-                    paddingHorizontal: SIZES.padding,
-                  }}
-                >
+                <View style={styles.publicPlaylistContainer}>
                   <Image
                     style={{ width: 60, height: 60, marginRight: 20 }}
                     source={{ uri: filteredPlaylist.images[0].url }}
                   />
                   <View>
-                    <Text
-                      style={{
-                        color: COLORS.white,
-                        paddingBottom: 5,
-                        ...FONTS.h3,
-                      }}
-                    >
+                    <Text style={styles.publicPlaylistTitle}>
                       {filteredPlaylist.name}
                     </Text>
                     <Text style={{ color: COLORS.white, ...FONTS.body }}>
@@ -143,20 +124,10 @@ const Profile = ({ navigation }) => {
           return (
             <TouchableOpacity
               activeOpacity={0.7}
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                marginBottom: 10,
-                paddingHorizontal: SIZES.padding,
-              }}
+              style={styles.userFollowsContainer}
             >
               <Image
-                style={{
-                  width: 70,
-                  height: 70,
-                  borderRadius: 35,
-                  marginRight: 10,
-                }}
+                style={styles.artistImage}
                 source={{ uri: artist.images[0].url }}
               />
               <View style={{ flex: 2 }}>
@@ -173,14 +144,7 @@ const Profile = ({ navigation }) => {
                 </Text>
               </View>
               <TextButton
-                buttonContainerStyle={{
-                  alignSelf: 'flex-end',
-                  paddingHorizontal: 20,
-                  backgroundColor: 'transparent',
-                  borderWidth: 1,
-                  borderColor: COLORS.white,
-                  height: 35,
-                }}
+                buttonContainerStyle={styles.textButton}
                 label='following'
               />
             </TouchableOpacity>
@@ -191,14 +155,7 @@ const Profile = ({ navigation }) => {
   }
 
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: 'center',
-        backgroundColor: COLORS.black,
-        paddingTop: SIZES.paddingTop,
-      }}
-    >
+    <View style={styles.profileScreen}>
       <FlatList
         showsVerticalScrollIndicator={false}
         ListHeaderComponent={
@@ -223,5 +180,47 @@ const Profile = ({ navigation }) => {
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  userProfileContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: SIZES.padding,
+  },
+  userImage: {
+    width: 100,
+    height: 100,
+    borderRadius: 60,
+    marginRight: 18,
+  },
+  publicPlaylistContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 30,
+    paddingHorizontal: SIZES.padding,
+  },
+  publicPlaylistTitle: { color: COLORS.white, paddingBottom: 5, ...FONTS.h3 },
+  userFollowsContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 10,
+    paddingHorizontal: SIZES.padding,
+  },
+  artistImage: { width: 70, height: 70, borderRadius: 35, marginRight: 10 },
+  textButton: {
+    alignSelf: 'flex-end',
+    paddingHorizontal: 20,
+    backgroundColor: 'transparent',
+    borderWidth: 1,
+    borderColor: COLORS.white,
+    height: 35,
+  },
+  profileScreen: {
+    flex: 1,
+    justifyContent: 'center',
+    backgroundColor: COLORS.black,
+    paddingTop: SIZES.paddingTop,
+  },
+})
 
 export default Profile
