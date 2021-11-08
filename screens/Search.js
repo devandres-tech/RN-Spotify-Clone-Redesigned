@@ -6,6 +6,7 @@ import {
   Text,
   TouchableOpacity,
   TextInput,
+  StyleSheet,
 } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 
@@ -39,42 +40,18 @@ const Search = () => {
             activeOpacity={0.7}
             style={{ paddingBottom: SIZES.paddingBottom }}
           >
-            <View
-              style={{
-                backgroundColor: COLORS.lightGray3,
-                padding: 10,
-                borderRadius: 20,
-                flexDirection: 'row-reverse',
-              }}
-            >
+            <View style={styles.cardItemContainer}>
               {browse[catId].reverse().map((categoryPlaylist) => {
                 return (
-                  <View
-                    style={{
-                      width: 30,
-                      position: 'relative',
-                      left: 50,
-                    }}
-                  >
+                  <View style={styles.cardItemImageContainer}>
                     <Image
-                      style={{
-                        height: 135,
-                        width: 80,
-                        borderRadius: 20,
-                      }}
+                      style={styles.cardItemImage}
                       source={{ uri: categoryPlaylist.images[0].url }}
                     />
                   </View>
                 )
               })}
-
-              <View
-                style={{
-                  width: 185,
-                  marginRight: 58,
-                  justifyContent: 'center',
-                }}
-              >
+              <View style={styles.cardItemCategory}>
                 <Text
                   style={{
                     color: COLORS.white,
@@ -111,41 +88,20 @@ const Search = () => {
             <Header />
             {/* search component */}
             <TextTitle containerStyle={{ ...FONTS.h1 }} label='SEARCH' />
-            <View
-              style={{
-                marginHorizontal: SIZES.padding,
-                paddingHorizontal: 15,
-                borderColor: COLORS.white,
-                borderWidth: 1,
-                borderRadius: 50,
-                flexDirection: 'row',
-                height: 50,
-                alignItems: 'center',
-                marginBottom: SIZES.paddingBottom,
-              }}
-            >
+            <View style={styles.searchContainer}>
               <TextInput
                 placeholder='Search...'
                 selectionColor={COLORS.primary}
                 placeholderTextColor={'#fff'}
-                style={{
-                  height: 60,
-                  flex: 1,
-                  marginLeft: 10,
-                  color: COLORS.white,
-                  ...FONTS.body,
-                }}
+                style={styles.textInput}
               />
-              <Image
-                source={icons.search}
-                style={{ height: 25, width: 25, tintColor: COLORS.white }}
-              />
+              <Image source={icons.search} style={styles.searchIcon} />
             </View>
           </View>
         }
         ListFooterComponent={
           <View
-            style={{ paddingBottom: 120, paddingHorizontal: SIZES.padding }}
+            style={styles.footerContainer}
           >
             {renderCardItems()}
           </View>
@@ -154,5 +110,49 @@ const Search = () => {
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  cardItemContainer: {
+    backgroundColor: COLORS.lightGray3,
+    padding: 10,
+    borderRadius: 20,
+    flexDirection: 'row-reverse',
+  },
+  cardItemImageContainer: { width: 30, position: 'relative', left: 50 },
+  cardItemImage: {
+    height: 135,
+    width: 80,
+    borderRadius: 20,
+  },
+  cardItemCategory: {
+    width: 185,
+    marginRight: 58,
+    justifyContent: 'center',
+  },
+  searchContainer: {
+    marginHorizontal: SIZES.padding,
+    paddingHorizontal: 15,
+    borderColor: COLORS.white,
+    borderWidth: 1,
+    borderRadius: 50,
+    flexDirection: 'row',
+    height: 50,
+    alignItems: 'center',
+    marginBottom: SIZES.paddingBottom,
+  },
+  textInput: {
+    height: 60,
+    flex: 1,
+    marginLeft: 10,
+    color: COLORS.white,
+    ...FONTS.body,
+  },
+  searchIcon: {
+    height: 25,
+    width: 25,
+    tintColor: COLORS.white,
+  },
+  footerContainer: { paddingBottom: 120, paddingHorizontal: SIZES.padding },
+})
 
 export default Search
