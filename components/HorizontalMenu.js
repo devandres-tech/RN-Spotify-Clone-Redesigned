@@ -22,6 +22,7 @@ const HorizontalMenu = ({ menuItems, activeMenuItem, setActiveMenuItem }) => {
         renderItem={({ item }) => {
           return (
             <TouchableOpacity
+              activeOpacity={0.7}
               onPress={() => setActiveMenuItem(item)}
               style={{
                 marginRight: 20,

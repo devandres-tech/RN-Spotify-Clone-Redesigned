@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, Image, View } from 'react-native'
+import { Text, Image, View, StyleSheet } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 
 import { COLORS, FONTS, SIZES } from '../constants'
@@ -69,41 +69,12 @@ const HorizontalCardItem = ({
             alignItems: 'center',
           }}
         >
-          <Text
-            style={{
-              color: COLORS.lightGray,
-              paddingRight: 4,
-              ...FONTS.cardItemSubText,
-            }}
-          >
-            {date.substr(0, 4)}
-          </Text>
-          <Text
-            style={{
-              color: COLORS.lightGray,
-              paddingRight: 4,
-              fontSize: 4,
-            }}
-          >
-            {'\u25CF'}
-          </Text>
-          <Text
-            style={{
-              color: COLORS.lightGray,
-              ...FONTS.cardItemSubText,
-            }}
-          >
+          <Text style={styles.date}>{date.substr(0, 4)}</Text>
+          <Text style={styles.bulletDot}>{'\u25CF'}</Text>
+          <Text style={styles.albumType}>
             {albumType === 'single' ? 'Single' : 'Album'}
           </Text>
-          <Text
-            style={{
-              color: COLORS.lightGray,
-              paddingHorizontal: 4,
-              fontSize: 4,
-            }}
-          >
-            {'\u25CF'}
-          </Text>
+          <Text style={styles.bulletDot}>{'\u25CF'}</Text>
 
           <Text
             style={{
@@ -130,5 +101,11 @@ const HorizontalCardItem = ({
     </TouchableOpacity>
   )
 }
+
+const styles = StyleSheet.create({
+  date: { color: COLORS.lightGray, ...FONTS.cardItemSubText },
+  bulletDot: { color: COLORS.lightGray, paddingHorizontal: 4, fontSize: 4 },
+  albumType: { color: COLORS.lightGray, ...FONTS.cardItemSubText },
+})
 
 export default HorizontalCardItem
