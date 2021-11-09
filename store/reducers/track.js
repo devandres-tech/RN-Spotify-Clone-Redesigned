@@ -1,4 +1,8 @@
-import { GET_ALBUM_TRACKS, GET_PLAYLIST_TRACKS } from '../actions/track'
+import {
+  GET_ALBUM_TRACKS,
+  GET_PLAYLIST_TRACKS,
+  GET_ARTIST_TRACKS,
+} from '../actions/track'
 
 const initialState = {
   name: '',
@@ -22,6 +26,12 @@ export default (state = initialState, action) => {
       return {
         ...state,
         ...action.playlistTracks,
+      }
+
+    case GET_ARTIST_TRACKS:
+      return {
+        ...state,
+        ...action.artistTracks,
       }
 
     default:

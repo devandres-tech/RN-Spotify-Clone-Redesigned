@@ -2,6 +2,7 @@ import { BASE_URL } from '@env'
 
 export const GET_ALBUM_TRACKS = 'GET_ALBUM_TRACKS'
 export const GET_PLAYLIST_TRACKS = 'GET_PLAYLIST_TRACKS'
+export const GET_ARTIST_TRACKS = 'GET_ARTIST_TRACKS'
 
 const setHeaders = (accessToken) => {
   return {
@@ -42,6 +43,27 @@ export const getPlaylistTracks = (playlistId) => {
       })
       data.tracks.items = flattenPlaylistTracks
       dispatch({ type: GET_PLAYLIST_TRACKS, playlistTracks: data })
+    } catch (error) {
+      console.log('error')
+      throw error
+    }
+  }
+}
+
+export const getArtistTracks = (artistId) => {
+  return async (dispatch, getState) => {
+    const accessToken = getState().auth.accessToken
+    try {
+      const response = await fetch(
+        `${BASE_URL}/artists/${artistId}/top-tracks`,
+        {
+          method: 'GET',
+          headers: setHeaders(accessToken),
+        }
+      )
+      const data = await response.json()
+      console.log('data')
+      dispatch({ type: GET_ARTIST_TRACKS, artistTracks: data })
     } catch (error) {
       console.log('error')
       throw error
