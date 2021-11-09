@@ -59,13 +59,16 @@ const Library = ({ navigation }) => {
           data={library.topArtists}
           label='YOUR TOP ARTISTS'
         />
-        <HorizontalCardContainer
-          navigation={navigation}
-          cardItemImageStyle={{ opacity: 1 }}
-          cardItemTextStyle={{ position: 'relative', paddingTop: 15 }}
-          data={library.topTracks}
-          label='YOUR TOP TRACKS'
-        />
+        <TextTitle label='YOUR TOP TRACKS' />
+        {library.topTracks.map((track) => {
+          return (
+            <TrackItem
+              artists={track.artists}
+              trackName={track.name}
+              albumImages={track.images}
+            />
+          )
+        })}
         <HorizontalCardContainer
           navigation={navigation}
           cardItemImageStyle={{ opacity: 1 }}

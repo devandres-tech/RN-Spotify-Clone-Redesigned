@@ -15,7 +15,6 @@ const TrackItem = ({
 }) => {
   const date = new Date(duration)
   const artistsNames = artists.map((artist) => artist.name).join(', ')
-  console.log('album images', albumImages)
 
   return (
     <TouchableOpacity activeOpacity={0.7}>
