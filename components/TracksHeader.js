@@ -75,7 +75,7 @@ const TracksHeader = ({
           </>
         )}
       </View>
-      {mediaDescription && (
+      {mediaDescription.length > 0 && (
         <HTMLView stylesheet={styles} value={`<p>${mediaDescription}</p>`} />
       )}
       {artists.length > 0 && (

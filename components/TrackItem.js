@@ -15,11 +15,6 @@ const TrackItem = ({
 }) => {
   const date = new Date(duration)
   const artistsNames = artists.map((artist) => artist.name).join(', ')
-  // let albumImageUrl = icons.musicAlbum
-  // if (albumImages !== null) {
-  //   console.log('album imagesl', albumImages)
-  //   albumImageUrl = albumImages[0].url
-  // }
 
   return (
     <TouchableOpacity activeOpacity={0.7}>
@@ -28,8 +23,7 @@ const TrackItem = ({
           <Image
             style={{
               ...styles.albumImage,
-              // tintColor:
-              //   typeof albumImageUrl === 'string' ? null : COLORS.lightGray,
+              tintColor: albumImages.length > 0 ? null : COLORS.lightGray,
             }}
             source={
               albumImages.length > 0

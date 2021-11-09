@@ -57,9 +57,6 @@ const Tracks = ({ route: { params }, navigation }) => {
     )
   }
 
-  console.log('track album -----', track.album.images[0].url)
-  console.log('track album 888888888888', track.album.images)
-
   return (
     <SafeAreaView style={{ backgroundColor: COLORS.black, flex: 1 }}>
       <StatusBar
@@ -113,7 +110,7 @@ const Tracks = ({ route: { params }, navigation }) => {
               title={track.name}
               totalTracks={track.tracks.items.length}
               mediaDescription={
-                track.type === 'playlist' ? track.description : null
+                track.type === 'playlist' ? track.description : ''
               }
               followers={track.followers.total}
               scrollY={scrollY}

@@ -2,11 +2,12 @@ import { GET_ALBUM_TRACKS, GET_PLAYLIST_TRACKS } from '../actions/track'
 
 const initialState = {
   name: '',
-  album: { images: [{ url: '' }], followers: { total: 0 } },
   tracks: {
     items: [{ explicit: false, album: { images: [{ url: '' }] }, artists: [] }],
   },
   type: '',
+  images: [{ url: '' }],
+  followers: { total: 0 },
 }
 
 export default (state = initialState, action) => {
