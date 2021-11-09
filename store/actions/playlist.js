@@ -3,8 +3,6 @@ import { BASE_URL } from '@env'
 export const GET_CATEGORIES_PLAYLISTS = 'GET_CATEGORIES_PLAYLISTS'
 export const GET_FEATURED_PLAYLISTS = 'GET_FEATURED_PLAYLISTS'
 export const GET_NEW_RELEASES = 'GET_NEW_RELEASES'
-export const GET_PLAYLIST_TRACKS = 'GET_PLAYLIST_TRACKS'
-export const GET_ALBUM_TRACKS = 'GET_ALBUM_TRACKS'
 
 const setHeaders = (accessToken) => {
   return {
@@ -77,28 +75,6 @@ export const getNewReleases = (limit) => {
       dispatch({ type: GET_NEW_RELEASES, newReleases: albums })
     } catch (error) {
       console.log('error', error)
-    }
-  }
-}
-
-export const getPlaylist = (playlistId) => {
-  return async (dispatch, getState) => {
-    const accessToken = getState().auth.accessToken
-    try {
-      const response = await fetch(`${BASE_URL}/playlists/${playlistId}`, {
-        method: 'GET',
-        headers: setHeaders(accessToken),
-      })
-      const data = await response.json()
-      const flattenPlaylistTracks = data.tracks.items.map((track) => {
-        return { ...track, ...track.track }
-      })
-      data.tracks.items = flattenPlaylistTracks
-      console.log('playlistTracks:data', data)
-      dispatch({ type: GET_PLAYLIST_TRACKS, playlistTracks: data })
-    } catch (error) {
-      console.log('error')
-      throw error
     }
   }
 }

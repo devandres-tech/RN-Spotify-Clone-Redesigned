@@ -2,7 +2,6 @@ import {
   GET_CATEGORIES_PLAYLISTS,
   GET_FEATURED_PLAYLISTS,
   GET_NEW_RELEASES,
-  GET_PLAYLIST_TRACKS,
 } from '../actions/playlist'
 
 const initialState = {
@@ -35,12 +34,6 @@ export default (state = initialState, action) => {
       return {
         ...state,
         newReleases: action.newReleases,
-      }
-
-    case GET_PLAYLIST_TRACKS:
-      return {
-        ...state,
-        album: action.playlistTracks,
       }
 
     default:
