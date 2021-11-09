@@ -18,11 +18,13 @@ const HorizontalCardItem = ({
   artists,
   id,
   navigation,
+  artist,
 }) => {
   const onCardItemHandler = () => {
     navigation.navigate('Tracks', {
-      id,
-      type,
+      mediaId: id,
+      mediaType: type,
+      artist,
     })
   }
 

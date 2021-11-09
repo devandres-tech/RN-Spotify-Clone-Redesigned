@@ -108,7 +108,7 @@ const Library = ({ navigation }) => {
                   <TrackItem
                     artists={track.artists}
                     trackName={track.name}
-                    albumImageUrl={track.images[0].url}
+                    albumImages={track.images}
                   />
                 )
               })}
@@ -118,7 +118,7 @@ const Library = ({ navigation }) => {
                   <TrackItem
                     artists={track.artists}
                     trackName={track.name}
-                    albumImageUrl={track.album.images[0].url}
+                    albumImages={track.album.images}
                   />
                 )
               })}
@@ -128,7 +128,7 @@ const Library = ({ navigation }) => {
                   <TrackItem
                     artists={album.artists}
                     albumName={album.albumName}
-                    albumImageUrl={album.images[0].url}
+                    albumImages={album.images}
                   />
                 )
               })}

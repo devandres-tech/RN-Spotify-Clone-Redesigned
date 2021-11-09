@@ -53,17 +53,23 @@ export const getPlaylistTracks = (playlistId) => {
 export const getArtistTracks = (artistId) => {
   return async (dispatch, getState) => {
     const accessToken = getState().auth.accessToken
+    console.log('token', accessToken)
+    console.log('id', artistId)
     try {
       const response = await fetch(
-        `${BASE_URL}/artists/${artistId}/top-tracks`,
+        `${BASE_URL}/artists/${artistId}/top-tracks?market=US`,
         {
           method: 'GET',
           headers: setHeaders(accessToken),
         }
       )
       const data = await response.json()
-      console.log('data')
-      dispatch({ type: GET_ARTIST_TRACKS, artistTracks: data })
+      const transformedData = {
+        tracks: {
+          items: [...data.tracks],
+        },
+      }
+      dispatch({ type: GET_ARTIST_TRACKS, artistTracks: transformedData })
     } catch (error) {
       console.log('error')
       throw error

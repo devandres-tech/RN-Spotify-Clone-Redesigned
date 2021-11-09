@@ -29,6 +29,7 @@ const HorizontalCardContainer = ({
         renderItem={({ item, index }) => {
           return (
             <HorizontalCardItem
+              artist={item.type === 'artist' ? item : null}
               navigation={navigation}
               id={item.id}
               index={index}

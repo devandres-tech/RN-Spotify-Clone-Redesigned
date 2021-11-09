@@ -7,7 +7,6 @@ import {
   SafeAreaView,
   StyleSheet,
   Text,
-  Dimensions,
 } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 import Animated, {
@@ -19,7 +18,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 
 import { COLORS, icons, FONTS } from '../constants'
 import * as tracksActions from '../store/actions/track'
-import { TrackItem, TracksHeader, TextTitle } from '../components'
+import { TrackItem, TracksHeader } from '../components'
 import { animateOpacity, animateHeight, animateScale } from '../utils/helpers'
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList)
@@ -28,15 +27,16 @@ const Tracks = ({ route: { params }, navigation }) => {
   const scrollY = useSharedValue(0)
   const track = useSelector((state) => state.track)
   const dispatch = useDispatch()
-  const { id, type } = params
+  const { mediaId, mediaType, artist } = params
 
   useEffect(() => {
-    if (type === 'playlist') {
-      dispatch(tracksActions.getPlaylistTracks(id))
-    } else if (type === 'album') {
-      dispatch(tracksActions.getAlbumTracks(id))
-    }
-  }, [id, dispatch, type])
+    if (mediaType === 'playlist')
+      dispatch(tracksActions.getPlaylistTracks(mediaId))
+    else if (mediaType === 'album')
+      dispatch(tracksActions.getAlbumTracks(mediaId))
+    else if (mediaType === 'artist')
+      dispatch(tracksActions.getArtistTracks(mediaId))
+  }, [mediaId, dispatch, mediaType])
 
   const scrollHandler = useAnimatedScrollHandler({
     onScroll: (e) => {
@@ -44,10 +44,14 @@ const Tracks = ({ route: { params }, navigation }) => {
     },
   })
 
+  const formatText = (text) => {
+    return text.length > 35 ? text.substring(0, 35) + '...' : text.trim()
+  }
+
   const renderTracks = ({ item }) => {
     return (
       <TrackItem
-        explicit={track.type === 'playlist' ? item.explicit : null}
+        explicit={item.explicit}
         trackNumber={track.type === 'album' ? item.track_number : null}
         trackName={item.name}
         artists={item.artists}
@@ -73,13 +77,7 @@ const Tracks = ({ route: { params }, navigation }) => {
       >
         <LinearGradient
           style={styles.linearGradient}
-          colors={[
-            COLORS.black,
-            COLORS.black,
-            COLORS.black,
-            'rgba(7, 7, 7, 0.55)',
-            'rgba(7, 7, 7, 0.50)',
-          ]}
+          colors={styles.linearGradientColors}
         />
         <TouchableOpacity
           activeOpacity={0.7}
@@ -94,9 +92,9 @@ const Tracks = ({ route: { params }, navigation }) => {
             ...FONTS.h3,
           }}
         >
-          {track.name.length > 35
-            ? track.name.substring(0, 35) + '...'
-            : track.name.trim()}
+          {mediaType === 'artist'
+            ? formatText(artist.name)
+            : formatText(track.name)}
         </Text>
       </Animated.View>
       <Animated.View>
@@ -105,14 +103,24 @@ const Tracks = ({ route: { params }, navigation }) => {
           onScroll={scrollHandler}
           ListHeaderComponent={
             <TracksHeader
-              type={track.type}
-              imageUrl={track.images[0].url}
-              title={track.name}
+              type={mediaType === 'artist' ? artist.type : track.type}
+              imageUrl={
+                mediaType == 'artist'
+                  ? artist.images[0].url
+                  : track.images[0].url
+              }
+              title={mediaType === 'artist' ? artist.name : track.name}
               totalTracks={track.tracks.items.length}
               mediaDescription={
-                track.type === 'playlist' ? track.description : ''
+                track.type === 'playlist' && mediaType !== 'artist'
+                  ? track.description
+                  : ''
               }
-              followers={track.followers.total}
+              followers={
+                mediaType === 'artist'
+                  ? artist.followers.total
+                  : track.followers.total
+              }
               scrollY={scrollY}
               animateScale={() => animateScale(scrollY)}
             />
@@ -150,6 +158,13 @@ const styles = StyleSheet.create({
     bottom: 0,
     backgroundColor: 'transparent',
   },
+  linearGradientColors: [
+    COLORS.black,
+    COLORS.black,
+    COLORS.black,
+    'rgba(7, 7, 7, 0.55)',
+    'rgba(7, 7, 7, 0.50)',
+  ],
 })
 
 export default Tracks
