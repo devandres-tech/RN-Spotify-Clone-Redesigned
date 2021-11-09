@@ -84,7 +84,6 @@ const TrackItem = ({
             </Text>
           )}
         </View>
-
         <View
           style={{
             flex: 2,

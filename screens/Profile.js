@@ -68,6 +68,7 @@ const Profile = ({ navigation }) => {
     return (
       <View>
         <HorizontalCardContainer
+          navigation={navigation}
           cardItemImageStyle={{ opacity: 1 }}
           cardItemTextStyle={{ position: 'relative', paddingTop: 15 }}
           data={user.recentlyPlayed}
@@ -95,7 +96,15 @@ const Profile = ({ navigation }) => {
           )
           .map((filteredPlaylist) => {
             return (
-              <TouchableOpacity activeOpacity={0.7}>
+              <TouchableOpacity
+                activeOpacity={0.7}
+                onPress={() =>
+                  navigation.navigate('Tracks', {
+                    mediaType: filteredPlaylist.type,
+                    mediaId: filteredPlaylist.id,
+                  })
+                }
+              >
                 <View style={styles.publicPlaylistContainer}>
                   <Image
                     style={{ width: 60, height: 60, marginRight: 20 }}
