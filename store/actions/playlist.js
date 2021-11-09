@@ -90,6 +90,11 @@ export const getPlaylist = (playlistId) => {
         headers: setHeaders(accessToken),
       })
       const data = await response.json()
+      const flattenPlaylistTracks = data.tracks.items.map((track) => {
+        return { ...track, ...track.track }
+      })
+      data.tracks.items = flattenPlaylistTracks
+      console.log('playlistTracks:data', data)
       dispatch({ type: GET_PLAYLIST_TRACKS, playlistTracks: data })
     } catch (error) {
       console.log('error')

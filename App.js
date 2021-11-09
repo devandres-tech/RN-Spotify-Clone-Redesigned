@@ -24,11 +24,6 @@ const MainTabNavigator = () => {
       initialRouteName='Home'
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused }) => {
-          // let iconSrc = HomeSvg
-          // if (route.name === 'Home') iconSrc = HomeSvg
-          // if (route.name === 'Search') iconSrc = SearchSvg
-          // if (route.name === 'Library') iconSrc = icons.library
-          // if (route.name === 'Profile') iconSrc = icons.profile
           return <TabBarIcon isFocused={focused} name={route.name} />
         },
         headerShown: false,

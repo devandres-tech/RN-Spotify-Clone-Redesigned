@@ -10,10 +10,10 @@ import {
   Dimensions,
 } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
-import Animated, {
-  useSharedValue,
-  useAnimatedScrollHandler,
-} from 'react-native-reanimated'
+// import Animated, {
+//   useSharedValue,
+//   useAnimatedScrollHandler,
+// } from 'react-native-reanimated'
 import LinearGradient from 'react-native-linear-gradient'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 
@@ -24,14 +24,16 @@ import { TrackItem, TracksHeader, TextTitle } from '../components'
 import { animateOpacity, animateHeight, animateScale } from '../utils/helpers'
 const { height } = Dimensions.get('window')
 
-const AnimatedFlatList = Animated.createAnimatedComponent(FlatList)
+// const AnimatedFlatList = Animated.createAnimatedComponent(FlatList)
 
 const Tracks = ({ route: { params }, navigation }) => {
-  const scrollY = useSharedValue(0)
+  // const scrollY = useSharedValue(0)
   const playlist = useSelector((state) => state.playlist)
   const album = useSelector((state) => state.album)
   const dispatch = useDispatch()
   const { id, type } = params
+
+  console.log('Tracks:type', type)
 
   useEffect(() => {
     if (type === 'playlist') {
@@ -41,11 +43,11 @@ const Tracks = ({ route: { params }, navigation }) => {
     }
   }, [id, dispatch, type])
 
-  const scrollHandler = useAnimatedScrollHandler({
-    onScroll: (e) => {
-      scrollY.value = e.contentOffset.y
-    },
-  })
+  // const scrollHandler = useAnimatedScrollHandler({
+  //   onScroll: (e) => {
+  //     scrollY.value = e.contentOffset.y
+  //   },
+  // })
 
   const renderPlaylistTracks = ({ item: { track } }) => {
     const images = track.album.images
@@ -77,7 +79,6 @@ const Tracks = ({ route: { params }, navigation }) => {
     )
   }
 
-  console.log('scrollYY', height)
   return (
     <SafeAreaView style={{ backgroundColor: COLORS.black, flex: 1 }}>
       <StatusBar
@@ -86,7 +87,7 @@ const Tracks = ({ route: { params }, navigation }) => {
         backgroundColor={COLORS.black}
       />
 
-      <Animated.View
+      {/* <Animated.View
         style={[
           styles.headerContainer,
           animateOpacity(scrollY),
@@ -176,7 +177,7 @@ const Tracks = ({ route: { params }, navigation }) => {
             renderItem={renderAlbumTracks}
           />
         )}
-      </Animated.View>
+      </Animated.View> */}
     </SafeAreaView>
   )
 }

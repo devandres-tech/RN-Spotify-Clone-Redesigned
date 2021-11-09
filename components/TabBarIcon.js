@@ -34,8 +34,6 @@ const TabBarIcon = ({ isFocused, name, source }) => {
     }).start()
   }
 
-  console.log('source', source)
-
   return (
     <TouchableOpacity
       activeOpacity={0.7}
