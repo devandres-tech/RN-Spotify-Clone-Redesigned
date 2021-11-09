@@ -24,7 +24,7 @@ const TracksHeader = ({
   return (
     <Animated.View style={styles.containerView}>
       <Animated.Image
-        // style={[styles.image, animateScale(scrollY)]}
+        style={[styles.image, animateScale(scrollY)]}
         resizeMode={'cover'}
         source={{ uri: imageUrl }}
       />
@@ -75,7 +75,7 @@ const TracksHeader = ({
           </>
         )}
       </View>
-      {mediaDescription.length > 0 && (
+      {mediaDescription && (
         <HTMLView stylesheet={styles} value={`<p>${mediaDescription}</p>`} />
       )}
       {artists.length > 0 && (
