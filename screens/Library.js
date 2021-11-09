@@ -60,6 +60,7 @@ const Library = ({ navigation }) => {
           label='YOUR TOP ARTISTS'
         />
         <TextTitle label='YOUR TOP TRACKS' />
+        <View style={{paddingBottom: SIZES.paddingBottom}}>
         {library.topTracks.map((track) => {
           return (
             <TrackItem
@@ -69,6 +70,7 @@ const Library = ({ navigation }) => {
             />
           )
         })}
+        </View>
         <HorizontalCardContainer
           navigation={navigation}
           cardItemImageStyle={{ opacity: 1 }}

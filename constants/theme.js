@@ -8,26 +8,30 @@ export const COLORS = {
 }
 
 export const FONTS = {
-  h1: { fontFamily: 'Montserrat-Bold', fontSize: 22, letterSpacing: 2 },
-  h2: { fontFamily: 'Montserrat-Bold', fontSize: 18, letterSpacing: 2 },
-  h3: { fontFamily: 'Montserrat-Bold', fontSize: 16, letterSpacing: 0 },
-  body: { fontFamily: 'Montserrat', fontSize: 12 },
-  menuText: { fontFamily: 'Montserrat', fontSize: 14 },
-  btn: { fontFamily: 'Montserrat-Bold', fontSize: 14, letterSpacing: 1 },
-  greeting: { fontFamily: 'Montserrat-Bold', fontSize: 16 },
+  h1: { fontFamily: 'Poppins-Bold', fontSize: 22, letterSpacing: 2 },
+  h2: {
+    fontFamily: 'Poppins-Bold',
+    fontSize: 18,
+    letterSpacing: 2,
+  },
+  h3: { fontFamily: 'Poppins-Bold', fontSize: 16, letterSpacing: 0 },
+  body: { fontFamily: 'Poppins-Regular', fontSize: 12 },
+  menuText: { fontFamily: 'Poppins-Regular', fontSize: 14 },
+  btn: { fontFamily: 'Poppins-Bold', fontSize: 14, letterSpacing: 1 },
+  greeting: { fontFamily: 'Poppins-Bold', fontSize: 16 },
   cardItemText: {
-    fontFamily: 'Montserrat-Bold',
+    fontFamily: 'Poppins-Bold',
     fontSize: 11,
   },
   cardItemSubText: {
-    fontFamily: 'Montserrat',
+    fontFamily: 'Poppins-Regular',
     fontSize: 11,
   },
-  icon: { fontFamily: 'Montserrat-Bold', fontSize: 8 },
+  icon: { fontFamily: 'Poppins-Bold', fontSize: 8 },
 }
 
 export const SIZES = {
   padding: 15,
   paddingTop: 24,
-  paddingBottom: 25,
+  paddingBottom: 45,
 }
