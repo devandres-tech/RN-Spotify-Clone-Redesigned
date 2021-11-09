@@ -24,7 +24,7 @@ const TracksHeader = ({
   return (
     <Animated.View style={styles.containerView}>
       <Animated.Image
-        style={[styles.image, animateScale(scrollY)]}
+        // style={[styles.image, animateScale(scrollY)]}
         resizeMode={'cover'}
         source={{ uri: imageUrl }}
       />

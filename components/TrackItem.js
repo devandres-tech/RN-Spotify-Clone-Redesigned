@@ -7,7 +7,7 @@ import { COLORS, SIZES, FONTS, icons } from '../constants'
 const TrackItem = ({
   trackName,
   albumName,
-  albumImageUrl,
+  albumImages,
   artists,
   duration,
   explicit,
@@ -15,30 +15,38 @@ const TrackItem = ({
 }) => {
   const date = new Date(duration)
   const artistsNames = artists.map((artist) => artist.name).join(', ')
+  // let albumImageUrl = icons.musicAlbum
+  // if (albumImages !== null) {
+  //   console.log('album imagesl', albumImages)
+  //   albumImageUrl = albumImages[0].url
+  // }
 
   return (
     <TouchableOpacity activeOpacity={0.7}>
       <View style={styles.trackItemContainer}>
-        {albumImageUrl && (
+        {albumImages && (
           <Image
             style={{
               ...styles.albumImage,
-              tintColor:
-                typeof albumImageUrl === 'string' ? null : COLORS.lightGray,
+              // tintColor:
+              //   typeof albumImageUrl === 'string' ? null : COLORS.lightGray,
             }}
             source={
-              typeof albumImageUrl === 'string'
-                ? { uri: albumImageUrl }
-                : albumImageUrl
+              albumImages.length > 0
+                ? { uri: albumImages[0].url }
+                : icons.musicAlbum
             }
           />
         )}
         <Image style={styles.playIcon} source={icons.play} />
-        <Text
-          style={{ color: COLORS.lightGray, marginRight: 20, ...FONTS.body }}
-        >
-          {trackNumber}
-        </Text>
+
+        {trackNumber && (
+          <Text
+            style={{ color: COLORS.lightGray, marginRight: 20, ...FONTS.body }}
+          >
+            {trackNumber}
+          </Text>
+        )}
         <View>
           {trackName && (
             <Text
