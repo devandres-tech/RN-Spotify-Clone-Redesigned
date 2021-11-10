@@ -9,9 +9,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 
 import { Home, Library, Search, Profile, Authorize, Tracks } from './screens'
-import { icons, COLORS, SIZES } from './constants'
-import HomeSvg from './assets/icons/ic_home.svg'
-import SearchSvg from './assets/icons/ic_search.svg'
+import { COLORS, SIZES } from './constants'
 import { TabBarIcon } from './components'
 import * as authActions from './store/actions/auth'
 
@@ -21,7 +19,7 @@ const Stack = createNativeStackNavigator()
 const MainTabNavigator = () => {
   return (
     <Tab.Navigator
-      initialRouteName='Home'
+      initialRouteName='Search'
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused }) => {
           return <TabBarIcon isFocused={focused} name={route.name} />

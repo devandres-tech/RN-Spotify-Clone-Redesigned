@@ -8,8 +8,10 @@ import playlist from './reducers/playlist'
 import browse from './reducers/browse'
 import library from './reducers/library'
 import track from './reducers/track'
+import search from './reducers/search'
 
 const rootReducer = combineReducers({
+  search,
   track,
   user,
   auth,
