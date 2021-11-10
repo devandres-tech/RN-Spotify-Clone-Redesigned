@@ -1,10 +1,7 @@
 import { GET_SEARCH_ITEM } from '../actions/search'
 
 const initialState = {
-  tracks: { items: [] },
-  artists: { items: [] },
-  albums: { items: [] },
-  playlists: { items: [] },
+  results: {},
 }
 
 export default (state = initialState, action) => {

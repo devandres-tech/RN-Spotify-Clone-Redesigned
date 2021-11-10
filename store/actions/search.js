@@ -16,7 +16,7 @@ export const searchItems = (query) => {
     const accessToken = getState().auth.accessToken
     try {
       const response = await fetch(
-        `${BASE_URL}/search?q=${encodedSearchQuery}&type=track%2Cartist%2Calbum%2Cplaylist&limit=15`,
+        `${BASE_URL}/search?q=${encodedSearchQuery}&type=track%2Cartist%2Calbum%2Cplaylist&limit=5`,
         {
           method: 'GET',
           headers: setHeaders(accessToken),

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   View,
   FlatList,
@@ -12,10 +12,30 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import { COLORS, FONTS, SIZES, icons } from '../constants'
 import * as browseActions from '../store/actions/browse'
+import * as searchActions from '../store/actions/search'
 import { Header, TextTitle } from '../components'
 
+export const useDebounce = (value, delay) => {
+  const [debouncedValue, setDebouncedValue] = useState(value)
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(value)
+    }, delay)
+
+    return () => {
+      clearTimeout(handler)
+    }
+  }, [value, delay])
+
+  return debouncedValue
+}
+
 const Search = () => {
+  const [searchTerm, setSearchTerm] = useState('')
+  const debouncedSearchTerm = useDebounce(searchTerm, 500)
   const browse = useSelector((state) => state.browse)
+  const search = useSelector((state) => state.search)
   const dispatch = useDispatch()
   const { categories } = browse
 
@@ -30,6 +50,10 @@ const Search = () => {
       })
     }
   }, [categories])
+
+  useEffect(() => {
+    dispatch(searchActions.searchItems(searchTerm))
+  }, [debouncedSearchTerm])
 
   const renderCardItems = () => {
     return categories.map((category) => {
@@ -72,6 +96,26 @@ const Search = () => {
     })
   }
 
+  const searchTermHandler = (item) => {
+    setSearchTerm(item)
+  }
+
+  const renderSearchResults = () => {
+    return (
+      <TouchableOpacity>
+        <View>
+          {search.results.albums.items.map((album) => {
+            return (
+              <View>
+                <Text style={{ color: COLORS.white }}>{album.name}</Text>
+              </View>
+            )
+          })}
+        </View>
+      </TouchableOpacity>
+    )
+  }
+
   return (
     <View
       style={{
@@ -90,6 +134,8 @@ const Search = () => {
             <TextTitle containerStyle={{ ...FONTS.h1 }} label='SEARCH' />
             <View style={styles.searchContainer}>
               <TextInput
+                value={searchTerm}
+                onChangeText={searchTermHandler}
                 placeholder='Search...'
                 selectionColor={COLORS.primary}
                 placeholderTextColor={'#fff'}
@@ -99,12 +145,11 @@ const Search = () => {
             </View>
           </View>
         }
+        // ListFooterComponent={
+        //   <View style={styles.footerContainer}>{renderCardItems()}</View>
+        // }
         ListFooterComponent={
-          <View
-            style={styles.footerContainer}
-          >
-            {renderCardItems()}
-          </View>
+          <View style={styles.footerContainer}>{renderSearchResults()}</View>
         }
       />
     </View>
