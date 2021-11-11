@@ -4,14 +4,26 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 
 import { COLORS, FONTS, icons } from '../constants'
 
-const SearchItems = ({ items }) => {
+const SearchItems = ({ items, navigation }) => {
+  const onSearchItemHandler = (id, type, itemSelected) => {
+    // TODO if track dispatch player status
+    navigation.navigate('Tracks', {
+      mediaType: type,
+      mediaId: id,
+      artist: type === 'artist' ? itemSelected : null,
+    })
+  }
   return (
     <View>
       {items.map((item) => {
         const isValidImages = item.images && item.images.length > 0
 
         return (
-          <TouchableOpacity style={{ marginBottom: 15 }} activeOpacity={0.7}>
+          <TouchableOpacity
+            onPress={() => onSearchItemHandler(item.id, item.type, item)}
+            style={{ marginBottom: 15 }}
+            activeOpacity={0.7}
+          >
             <View style={{ flexDirection: 'row' }}>
               <View style={{ height: 40, width: 40, marginRight: 15 }}>
                 <Image

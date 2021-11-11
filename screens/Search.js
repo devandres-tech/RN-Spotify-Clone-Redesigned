@@ -31,7 +31,7 @@ export const useDebounce = (value, delay) => {
   return debouncedValue
 }
 
-const Search = () => {
+const Search = ({ navigation }) => {
   const [searchTerm, setSearchTerm] = useState('')
   const [isUserSearching, setIsUserSearching] = useState(false)
   const debouncedSearchTerm = useDebounce(searchTerm, 500)
@@ -103,10 +103,22 @@ const Search = () => {
   const renderSearchResults = () => {
     return (
       <View>
-        <SearchItems items={search.results.artists.items} />
-        <SearchItems items={search.results.albums.items} />
-        <SearchItems items={search.results.tracks.items} />
-        <SearchItems items={search.results.playlists.items} />
+        <SearchItems
+          navigation={navigation}
+          items={search.results.artists.items}
+        />
+        <SearchItems
+          navigation={navigation}
+          items={search.results.albums.items}
+        />
+        <SearchItems
+          navigation={navigation}
+          items={search.results.tracks.items}
+        />
+        <SearchItems
+          navigation={navigation}
+          items={search.results.playlists.items}
+        />
       </View>
     )
   }
