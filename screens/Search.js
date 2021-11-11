@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import {
   View,
   FlatList,
@@ -33,6 +33,7 @@ export const useDebounce = (value, delay) => {
 
 const Search = () => {
   const [searchTerm, setSearchTerm] = useState('')
+  const [isUserSearching, setIsUserSearching] = useState(false)
   const debouncedSearchTerm = useDebounce(searchTerm, 500)
   const browse = useSelector((state) => state.browse)
   const search = useSelector((state) => state.search)
@@ -55,7 +56,16 @@ const Search = () => {
     if (debouncedSearchTerm) dispatch(searchActions.searchItems(searchTerm))
   }, [debouncedSearchTerm])
 
-  const renderCardItems = () => {
+  const searchTermHandler = (item) => {
+    setSearchTerm(item)
+    if (item.length > 0) {
+      setIsUserSearching(true)
+    } else {
+      setIsUserSearching(false)
+    }
+  }
+
+  const renderCategoryCardItems = () => {
     return categories.map((category) => {
       let catId = category.id
       if (browse[catId]) {
@@ -76,13 +86,7 @@ const Search = () => {
                 )
               })}
               <View style={styles.cardItemCategory}>
-                <Text
-                  style={{
-                    color: COLORS.white,
-                    paddingBottom: 10,
-                    ...FONTS.h2,
-                  }}
-                >
+                <Text style={styles.categoryName}>
                   {category.name.toUpperCase()}
                 </Text>
                 <Text style={{ color: COLORS.white, ...FONTS.body }}>
@@ -94,10 +98,6 @@ const Search = () => {
         )
       }
     })
-  }
-
-  const searchTermHandler = (item) => {
-    setSearchTerm(item)
   }
 
   const renderSearchResults = () => {
@@ -112,14 +112,7 @@ const Search = () => {
   }
 
   return (
-    <View
-      style={{
-        flex: 1,
-        paddingTop: SIZES.paddingTop,
-        backgroundColor: COLORS.black,
-        width: '100%',
-      }}
-    >
+    <View style={styles.searchScreen}>
       <FlatList
         showsVerticalScrollIndicator={false}
         ListHeaderComponent={
@@ -140,11 +133,12 @@ const Search = () => {
             </View>
           </View>
         }
-        // ListFooterComponent={
-        //   <View style={styles.footerContainer}>{renderCardItems()}</View>
-        // }
         ListFooterComponent={
-          <View style={styles.footerContainer}>{renderSearchResults()}</View>
+          <View style={styles.footerContainer}>
+            {isUserSearching
+              ? renderSearchResults()
+              : renderCategoryCardItems()}
+          </View>
         }
       />
     </View>
@@ -152,12 +146,19 @@ const Search = () => {
 }
 
 const styles = StyleSheet.create({
+  searchScreen: {
+    flex: 1,
+    paddingTop: SIZES.paddingTop,
+    backgroundColor: COLORS.black,
+    width: '100%',
+  },
   cardItemContainer: {
     backgroundColor: COLORS.lightGray3,
     padding: 10,
     borderRadius: 20,
     flexDirection: 'row-reverse',
   },
+  categoryName: { color: COLORS.white, paddingBottom: 10, ...FONTS.h2 },
   cardItemImageContainer: { width: 30, position: 'relative', left: 50 },
   cardItemImage: {
     height: 135,
