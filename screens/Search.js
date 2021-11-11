@@ -13,7 +13,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { COLORS, FONTS, SIZES, icons } from '../constants'
 import * as browseActions from '../store/actions/browse'
 import * as searchActions from '../store/actions/search'
-import { Header, TextTitle } from '../components'
+import { Header, TextTitle, SearchItems } from '../components'
 
 export const useDebounce = (value, delay) => {
   const [debouncedValue, setDebouncedValue] = useState(value)
@@ -52,7 +52,7 @@ const Search = () => {
   }, [categories])
 
   useEffect(() => {
-    dispatch(searchActions.searchItems(searchTerm))
+    if (debouncedSearchTerm) dispatch(searchActions.searchItems(searchTerm))
   }, [debouncedSearchTerm])
 
   const renderCardItems = () => {
@@ -103,39 +103,10 @@ const Search = () => {
   const renderSearchResults = () => {
     return (
       <View>
-        {search.results.albums.items.map((album) => {
-          return (
-            <TouchableOpacity style={{ marginBottom: 15 }} activeOpacity={0.7}>
-              <View style={{ flexDirection: 'row' }}>
-                <View style={{ height: 40, width: 40, marginRight: 15 }}>
-                  <Image
-                    style={{ width: '100%', height: '100%' }}
-                    source={{ uri: album.images[0].url }}
-                  />
-                </View>
-                <View>
-                  <Text style={{ color: COLORS.white, ...FONTS.bodyBold }}>
-                    {album.name}
-                  </Text>
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                    }}
-                  >
-                    <Text style={{ color: COLORS.lightGray, ...FONTS.body }}>
-                      {album.type}
-                    </Text>
-                    <Text style={styles.bulletDot}>{'\u25CF'}</Text>
-                    <Text style={{ color: COLORS.lightGray, ...FONTS.body }}>
-                      {album.artists.map((artist) => artist.name).join(', ')}
-                    </Text>
-                  </View>
-                </View>
-              </View>
-            </TouchableOpacity>
-          )
-        })}
+        <SearchItems items={search.results.artists.items} />
+        <SearchItems items={search.results.albums.items} />
+        <SearchItems items={search.results.tracks.items} />
+        <SearchItems items={search.results.playlists.items} />
       </View>
     )
   }
@@ -172,9 +143,9 @@ const Search = () => {
         // ListFooterComponent={
         //   <View style={styles.footerContainer}>{renderCardItems()}</View>
         // }
-        // ListFooterComponent={
-        //   <View style={styles.footerContainer}>{renderSearchResults()}</View>
-        // }
+        ListFooterComponent={
+          <View style={styles.footerContainer}>{renderSearchResults()}</View>
+        }
       />
     </View>
   )

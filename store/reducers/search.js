@@ -2,7 +2,16 @@ import { GET_SEARCH_ITEM } from '../actions/search'
 
 const initialState = {
   results: {
+    artists: {
+      items: [{ name: '', images: [{ url: '' }], artists: [{ name: '' }] }],
+    },
     albums: {
+      items: [{ name: '', images: [{ url: '' }], artists: [{ name: '' }] }],
+    },
+    tracks: {
+      items: [{ name: '', images: [{ url: '' }], artists: [{ name: '' }] }],
+    },
+    playlists: {
       items: [{ name: '', images: [{ url: '' }], artists: [{ name: '' }] }],
     },
   },

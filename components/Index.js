@@ -7,8 +7,10 @@ import Header from './Header'
 import HorizontalMenu from './HorizontalMenu'
 import TrackItem from './TrackItem'
 import TracksHeader from './TracksHeader'
+import SearchItems from './SearchItems'
 
 export {
+  SearchItems,
   TracksHeader,
   TrackItem,
   TabBarIcon,
