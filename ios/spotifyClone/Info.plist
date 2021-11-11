@@ -53,8 +53,6 @@
 	<false/>
 	<key>UIAppFonts</key>
 	<array>
-		<string>Montserrat-Bold.ttf</string>
-		<string>Montserrat-Regular.ttf</string>
 		<string>Poppins-Bold.ttf</string>
 		<string>Poppins-Light.ttf</string>
 		<string>Poppins-Regular.ttf</string>

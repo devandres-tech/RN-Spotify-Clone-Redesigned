@@ -11,13 +11,11 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		3F9E9F346BE244F69B477864 /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 189D5DA5B9014BC7972D21F4 /* Montserrat-Regular.ttf */; };
+		757BD71D0D774A858BB318DE /* Poppins-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4F6B0D7E3F0946858CABFCAC /* Poppins-Light.ttf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		9A01FEE84576E1F859542A1C /* libPods-spotifyClone-spotifyCloneTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0141EEC80E2E18902A39C3C8 /* libPods-spotifyClone-spotifyCloneTests.a */; };
-		AE742D049EEC4BC298EFE7B8 /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 747FE0144F6F45758CECE816 /* Montserrat-Bold.ttf */; };
 		B3DCA9AD239E892841C56D90 /* libPods-spotifyClone.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D03A09309C890AED4058BAC8 /* libPods-spotifyClone.a */; };
 		CB850DEAE4F74BC0901F4BEB /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1669692EEB4043E2A4CE59EF /* Poppins-Bold.ttf */; };
-		757BD71D0D774A858BB318DE /* Poppins-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4F6B0D7E3F0946858CABFCAC /* Poppins-Light.ttf */; };
 		DEC061C24AF547408643A666 /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BEB0E0C82BDA477183197B7C /* Poppins-Regular.ttf */; };
 /* End PBXBuildFile section */
 
@@ -42,18 +40,18 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = spotifyClone/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = spotifyClone/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = spotifyClone/main.m; sourceTree = "<group>"; };
-		189D5DA5B9014BC7972D21F4 /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-Regular.ttf"; path = "../assets/fonts/Montserrat-Regular.ttf"; sourceTree = "<group>"; };
-		747FE0144F6F45758CECE816 /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-Bold.ttf"; path = "../assets/fonts/Montserrat-Bold.ttf"; sourceTree = "<group>"; };
+		1669692EEB4043E2A4CE59EF /* Poppins-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Bold.ttf"; path = "../assets/fonts/Poppins-Bold.ttf"; sourceTree = "<group>"; };
+		189D5DA5B9014BC7972D21F4 /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-Regular.ttf"; path = "../assets/fonts/Montserrat-Regular.ttf"; sourceTree = "<group>"; };
+		4F6B0D7E3F0946858CABFCAC /* Poppins-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Light.ttf"; path = "../assets/fonts/Poppins-Light.ttf"; sourceTree = "<group>"; };
+		747FE0144F6F45758CECE816 /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-Bold.ttf"; path = "../assets/fonts/Montserrat-Bold.ttf"; sourceTree = "<group>"; };
 		7B5397E9CC96BF72AD0666DA /* Pods-spotifyClone.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spotifyClone.release.xcconfig"; path = "Target Support Files/Pods-spotifyClone/Pods-spotifyClone.release.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = spotifyClone/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A1DA571B6B3BCD417CDB674D /* Pods-spotifyClone.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spotifyClone.debug.xcconfig"; path = "Target Support Files/Pods-spotifyClone/Pods-spotifyClone.debug.xcconfig"; sourceTree = "<group>"; };
+		BEB0E0C82BDA477183197B7C /* Poppins-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Regular.ttf"; path = "../assets/fonts/Poppins-Regular.ttf"; sourceTree = "<group>"; };
 		D03A09309C890AED4058BAC8 /* libPods-spotifyClone.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-spotifyClone.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA8D0D7EED0448C9864A2BDF /* Pods-spotifyClone-spotifyCloneTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spotifyClone-spotifyCloneTests.debug.xcconfig"; path = "Target Support Files/Pods-spotifyClone-spotifyCloneTests/Pods-spotifyClone-spotifyCloneTests.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		FD9B5BCD27ED766E84A0A246 /* Pods-spotifyClone-spotifyCloneTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spotifyClone-spotifyCloneTests.release.xcconfig"; path = "Target Support Files/Pods-spotifyClone-spotifyCloneTests/Pods-spotifyClone-spotifyCloneTests.release.xcconfig"; sourceTree = "<group>"; };
-		1669692EEB4043E2A4CE59EF /* Poppins-Bold.ttf */ = {isa = PBXFileReference; name = "Poppins-Bold.ttf"; path = "../assets/fonts/Poppins-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		4F6B0D7E3F0946858CABFCAC /* Poppins-Light.ttf */ = {isa = PBXFileReference; name = "Poppins-Light.ttf"; path = "../assets/fonts/Poppins-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		BEB0E0C82BDA477183197B7C /* Poppins-Regular.ttf */ = {isa = PBXFileReference; name = "Poppins-Regular.ttf"; path = "../assets/fonts/Poppins-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,7 +124,6 @@
 				BEB0E0C82BDA477183197B7C /* Poppins-Regular.ttf */,
 			);
 			name = Resources;
-			path = "";
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
@@ -169,7 +166,6 @@
 				DA8D0D7EED0448C9864A2BDF /* Pods-spotifyClone-spotifyCloneTests.debug.xcconfig */,
 				FD9B5BCD27ED766E84A0A246 /* Pods-spotifyClone-spotifyCloneTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -269,8 +265,6 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				AE742D049EEC4BC298EFE7B8 /* Montserrat-Bold.ttf in Resources */,
-				3F9E9F346BE244F69B477864 /* Montserrat-Regular.ttf in Resources */,
 				CB850DEAE4F74BC0901F4BEB /* Poppins-Bold.ttf in Resources */,
 				757BD71D0D774A858BB318DE /* Poppins-Light.ttf in Resources */,
 				DEC061C24AF547408643A666 /* Poppins-Regular.ttf in Resources */,

@@ -1,7 +1,11 @@
 import { GET_SEARCH_ITEM } from '../actions/search'
 
 const initialState = {
-  results: {},
+  results: {
+    albums: {
+      items: [{ name: '', images: [{ url: '' }], artists: [{ name: '' }] }],
+    },
+  },
 }
 
 export default (state = initialState, action) => {

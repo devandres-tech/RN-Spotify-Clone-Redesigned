@@ -16,6 +16,7 @@ export const FONTS = {
   },
   h3: { fontFamily: 'Poppins-Bold', fontSize: 16, letterSpacing: 0 },
   body: { fontFamily: 'Poppins-Regular', fontSize: 12 },
+  bodyBold: { fontFamily: 'Poppins-Bold', fontSize: 13 },
   menuText: { fontFamily: 'Poppins-Regular', fontSize: 14 },
   btn: { fontFamily: 'Poppins-Bold', fontSize: 14, letterSpacing: 1 },
   greeting: { fontFamily: 'Poppins-Bold', fontSize: 16 },

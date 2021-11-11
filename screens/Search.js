@@ -102,17 +102,41 @@ const Search = () => {
 
   const renderSearchResults = () => {
     return (
-      <TouchableOpacity>
-        <View>
-          {search.results.albums.items.map((album) => {
-            return (
-              <View>
-                <Text style={{ color: COLORS.white }}>{album.name}</Text>
+      <View>
+        {search.results.albums.items.map((album) => {
+          return (
+            <TouchableOpacity style={{ marginBottom: 15 }} activeOpacity={0.7}>
+              <View style={{ flexDirection: 'row' }}>
+                <View style={{ height: 40, width: 40, marginRight: 15 }}>
+                  <Image
+                    style={{ width: '100%', height: '100%' }}
+                    source={{ uri: album.images[0].url }}
+                  />
+                </View>
+                <View>
+                  <Text style={{ color: COLORS.white, ...FONTS.bodyBold }}>
+                    {album.name}
+                  </Text>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                    }}
+                  >
+                    <Text style={{ color: COLORS.lightGray, ...FONTS.body }}>
+                      {album.type}
+                    </Text>
+                    <Text style={styles.bulletDot}>{'\u25CF'}</Text>
+                    <Text style={{ color: COLORS.lightGray, ...FONTS.body }}>
+                      {album.artists.map((artist) => artist.name).join(', ')}
+                    </Text>
+                  </View>
+                </View>
               </View>
-            )
-          })}
-        </View>
-      </TouchableOpacity>
+            </TouchableOpacity>
+          )
+        })}
+      </View>
     )
   }
 
@@ -148,9 +172,9 @@ const Search = () => {
         // ListFooterComponent={
         //   <View style={styles.footerContainer}>{renderCardItems()}</View>
         // }
-        ListFooterComponent={
-          <View style={styles.footerContainer}>{renderSearchResults()}</View>
-        }
+        // ListFooterComponent={
+        //   <View style={styles.footerContainer}>{renderSearchResults()}</View>
+        // }
       />
     </View>
   )
@@ -198,6 +222,7 @@ const styles = StyleSheet.create({
     tintColor: COLORS.white,
   },
   footerContainer: { paddingBottom: 120, paddingHorizontal: SIZES.padding },
+  bulletDot: { color: COLORS.lightGray, paddingHorizontal: 4, fontSize: 4 },
 })
 
 export default Search

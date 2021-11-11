@@ -18,7 +18,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 
 import { COLORS, icons, FONTS } from '../constants'
 import * as tracksActions from '../store/actions/track'
-import { TrackItem, TracksHeader } from '../components'
+// import { TrackItem, TracksHeader } from '../components'
 import { animateOpacity, animateHeight, animateScale } from '../utils/helpers'
 
 // const AnimatedFlatList = Animated.createAnimatedComponent(FlatList)
@@ -49,24 +49,24 @@ const Tracks = ({ route: { params }, navigation }) => {
   //   return text.length > 35 ? text.substring(0, 35) + '...' : text.trim()
   // }
 
-  const renderTracks = ({ item }) => {
-    return (
-      <TrackItem
-        explicit={item.explicit}
-        trackNumber={track.type === 'album' ? item.track_number : null}
-        trackName={item.name}
-        artists={item.artists}
-        duration={item.duration_ms}
-        albumImages={track.type === 'playlist' ? item.album.images : null}
-      />
-    )
-  }
+  // const renderTracks = ({ item }) => {
+  //   return (
+  //     <TrackItem
+  //       explicit={item.explicit}
+  //       trackNumber={track.type === 'album' ? item.track_number : null}
+  //       trackName={item.name}
+  //       artists={item.artists}
+  //       duration={item.duration_ms}
+  //       albumImages={track.type === 'playlist' ? item.album.images : null}
+  //     />
+  //   )
+  // }
 
   return (
     <View />
     // <SafeAreaView style={{ backgroundColor: COLORS.black, flex: 1 }}>
     //   <StatusBar
-    //     animated={true}
+    //     animated={true}r
     //     barStyle={'light-content'}
     //     backgroundColor={COLORS.black}
     //   />
