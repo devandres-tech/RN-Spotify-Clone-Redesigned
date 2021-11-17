@@ -1,4 +1,5 @@
 import { BASE_URL } from '@env'
+import { CATEGORY_ITEMS } from '../../constants'
 
 export const GET_BROWSE_CATEGORIES = 'GET_BROWSE_CATEGORIES'
 export const GET_BROWSE_CATEGORIES_PLAYLISTS = 'GET_BROWSE_CATEGORIES_PLAYLISTS'
@@ -11,24 +12,9 @@ const setHeaders = (accessToken) => {
   }
 }
 
-export const getBrowseCategories = (limit) => {
-  return async (dispatch, getState) => {
-    const accessToken = getState().auth.accessToken
-    try {
-      const response = await fetch(
-        `${BASE_URL}/browse/categories?limit=${limit}`,
-        {
-          method: 'GET',
-          headers: setHeaders(accessToken),
-        }
-      )
-      const {
-        categories: { items },
-      } = await response.json()
-      dispatch({ type: GET_BROWSE_CATEGORIES, browseCategories: items })
-    } catch (error) {
-      console.log('Error', error)
-    }
+export const getBrowseCategories = () => {
+  return async (dispatch) => {
+    dispatch({ type: GET_BROWSE_CATEGORIES, browseCategories: CATEGORY_ITEMS })
   }
 }
 

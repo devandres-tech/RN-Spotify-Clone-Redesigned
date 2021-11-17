@@ -1,6 +1,7 @@
 import React from 'react'
 import { View, Text, Image, StyleSheet } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
+import TrackPlayer from 'react-native-track-player'
 
 import { COLORS, SIZES, FONTS, icons } from '../constants'
 
@@ -15,6 +16,8 @@ const TrackItem = ({
 }) => {
   const date = new Date(duration)
   const artistsNames = artists.map((artist) => artist.name).join(', ')
+
+  const onTrackItemHandler = () => {}
 
   return (
     <TouchableOpacity activeOpacity={0.7}>
@@ -33,7 +36,6 @@ const TrackItem = ({
           />
         )}
         <Image style={styles.playIcon} source={icons.play} />
-
         {trackNumber && (
           <Text
             style={{ color: COLORS.lightGray, marginRight: 20, ...FONTS.body }}

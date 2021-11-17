@@ -33,7 +33,7 @@ const MainTabNavigator = () => {
           backgroundColor: COLORS.black,
           marginHorizontal: 12,
           borderRadius: 100,
-          height: 90,
+          height: 80,
           borderTopColor: COLORS.black,
           shadowColor: '#000',
           shadowColor: '#000',
@@ -66,6 +66,7 @@ const App = () => {
   // TODO refactor useeffect
   useEffect(() => {
     const getTokensFromAsyncStorage = async () => {
+      // await AsyncStorage.clear()
       const authData = await AsyncStorage.getItem('authData')
       const { accessToken, refreshToken } = await JSON.parse(authData)
       dispatch(authActions.setTokens(accessToken, refreshToken))

@@ -14,13 +14,17 @@ const spotifyAuthConfig = {
   redirectUrl: REDIRECT_URL,
   issuer: 'https://accounts.spotify.com',
   scopes: [
+    'playlist-read-private',
     'user-read-private',
     'user-read-email',
-    'playlist-read-private',
     'user-library-read',
     'user-top-read',
     'user-read-recently-played',
     'user-follow-read',
+    'user-read-playback-state',
+    'user-read-currently-playing',
+    'user-modify-playback-state',
+    'user-read-playback-position',
   ],
   serviceConfiguration: {
     authorizationEndpoint: 'https://accounts.spotify.com/authorize',

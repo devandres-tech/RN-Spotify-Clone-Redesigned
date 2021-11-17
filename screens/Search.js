@@ -38,19 +38,10 @@ const Search = ({ navigation }) => {
   const browse = useSelector((state) => state.browse)
   const search = useSelector((state) => state.search)
   const dispatch = useDispatch()
-  const { categories } = browse
 
   useEffect(() => {
-    dispatch(browseActions.getBrowseCategories(5))
+    dispatch(browseActions.getBrowseCategories())
   }, [dispatch])
-
-  useEffect(() => {
-    if (categories.length > 1) {
-      categories.forEach((category) => {
-        dispatch(browseActions.getBrowseCategoriesPlaylists(3, category.id))
-      })
-    }
-  }, [categories])
 
   useEffect(() => {
     if (debouncedSearchTerm) dispatch(searchActions.searchItems(searchTerm))
@@ -66,37 +57,32 @@ const Search = ({ navigation }) => {
   }
 
   const renderCategoryCardItems = () => {
-    return categories.map((category) => {
-      let catId = category.id
-      if (browse[catId]) {
-        return (
-          <TouchableOpacity
-            activeOpacity={0.7}
-            style={{ paddingBottom: SIZES.paddingBottom }}
-          >
-            <View style={styles.cardItemContainer}>
-              {browse[catId].reverse().map((categoryPlaylist) => {
-                return (
-                  <View style={styles.cardItemImageContainer}>
-                    <Image
-                      style={styles.cardItemImage}
-                      source={{ uri: categoryPlaylist.images[0].url }}
-                    />
-                  </View>
-                )
-              })}
-              <View style={styles.cardItemCategory}>
-                <Text style={styles.categoryName}>
-                  {category.name.toUpperCase()}
-                </Text>
-                <Text style={{ color: COLORS.white, ...FONTS.body }}>
-                  {browse[catId][0].description}
-                </Text>
+    return browse.categories.map((category) => {
+      return (
+        <TouchableOpacity
+          activeOpacity={0.7}
+          style={{ paddingBottom: SIZES.paddingBottom }}
+        >
+          <View style={styles.cardItemContainer}>
+            {category.images.reverse().map((image) => (
+              <View style={styles.cardItemImageContainer}>
+                <Image
+                  style={styles.cardItemImage}
+                  source={{ uri: image.url }}
+                />
               </View>
+            ))}
+            <View style={styles.cardItemCategory}>
+              <Text style={styles.categoryName}>
+                {category.name.toUpperCase()}
+              </Text>
+              <Text style={{ color: COLORS.white, ...FONTS.body }}>
+                {category.description}
+              </Text>
             </View>
-          </TouchableOpacity>
-        )
-      }
+          </View>
+        </TouchableOpacity>
+      )
     })
   }
 
