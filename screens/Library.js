@@ -121,6 +121,7 @@ const Library = ({ navigation }) => {
               library.userTracks.map((track) => {
                 return (
                   <TrackItem
+                    url={track.preview_url}
                     artists={track.artists}
                     trackName={track.name}
                     albumImages={track.album.images}

@@ -6,6 +6,7 @@ import TrackPlayer from 'react-native-track-player'
 import { COLORS, SIZES, FONTS, icons } from '../constants'
 
 const TrackItem = ({
+  url,
   trackName,
   albumName,
   albumImages,
@@ -17,10 +18,27 @@ const TrackItem = ({
   const date = new Date(duration)
   const artistsNames = artists.map((artist) => artist.name).join(', ')
 
-  const onTrackItemHandler = () => {}
+  const onTrackItemHandler = async () => {
+    await TrackPlayer.setupPlayer({})
+    await TrackPlayer.add({
+      url,
+      title: trackName,
+      artist: artistsNames,
+      album: albumName,
+      genre: '',
+      date: '',
+      artwork: albumImages[0].url,
+      duration,
+      // artwork: 'http://example.com/cover.png', // Load artwork from the network
+      // duration: 402, // Duration in seconds
+    })
+    // await TrackPlayer.play()
+    console.log('preview url', url)
+    // await console.log('playing track')
+  }
 
   return (
-    <TouchableOpacity activeOpacity={0.7}>
+    <TouchableOpacity activeOpacity={0.7} onPress={onTrackItemHandler}>
       <View style={styles.trackItemContainer}>
         {albumImages && (
           <Image
