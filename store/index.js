@@ -9,8 +9,10 @@ import browse from './reducers/browse'
 import library from './reducers/library'
 import track from './reducers/track'
 import search from './reducers/search'
+import audioPlayer from './reducers/audioPlayer'
 
 const rootReducer = combineReducers({
+  audioPlayer,
   search,
   track,
   user,

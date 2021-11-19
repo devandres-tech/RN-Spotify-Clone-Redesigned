@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { View, Text, Image, StyleSheet } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import TrackPlayer from 'react-native-track-player'
@@ -15,26 +15,40 @@ const TrackItem = ({
   explicit,
   trackNumber,
 }) => {
+  const [isPlaying, setIsPlaying] = useState(false)
   const date = new Date(duration)
   const artistsNames = artists.map((artist) => artist.name).join(', ')
 
-  const onTrackItemHandler = async () => {
-    await TrackPlayer.setupPlayer({})
-    await TrackPlayer.add({
-      url,
-      title: trackName,
-      artist: artistsNames,
-      album: albumName,
-      genre: '',
-      date: '',
-      artwork: albumImages[0].url,
-      duration,
-      // artwork: 'http://example.com/cover.png', // Load artwork from the network
-      // duration: 402, // Duration in seconds
-    })
+  useEffect(() => {
+    const initTrackPlayer = async () => {
+      await TrackPlayer.setupPlayer({})
+    }
+    initTrackPlayer()
+  }, [])
+
+  const playTrack = async () => {
+    // await TrackPlayer.stop()
+    // await TrackPlayer.reset()
+    // await TrackPlayer.add({
+    //   url,
+    //   title: trackName,
+    //   artist: artistsNames,
+    //   album: albumName,
+    //   genre: '',
+    //   date: '',
+    //   artwork: albumImages[0].url,
+    //   duration,
+    // })
     // await TrackPlayer.play()
-    console.log('preview url', url)
-    // await console.log('playing track')
+  }
+
+  const onTrackItemHandler = () => {
+    if (isPlaying) {
+      setIsPlaying(false)
+    } else {
+      setIsPlaying(true)
+    }
+    playTrack()
   }
 
   return (
@@ -53,7 +67,11 @@ const TrackItem = ({
             }
           />
         )}
-        <Image style={styles.playIcon} source={icons.play} />
+        {isPlaying ? (
+          <Text style={{ color: 'white' }}>PAUSE ICONS</Text>
+        ) : (
+          <Image style={styles.playIcon} source={icons.play} />
+        )}
         {trackNumber && (
           <Text
             style={{ color: COLORS.lightGray, marginRight: 20, ...FONTS.body }}
