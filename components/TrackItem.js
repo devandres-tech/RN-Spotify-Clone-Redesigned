@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { View, Text, Image, StyleSheet } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-import TrackPlayer from 'react-native-track-player'
+import TrackPlayer, { State } from 'react-native-track-player'
 
 import { useSelector, useDispatch } from 'react-redux'
 import * as playerActions from '../store/actions/audioPlayer'
@@ -17,7 +17,6 @@ const TrackItem = ({
   explicit,
   trackNumber,
 }) => {
-  const [track, setTrack] = useState('')
   const [isPlaying, setIsPlaying] = useState(false)
   const player = useSelector((state) => state.audioPlayer)
   const dispatch = useDispatch()
@@ -31,40 +30,56 @@ const TrackItem = ({
     initTrackPlayer()
   }, [])
 
-  // useEffect(() => {
-  //   console.log('usEffect()')
-  //   setIsPlaying(false)
-  // }, [isPlaying])
-
-  const playTrack = async () => {
-    // await TrackPlayer.stop()
-    // await TrackPlayer.reset()
-    // await TrackPlayer.add({
-    //   url,
-    //   title: trackName,
-    //   artist: artistsNames,
-    //   album: albumName,
-    //   genre: '',
-    //   date: '',
-    //   artwork: albumImages[0].url,
-    //   duration,
-    // })
-    // await TrackPlayer.play()
-  }
-
-  useEffect(() => {}, [track])
-
-  const onTrackItemHandler = () => {
+  const onTrackItemHandler = async () => {
+    const tr = {
+      url,
+      title: trackName,
+      artist: artistsNames,
+      album: albumName ? albumName : 'hello rivers..',
+      genre: '',
+      date: '',
+      artwork:
+        'https://i.scdn.co/image/ab67616d0000b2736c9b377e0e3a5b1d6ffad86e',
+      // albumImages !== null
+      //   ? albumImages[0].url
+      duration,
+    }
+    console.log('url', tr)
     if (url) {
       if (player.track.url === url) {
-        // need to pause track and show pause icon
-        console.log('clicking on the same track..')
         if (isPlaying) {
+          await TrackPlayer.pause()
           setIsPlaying(false)
         } else {
+          // await TrackPlayer.add({
+          //   url,
+          //   title: trackName,
+          //   artist: artistsNames,
+          //   album: albumName ? albumName : '',
+          //   genre: '',
+          //   date: '',
+          //   artwork: albumImages !== null ? albumImages[0].url : '',
+          //   duration,
+          // })
+          await TrackPlayer.add(tr)
+          await TrackPlayer.play()
           setIsPlaying(true)
         }
       } else {
+        await TrackPlayer.stop()
+        await TrackPlayer.reset()
+        // await TrackPlayer.add({
+        //   url,
+        //   title: trackName,
+        //   artist: artistsNames,
+        //   album: albumName,
+        //   genre: '',
+        //   date: '',
+        //   artwork: albumImages[0].url,
+        //   duration,
+        // })
+        await TrackPlayer.add(tr)
+        await TrackPlayer.play()
         dispatch(playerActions.setTrack({ url }))
         setIsPlaying(true)
       }

@@ -18,8 +18,8 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 
 import { COLORS, icons, FONTS } from '../constants'
 import * as tracksActions from '../store/actions/track'
-// import { TrackItem, TracksHeader } from '../components'
 import { animateOpacity, animateHeight, animateScale } from '../utils/helpers'
+import { TrackItem, TracksHeader } from '../components'
 
 // const AnimatedFlatList = Animated.createAnimatedComponent(FlatList)
 
@@ -45,94 +45,106 @@ const Tracks = ({ route: { params }, navigation }) => {
   //   },
   // })
 
-  // const formatText = (text) => {
-  //   return text.length > 35 ? text.substring(0, 35) + '...' : text.trim()
-  // }
+  const formatText = (text) => {
+    return text.length > 35 ? text.substring(0, 35) + '...' : text.trim()
+  }
 
-  // const renderTracks = ({ item }) => {
-  //   return (
-  //     <TrackItem
-  //       explicit={item.explicit}
-  //       trackNumber={track.type === 'album' ? item.track_number : null}
-  //       trackName={item.name}
-  //       artists={item.artists}
-  //       duration={item.duration_ms}
-  //       albumImages={track.type === 'playlist' ? item.album.images : null}
-  //     />
-  //   )
-  // }
+  const renderTracks = ({ item }) => {
+    if (item.preview_url) {
+      return (
+        <TrackItem
+          url={item.preview_url}
+          explicit={item.explicit}
+          trackNumber={track.type === 'album' ? item.track_number : null}
+          trackName={item.name}
+          artists={item.artists}
+          duration={item.duration_ms}
+          albumImages={track.type === 'playlist' ? item.album.images : null}
+        />
+      )
+    }
+  }
 
   return (
-    <View />
-    // <SafeAreaView style={{ backgroundColor: COLORS.black, flex: 1 }}>
-    //   <StatusBar
-    //     animated={true}r
-    //     barStyle={'light-content'}
-    //     backgroundColor={COLORS.black}
-    //   />
-    //   <Animated.View
-    //     style={[
-    //       styles.headerContainer,
-    //       animateOpacity(scrollY),
-    //       animateHeight(scrollY),
-    //     ]}
-    //   >
-    //     <LinearGradient
-    //       style={styles.linearGradient}
-    //       colors={styles.linearGradientColors}
-    //     />
-    //     <TouchableOpacity
-    //       activeOpacity={0.7}
-    //       onPress={() => navigation.goBack()}
-    //     >
-    //       <Image style={styles.backIcon} source={icons.back} />
-    //     </TouchableOpacity>
+    // <View />
+    <SafeAreaView style={{ backgroundColor: COLORS.black, flex: 1 }}>
+      <StatusBar
+        animated={true}
+        r
+        barStyle={'light-content'}
+        backgroundColor={COLORS.black}
+      />
+      {/* <Animated.View
+        style={[
+          styles.headerContainer,
+          animateOpacity(scrollY),
+          animateHeight(scrollY),
+        ]}
+      >
+        <LinearGradient
+          style={styles.linearGradient}
+          colors={styles.linearGradientColors}
+        />
+        <TouchableOpacity
+          activeOpacity={0.7}
+          onPress={() => navigation.goBack()}
+        >
+          <Image style={styles.backIcon} source={icons.back} />
+        </TouchableOpacity>
 
-    //     <Text
-    //       style={{
-    //         color: COLORS.white,
-    //         ...FONTS.h3,
-    //       }}
-    //     >
-    //       {mediaType === 'artist'
-    //         ? formatText(artist.name)
-    //         : formatText(track.name)}
-    //     </Text>
-    //   </Animated.View>
-    //   <Animated.View>
-    //     <AnimatedFlatList
-    //       scrollEventThrottle={1}
-    //       onScroll={scrollHandler}
-    //       ListHeaderComponent={
-    //         <TracksHeader
-    //           type={mediaType === 'artist' ? artist.type : track.type}
-    //           imageUrl={
-    //             mediaType == 'artist'
-    //               ? artist.images[0].url
-    //               : track.images[0].url
-    //           }
-    //           title={mediaType === 'artist' ? artist.name : track.name}
-    //           totalTracks={track.tracks.items.length}
-    //           mediaDescription={
-    //             track.type === 'playlist' && mediaType !== 'artist'
-    //               ? track.description
-    //               : ''
-    //           }
-    //           followers={
-    //             mediaType === 'artist'
-    //               ? artist.followers.total
-    //               : track.followers.total
-    //           }
-    //           scrollY={scrollY}
-    //           animateScale={() => animateScale(scrollY)}
-    //         />
-    //       }
-    //       ListFooterComponent={<View style={{ paddingBottom: 120 }} />}
-    //       data={track.tracks.items}
-    //       renderItem={renderTracks}
-    //     />
-    //   </Animated.View>
-    // </SafeAreaView>
+        <Text
+          style={{
+            color: COLORS.white,
+            ...FONTS.h3,
+          }}
+        >
+          {mediaType === 'artist'
+            ? formatText(artist.name)
+            : formatText(track.name)}
+        </Text>
+      </Animated.View>
+      <Animated.View>
+        <AnimatedFlatList
+          scrollEventThrottle={1}
+          onScroll={scrollHandler}
+          ListHeaderComponent={
+            <TracksHeader
+              type={mediaType === 'artist' ? artist.type : track.type}
+              imageUrl={
+                mediaType == 'artist'
+                  ? artist.images[0].url
+                  : track.images[0].url
+              }
+              title={mediaType === 'artist' ? artist.name : track.name}
+              totalTracks={track.tracks.items.length}
+              mediaDescription={
+                track.type === 'playlist' && mediaType !== 'artist'
+                  ? track.description
+                  : ''
+              }
+              followers={
+                mediaType === 'artist'
+                  ? artist.followers.total
+                  : track.followers.total
+              }
+              scrollY={scrollY}
+              animateScale={() => animateScale(scrollY)}
+            />
+          }
+          ListFooterComponent={<View style={{ paddingBottom: 120 }} />}
+          data={track.tracks.items}
+          renderItem={renderTracks}
+        />
+      </Animated.View> */}
+
+      <View>
+        <FlatList
+          ListFooterComponent={<View style={{ paddingBottom: 120 }} />}
+          data={track.tracks.items}
+          renderItem={renderTracks}
+        />
+      </View>
+    </SafeAreaView>
   )
 }
 

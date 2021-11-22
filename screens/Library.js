@@ -64,6 +64,7 @@ const Library = ({ navigation }) => {
           {library.topTracks.map((track) => {
             return (
               <TrackItem
+                url={track.preview_url}
                 artists={track.artists}
                 trackName={track.name}
                 albumImages={track.images}
@@ -111,6 +112,7 @@ const Library = ({ navigation }) => {
               user.recentlyPlayed.map((track) => {
                 return (
                   <TrackItem
+                    url={track.preview_url}
                     artists={track.artists}
                     trackName={track.name}
                     albumImages={track.images}
