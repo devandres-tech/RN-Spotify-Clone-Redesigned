@@ -3,6 +3,8 @@ import { View, Text, Image, StyleSheet } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import TrackPlayer from 'react-native-track-player'
 
+import { useSelector, useDispatch } from 'react-redux'
+import * as playerActions from '../store/actions/audioPlayer'
 import { COLORS, SIZES, FONTS, icons } from '../constants'
 
 const TrackItem = ({
@@ -15,7 +17,10 @@ const TrackItem = ({
   explicit,
   trackNumber,
 }) => {
+  const [track, setTrack] = useState('')
   const [isPlaying, setIsPlaying] = useState(false)
+  const player = useSelector((state) => state.audioPlayer)
+  const dispatch = useDispatch()
   const date = new Date(duration)
   const artistsNames = artists.map((artist) => artist.name).join(', ')
 
@@ -25,6 +30,11 @@ const TrackItem = ({
     }
     initTrackPlayer()
   }, [])
+
+  // useEffect(() => {
+  //   console.log('usEffect()')
+  //   setIsPlaying(false)
+  // }, [isPlaying])
 
   const playTrack = async () => {
     // await TrackPlayer.stop()
@@ -42,14 +52,21 @@ const TrackItem = ({
     // await TrackPlayer.play()
   }
 
+  useEffect(() => {}, [track])
+
   const onTrackItemHandler = () => {
-    if (isPlaying) {
-      setIsPlaying(false)
-    } else {
-      setIsPlaying(true)
-    }
-    playTrack()
+    dispatch(playerActions.setTrack({ url }))
+    // reset all to true before setting
+    // dispatch(playerActions.pauseTrack())
+    // console.log('onItemTrackHndler()')
+    // if (isPlaying) {
+    //   setIsPlaying(false)
+    //   // dispatch(playerActions.pauseTrack())
+    // } else {
+    //   setIsPlaying(true)
+    // }
   }
+  console.log('isCurrentlyPlaying---', player.track.url === url)
 
   return (
     <TouchableOpacity activeOpacity={0.7} onPress={onTrackItemHandler}>
@@ -67,7 +84,7 @@ const TrackItem = ({
             }
           />
         )}
-        {isPlaying ? (
+        {player.track.url === url ? (
           <Text style={{ color: 'white' }}>PAUSE ICONS</Text>
         ) : (
           <Image style={styles.playIcon} source={icons.play} />
