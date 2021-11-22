@@ -118,16 +118,18 @@ const Library = ({ navigation }) => {
                 )
               })}
             {activeMenuItem.id === 3 &&
-              library.userTracks.map((track) => {
-                return (
-                  <TrackItem
-                    url={track.preview_url}
-                    artists={track.artists}
-                    trackName={track.name}
-                    albumImages={track.album.images}
-                  />
-                )
-              })}
+              library.userTracks
+                .filter((track) => track.preview_url !== null)
+                .map((track) => {
+                  return (
+                    <TrackItem
+                      url={track.preview_url}
+                      artists={track.artists}
+                      trackName={track.name}
+                      albumImages={track.album.images}
+                    />
+                  )
+                })}
             {activeMenuItem.id === 4 &&
               library.userAlbums.map((album) => {
                 return (

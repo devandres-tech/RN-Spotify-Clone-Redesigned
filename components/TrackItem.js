@@ -55,18 +55,22 @@ const TrackItem = ({
   useEffect(() => {}, [track])
 
   const onTrackItemHandler = () => {
-    dispatch(playerActions.setTrack({ url }))
-    // reset all to true before setting
-    // dispatch(playerActions.pauseTrack())
-    // console.log('onItemTrackHndler()')
-    // if (isPlaying) {
-    //   setIsPlaying(false)
-    //   // dispatch(playerActions.pauseTrack())
-    // } else {
-    //   setIsPlaying(true)
-    // }
+    if (url) {
+      if (player.track.url === url) {
+        // need to pause track and show pause icon
+        console.log('clicking on the same track..')
+        if (isPlaying) {
+          setIsPlaying(false)
+        } else {
+          setIsPlaying(true)
+        }
+      } else {
+        dispatch(playerActions.setTrack({ url }))
+        setIsPlaying(true)
+      }
+    }
   }
-  console.log('isCurrentlyPlaying---', player.track.url === url)
+  // console.log('isCurrentlyPlaying---', player.track.url === url)
 
   return (
     <TouchableOpacity activeOpacity={0.7} onPress={onTrackItemHandler}>
@@ -84,8 +88,8 @@ const TrackItem = ({
             }
           />
         )}
-        {player.track.url === url ? (
-          <Text style={{ color: 'white' }}>PAUSE ICONS</Text>
+        {player.track.url === url && isPlaying ? (
+          <Text style={{ color: 'white' }}>PUAE</Text>
         ) : (
           <Image style={styles.playIcon} source={icons.play} />
         )}
