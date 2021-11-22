@@ -70,7 +70,8 @@ const TrackItem = ({
       }
     }
   }
-  // console.log('isCurrentlyPlaying---', player.track.url === url)
+
+  const isSelectedTrackPlaying = player.track.url === url && isPlaying
 
   return (
     <TouchableOpacity activeOpacity={0.7} onPress={onTrackItemHandler}>
@@ -79,6 +80,8 @@ const TrackItem = ({
           <Image
             style={{
               ...styles.albumImage,
+              borderColor: isSelectedTrackPlaying ? COLORS.primary : null,
+              borderWidth: isSelectedTrackPlaying ? 2 : 0,
               tintColor: albumImages.length > 0 ? null : COLORS.lightGray,
             }}
             source={
@@ -88,8 +91,8 @@ const TrackItem = ({
             }
           />
         )}
-        {player.track.url === url && isPlaying ? (
-          <Text style={{ color: 'white' }}>PUAE</Text>
+        {isSelectedTrackPlaying ? (
+          <Image style={styles.pauseIcon} source={icons.pause} />
         ) : (
           <Image style={styles.playIcon} source={icons.play} />
         )}
@@ -103,7 +106,11 @@ const TrackItem = ({
         <View>
           {trackName && (
             <Text
-              style={{ color: COLORS.white, fontWeight: 'bold', ...FONTS.body }}
+              style={{
+                color: isSelectedTrackPlaying ? COLORS.primary : COLORS.white,
+                fontWeight: 'bold',
+                ...FONTS.body,
+              }}
             >
               {trackName.length > 30
                 ? trackName.substring(0, 30) + '...'
@@ -175,6 +182,12 @@ const styles = StyleSheet.create({
     marginRight: 20,
   },
   playIcon: { height: 15, width: 15, marginRight: 20, tintColor: COLORS.white },
+  pauseIcon: {
+    height: 15,
+    width: 15,
+    marginRight: 20,
+    tintColor: COLORS.white,
+  },
   artistImage: { height: 13, width: 13, tintColor: COLORS.lightGray },
 })
 
