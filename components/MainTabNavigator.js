@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import { Home, Library, Search, Profile } from '../screens'
 import { COLORS, FONTS, icons } from '../constants'
-import { TabBarIcon } from '../components'
+import { TabBarIcon, AudioPlayer } from '../components'
 
 const Tab = createBottomTabNavigator()
 
@@ -49,58 +49,7 @@ const MainTabNavigator = () => {
         <Tab.Screen name='Library' component={Library} />
         <Tab.Screen name='Profile' component={Profile} />
       </Tab.Navigator>
-      {/* audio player */}
-      <View
-        style={{
-          flex: 1,
-          alignSelf: 'center',
-          borderRadius: 10,
-          height: 60,
-          width: '94%',
-          backgroundColor: 'green',
-          position: 'absolute',
-          bottom: 91,
-        }}
-      >
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            paddingLeft: 10,
-          }}
-        >
-          <View style={{ paddingVertical: 4, marginRight: 10 }}>
-            <Image
-              style={{ height: 50, width: 50, borderRadius: 30 }}
-              source={{ uri: player.track.artwork }}
-            />
-          </View>
-          <View>
-            <Text style={{ color: COLORS.white, ...FONTS.bodyBold }}>
-              {player.track.title.length > 25
-                ? `${player.track.title.substring(0, 30).trim()}...`
-                : player.track.title}
-            </Text>
-            <Text style={{ color: COLORS.lightGray, ...FONTS.body }}>
-              {player.track.artist.length > 25
-                ? `${player.track.artist.substring(0, 30).trim()}...`
-                : player.track.artist}
-            </Text>
-          </View>
-          <View
-            style={{
-              flex: 1,
-              alignItems: 'flex-end',
-              paddingRight: 10,
-            }}
-          >
-            <Image
-              source={icons.pause}
-              style={{ height: 28, width: 28, tintColor: COLORS.white }}
-            />
-          </View>
-        </View>
-      </View>
+      {player.track.url.length > 0 && <AudioPlayer />}
     </View>
   )
 }

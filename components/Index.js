@@ -9,9 +9,11 @@ import TrackItem from './TrackItem'
 import TracksHeader from './TracksHeader'
 import SearchItems from './SearchItems'
 import MainTabNavigator from './MainTabNavigator'
+import AudioPlayer from './AudioPlayer'
 
 export {
   MainTabNavigator,
+  AudioPlayer,
   SearchItems,
   TracksHeader,
   TrackItem,
