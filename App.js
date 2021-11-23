@@ -1,59 +1,18 @@
 import React, { useEffect } from 'react'
 import SplashScreen from 'react-native-splash-screen'
 import { NavigationContainer } from '@react-navigation/native'
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { useSelector, useDispatch } from 'react-redux'
 import { ActivityIndicator, StatusBar, View } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 
-import { Home, Library, Search, Profile, Authorize, Tracks } from './screens'
+import { Authorize, Tracks } from './screens'
 import { COLORS, SIZES } from './constants'
-import { TabBarIcon } from './components'
+import { MainTabNavigator } from './components'
 import * as authActions from './store/actions/auth'
 
-const Tab = createBottomTabNavigator()
 const Stack = createNativeStackNavigator()
-
-const MainTabNavigator = () => {
-  return (
-    <Tab.Navigator
-      initialRouteName='Search'
-      screenOptions={({ route }) => ({
-        tabBarIcon: ({ focused }) => {
-          return <TabBarIcon isFocused={focused} name={route.name} />
-        },
-        headerShown: false,
-        tabBarShowLabel: false,
-        tabBarStyle: {
-          position: 'absolute',
-          marginBottom: 10,
-          paddingBottom: 0,
-          backgroundColor: COLORS.black,
-          marginHorizontal: 12,
-          borderRadius: 100,
-          height: 80,
-          borderTopColor: COLORS.black,
-          shadowColor: '#000',
-          shadowColor: '#000',
-          shadowOffset: {
-            width: 0,
-            height: 3,
-          },
-          shadowOpacity: 0.29,
-          shadowRadius: 4.65,
-          elevation: 7,
-        },
-      })}
-    >
-      <Tab.Screen name='Home' component={Home} />
-      <Tab.Screen name='Search' component={Search} />
-      <Tab.Screen name='Library' component={Library} />
-      <Tab.Screen name='Profile' component={Profile} />
-    </Tab.Navigator>
-  )
-}
 
 const App = () => {
   const auth = useSelector((state) => state.auth)

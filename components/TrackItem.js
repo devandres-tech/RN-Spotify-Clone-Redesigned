@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { View, Text, Image, StyleSheet } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-import TrackPlayer, { State } from 'react-native-track-player'
+import TrackPlayer from 'react-native-track-player'
 
 import { useSelector, useDispatch } from 'react-redux'
 import * as playerActions from '../store/actions/audioPlayer'

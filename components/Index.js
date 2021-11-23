@@ -8,8 +8,10 @@ import HorizontalMenu from './HorizontalMenu'
 import TrackItem from './TrackItem'
 import TracksHeader from './TracksHeader'
 import SearchItems from './SearchItems'
+import MainTabNavigator from './MainTabNavigator'
 
 export {
+  MainTabNavigator,
   SearchItems,
   TracksHeader,
   TrackItem,
