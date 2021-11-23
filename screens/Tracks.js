@@ -30,7 +30,6 @@ const Tracks = ({ route: { params }, navigation }) => {
   const { mediaId, mediaType, artist } = params
 
   useEffect(() => {
-    console.log('mediatype', mediaType, mediaId)
     if (mediaType === 'playlist')
       dispatch(tracksActions.getPlaylistTracks(mediaId))
     else if (mediaType === 'album')

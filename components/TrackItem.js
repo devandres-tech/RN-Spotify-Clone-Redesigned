@@ -31,56 +31,32 @@ const TrackItem = ({
   }, [])
 
   const onTrackItemHandler = async () => {
-    const tr = {
+    const selectedTrack = {
       url,
       title: trackName,
       artist: artistsNames,
-      album: albumName ? albumName : 'hello rivers..',
+      album: albumName,
       genre: '',
       date: '',
-      artwork:
-        'https://i.scdn.co/image/ab67616d0000b2736c9b377e0e3a5b1d6ffad86e',
-      // albumImages !== null
-      //   ? albumImages[0].url
+      artwork: albumImages !== null ? albumImages[0].url : '',
       duration,
     }
-    console.log('url', tr)
     if (url) {
       if (player.track.url === url) {
         if (isPlaying) {
           await TrackPlayer.pause()
           setIsPlaying(false)
         } else {
-          // await TrackPlayer.add({
-          //   url,
-          //   title: trackName,
-          //   artist: artistsNames,
-          //   album: albumName ? albumName : '',
-          //   genre: '',
-          //   date: '',
-          //   artwork: albumImages !== null ? albumImages[0].url : '',
-          //   duration,
-          // })
-          await TrackPlayer.add(tr)
+          await TrackPlayer.add(selectedTrack)
           await TrackPlayer.play()
           setIsPlaying(true)
         }
       } else {
         await TrackPlayer.stop()
         await TrackPlayer.reset()
-        // await TrackPlayer.add({
-        //   url,
-        //   title: trackName,
-        //   artist: artistsNames,
-        //   album: albumName,
-        //   genre: '',
-        //   date: '',
-        //   artwork: albumImages[0].url,
-        //   duration,
-        // })
-        await TrackPlayer.add(tr)
+        await TrackPlayer.add(selectedTrack)
         await TrackPlayer.play()
-        dispatch(playerActions.setTrack({ url }))
+        dispatch(playerActions.setTrack(selectedTrack))
         setIsPlaying(true)
       }
     }
