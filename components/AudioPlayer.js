@@ -4,31 +4,32 @@ import { View, Image, Text } from 'react-native'
 
 import { COLORS, FONTS, icons } from '../constants'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-import * as audioPlayerActions from '../store/actions/audioPlayer'
+import * as playerActions from '../store/actions/audioPlayer'
+import TrackPlayer from 'react-native-track-player'
 
-const AudioPlayer = () => {
+const AudioPlayer = ({ isTracksScreen }) => {
   const player = useSelector((state) => state.audioPlayer)
   const dispatch = useDispatch()
 
-  const onPlayPauseHandler = () => {
+  const onPlayPauseHandler = async () => {
     if (player.isTrackPlaying) {
-      dispatch(audioPlayerActions.pauseTrack())
+      dispatch(playerActions.pauseTrack())
+      await TrackPlayer.pause()
     } else {
-      dispatch(audioPlayerActions.playTrack())
+      dispatch(playerActions.playTrack())
+      await TrackPlayer.play()
     }
   }
 
   return (
     <View
       style={{
-        flex: 1,
         alignSelf: 'center',
         borderRadius: 10,
-        height: 60,
         width: '94%',
-        backgroundColor: 'green',
+        backgroundColor: COLORS.primaryDark,
         position: 'absolute',
-        bottom: 91,
+        bottom: isTracksScreen ? 0 : 91,
       }}
     >
       <View
@@ -36,13 +37,16 @@ const AudioPlayer = () => {
           flexDirection: 'row',
           alignItems: 'center',
           paddingLeft: 10,
+          height: 65,
         }}
       >
-        <View style={{ paddingVertical: 4, marginRight: 10 }}>
-          <Image
-            style={{ height: 50, width: 50, borderRadius: 30 }}
-            source={{ uri: player.track.artwork }}
-          />
+        <View style={{ marginRight: 10 }}>
+          {player.track.artwork.length > 0 && (
+            <Image
+              style={{ height: 50, width: 50, borderRadius: 30 }}
+              source={{ uri: player.track.artwork }}
+            />
+          )}
         </View>
         <View>
           <Text style={{ color: COLORS.white, ...FONTS.bodyBold }}>

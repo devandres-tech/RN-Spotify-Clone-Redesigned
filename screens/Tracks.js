@@ -19,13 +19,14 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 import { COLORS, icons, FONTS } from '../constants'
 import * as tracksActions from '../store/actions/track'
 import { animateOpacity, animateHeight, animateScale } from '../utils/helpers'
-import { TrackItem, TracksHeader } from '../components'
+import { TrackItem, TracksHeader, AudioPlayer } from '../components'
 
 // const AnimatedFlatList = Animated.createAnimatedComponent(FlatList)
 
 const Tracks = ({ route: { params }, navigation }) => {
   // const scrollY = useSharedValue(0)
   const track = useSelector((state) => state.track)
+  const player = useSelector((state) => state.audioPlayer)
   const dispatch = useDispatch()
   const { mediaId, mediaType, artist } = params
 
@@ -142,6 +143,7 @@ const Tracks = ({ route: { params }, navigation }) => {
           data={track.tracks.items}
           renderItem={renderTracks}
         />
+        {player.track.url.length > 0 && <AudioPlayer isTracksScreen={true} />}
       </View>
     </SafeAreaView>
   )

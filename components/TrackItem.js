@@ -45,10 +45,13 @@ const TrackItem = ({
       if (player.track.url === url) {
         if (isPlaying) {
           await TrackPlayer.pause()
+          dispatch(playerActions.pauseTrack())
           setIsPlaying(false)
         } else {
+          dispatch(playerActions.setTrack(selectedTrack))
           await TrackPlayer.add(selectedTrack)
           await TrackPlayer.play()
+          dispatch(playerActions.playTrack())
           setIsPlaying(true)
         }
       } else {
@@ -56,6 +59,7 @@ const TrackItem = ({
         await TrackPlayer.reset()
         await TrackPlayer.add(selectedTrack)
         await TrackPlayer.play()
+        dispatch(playerActions.playTrack())
         dispatch(playerActions.setTrack(selectedTrack))
         setIsPlaying(true)
       }
@@ -89,7 +93,11 @@ const TrackItem = ({
         )}
         {trackNumber && (
           <Text
-            style={{ color: COLORS.lightGray, marginRight: 20, ...FONTS.body }}
+            style={{
+              color: COLORS.lightGray,
+              marginRight: 20,
+              ...FONTS.body,
+            }}
           >
             {trackNumber}
           </Text>
