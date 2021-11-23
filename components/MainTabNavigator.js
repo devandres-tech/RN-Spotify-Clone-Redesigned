@@ -9,7 +9,7 @@ import { TabBarIcon, AudioPlayer } from '../components'
 
 const Tab = createBottomTabNavigator()
 
-const MainTabNavigator = () => {
+const MainTabNavigator = ({ navigation }) => {
   const player = useSelector((state) => state.audioPlayer)
   const dispatch = useDispatch()
 
@@ -49,7 +49,8 @@ const MainTabNavigator = () => {
         <Tab.Screen name='Library' component={Library} />
         <Tab.Screen name='Profile' component={Profile} />
       </Tab.Navigator>
-      {player.track.url.length > 0 && <AudioPlayer />}
+
+      {player.track.url.length > 0 && <AudioPlayer navigation={navigation} />}
     </View>
   )
 }

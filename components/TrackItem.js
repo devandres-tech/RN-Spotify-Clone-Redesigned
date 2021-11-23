@@ -24,8 +24,20 @@ const TrackItem = ({
   const artistsNames = artists.map((artist) => artist.name).join(', ')
 
   useEffect(() => {
+    const track = {
+      url,
+      title: trackName,
+      artist: artistsNames,
+      album: albumName,
+      genre: '',
+      date: '',
+      artwork: albumImages !== null ? albumImages[0].url : '',
+      duration,
+    }
     const initTrackPlayer = async () => {
       await TrackPlayer.setupPlayer({})
+      // await TrackPlayer.add([])
+      console.log('url-----', url)
     }
     initTrackPlayer()
   }, [])

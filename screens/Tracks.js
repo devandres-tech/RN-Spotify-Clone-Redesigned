@@ -143,7 +143,9 @@ const Tracks = ({ route: { params }, navigation }) => {
           data={track.tracks.items}
           renderItem={renderTracks}
         />
-        {player.track.url.length > 0 && <AudioPlayer isTracksScreen={true} />}
+        {player.track.url.length > 0 && (
+          <AudioPlayer navigation={navigation} isTracksScreen={true} />
+        )}
       </View>
     </SafeAreaView>
   )

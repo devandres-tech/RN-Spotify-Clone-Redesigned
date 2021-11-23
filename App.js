@@ -7,7 +7,7 @@ import { ActivityIndicator, StatusBar, View } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 
-import { Authorize, Tracks } from './screens'
+import { Authorize, Tracks, TrackPlayer } from './screens'
 import { COLORS, SIZES } from './constants'
 import { MainTabNavigator } from './components'
 import * as authActions from './store/actions/auth'
@@ -22,10 +22,9 @@ const App = () => {
     SplashScreen.hide()
   }, [])
 
-  // TODO refactor useeffect
+  // initial render
   useEffect(() => {
     const getTokensFromAsyncStorage = async () => {
-      // await AsyncStorage.clear()
       const authData = await AsyncStorage.getItem('authData')
       const { accessToken, refreshToken } = await JSON.parse(authData)
       dispatch(authActions.setTokens(accessToken, refreshToken))
@@ -68,6 +67,25 @@ const App = () => {
     )
   }
 
+  const verticalAnimation = {
+    gestureDirection: 'vertical',
+    presentation: 'modal',
+    cardStyleInterpolator: ({ current, layouts }) => {
+      return {
+        cardStyle: {
+          transform: [
+            {
+              translateY: current.progress.interpolate({
+                inputRange: [0, 1],
+                outputRange: [layouts.screen.height, 0],
+              }),
+            },
+          ],
+        },
+      }
+    },
+  }
+
   return (
     <SafeAreaProvider>
       <StatusBar
@@ -86,6 +104,11 @@ const App = () => {
             <Stack.Group>
               <Stack.Screen name='Main' component={MainTabNavigator} />
               <Stack.Screen name='Tracks' component={Tracks} />
+              <Stack.Screen
+                name='TrackPlayer'
+                options={verticalAnimation}
+                component={TrackPlayer}
+              />
             </Stack.Group>
           ) : (
             <Stack.Screen name='Authorize' component={Authorize} />
