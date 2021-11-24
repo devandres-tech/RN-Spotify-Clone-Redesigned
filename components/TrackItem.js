@@ -36,8 +36,6 @@ const TrackItem = ({
     }
     const initTrackPlayer = async () => {
       await TrackPlayer.setupPlayer({})
-      // await TrackPlayer.add([])
-      console.log('url-----', url)
     }
     initTrackPlayer()
   }, [])

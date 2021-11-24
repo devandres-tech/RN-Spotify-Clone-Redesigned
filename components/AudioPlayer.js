@@ -58,7 +58,6 @@ const AudioPlayer = ({ isTracksScreen, navigation }) => {
 
   const onAudioPressHandler = () => {
     navigation.navigate('TrackPlayer')
-    console.log('navigate...', navigation)
   }
 
   return (
