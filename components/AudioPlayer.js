@@ -9,7 +9,6 @@ import TrackPlayer from 'react-native-track-player'
 
 const AudioPlayer = ({ isTracksScreen, navigation }) => {
   const player = useSelector((state) => state.audioPlayer)
-  const track = useSelector((state) => state.track)
   const dispatch = useDispatch()
 
   const onPlayPauseHandler = async () => {
@@ -20,40 +19,6 @@ const AudioPlayer = ({ isTracksScreen, navigation }) => {
       dispatch(playerActions.playTrack())
       await TrackPlayer.play()
     }
-  }
-
-  const onNextHandler = async () => {
-    const trackIndex = track.tracks.items.findIndex(
-      (trk) => trk.preview_url === player.track.url
-    )
-    const nextTrack = track.tracks.items[trackIndex + 1]
-    const artistsNames = nextTrack.artists
-      .map((artist) => artist.name)
-      .join(', ')
-    dispatch(
-      playerActions.setTrack({
-        url: nextTrack.preview_url,
-        title: nextTrack.name,
-        artist: artistsNames,
-        album: nextTrack.album.name,
-        genre: '',
-        artwork: nextTrack.album.images[0].url,
-        duration: nextTrack.duration_ms,
-      })
-    )
-    await TrackPlayer.stop()
-    await TrackPlayer.reset()
-    await TrackPlayer.add({
-      url: nextTrack.preview_url,
-      title: nextTrack.name,
-      artist: artistsNames,
-      album: nextTrack.album.name,
-      genre: '',
-      artwork: nextTrack.album.images[0].url,
-      duration: nextTrack.duration_ms,
-    })
-    await TrackPlayer.play()
-    console.log('trackIndex', nextTrack)
   }
 
   const onAudioPressHandler = () => {
@@ -124,9 +89,6 @@ const AudioPlayer = ({ isTracksScreen, navigation }) => {
               style={{ height: 28, width: 28, tintColor: COLORS.white }}
             />
           </TouchableOpacity>
-          {/* <TouchableOpacity onPress={onNextHandler}>
-              <Text style={{ color: 'fff' }}>NEXTT</Text>
-            </TouchableOpacity> */}
         </View>
       </View>
     </View>

@@ -30,7 +30,82 @@ const TrackPlayerScreen = ({ navigation }) => {
     TrackPlayer.seekTo(value)
   }
 
-  const onPreviousPress = () => {}
+  const onPreviousTrackHandler = async () => {
+    const trackIndex = track.tracks.items.findIndex(
+      (trk) => trk.preview_url === player.track.url
+    )
+    console.log('trackIndex', trackIndex)
+    if (trackIndex < 1) {
+      TrackPlayer.seekTo(0)
+    } else {
+      const prevTrack = track.tracks.items[trackIndex - 1]
+      const artistsNames = prevTrack.artists
+        .map((artist) => artist.name)
+        .join(', ')
+      dispatch(
+        playerActions.setTrack({
+          url: prevTrack.preview_url,
+          title: prevTrack.name,
+          artist: artistsNames,
+          album: prevTrack.album.name,
+          genre: '',
+          artwork: prevTrack.album.images[0].url,
+          duration: prevTrack.duration_ms,
+        })
+      )
+      await TrackPlayer.stop()
+      await TrackPlayer.reset()
+      await TrackPlayer.add({
+        url: prevTrack.preview_url,
+        title: prevTrack.name,
+        artist: artistsNames,
+        album: prevTrack.album.name,
+        genre: '',
+        artwork: prevTrack.album.images[0].url,
+        duration: prevTrack.duration_ms,
+      })
+      await TrackPlayer.play()
+    }
+  }
+
+  const onNextTrackHandler = async () => {
+    const lastIndex = track.tracks.items.length - 1
+    const trackIndex = track.tracks.items.findIndex(
+      (trk) => trk.preview_url === player.track.url
+    )
+    let nextTrack
+    if (trackIndex === lastIndex) {
+      nextTrack = track.tracks.items[0]
+    } else {
+      nextTrack = track.tracks.items[trackIndex + 1]
+    }
+    const artistsNames = nextTrack.artists
+      .map((artist) => artist.name)
+      .join(', ')
+    dispatch(
+      playerActions.setTrack({
+        url: nextTrack.preview_url,
+        title: nextTrack.name,
+        artist: artistsNames,
+        album: nextTrack.album.name,
+        genre: '',
+        artwork: nextTrack.album.images[0].url,
+        duration: nextTrack.duration_ms,
+      })
+    )
+    await TrackPlayer.stop()
+    await TrackPlayer.reset()
+    await TrackPlayer.add({
+      url: nextTrack.preview_url,
+      title: nextTrack.name,
+      artist: artistsNames,
+      album: nextTrack.album.name,
+      genre: '',
+      artwork: nextTrack.album.images[0].url,
+      duration: nextTrack.duration_ms,
+    })
+    await TrackPlayer.play()
+  }
 
   return (
     <SafeAreaView style={{ backgroundColor: COLORS.black, flex: 1 }}>
@@ -54,12 +129,14 @@ const TrackPlayerScreen = ({ navigation }) => {
           ]}
         />
       </ImageBackground>
+      {/* foreground */}
       <View style={{ paddingHorizontal: SIZES.padding }}>
         {/* track info  */}
         <View
           style={{
             alignItems: 'center',
-            marginBottom: 40,
+            marginBottom: 30,
+            height: 90,
           }}
         >
           <Text
@@ -67,7 +144,13 @@ const TrackPlayerScreen = ({ navigation }) => {
           >
             {player.track.title.toUpperCase()}
           </Text>
-          <Text style={{ color: COLORS.lightGray, ...FONTS.body }}>
+          <Text
+            style={{
+              color: COLORS.lightGray,
+              textAlign: 'center',
+              ...FONTS.body,
+            }}
+          >
             {player.track.artist.toUpperCase()}
           </Text>
         </View>
@@ -113,7 +196,10 @@ const TrackPlayerScreen = ({ navigation }) => {
             marginTop: 10,
           }}
         >
-          <TouchableOpacity onPress={onPreviousPress} activeOpacity={0.7}>
+          <TouchableOpacity
+            onPress={onPreviousTrackHandler}
+            activeOpacity={0.7}
+          >
             <Image
               style={{ height: 25, width: 25, tintColor: COLORS.white }}
               source={icons.previous}
@@ -141,7 +227,7 @@ const TrackPlayerScreen = ({ navigation }) => {
               }}
             />
           </TouchableOpacity>
-          <TouchableOpacity activeOpacity={0.7}>
+          <TouchableOpacity onPress={onNextTrackHandler} activeOpacity={0.7}>
             <Image
               style={{ height: 25, width: 25, tintColor: COLORS.white }}
               source={icons.next}
