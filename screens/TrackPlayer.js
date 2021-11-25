@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import LinearGradient from 'react-native-linear-gradient'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import TrackPlayer from 'react-native-track-player'
+import Slider from '@react-native-community/slider'
 
 import * as playerActions from '../store/actions/audioPlayer'
 import { COLORS, FONTS, SIZES, icons } from '../constants'
@@ -22,6 +23,8 @@ const TrackPlayerScreen = ({ navigation }) => {
       await TrackPlayer.play()
     }
   }
+
+  const onPreviousPress = () => {}
 
   return (
     <SafeAreaView style={{ backgroundColor: COLORS.black, flex: 1 }}>
@@ -59,6 +62,13 @@ const TrackPlayerScreen = ({ navigation }) => {
         </Text>
       </View>
       {/* progress bar  */}
+      <Slider
+        style={{ width: 200, height: 40 }}
+        minimumValue={0}
+        maximumValue={1}
+        minimumTrackTintColor='#FFFFFF'
+        maximumTrackTintColor='#000000'
+      />
       <View></View>
       {/* controls  */}
       <View
@@ -69,7 +79,7 @@ const TrackPlayerScreen = ({ navigation }) => {
           marginTop: 40,
         }}
       >
-        <TouchableOpacity activeOpacity={0.7}>
+        <TouchableOpacity onPress={onPreviousPress} activeOpacity={0.7}>
           <Image
             style={{ height: 25, width: 25, tintColor: COLORS.white }}
             source={icons.previous}
