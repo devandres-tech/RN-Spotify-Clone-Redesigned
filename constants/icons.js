@@ -6,8 +6,10 @@ const back = require('../assets/icons/back.png')
 const pause = require('../assets/icons/pause-button.png')
 const previous = require('../assets/icons/previous.png')
 const next = require('../assets/icons/next.png')
+const circle = require('../assets/icons/circle.png')
 
 export default {
+  circle,
   pause,
   next,
   previous,

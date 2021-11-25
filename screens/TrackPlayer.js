@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { View, Text, Image, SafeAreaView, ImageBackground } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 import LinearGradient from 'react-native-linear-gradient'
@@ -8,6 +8,7 @@ import Slider from '@react-native-community/slider'
 
 import * as playerActions from '../store/actions/audioPlayer'
 import { COLORS, FONTS, SIZES, icons } from '../constants'
+import { secondsToHHMMSS } from '../utils/helpers'
 
 const TrackPlayerScreen = ({ navigation }) => {
   const player = useSelector((state) => state.audioPlayer)
@@ -25,12 +26,7 @@ const TrackPlayerScreen = ({ navigation }) => {
     }
   }
 
-  useEffect(() => {
-    console.log('progesss', progress.position)
-  }, [progress.position])
-
-  const onSliderChange = async (value) => {
-    console.log('value', value)
+  const onSliderChange = (value) => {
     TrackPlayer.seekTo(value)
   }
 
@@ -58,74 +54,100 @@ const TrackPlayerScreen = ({ navigation }) => {
           ]}
         />
       </ImageBackground>
-      {/* track info  */}
-      <View
-        style={{
-          alignItems: 'center',
-        }}
-      >
-        <Text style={{ color: COLORS.white, ...FONTS.h2 }}>
-          {player.track.title.toUpperCase()}
-        </Text>
-        <Text style={{ color: COLORS.lightGray, ...FONTS.body }}>
-          {player.track.artist.toUpperCase()}
-        </Text>
-      </View>
-      {/* progress bar  */}
-      <Slider
-        style={{ width: 200, height: 40 }}
-        minimumValue={0}
-        maximumValue={30}
-        onValueChange={onSliderChange}
-        buffered={progress.buffered}
-        value={progress.position}
-        minimumTrackTintColor='#FFFFFF'
-        maximumTrackTintColor='#000000'
-      />
-      <View></View>
-      {/* controls  */}
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'center',
-          alignItems: 'center',
-          marginTop: 40,
-        }}
-      >
-        <TouchableOpacity onPress={onPreviousPress} activeOpacity={0.7}>
-          <Image
-            style={{ height: 25, width: 25, tintColor: COLORS.white }}
-            source={icons.previous}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={onPlayPauseHandler}
-          activeOpacity={0.7}
+      <View style={{ paddingHorizontal: SIZES.padding }}>
+        {/* track info  */}
+        <View
           style={{
-            height: 60,
-            width: 60,
-            backgroundColor: COLORS.white,
-            borderRadius: 30,
             alignItems: 'center',
-            justifyContent: 'center',
-            marginHorizontal: 30,
+            marginBottom: 40,
           }}
         >
-          <Image
-            source={player.isTrackPlaying ? icons.pause : icons.play}
+          <Text
+            style={{ color: COLORS.white, textAlign: 'center', ...FONTS.h2 }}
+          >
+            {player.track.title.toUpperCase()}
+          </Text>
+          <Text style={{ color: COLORS.lightGray, ...FONTS.body }}>
+            {player.track.artist.toUpperCase()}
+          </Text>
+        </View>
+        {/* progress bar  */}
+        <View
+          style={{
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <Slider
+            thumbImage={icons.circle}
+            style={{ width: '100%', height: 20, marginHorizontal: 10 }}
+            minimumValue={0}
+            maximumValue={30}
+            tapToSeek={true}
+            onValueChange={onSliderChange}
+            value={progress.position}
+            minimumTrackTintColor='#FFFFFF'
+            maximumTrackTintColor={COLORS.lightGray2}
+          />
+          <View
             style={{
-              height: 25,
-              width: 25,
-              tintColor: COLORS.black,
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              width: '100%',
             }}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity activeOpacity={0.7}>
-          <Image
-            style={{ height: 25, width: 25, tintColor: COLORS.white }}
-            source={icons.next}
-          />
-        </TouchableOpacity>
+          >
+            <Text style={{ color: COLORS.lightGray, ...FONTS.body }}>
+              {secondsToHHMMSS(progress.position)}
+            </Text>
+            <Text style={{ color: COLORS.lightGray, ...FONTS.body }}>
+              {secondsToHHMMSS(30)}
+            </Text>
+          </View>
+        </View>
+        {/* controls  */}
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginTop: 10,
+          }}
+        >
+          <TouchableOpacity onPress={onPreviousPress} activeOpacity={0.7}>
+            <Image
+              style={{ height: 25, width: 25, tintColor: COLORS.white }}
+              source={icons.previous}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={onPlayPauseHandler}
+            activeOpacity={0.7}
+            style={{
+              height: 60,
+              width: 60,
+              backgroundColor: COLORS.white,
+              borderRadius: 30,
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginHorizontal: 30,
+            }}
+          >
+            <Image
+              source={player.isTrackPlaying ? icons.pause : icons.play}
+              style={{
+                height: 25,
+                width: 25,
+                tintColor: COLORS.black,
+              }}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity activeOpacity={0.7}>
+            <Image
+              style={{ height: 25, width: 25, tintColor: COLORS.white }}
+              source={icons.next}
+            />
+          </TouchableOpacity>
+        </View>
       </View>
     </SafeAreaView>
   )
