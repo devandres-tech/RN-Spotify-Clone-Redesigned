@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { View, Text, Image, SafeAreaView, ImageBackground } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 import LinearGradient from 'react-native-linear-gradient'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-import TrackPlayer from 'react-native-track-player'
+import TrackPlayer, { useProgress } from 'react-native-track-player'
 import Slider from '@react-native-community/slider'
 
 import * as playerActions from '../store/actions/audioPlayer'
@@ -12,6 +12,7 @@ import { COLORS, FONTS, SIZES, icons } from '../constants'
 const TrackPlayerScreen = ({ navigation }) => {
   const player = useSelector((state) => state.audioPlayer)
   const track = useSelector((state) => state.track)
+  const progress = useProgress()
   const dispatch = useDispatch()
 
   const onPlayPauseHandler = async () => {
@@ -22,6 +23,15 @@ const TrackPlayerScreen = ({ navigation }) => {
       dispatch(playerActions.playTrack())
       await TrackPlayer.play()
     }
+  }
+
+  useEffect(() => {
+    console.log('progesss', progress.position)
+  }, [progress.position])
+
+  const onSliderChange = async (value) => {
+    console.log('value', value)
+    TrackPlayer.seekTo(value)
   }
 
   const onPreviousPress = () => {}
@@ -65,7 +75,10 @@ const TrackPlayerScreen = ({ navigation }) => {
       <Slider
         style={{ width: 200, height: 40 }}
         minimumValue={0}
-        maximumValue={1}
+        maximumValue={30}
+        onValueChange={onSliderChange}
+        buffered={progress.buffered}
+        value={progress.position}
         minimumTrackTintColor='#FFFFFF'
         maximumTrackTintColor='#000000'
       />
