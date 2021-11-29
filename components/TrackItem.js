@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { View, Text, Image, StyleSheet } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-import TrackPlayer from 'react-native-track-player'
 
 import { useSelector, useDispatch } from 'react-redux'
 import * as playerActions from '../store/actions/audioPlayer'
@@ -19,16 +18,10 @@ const TrackItem = ({
 }) => {
   const [isPlaying, setIsPlaying] = useState(false)
   const player = useSelector((state) => state.audioPlayer)
+  const track = useSelector((state) => state.track)
   const dispatch = useDispatch()
   const date = new Date(duration)
   const artistsNames = artists.map((artist) => artist.name).join(', ')
-
-  useEffect(() => {
-    const initTrackPlayer = async () => {
-      await TrackPlayer.setupPlayer({})
-    }
-    initTrackPlayer()
-  }, [])
 
   const onTrackItemHandler = async () => {
     const selectedTrack = {
@@ -38,31 +31,23 @@ const TrackItem = ({
       album: albumName,
       genre: '',
       date: '',
-      artwork: albumImages !== null ? albumImages[0].url : '',
+      artwork: albumImages[0].url,
       duration,
     }
-    if (url) {
-      if (player.track.url === url) {
-        if (isPlaying) {
-          await TrackPlayer.pause()
-          dispatch(playerActions.pauseTrack())
-          setIsPlaying(false)
-        } else {
-          dispatch(playerActions.setTrack(selectedTrack))
-          await TrackPlayer.add(selectedTrack)
-          await TrackPlayer.play()
-          dispatch(playerActions.playTrack())
-          setIsPlaying(true)
-        }
+    if (player.track.url === url) {
+      if (isPlaying) {
+        dispatch(playerActions.pauseTrack())
+        setIsPlaying(false)
       } else {
-        await TrackPlayer.stop()
-        await TrackPlayer.reset()
-        await TrackPlayer.add(selectedTrack)
-        await TrackPlayer.play()
-        dispatch(playerActions.playTrack())
         dispatch(playerActions.setTrack(selectedTrack))
+        dispatch(playerActions.playTrack())
         setIsPlaying(true)
       }
+    } else {
+      dispatch(playerActions.resetPlayer())
+      dispatch(playerActions.setTrack(selectedTrack))
+      dispatch(playerActions.playTrack())
+      setIsPlaying(true)
     }
   }
 
@@ -71,7 +56,7 @@ const TrackItem = ({
   return (
     <TouchableOpacity activeOpacity={0.7} onPress={onTrackItemHandler}>
       <View style={styles.trackItemContainer}>
-        {albumImages && (
+        {track.type !== 'album' && (
           <Image
             style={{
               ...styles.albumImage,

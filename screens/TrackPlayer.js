@@ -3,7 +3,7 @@ import { View, Text, Image, SafeAreaView, ImageBackground } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 import LinearGradient from 'react-native-linear-gradient'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-import TrackPlayer, { useProgress } from 'react-native-track-player'
+import { useProgress } from 'react-native-track-player'
 import Slider from '@react-native-community/slider'
 
 import * as playerActions from '../store/actions/audioPlayer'
@@ -12,99 +12,27 @@ import { secondsToHHMMSS } from '../utils/helpers'
 
 const TrackPlayerScreen = ({ navigation }) => {
   const player = useSelector((state) => state.audioPlayer)
-  const track = useSelector((state) => state.track)
   const progress = useProgress()
   const dispatch = useDispatch()
 
   const onPlayPauseHandler = async () => {
     if (player.isTrackPlaying) {
       dispatch(playerActions.pauseTrack())
-      await TrackPlayer.pause()
     } else {
       dispatch(playerActions.playTrack())
-      await TrackPlayer.play()
     }
   }
 
   const onSliderChange = (value) => {
-    TrackPlayer.seekTo(value)
+    dispatch(playerActions.seekToPosition(value))
   }
 
   const onPreviousTrackHandler = async () => {
-    const trackIndex = track.tracks.items.findIndex(
-      (trk) => trk.preview_url === player.track.url
-    )
-    if (trackIndex < 1) {
-      TrackPlayer.seekTo(0)
-    } else {
-      const prevTrack = track.tracks.items[trackIndex - 1]
-      const artistsNames = prevTrack.artists
-        .map((artist) => artist.name)
-        .join(', ')
-      dispatch(
-        playerActions.setTrack({
-          url: prevTrack.preview_url,
-          title: prevTrack.name,
-          artist: artistsNames,
-          album: prevTrack.album.name,
-          genre: '',
-          artwork: prevTrack.album.images[0].url,
-          duration: prevTrack.duration_ms,
-        })
-      )
-      await TrackPlayer.stop()
-      await TrackPlayer.reset()
-      await TrackPlayer.add({
-        url: prevTrack.preview_url,
-        title: prevTrack.name,
-        artist: artistsNames,
-        album: prevTrack.album.name,
-        genre: '',
-        artwork: prevTrack.album.images[0].url,
-        duration: prevTrack.duration_ms,
-      })
-      await TrackPlayer.play()
-    }
+    dispatch(playerActions.playPrevTrack())
   }
 
-  const onNextTrackHandler = async () => {
-    const lastIndex = track.tracks.items.length - 1
-    const trackIndex = track.tracks.items.findIndex(
-      (trk) => trk.preview_url === player.track.url
-    )
-    let nextTrack
-    if (trackIndex === lastIndex) {
-      nextTrack = track.tracks.items[0]
-    } else {
-      nextTrack = track.tracks.items[trackIndex + 1]
-    }
-    const artistsNames = nextTrack.artists
-      .map((artist) => artist.name)
-      .join(', ')
-    dispatch(
-      playerActions.setTrack({
-        url: nextTrack.preview_url,
-        title: nextTrack.name,
-        artist: artistsNames,
-        album: nextTrack.album.name,
-        genre: '',
-        artwork: nextTrack.album.images[0].url,
-        duration: nextTrack.duration_ms,
-      })
-    )
-    await TrackPlayer.stop()
-    await TrackPlayer.reset()
-    await TrackPlayer.add({
-      url: nextTrack.preview_url,
-      title: nextTrack.name,
-      artist: artistsNames,
-      album: nextTrack.album.name,
-      genre: '',
-      artwork: nextTrack.album.images[0].url,
-      duration: nextTrack.duration_ms,
-    })
-    dispatch(playerActions.playTrack())
-    await TrackPlayer.play()
+  const onNextTrackHandler = () => {
+    dispatch(playerActions.playNextTrack())
   }
 
   return (

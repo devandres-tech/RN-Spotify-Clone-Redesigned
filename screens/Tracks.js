@@ -50,19 +50,19 @@ const Tracks = ({ route: { params }, navigation }) => {
   }
 
   const renderTracks = ({ item }) => {
-    if (item.preview_url) {
-      return (
-        <TrackItem
-          url={item.preview_url}
-          explicit={item.explicit}
-          trackNumber={track.type === 'album' ? item.track_number : null}
-          trackName={item.name}
-          artists={item.artists}
-          duration={item.duration_ms}
-          albumImages={track.type === 'playlist' ? item.album.images : null}
-        />
-      )
-    }
+    return (
+      <TrackItem
+        url={item.preview_url}
+        explicit={item.explicit}
+        trackNumber={track.type === 'album' ? item.track_number : null}
+        trackName={item.name}
+        artists={item.artists}
+        duration={item.duration_ms}
+        albumImages={
+          track.type === 'playlist' ? item.album.images : track.images
+        }
+      />
+    )
   }
 
   return (
@@ -70,7 +70,6 @@ const Tracks = ({ route: { params }, navigation }) => {
     <SafeAreaView style={{ backgroundColor: COLORS.black, flex: 1 }}>
       <StatusBar
         animated={true}
-        r
         barStyle={'light-content'}
         backgroundColor={COLORS.black}
       />

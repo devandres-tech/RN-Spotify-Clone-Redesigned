@@ -13,6 +13,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import { COLORS, FONTS, SIZES } from '../constants'
 import * as userActions from '../store/actions/user'
 import * as playlistActions from '../store/actions/playlist'
+import * as playerActions from '../store/actions/audioPlayer'
+
 import {
   TextButton,
   HorizontalCardContainer,
@@ -32,6 +34,7 @@ const Home = ({ navigation }) => {
     dispatch(playlistActions.getFeaturedPlaylists(1))
     dispatch(playlistActions.getCategoryPlaylist('toplists', 10))
     dispatch(playlistActions.getNewReleases(10))
+    dispatch(playerActions.init())
   }, [dispatch])
 
   const renderButtons = () => {

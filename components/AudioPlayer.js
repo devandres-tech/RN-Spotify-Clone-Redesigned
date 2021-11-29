@@ -5,7 +5,6 @@ import { View, Image, Text } from 'react-native'
 import { COLORS, FONTS, icons } from '../constants'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import * as playerActions from '../store/actions/audioPlayer'
-import TrackPlayer from 'react-native-track-player'
 
 const AudioPlayer = ({ isTracksScreen, navigation }) => {
   const player = useSelector((state) => state.audioPlayer)
@@ -14,10 +13,8 @@ const AudioPlayer = ({ isTracksScreen, navigation }) => {
   const onPlayPauseHandler = async () => {
     if (player.isTrackPlaying) {
       dispatch(playerActions.pauseTrack())
-      await TrackPlayer.pause()
     } else {
       dispatch(playerActions.playTrack())
-      await TrackPlayer.play()
     }
   }
 
