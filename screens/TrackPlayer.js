@@ -12,6 +12,7 @@ import { secondsToHHMMSS } from '../utils/helpers'
 
 const TrackPlayerScreen = ({ navigation }) => {
   const player = useSelector((state) => state.audioPlayer)
+  const track = useSelector((state) => state.track)
   const progress = useProgress()
   const dispatch = useDispatch()
 
@@ -42,6 +43,32 @@ const TrackPlayerScreen = ({ navigation }) => {
         source={{ uri: player.track.artwork }}
         resizeMode='cover'
       >
+        <View
+          style={{
+            alignItems: 'center',
+          }}
+        >
+          <LinearGradient
+            style={{
+              height: 80,
+              width: '100%',
+              position: 'absolute',
+            }}
+            start={{ x: 0, y: 1 }}
+            end={{ x: 0, y: 0 }}
+            colors={[
+              'rgba(7, 7, 7, 0.00)',
+              'rgba(7, 7, 7, 0.55)',
+              COLORS.black,
+            ]}
+          />
+          <Text style={{ color: COLORS.white, marginTop: 10, ...FONTS.body }}>
+            PlAYING FROM {track.type.toUpperCase()}
+          </Text>
+          <Text style={{ color: COLORS.white, ...FONTS.bodyBold }}>
+            {track.name.toUpperCase()}
+          </Text>
+        </View>
         <LinearGradient
           style={{
             height: 150,
@@ -58,7 +85,7 @@ const TrackPlayerScreen = ({ navigation }) => {
         />
       </ImageBackground>
       {/* foreground */}
-      <View style={{ paddingHorizontal: SIZES.padding }}>
+      <View style={{ paddingHorizontal: 40 }}>
         {/* track info  */}
         <View
           style={{
