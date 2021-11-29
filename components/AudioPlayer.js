@@ -76,7 +76,6 @@ const AudioPlayer = ({ isTracksScreen, navigation }) => {
             </Text>
           </View>
         </TouchableOpacity>
-
         <View
           style={{
             marginLeft: 'auto',

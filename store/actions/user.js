@@ -22,7 +22,6 @@ export const getProfile = () => {
         method: 'GET',
         headers: setHeaders(accessToken),
       })
-
       if (!response.ok) {
         const {
           error: { message },
@@ -30,7 +29,6 @@ export const getProfile = () => {
         throw message
       }
       const data = await response.json()
-
       dispatch({ type: GET_USER_PROFILE, data })
     } catch (error) {
       console.log('error', error)

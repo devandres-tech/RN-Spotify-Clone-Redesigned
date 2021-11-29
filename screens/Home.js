@@ -26,9 +26,9 @@ const Home = ({ navigation }) => {
   const dispatch = useDispatch()
 
   useEffect(() => {
+    dispatch(userActions.getTopArtists('long_term', 3))
     dispatch(userActions.getPlaylists(40))
     dispatch(userActions.getRecentlyPlayed(10))
-    dispatch(userActions.getTopArtists('long_term', 3))
     dispatch(playlistActions.getFeaturedPlaylists(1))
     dispatch(playlistActions.getCategoryPlaylist('toplists', 10))
     dispatch(playlistActions.getNewReleases(10))

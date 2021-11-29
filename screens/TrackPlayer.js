@@ -34,7 +34,6 @@ const TrackPlayerScreen = ({ navigation }) => {
     const trackIndex = track.tracks.items.findIndex(
       (trk) => trk.preview_url === player.track.url
     )
-    console.log('trackIndex', trackIndex)
     if (trackIndex < 1) {
       TrackPlayer.seekTo(0)
     } else {
@@ -104,6 +103,7 @@ const TrackPlayerScreen = ({ navigation }) => {
       artwork: nextTrack.album.images[0].url,
       duration: nextTrack.duration_ms,
     })
+    dispatch(playerActions.playTrack())
     await TrackPlayer.play()
   }
 

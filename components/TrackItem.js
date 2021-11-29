@@ -24,16 +24,6 @@ const TrackItem = ({
   const artistsNames = artists.map((artist) => artist.name).join(', ')
 
   useEffect(() => {
-    const track = {
-      url,
-      title: trackName,
-      artist: artistsNames,
-      album: albumName,
-      genre: '',
-      date: '',
-      artwork: albumImages !== null ? albumImages[0].url : '',
-      duration,
-    }
     const initTrackPlayer = async () => {
       await TrackPlayer.setupPlayer({})
     }
@@ -76,7 +66,7 @@ const TrackItem = ({
     }
   }
 
-  const isSelectedTrackPlaying = player.track.url === url && isPlaying
+  const isSelectedTrackPlaying = player.track.url === url
 
   return (
     <TouchableOpacity activeOpacity={0.7} onPress={onTrackItemHandler}>
@@ -97,7 +87,10 @@ const TrackItem = ({
           />
         )}
         {isSelectedTrackPlaying ? (
-          <Image style={styles.pauseIcon} source={icons.pause} />
+          <Image
+            style={styles.pauseIcon}
+            source={player.isTrackPlaying ? icons.pause : icons.play}
+          />
         ) : (
           <Image style={styles.playIcon} source={icons.play} />
         )}

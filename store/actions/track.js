@@ -21,6 +21,11 @@ export const getAlbumTracks = (albumId) => {
         headers: setHeaders(accessToken),
       })
       const data = await response.json()
+      const filteredTracks = data.tracks.items.filter(
+        (track) => track.preview_url !== null
+      )
+      data.tracks.items = filteredTracks
+      console.log('dataaa', data)
       dispatch({ type: GET_ALBUM_TRACKS, albumTracks: data })
     } catch (error) {
       console.log(error)
@@ -41,7 +46,9 @@ export const getPlaylistTracks = (playlistId) => {
       const flattenPlaylistTracks = data.tracks.items.map((track) => {
         return { ...track, ...track.track }
       })
-      data.tracks.items = flattenPlaylistTracks
+      data.tracks.items = flattenPlaylistTracks.filter(
+        (track) => track.preview_url !== null
+      )
       dispatch({ type: GET_PLAYLIST_TRACKS, playlistTracks: data })
     } catch (error) {
       console.log('error')
@@ -64,9 +71,12 @@ export const getArtistTracks = (artistId) => {
         }
       )
       const data = await response.json()
+      const filteredTracks = data.tracks.filter(
+        (track) => track.preview_url !== null
+      )
       const transformedData = {
         tracks: {
-          items: [...data.tracks],
+          items: [...filteredTracks],
         },
       }
       dispatch({ type: GET_ARTIST_TRACKS, artistTracks: transformedData })
