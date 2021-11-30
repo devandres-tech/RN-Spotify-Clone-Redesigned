@@ -45,7 +45,7 @@ const TrackPlayerScreen = ({ navigation }) => {
       >
         <View
           style={{
-            alignItems: 'center',
+            flexDirection: 'row',
           }}
         >
           <LinearGradient
@@ -62,12 +62,35 @@ const TrackPlayerScreen = ({ navigation }) => {
               COLORS.black,
             ]}
           />
-          <Text style={{ color: COLORS.white, marginTop: 10, ...FONTS.body }}>
-            PlAYING FROM {track.type.toUpperCase()}
-          </Text>
-          <Text style={{ color: COLORS.white, ...FONTS.bodyBold }}>
-            {track.name.toUpperCase()}
-          </Text>
+          <TouchableOpacity
+            onPress={() => navigation.goBack()}
+            style={{
+              flex: 1,
+              paddingLeft: 30,
+              justifyContent: 'center',
+            }}
+            activeOpacity={0.7}
+          >
+            <Image
+              style={{ height: 22, width: 22, tintColor: COLORS.white }}
+              source={icons.down_arrow}
+            />
+          </TouchableOpacity>
+          <View
+            style={{
+              flex: 2,
+              justifyContent: 'center',
+              alignItems: 'center',
+              paddingRight: 30,
+            }}
+          >
+            <Text style={{ color: COLORS.white, marginTop: 10, ...FONTS.body }}>
+              PlAYING FROM {track.type.toUpperCase()}
+            </Text>
+            <Text style={{ color: COLORS.white, ...FONTS.bodyBold }}>
+              {track.name.toUpperCase()}
+            </Text>
+          </View>
         </View>
         <LinearGradient
           style={{
@@ -85,7 +108,7 @@ const TrackPlayerScreen = ({ navigation }) => {
         />
       </ImageBackground>
       {/* foreground */}
-      <View style={{ paddingHorizontal: 40 }}>
+      <View style={{ paddingHorizontal: 30 }}>
         {/* track info  */}
         <View
           style={{
@@ -146,11 +169,17 @@ const TrackPlayerScreen = ({ navigation }) => {
         <View
           style={{
             flexDirection: 'row',
-            justifyContent: 'center',
+            justifyContent: 'space-between',
             alignItems: 'center',
             marginTop: 10,
           }}
         >
+          <TouchableOpacity activeOpacity={0.7}>
+            <Image
+              style={{ height: 28, width: 28, tintColor: COLORS.white }}
+              source={icons.shuffle}
+            />
+          </TouchableOpacity>
           <TouchableOpacity
             onPress={onPreviousTrackHandler}
             activeOpacity={0.7}
@@ -170,7 +199,6 @@ const TrackPlayerScreen = ({ navigation }) => {
               borderRadius: 30,
               alignItems: 'center',
               justifyContent: 'center',
-              marginHorizontal: 30,
             }}
           >
             <Image
@@ -186,6 +214,12 @@ const TrackPlayerScreen = ({ navigation }) => {
             <Image
               style={{ height: 25, width: 25, tintColor: COLORS.white }}
               source={icons.next}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity activeOpacity={0.7}>
+            <Image
+              style={{ height: 28, width: 28, tintColor: COLORS.white }}
+              source={icons.repeat}
             />
           </TouchableOpacity>
         </View>
