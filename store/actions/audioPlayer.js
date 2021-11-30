@@ -58,18 +58,17 @@ export const seekToPosition = (value) => {
 
 export const playNextTrack = () => {
   return async (dispatch, getState) => {
-    const tracks = getState().track.tracks
     const player = getState().audioPlayer
     const isAlbum = getState().track.type === 'album'
-    const lastIndex = tracks.items.length - 1
-    const trackIndex = tracks.items.findIndex(
-      (trk) => trk.preview_url === player.currentTrack.url
+    const lastIndex = player.tracks.length - 1
+    const currentTrackIndex = player.tracks.findIndex(
+      (track) => track.preview_url === player.currentTrack.url
     )
     let nextTrack
-    if (trackIndex === lastIndex) {
-      nextTrack = tracks.items[0]
+    if (currentTrackIndex === lastIndex) {
+      nextTrack = player.tracks[0]
     } else {
-      nextTrack = tracks.items[trackIndex + 1]
+      nextTrack = player.tracks[currentTrackIndex + 1]
     }
     const artistsNames = nextTrack.artists
       .map((artist) => artist.name)
@@ -94,16 +93,15 @@ export const playNextTrack = () => {
 
 export const playPrevTrack = () => {
   return async (dispatch, getState) => {
-    const tracks = getState().track.tracks
     const player = getState().audioPlayer
     const isAlbum = getState().track.type === 'album'
-    const trackIndex = tracks.items.findIndex(
-      (trk) => trk.preview_url === player.currentTrack.url
+    const currentTrackIndex = player.tracks.findIndex(
+      (track) => track.preview_url === player.currentTrack.url
     )
-    if (trackIndex < 1) {
+    if (currentTrackIndex < 1) {
       TrackPlayer.seekTo(0)
     } else {
-      const prevTrack = tracks.items[trackIndex - 1]
+      const prevTrack = player.tracks[currentTrackIndex - 1]
       const artistsNames = prevTrack.artists
         .map((artist) => artist.name)
         .join(', ')
