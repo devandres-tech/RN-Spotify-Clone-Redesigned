@@ -1,11 +1,12 @@
-import TrackPlayer, { useProgress } from 'react-native-track-player'
+import TrackPlayer from 'react-native-track-player'
 
 export const PLAY_TRACK = 'PLAY_TRACK'
 export const PAUSE_TRACK = 'PAUSE_TRACK'
-export const SET_TRACK = 'SET_TRACK'
+export const SET_CURRENT_TRACK = 'SET_CURRENT_TRACK'
 export const RESET_PLAYER = 'RESET_PLAYER'
 export const INIT_PLAYER = 'INIT_PLAYER'
 export const SEEK_TO_POSITION = 'SEEK_TO_POSITION'
+export const SET_TRACKS = 'SET_TRACKS'
 
 export const init = () => {
   return async (dispatch) => {
@@ -28,10 +29,16 @@ export const pauseTrack = () => {
   }
 }
 
-export const setTrack = (track) => {
+export const setCurrentTrack = (currentTrack) => {
   return async (dispatch) => {
-    await TrackPlayer.add(track)
-    dispatch({ type: SET_TRACK, track })
+    await TrackPlayer.add(currentTrack)
+    dispatch({ type: SET_CURRENT_TRACK, currentTrack })
+  }
+}
+
+export const setTracks = (tracks) => {
+  return async (dispatch) => {
+    dispatch({ type: SET_TRACKS, tracks })
   }
 }
 
@@ -56,7 +63,7 @@ export const playNextTrack = () => {
     const isAlbum = getState().track.type === 'album'
     const lastIndex = tracks.items.length - 1
     const trackIndex = tracks.items.findIndex(
-      (trk) => trk.preview_url === player.track.url
+      (trk) => trk.preview_url === player.currentTrack.url
     )
     let nextTrack
     if (trackIndex === lastIndex) {
@@ -69,7 +76,7 @@ export const playNextTrack = () => {
       .join(', ')
     dispatch(resetPlayer())
     dispatch(
-      setTrack({
+      setCurrentTrack({
         url: nextTrack.preview_url,
         title: nextTrack.name,
         artist: artistsNames,
@@ -91,7 +98,7 @@ export const playPrevTrack = () => {
     const player = getState().audioPlayer
     const isAlbum = getState().track.type === 'album'
     const trackIndex = tracks.items.findIndex(
-      (trk) => trk.preview_url === player.track.url
+      (trk) => trk.preview_url === player.currentTrack.url
     )
     if (trackIndex < 1) {
       TrackPlayer.seekTo(0)
@@ -102,7 +109,7 @@ export const playPrevTrack = () => {
         .join(', ')
       dispatch(resetPlayer())
       dispatch(
-        setTrack({
+        setCurrentTrack({
           url: prevTrack.preview_url,
           title: prevTrack.name,
           artist: artistsNames,

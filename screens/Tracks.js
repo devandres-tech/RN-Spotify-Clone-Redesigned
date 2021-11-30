@@ -30,6 +30,8 @@ const Tracks = ({ route: { params }, navigation }) => {
   const dispatch = useDispatch()
   const { mediaId, mediaType, artist } = params
 
+  useEffect(() => {}, [])
+
   useEffect(() => {
     if (mediaType === 'playlist')
       dispatch(tracksActions.getPlaylistTracks(mediaId))
@@ -142,7 +144,7 @@ const Tracks = ({ route: { params }, navigation }) => {
           data={track.tracks.items}
           renderItem={renderTracks}
         />
-        {player.track.url.length > 0 && (
+        {player.currentTrack.url.length > 0 && (
           <AudioPlayer navigation={navigation} isTracksScreen={true} />
         )}
       </View>

@@ -25,7 +25,6 @@ export const getAlbumTracks = (albumId) => {
         (track) => track.preview_url !== null
       )
       data.tracks.items = filteredTracks
-      console.log('dataaa', data)
       dispatch({ type: GET_ALBUM_TRACKS, albumTracks: data })
     } catch (error) {
       console.log(error)

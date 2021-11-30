@@ -50,7 +50,9 @@ const MainTabNavigator = ({ navigation }) => {
         <Tab.Screen name='Profile' component={Profile} />
       </Tab.Navigator>
 
-      {player.track.url.length > 0 && <AudioPlayer navigation={navigation} />}
+      {player.currentTrack.url.length > 0 && (
+        <AudioPlayer navigation={navigation} />
+      )}
     </View>
   )
 }

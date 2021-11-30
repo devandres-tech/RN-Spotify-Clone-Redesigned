@@ -34,24 +34,24 @@ const TrackItem = ({
       artwork: albumImages[0].url,
       duration,
     }
-    if (player.track.url === url) {
+    if (player.currentTrack.url === url) {
       if (isPlaying) {
         dispatch(playerActions.pauseTrack())
         setIsPlaying(false)
       } else {
-        dispatch(playerActions.setTrack(selectedTrack))
+        dispatch(playerActions.setCurrentTrack(selectedTrack))
         dispatch(playerActions.playTrack())
         setIsPlaying(true)
       }
     } else {
       dispatch(playerActions.resetPlayer())
-      dispatch(playerActions.setTrack(selectedTrack))
+      dispatch(playerActions.setCurrentTrack(selectedTrack))
       dispatch(playerActions.playTrack())
       setIsPlaying(true)
     }
   }
 
-  const isSelectedTrackPlaying = player.track.url === url
+  const isSelectedTrackPlaying = player.currentTrack.url === url
 
   return (
     <TouchableOpacity activeOpacity={0.7} onPress={onTrackItemHandler}>

@@ -53,23 +53,23 @@ const AudioPlayer = ({ isTracksScreen, navigation }) => {
           activeOpacity={0.7}
         >
           <View style={{ marginRight: 10 }}>
-            {player.track.artwork.length > 0 && (
+            {player.currentTrack.artwork.length > 0 && (
               <Image
                 style={{ height: 50, width: 50, borderRadius: 30 }}
-                source={{ uri: player.track.artwork }}
+                source={{ uri: player.currentTrack.artwork }}
               />
             )}
           </View>
           <View>
             <Text style={{ color: COLORS.white, ...FONTS.bodyBold }}>
-              {player.track.title.length > 25
-                ? `${player.track.title.substring(0, 30).trim()}...`
-                : player.track.title}
+              {player.currentTrack.title.length > 25
+                ? `${player.currentTrack.title.substring(0, 30).trim()}...`
+                : player.currentTrack.title}
             </Text>
             <Text style={{ color: COLORS.lightGray, ...FONTS.body }}>
-              {player.track.artist.length > 25
-                ? `${player.track.artist.substring(0, 30).trim()}...`
-                : player.track.artist}
+              {player.currentTrack.artist.length > 25
+                ? `${player.currentTrack.artist.substring(0, 30).trim()}...`
+                : player.currentTrack.artist}
             </Text>
           </View>
         </TouchableOpacity>

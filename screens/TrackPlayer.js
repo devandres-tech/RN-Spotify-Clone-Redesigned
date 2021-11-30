@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { View, Text, Image, SafeAreaView, ImageBackground } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 import LinearGradient from 'react-native-linear-gradient'
@@ -12,6 +12,7 @@ import { secondsToHHMMSS } from '../utils/helpers'
 
 const TrackPlayerScreen = ({ navigation }) => {
   const player = useSelector((state) => state.audioPlayer)
+  const [isShuffle, setIsShuffle] = useState(false)
   const track = useSelector((state) => state.track)
   const progress = useProgress()
   const dispatch = useDispatch()
@@ -22,6 +23,15 @@ const TrackPlayerScreen = ({ navigation }) => {
     } else {
       dispatch(playerActions.playTrack())
     }
+  }
+
+  useEffect(() => {
+    console.log('shuffliin??', isShuffle)
+  }, [isShuffle])
+
+  const onShuffleHandler = () => {
+    if (isShuffle) setIsShuffle(false)
+    else setIsShuffle(true)
   }
 
   const onSliderChange = (value) => {
@@ -40,7 +50,7 @@ const TrackPlayerScreen = ({ navigation }) => {
     <SafeAreaView style={{ backgroundColor: COLORS.black, flex: 1 }}>
       <ImageBackground
         style={{ height: 500, width: '100%' }}
-        source={{ uri: player.track.artwork }}
+        source={{ uri: player.currentTrack.artwork }}
         resizeMode='cover'
       >
         <View
@@ -120,7 +130,7 @@ const TrackPlayerScreen = ({ navigation }) => {
           <Text
             style={{ color: COLORS.white, textAlign: 'center', ...FONTS.h2 }}
           >
-            {player.track.title.toUpperCase()}
+            {player.currentTrack.title.toUpperCase()}
           </Text>
           <Text
             style={{
@@ -129,7 +139,7 @@ const TrackPlayerScreen = ({ navigation }) => {
               ...FONTS.body,
             }}
           >
-            {player.track.artist.toUpperCase()}
+            {player.currentTrack.artist.toUpperCase()}
           </Text>
         </View>
         {/* progress bar  */}
@@ -174,9 +184,13 @@ const TrackPlayerScreen = ({ navigation }) => {
             marginTop: 10,
           }}
         >
-          <TouchableOpacity activeOpacity={0.7}>
+          <TouchableOpacity onPress={onShuffleHandler} activeOpacity={0.7}>
             <Image
-              style={{ height: 28, width: 28, tintColor: COLORS.white }}
+              style={{
+                height: 28,
+                width: 28,
+                tintColor: isShuffle ? COLORS.primary : COLORS.white,
+              }}
               source={icons.shuffle}
             />
           </TouchableOpacity>

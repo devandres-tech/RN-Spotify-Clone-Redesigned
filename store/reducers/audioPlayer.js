@@ -1,23 +1,31 @@
 import {
   PAUSE_TRACK,
   PLAY_TRACK,
-  SET_TRACK,
+  SET_CURRENT_TRACK,
   RESET_PLAYER,
   INIT_PLAYER,
   SEEK_TO_POSITION,
+  SET_TRACKS,
 } from '../actions/audioPlayer'
 
 const initialState = {
   isTrackPlaying: false,
-  track: { url: '' },
+  currentTrack: { url: '' },
+  tracks: [{}],
 }
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case SET_TRACK:
+    case SET_CURRENT_TRACK:
       return {
         ...state,
-        track: action.track,
+        currentTrack: action.currentTrack,
+      }
+
+    case SET_TRACKS:
+      return {
+        ...state,
+        tracks: action.tracks,
       }
 
     case SEEK_TO_POSITION:
