@@ -18,6 +18,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 
 import { COLORS, icons, FONTS } from '../constants'
 import * as tracksActions from '../store/actions/track'
+import * as playerActions from '../store/actions/audioPlayer'
 import { animateOpacity, animateHeight, animateScale } from '../utils/helpers'
 import { TrackItem, TracksHeader, AudioPlayer } from '../components'
 
@@ -30,16 +31,19 @@ const Tracks = ({ route: { params }, navigation }) => {
   const dispatch = useDispatch()
   const { mediaId, mediaType, artist } = params
 
-  useEffect(() => {}, [])
+  useEffect(() => {
+    if (mediaType === 'playlist') {
+      dispatch(tracksActions.getPlaylistTracks(mediaId))
+    } else if (mediaType === 'album') {
+      dispatch(tracksActions.getAlbumTracks(mediaId))
+    } else if (mediaType === 'artist') {
+      dispatch(tracksActions.getArtistTracks(mediaId))
+    }
+  }, [mediaId, dispatch, mediaType])
 
   useEffect(() => {
-    if (mediaType === 'playlist')
-      dispatch(tracksActions.getPlaylistTracks(mediaId))
-    else if (mediaType === 'album')
-      dispatch(tracksActions.getAlbumTracks(mediaId))
-    else if (mediaType === 'artist')
-      dispatch(tracksActions.getArtistTracks(mediaId))
-  }, [mediaId, dispatch, mediaType])
+    dispatch(playerActions.setTracks(track.tracks.items))
+  }, [track])
 
   // const scrollHandler = useAnimatedScrollHandler({
   //   onScroll: (e) => {
@@ -47,7 +51,7 @@ const Tracks = ({ route: { params }, navigation }) => {
   //   },
   // })
 
-  const formatText = (text) => {
+  const trimText = (text) => {
     return text.length > 35 ? text.substring(0, 35) + '...' : text.trim()
   }
 
@@ -100,8 +104,8 @@ const Tracks = ({ route: { params }, navigation }) => {
           }}
         >
           {mediaType === 'artist'
-            ? formatText(artist.name)
-            : formatText(track.name)}
+            ? trimText(artist.name)
+            : trimText(track.name)}
         </Text>
       </Animated.View>
       <Animated.View>
