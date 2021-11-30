@@ -26,7 +26,14 @@ const TrackPlayerScreen = ({ navigation }) => {
   }
 
   useEffect(() => {
-    console.log('shuffliin??', isShuffle)
+    if (isShuffle) {
+      console.log('shuffle tracks and set current to first')
+      dispatch(playerActions.shuffleTracks())
+    } else {
+      console.log(
+        'unsuffle to original, find index of original current playing track'
+      )
+    }
   }, [isShuffle])
 
   const onShuffleHandler = () => {

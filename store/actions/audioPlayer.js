@@ -7,6 +7,7 @@ export const RESET_PLAYER = 'RESET_PLAYER'
 export const INIT_PLAYER = 'INIT_PLAYER'
 export const SEEK_TO_POSITION = 'SEEK_TO_POSITION'
 export const SET_TRACKS = 'SET_TRACKS'
+export const SHUFFLE_TRACKS = 'SHUFFLE_TRACKS'
 
 export const init = () => {
   return async (dispatch) => {
@@ -62,7 +63,7 @@ export const playNextTrack = () => {
     const isAlbum = getState().track.type === 'album'
     const lastIndex = player.tracks.length - 1
     const currentTrackIndex = player.tracks.findIndex(
-      (track) => track.preview_url === player.currentTrack.url
+      (track) => track.id === player.currentTrack.id
     )
     let nextTrack
     if (currentTrackIndex === lastIndex) {
@@ -76,6 +77,7 @@ export const playNextTrack = () => {
     dispatch(resetPlayer())
     dispatch(
       setCurrentTrack({
+        id: nextTrack.id,
         url: nextTrack.preview_url,
         title: nextTrack.name,
         artist: artistsNames,
@@ -96,7 +98,7 @@ export const playPrevTrack = () => {
     const player = getState().audioPlayer
     const isAlbum = getState().track.type === 'album'
     const currentTrackIndex = player.tracks.findIndex(
-      (track) => track.preview_url === player.currentTrack.url
+      (track) => track.id === player.currentTrack.id
     )
     if (currentTrackIndex < 1) {
       TrackPlayer.seekTo(0)
@@ -108,6 +110,7 @@ export const playPrevTrack = () => {
       dispatch(resetPlayer())
       dispatch(
         setCurrentTrack({
+          id: prevTrack.id,
           url: prevTrack.preview_url,
           title: prevTrack.name,
           artist: artistsNames,
@@ -121,5 +124,23 @@ export const playPrevTrack = () => {
       )
       dispatch(playTrack())
     }
+  }
+}
+
+export const shuffleTracks = () => {
+  return async (dispatch, getState) => {
+    const player = getState().audioPlayer
+    // filter out current playing track
+    const currentTrack = player.tracks.find(
+      (track) => track.preview_url === player.currentTrack.url
+    )
+    const filteredTracks = player.tracks.filter(
+      (track) => track.id !== currentTrack.id
+    )
+    console.log('shuffleTracks()', filteredTracks, currentTrack)
+    dispatch({ type: SHUFFLE_TRACKS })
+    // apply FY algorithm to filtered tracks
+    // merge current playing tracks (first) and random tracks
+    // call setTracks action creator
   }
 }

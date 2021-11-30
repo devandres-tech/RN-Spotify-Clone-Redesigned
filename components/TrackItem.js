@@ -7,6 +7,7 @@ import * as playerActions from '../store/actions/audioPlayer'
 import { COLORS, SIZES, FONTS, icons } from '../constants'
 
 const TrackItem = ({
+  trackId,
   url,
   trackName,
   albumName,
@@ -25,6 +26,7 @@ const TrackItem = ({
 
   const onTrackItemHandler = async () => {
     const selectedTrack = {
+      id: trackId,
       url,
       title: trackName,
       artist: artistsNames,

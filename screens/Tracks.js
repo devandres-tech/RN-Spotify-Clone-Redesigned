@@ -58,6 +58,7 @@ const Tracks = ({ route: { params }, navigation }) => {
   const renderTracks = ({ item }) => {
     return (
       <TrackItem
+        trackId={item.id}
         url={item.preview_url}
         explicit={item.explicit}
         trackNumber={track.type === 'album' ? item.track_number : null}
