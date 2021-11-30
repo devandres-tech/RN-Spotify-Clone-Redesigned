@@ -7,8 +7,16 @@ const pause = require('../assets/icons/pause-button.png')
 const previous = require('../assets/icons/previous.png')
 const next = require('../assets/icons/next.png')
 const circle = require('../assets/icons/circle.png')
+const shuffle = require('../assets/icons/shuffle.png')
+const down_arrow = require('../assets/icons/down_arrow.png')
+const repeat = require('../assets/icons/repeat.png')
+const repeat_one = require('../assets/icons/repeat_one.png')
 
 export default {
+  down_arrow,
+  repeat,
+  shuffle,
+  repeat_one,
   circle,
   pause,
   next,
