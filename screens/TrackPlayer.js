@@ -10,6 +10,8 @@ import * as playerActions from '../store/actions/audioPlayer'
 import { COLORS, FONTS, SIZES, icons } from '../constants'
 import { secondsToHHMMSS } from '../utils/helpers'
 
+const MAX_PROGRESS = 30
+
 const TrackPlayerScreen = ({ navigation }) => {
   const player = useSelector((state) => state.audioPlayer)
   const track = useSelector((state) => state.track)
@@ -37,6 +39,12 @@ const TrackPlayerScreen = ({ navigation }) => {
   const onNextTrackHandler = () => {
     dispatch(playerActions.playNextTrack())
   }
+
+  useEffect(() => {
+    if (Math.round(progress.position) === MAX_PROGRESS) {
+      dispatch(playerActions.playNextTrack())
+    }
+  }, [progress])
 
   return (
     <SafeAreaView style={{ backgroundColor: COLORS.black, flex: 1 }}>
@@ -145,7 +153,7 @@ const TrackPlayerScreen = ({ navigation }) => {
             thumbImage={icons.circle}
             style={{ width: '100%', height: 20, marginHorizontal: 10 }}
             minimumValue={0}
-            maximumValue={30}
+            maximumValue={MAX_PROGRESS}
             tapToSeek={true}
             onValueChange={onSliderChange}
             value={progress.position}

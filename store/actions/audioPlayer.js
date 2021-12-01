@@ -91,7 +91,11 @@ export const playNextTrack = () => {
         duration: nextTrack.duration_ms,
       })
     )
-    dispatch(playTrack())
+    if (currentTrackIndex === lastIndex) {
+      dispatch(pauseTrack())
+    } else {
+      dispatch(playTrack())
+    }
   }
 }
 
