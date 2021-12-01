@@ -60,12 +60,16 @@ const Search = ({ navigation }) => {
     return browse.categories.map((category) => {
       return (
         <TouchableOpacity
+          key={category.id}
           activeOpacity={0.7}
           style={{ paddingBottom: SIZES.paddingBottom }}
         >
           <View style={styles.cardItemContainer}>
-            {category.images.reverse().map((image) => (
-              <View style={styles.cardItemImageContainer}>
+            {category.images.reverse().map((image, index) => (
+              <View
+                key={`${image.url}-${index}`}
+                style={styles.cardItemImageContainer}
+              >
                 <Image
                   style={styles.cardItemImage}
                   source={{ uri: image.url }}

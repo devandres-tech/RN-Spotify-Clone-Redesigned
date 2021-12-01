@@ -15,7 +15,7 @@ const initialState = {
     {
       id: '',
       name: '',
-      images: [{ url: '' }],
+      // images: [{ url: '' }],
       owner: { display_name: '' },
       tracks: { total: '' },
     },

@@ -1,22 +1,21 @@
-import React, { useEffect, useState } from 'react'
-import { Image, View, Text } from 'react-native'
+import React from 'react'
+import { View } from 'react-native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 import { Home, Library, Search, Profile } from '../screens'
-import { COLORS, FONTS, icons } from '../constants'
+import { COLORS } from '../constants'
 import { TabBarIcon, AudioPlayer } from '../components'
 
 const Tab = createBottomTabNavigator()
 
 const MainTabNavigator = ({ navigation }) => {
   const player = useSelector((state) => state.audioPlayer)
-  const dispatch = useDispatch()
 
   return (
     <View style={{ flex: 1, width: '100%' }}>
       <Tab.Navigator
-        initialRouteName='Home'
+        initialRouteName='Search'
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused }) => {
             return <TabBarIcon isFocused={focused} name={route.name} />

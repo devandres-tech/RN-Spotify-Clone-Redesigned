@@ -3,16 +3,16 @@ import { GET_SEARCH_ITEM } from '../actions/search'
 const initialState = {
   results: {
     artists: {
-      items: [{ name: '', images: [{ url: '' }], artists: [{ name: '' }] }],
+      items: [{ name: '', images: undefined, artists: [{ name: '' }] }],
     },
     albums: {
-      items: [{ name: '', images: [{ url: '' }], artists: [{ name: '' }] }],
+      items: [{ name: '', images: undefined, artists: [{ name: '' }] }],
     },
     tracks: {
-      items: [{ name: '', images: [{ url: '' }], artists: [{ name: '' }] }],
+      items: [{ name: '', images: undefined, artists: [{ name: '' }] }],
     },
     playlists: {
-      items: [{ name: '', images: [{ url: '' }], artists: [{ name: '' }] }],
+      items: [{ name: '', images: undefined, artists: [{ name: '' }] }],
     },
   },
 }

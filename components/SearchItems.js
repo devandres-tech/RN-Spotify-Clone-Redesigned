@@ -15,11 +15,11 @@ const SearchItems = ({ items, navigation }) => {
   }
   return (
     <View>
-      {items.map((item) => {
+      {items.map((item, index) => {
         const isValidImages = item.images && item.images.length > 0
-
         return (
           <TouchableOpacity
+            key={`${item.id}-${index}`}
             onPress={() => onSearchItemHandler(item.id, item.type, item)}
             style={{ marginBottom: 15 }}
             activeOpacity={0.7}
