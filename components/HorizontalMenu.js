@@ -19,6 +19,7 @@ const HorizontalMenu = ({ menuItems, activeMenuItem, setActiveMenuItem }) => {
         horizontal
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
+        keyExtractor={(item, index) => `${item.title}-${index}`}
         renderItem={({ item }) => {
           return (
             <TouchableOpacity

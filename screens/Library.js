@@ -61,9 +61,12 @@ const Library = ({ navigation }) => {
         />
         <TextTitle label='YOUR TOP TRACKS' />
         <View style={{ paddingBottom: SIZES.paddingBottom }}>
-          {library.topTracks.map((track) => {
+          {library.topTracks.map((track, idx) => {
             return (
               <TrackItem
+                key={`${track.id}-${idx}`}
+                index={idx}
+                trackId={track.id}
                 url={track.preview_url}
                 artists={track.artists}
                 trackName={track.name}
@@ -112,6 +115,7 @@ const Library = ({ navigation }) => {
               user.recentlyPlayed.map((track) => {
                 return (
                   <TrackItem
+                    key={track.id}
                     url={track.preview_url}
                     artists={track.artists}
                     trackName={track.name}
@@ -125,6 +129,9 @@ const Library = ({ navigation }) => {
                 .map((track) => {
                   return (
                     <TrackItem
+                      key={track.id}
+                      albumName={track.album.name}
+                      id={track.id}
                       url={track.preview_url}
                       artists={track.artists}
                       trackName={track.name}
@@ -136,6 +143,7 @@ const Library = ({ navigation }) => {
               library.userAlbums.map((album) => {
                 return (
                   <TrackItem
+                    key={album.id}
                     artists={album.artists}
                     albumName={album.albumName}
                     albumImages={album.images}

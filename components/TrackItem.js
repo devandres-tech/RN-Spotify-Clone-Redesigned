@@ -55,10 +55,24 @@ const TrackItem = ({
     }
   }
 
+  const renderPlayPauseIcon = () => {
+    return isSelectedTrackPlaying ? (
+      <Image
+        style={styles.pauseIcon}
+        source={player.isTrackPlaying ? icons.pause : icons.play}
+      />
+    ) : (
+      <Image style={styles.playIcon} source={icons.play} />
+    )
+  }
+
   const isSelectedTrackPlaying = player.currentTrack.url === url
 
   return (
-    <TouchableOpacity activeOpacity={0.7} onPress={onTrackItemHandler}>
+    <TouchableOpacity
+      activeOpacity={0.7}
+      onPress={url ? onTrackItemHandler : () => {}}
+    >
       <View style={styles.trackItemContainer}>
         {track.type !== 'album' && (
           <Image
@@ -75,14 +89,7 @@ const TrackItem = ({
             }
           />
         )}
-        {isSelectedTrackPlaying ? (
-          <Image
-            style={styles.pauseIcon}
-            source={player.isTrackPlaying ? icons.pause : icons.play}
-          />
-        ) : (
-          <Image style={styles.playIcon} source={icons.play} />
-        )}
+        {url && renderPlayPauseIcon()}
         {trackNumber && (
           <Text
             style={{

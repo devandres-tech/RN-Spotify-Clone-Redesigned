@@ -68,18 +68,19 @@ const Home = ({ navigation }) => {
               Your top tracks and artist throughout your listening history
             </Text>
           </View>
-          {user.topArtists.reverse().map((artist, index) => {
-            return (
-              <View key={`${artist.id}`} style={{ width: 30 }}>
-                <Image
-                  style={styles.topArtistAndTracksImage}
-                  source={{
-                    uri: artist.images ? artist.images[0].url : undefined,
-                  }}
-                />
-              </View>
-            )
-          })}
+          {user.topArtists &&
+            user.topArtists.reverse().map((artist) => {
+              return (
+                <View key={`${artist.id}`} style={{ width: 30 }}>
+                  <Image
+                    style={styles.topArtistAndTracksImage}
+                    source={{
+                      uri: artist.images ? artist.images[0].url : undefined,
+                    }}
+                  />
+                </View>
+              )
+            })}
         </View>
       </TouchableOpacity>
     )

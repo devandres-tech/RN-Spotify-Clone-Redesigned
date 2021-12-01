@@ -15,7 +15,7 @@ const MainTabNavigator = ({ navigation }) => {
   return (
     <View style={{ flex: 1, width: '100%' }}>
       <Tab.Navigator
-        initialRouteName='Home'
+        initialRouteName='Library'
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused }) => {
             return <TabBarIcon isFocused={focused} name={route.name} />
