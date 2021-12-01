@@ -102,6 +102,7 @@ const Search = ({ navigation }) => {
           items={search.results.albums.items}
         />
         <SearchItems
+          searchTerm={searchTerm}
           navigation={navigation}
           items={search.results.tracks.items}
         />

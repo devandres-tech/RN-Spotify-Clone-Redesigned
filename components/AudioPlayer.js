@@ -6,7 +6,7 @@ import { COLORS, FONTS, icons } from '../constants'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import * as playerActions from '../store/actions/audioPlayer'
 
-const AudioPlayer = ({ isTracksScreen, navigation }) => {
+const AudioPlayer = ({ isTracksScreen, navigation, isSearchItem }) => {
   const player = useSelector((state) => state.audioPlayer)
   const dispatch = useDispatch()
 
@@ -19,7 +19,7 @@ const AudioPlayer = ({ isTracksScreen, navigation }) => {
   }
 
   const onAudioPressHandler = () => {
-    navigation.navigate('TrackPlayer')
+    navigation.navigate('TrackPlayer', { isSearchItem })
   }
 
   return (

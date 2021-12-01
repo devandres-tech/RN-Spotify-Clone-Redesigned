@@ -10,7 +10,7 @@ const initialState = {
   newReleases: [],
   album: {
     tracks: { items: [] },
-    images: [{ url: '' }],
+    images: [{ url: 'hii' }],
     followers: { total: 0 },
     name: '',
   },

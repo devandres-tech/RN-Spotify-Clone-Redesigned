@@ -9,7 +9,7 @@ const initialState = {
       items: [{ name: '', images: undefined, artists: [{ name: '' }] }],
     },
     tracks: {
-      items: [{ name: '', images: undefined, artists: [{ name: '' }] }],
+      items: [{ name: '', album: undefined, artists: [{ name: '' }] }],
     },
     playlists: {
       items: [{ name: '', images: undefined, artists: [{ name: '' }] }],

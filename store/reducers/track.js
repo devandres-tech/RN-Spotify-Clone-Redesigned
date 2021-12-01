@@ -30,7 +30,6 @@ export default (state = initialState, action) => {
 
     case GET_ARTIST_TRACKS:
       return {
-        ...state,
         ...action.artistTracks,
       }
 

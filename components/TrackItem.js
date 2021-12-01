@@ -33,7 +33,7 @@ const TrackItem = ({
       album: albumName,
       genre: '',
       date: '',
-      artwork: albumImages[0].url,
+      artwork: albumImages ? albumImages[0].url : track.images[0].url,
       duration,
     }
     if (player.currentTrack.url === url) {
@@ -80,11 +80,16 @@ const TrackItem = ({
               ...styles.albumImage,
               borderColor: isSelectedTrackPlaying ? COLORS.primary : null,
               borderWidth: isSelectedTrackPlaying ? 2 : 0,
-              tintColor: albumImages.length > 0 ? null : COLORS.lightGray,
+              tintColor: albumImages ? null : COLORS.lightGray,
             }}
             source={
-              albumImages.length > 0
-                ? { uri: albumImages[0].url }
+              albumImages
+                ? {
+                    uri:
+                      albumImages[0].url !== ''
+                        ? albumImages[0].url
+                        : undefined,
+                  }
                 : icons.musicAlbum
             }
           />

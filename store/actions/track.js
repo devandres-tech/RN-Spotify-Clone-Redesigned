@@ -59,8 +59,6 @@ export const getPlaylistTracks = (playlistId) => {
 export const getArtistTracks = (artistId) => {
   return async (dispatch, getState) => {
     const accessToken = getState().auth.accessToken
-    console.log('token', accessToken)
-    console.log('id', artistId)
     try {
       const response = await fetch(
         `${BASE_URL}/artists/${artistId}/top-tracks?market=US`,
@@ -74,6 +72,7 @@ export const getArtistTracks = (artistId) => {
         (track) => track.preview_url !== null
       )
       const transformedData = {
+        type: 'artist',
         tracks: {
           items: [...filteredTracks],
         },

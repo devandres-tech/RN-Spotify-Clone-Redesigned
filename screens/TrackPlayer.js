@@ -104,10 +104,15 @@ const TrackPlayerScreen = ({ navigation }) => {
           </TouchableOpacity>
           <View style={styles.headerInfoContainer}>
             <Text style={{ color: COLORS.white, marginTop: 10, ...FONTS.body }}>
-              PlAYING FROM {track.type.toUpperCase()}
+              PlAYING FROM{' '}
+              {player.currentTrack.searchTerm
+                ? 'SEARCH'
+                : track.type.toUpperCase()}
             </Text>
             <Text style={{ color: COLORS.white, ...FONTS.bodyBold }}>
-              {track.name.toUpperCase()}
+              {player.currentTrack.searchTerm
+                ? ` "${player.currentTrack.searchTerm}" in Songs`
+                : track.name.toUpperCase()}
             </Text>
           </View>
         </View>

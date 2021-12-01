@@ -29,9 +29,11 @@ const Tracks = ({ route: { params }, navigation }) => {
   const track = useSelector((state) => state.track)
   const player = useSelector((state) => state.audioPlayer)
   const dispatch = useDispatch()
-  const { mediaId, mediaType, artist } = params
+  const { mediaId, mediaType, artist, isSearchItem } = params
+  console.log('isSearch item', isSearchItem)
 
   useEffect(() => {
+    // console.log('meadia changes', track.tracks)
     if (mediaType === 'playlist') {
       dispatch(tracksActions.getPlaylistTracks(mediaId))
     } else if (mediaType === 'album') {
@@ -42,6 +44,7 @@ const Tracks = ({ route: { params }, navigation }) => {
   }, [mediaId, dispatch, mediaType])
 
   useEffect(() => {
+    // console.log('set tracksss', track.tracks)
     dispatch(playerActions.setTracks(track.tracks.items))
   }, [track])
 
@@ -65,9 +68,7 @@ const Tracks = ({ route: { params }, navigation }) => {
         trackName={item.name}
         artists={item.artists}
         duration={item.duration_ms}
-        albumImages={
-          track.type === 'playlist' ? item.album.images : track.images
-        }
+        albumImages={track.type !== 'album' ? item.album.images : undefined}
       />
     )
   }
@@ -150,7 +151,11 @@ const Tracks = ({ route: { params }, navigation }) => {
           renderItem={renderTracks}
         />
         {player.currentTrack.url.length > 0 && (
-          <AudioPlayer navigation={navigation} isTracksScreen={true} />
+          <AudioPlayer
+            navigation={navigation}
+            isSearchItem={isSearchItem}
+            isTracksScreen={true}
+          />
         )}
       </View>
     </SafeAreaView>
