@@ -12,33 +12,18 @@ import { secondsToHHMMSS } from '../utils/helpers'
 
 const TrackPlayerScreen = ({ navigation }) => {
   const player = useSelector((state) => state.audioPlayer)
-  const [isShuffle, setIsShuffle] = useState(false)
   const track = useSelector((state) => state.track)
   const progress = useProgress()
   const dispatch = useDispatch()
 
   const onPlayPauseHandler = async () => {
-    if (player.isTrackPlaying) {
-      dispatch(playerActions.pauseTrack())
-    } else {
-      dispatch(playerActions.playTrack())
-    }
+    if (player.isTrackPlaying) dispatch(playerActions.pauseTrack())
+    else dispatch(playerActions.playTrack())
   }
 
-  useEffect(() => {
-    if (isShuffle) {
-      console.log('shuffle tracks and set current to first')
-      dispatch(playerActions.shuffleTracks())
-    } else {
-      console.log(
-        'unsuffle to original, find index of original current playing track'
-      )
-    }
-  }, [isShuffle])
-
   const onShuffleHandler = () => {
-    if (isShuffle) setIsShuffle(false)
-    else setIsShuffle(true)
+    if (player.isShuffle) dispatch(playerActions.unShuffleTracks())
+    else dispatch(playerActions.shuffleTracks())
   }
 
   const onSliderChange = (value) => {
@@ -196,7 +181,7 @@ const TrackPlayerScreen = ({ navigation }) => {
               style={{
                 height: 28,
                 width: 28,
-                tintColor: isShuffle ? COLORS.primary : COLORS.white,
+                tintColor: player.isShuffle ? COLORS.primary : COLORS.white,
               }}
               source={icons.shuffle}
             />

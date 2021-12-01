@@ -1,4 +1,5 @@
 import TrackPlayer from 'react-native-track-player'
+import { shuffle } from '../../utils/helpers'
 
 export const PLAY_TRACK = 'PLAY_TRACK'
 export const PAUSE_TRACK = 'PAUSE_TRACK'
@@ -8,6 +9,7 @@ export const INIT_PLAYER = 'INIT_PLAYER'
 export const SEEK_TO_POSITION = 'SEEK_TO_POSITION'
 export const SET_TRACKS = 'SET_TRACKS'
 export const SHUFFLE_TRACKS = 'SHUFFLE_TRACKS'
+export const UN_SHUFFLE_TRACKS = 'UN_SHUFFLE_TRACKS'
 
 export const init = () => {
   return async (dispatch) => {
@@ -130,17 +132,21 @@ export const playPrevTrack = () => {
 export const shuffleTracks = () => {
   return async (dispatch, getState) => {
     const player = getState().audioPlayer
-    // filter out current playing track
     const currentTrack = player.tracks.find(
-      (track) => track.preview_url === player.currentTrack.url
+      (track) => track.id === player.currentTrack.id
     )
     const filteredTracks = player.tracks.filter(
       (track) => track.id !== currentTrack.id
     )
-    console.log('shuffleTracks()', filteredTracks, currentTrack)
-    dispatch({ type: SHUFFLE_TRACKS })
-    // apply FY algorithm to filtered tracks
-    // merge current playing tracks (first) and random tracks
-    // call setTracks action creator
+    const randomTracks = shuffle(filteredTracks)
+    randomTracks.unshift(currentTrack)
+    dispatch({ type: SHUFFLE_TRACKS, isShuffle: true, randomTracks })
+  }
+}
+
+export const unShuffleTracks = () => {
+  return async (dispatch, getState) => {
+    const originalTracks = getState().track.tracks.items
+    dispatch({ type: UN_SHUFFLE_TRACKS, isShuffle: false, originalTracks })
   }
 }

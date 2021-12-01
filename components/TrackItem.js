@@ -41,15 +41,17 @@ const TrackItem = ({
         dispatch(playerActions.pauseTrack())
         setIsPlaying(false)
       } else {
-        dispatch(playerActions.setCurrentTrack(selectedTrack))
         dispatch(playerActions.playTrack())
         setIsPlaying(true)
       }
     } else {
-      dispatch(playerActions.resetPlayer())
-      dispatch(playerActions.setCurrentTrack(selectedTrack))
-      dispatch(playerActions.playTrack())
+      await dispatch(playerActions.resetPlayer())
+      await dispatch(playerActions.setCurrentTrack(selectedTrack))
+      await dispatch(playerActions.playTrack())
       setIsPlaying(true)
+    }
+    if (player.isShuffle) {
+      dispatch(playerActions.shuffleTracks())
     }
   }
 

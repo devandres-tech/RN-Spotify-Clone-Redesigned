@@ -55,3 +55,17 @@ export const secondsToHHMMSS = (seconds) => {
   const scnds = s > 0 ? (s < 10 ? `0${s}` : s) : '00'
   return `${hrs}${mins}${scnds}`
 }
+
+// fisher yates algorithm
+export const shuffle = (arrayItems) => {
+  var i = arrayItems.length,
+    randIndex,
+    temp
+  while (--i > 0) {
+    randIndex = Math.floor(Math.random() * (i + 1))
+    temp = arrayItems[randIndex]
+    arrayItems[randIndex] = arrayItems[i]
+    arrayItems[i] = temp
+  }
+  return [...arrayItems]
+}
