@@ -81,17 +81,9 @@ const TrackPlayerScreen = ({ navigation }) => {
         source={{ uri: player.currentTrack.artwork }}
         resizeMode='cover'
       >
-        <View
-          style={{
-            flexDirection: 'row',
-          }}
-        >
+        <View style={{ flexDirection: 'row' }}>
           <LinearGradient
-            style={{
-              height: 80,
-              width: '100%',
-              position: 'absolute',
-            }}
+            style={styles.upperLinearGradient}
             start={{ x: 0, y: 1 }}
             end={{ x: 0, y: 0 }}
             colors={[
@@ -102,11 +94,7 @@ const TrackPlayerScreen = ({ navigation }) => {
           />
           <TouchableOpacity
             onPress={() => navigation.goBack()}
-            style={{
-              flex: 1,
-              paddingLeft: 30,
-              justifyContent: 'center',
-            }}
+            style={styles.downArrowContainer}
             activeOpacity={0.7}
           >
             <Image
@@ -114,14 +102,7 @@ const TrackPlayerScreen = ({ navigation }) => {
               source={icons.down_arrow}
             />
           </TouchableOpacity>
-          <View
-            style={{
-              flex: 2,
-              justifyContent: 'center',
-              alignItems: 'center',
-              paddingRight: 30,
-            }}
-          >
+          <View style={styles.headerInfoContainer}>
             <Text style={{ color: COLORS.white, marginTop: 10, ...FONTS.body }}>
               PlAYING FROM {track.type.toUpperCase()}
             </Text>
@@ -131,12 +112,7 @@ const TrackPlayerScreen = ({ navigation }) => {
           </View>
         </View>
         <LinearGradient
-          style={{
-            height: 150,
-            width: '100%',
-            position: 'absolute',
-            bottom: 0,
-          }}
+          style={styles.lowerLinearGradient}
           colors={[
             'rgba(7, 7, 7, 0.00)',
             'rgba(7, 7, 7, 0.34)',
@@ -148,13 +124,7 @@ const TrackPlayerScreen = ({ navigation }) => {
       {/* foreground */}
       <View style={{ paddingHorizontal: 30 }}>
         {/* track info  */}
-        <View
-          style={{
-            alignItems: 'center',
-            marginBottom: 30,
-            height: 90,
-          }}
-        >
+        <View style={styles.trackInfoContainer}>
           <Text
             style={{ color: COLORS.white, textAlign: 'center', ...FONTS.h2 }}
           >
@@ -171,12 +141,7 @@ const TrackPlayerScreen = ({ navigation }) => {
           </Text>
         </View>
         {/* progress bar  */}
-        <View
-          style={{
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
+        <View style={styles.progressBarContainer}>
           <Slider
             thumbImage={icons.circle}
             style={{ width: '100%', height: 20, marginHorizontal: 10 }}
@@ -188,13 +153,7 @@ const TrackPlayerScreen = ({ navigation }) => {
             minimumTrackTintColor='#FFFFFF'
             maximumTrackTintColor={COLORS.lightGray2}
           />
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              width: '100%',
-            }}
-          >
+          <View style={styles.progressBarTimeContainer}>
             <Text style={{ color: COLORS.lightGray, ...FONTS.body }}>
               {secondsToHHMMSS(progress.position)}
             </Text>
@@ -204,14 +163,7 @@ const TrackPlayerScreen = ({ navigation }) => {
           </View>
         </View>
         {/* controls  */}
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            marginTop: 10,
-          }}
-        >
+        <View style={styles.controlsContainer}>
           <TouchableOpacity onPress={onShuffleHandler} activeOpacity={0.7}>
             <Image
               style={{
@@ -234,14 +186,7 @@ const TrackPlayerScreen = ({ navigation }) => {
           <TouchableOpacity
             onPress={onPlayPauseHandler}
             activeOpacity={0.7}
-            style={{
-              height: 60,
-              width: 60,
-              backgroundColor: COLORS.white,
-              borderRadius: 30,
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
+            style={styles.playPauseContainer}
           >
             <Image
               source={player.isTrackPlaying ? icons.pause : icons.play}
@@ -283,6 +228,46 @@ const TrackPlayerScreen = ({ navigation }) => {
   )
 }
 
-const styles = StyleSheet.create()
+const styles = StyleSheet.create({
+  upperLinearGradient: {
+    height: 80,
+    width: '100%',
+    position: 'absolute',
+  },
+  downArrowContainer: { flex: 1, paddingLeft: 30, justifyContent: 'center' },
+  headerInfoContainer: {
+    flex: 2,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingRight: 30,
+  },
+  lowerLinearGradient: {
+    height: 150,
+    width: '100%',
+    position: 'absolute',
+    bottom: 0,
+  },
+  trackInfoContainer: { alignItems: 'center', marginBottom: 30, height: 90 },
+  progressBarContainer: { alignItems: 'center', justifyContent: 'center' },
+  progressBarTimeContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+  },
+  controlsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  playPauseContainer: {
+    height: 60,
+    width: 60,
+    backgroundColor: COLORS.white,
+    borderRadius: 30,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+})
 
 export default TrackPlayerScreen
