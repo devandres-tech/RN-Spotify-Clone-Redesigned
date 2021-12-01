@@ -50,7 +50,9 @@ const Profile = ({ navigation }) => {
       <View style={styles.userProfileContainer}>
         <Image
           style={styles.userImage}
-          source={{ uri: user.data.images[0].url }}
+          source={{
+            uri: user.data.images ? user.data.images[0].url : undefined,
+          }}
         />
         <View>
           <Text style={{ color: COLORS.white, ...FONTS.h1 }}>
@@ -97,6 +99,7 @@ const Profile = ({ navigation }) => {
           .map((filteredPlaylist) => {
             return (
               <TouchableOpacity
+                key={filteredPlaylist.id}
                 activeOpacity={0.7}
                 onPress={() =>
                   navigation.navigate('Tracks', {
@@ -132,6 +135,7 @@ const Profile = ({ navigation }) => {
         {user.follows.map((artist) => {
           return (
             <TouchableOpacity
+              key={artist.id}
               activeOpacity={0.7}
               style={styles.userFollowsContainer}
             >

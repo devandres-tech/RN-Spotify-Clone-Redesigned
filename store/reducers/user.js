@@ -9,7 +9,7 @@ import {
 const initialState = {
   data: {
     display_name: '',
-    images: [{ url: '' }],
+    images: undefined,
   },
   playlists: [
     {
