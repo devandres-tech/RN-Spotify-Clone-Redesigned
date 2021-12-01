@@ -94,7 +94,7 @@ export const playNextTrack = () => {
         duration: nextTrack.duration_ms,
       })
     )
-    if (currentTrackIndex === lastIndex) {
+    if (currentTrackIndex === lastIndex && !player.repeat.all) {
       dispatch(pauseTrack())
     } else {
       dispatch(playTrack())
@@ -110,7 +110,30 @@ export const playPrevTrack = () => {
       (track) => track.id === player.currentTrack.id
     )
     if (currentTrackIndex < 1) {
-      TrackPlayer.seekTo(0)
+      if (player.repeat.all) {
+        const prevTrack = player.tracks[player.tracks.length - 1]
+        const artistsNames = prevTrack.artists
+          .map((artist) => artist.name)
+          .join(', ')
+        dispatch(resetPlayer())
+        dispatch(
+          setCurrentTrack({
+            id: prevTrack.id,
+            url: prevTrack.preview_url,
+            title: prevTrack.name,
+            artist: artistsNames,
+            album: isAlbum ? getState().track.name : prevTrack.album.name,
+            genre: '',
+            artwork: isAlbum
+              ? getState().track.images[0].url
+              : prevTrack.album.images[0].url,
+            duration: prevTrack.duration_ms,
+          })
+        )
+        dispatch(playTrack())
+      } else {
+        TrackPlayer.seekTo(0)
+      }
     } else {
       const prevTrack = player.tracks[currentTrackIndex - 1]
       const artistsNames = prevTrack.artists
