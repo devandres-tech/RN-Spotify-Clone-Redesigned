@@ -1,5 +1,12 @@
-import React, { useState, useEffect } from 'react'
-import { View, Text, Image, SafeAreaView, ImageBackground } from 'react-native'
+import React, { useEffect } from 'react'
+import {
+  View,
+  Text,
+  Image,
+  SafeAreaView,
+  ImageBackground,
+  StyleSheet,
+} from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 import LinearGradient from 'react-native-linear-gradient'
 import { TouchableOpacity } from 'react-native-gesture-handler'
@@ -7,7 +14,7 @@ import { useProgress } from 'react-native-track-player'
 import Slider from '@react-native-community/slider'
 
 import * as playerActions from '../store/actions/audioPlayer'
-import { COLORS, FONTS, SIZES, icons } from '../constants'
+import { COLORS, FONTS, icons } from '../constants'
 import { secondsToHHMMSS } from '../utils/helpers'
 
 const MAX_PROGRESS = 30
@@ -34,10 +41,16 @@ const TrackPlayerScreen = ({ navigation }) => {
 
   const onPreviousTrackHandler = async () => {
     dispatch(playerActions.playPrevTrack())
+    if (player.repeat.one) {
+      dispatch(playerActions.repeatAll())
+    }
   }
 
   const onNextTrackHandler = () => {
     dispatch(playerActions.playNextTrack())
+    if (player.repeat.one) {
+      dispatch(playerActions.repeatAll())
+    }
   }
 
   const onRepeatHandler = () => {
@@ -52,7 +65,12 @@ const TrackPlayerScreen = ({ navigation }) => {
 
   useEffect(() => {
     if (Math.round(progress.position) === MAX_PROGRESS) {
-      dispatch(playerActions.playNextTrack())
+      if (player.repeat.one) {
+        dispatch(playerActions.seekToPosition(0))
+        dispatch(playerActions.playTrack())
+      } else {
+        dispatch(playerActions.playNextTrack())
+      }
     }
   }, [progress])
 
@@ -264,5 +282,7 @@ const TrackPlayerScreen = ({ navigation }) => {
     </SafeAreaView>
   )
 }
+
+const styles = StyleSheet.create()
 
 export default TrackPlayerScreen
