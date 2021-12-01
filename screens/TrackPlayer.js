@@ -40,6 +40,16 @@ const TrackPlayerScreen = ({ navigation }) => {
     dispatch(playerActions.playNextTrack())
   }
 
+  const onRepeatHandler = () => {
+    if (!player.repeat.one && !player.repeat.all) {
+      dispatch(playerActions.repeatAll())
+    } else if (!player.repeat.one && player.repeat.all) {
+      dispatch(playerActions.repeatOne())
+    } else {
+      dispatch(playerActions.unsetRepeat())
+    }
+  }
+
   useEffect(() => {
     if (Math.round(progress.position) === MAX_PROGRESS) {
       dispatch(playerActions.playNextTrack())
@@ -230,10 +240,23 @@ const TrackPlayerScreen = ({ navigation }) => {
               source={icons.next}
             />
           </TouchableOpacity>
-          <TouchableOpacity activeOpacity={0.7}>
+          <TouchableOpacity onPress={onRepeatHandler} activeOpacity={0.7}>
             <Image
-              style={{ height: 28, width: 28, tintColor: COLORS.white }}
-              source={icons.repeat}
+              style={{
+                height: 28,
+                width: 28,
+                tintColor:
+                  player.repeat.all || player.repeat.one
+                    ? COLORS.primary
+                    : COLORS.white,
+              }}
+              source={
+                player.repeat.all
+                  ? icons.repeat
+                  : player.repeat.one
+                  ? icons.repeat_one
+                  : icons.repeat
+              }
             />
           </TouchableOpacity>
         </View>

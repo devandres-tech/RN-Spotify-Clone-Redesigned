@@ -8,6 +8,9 @@ import {
   SET_TRACKS,
   SHUFFLE_TRACKS,
   UN_SHUFFLE_TRACKS,
+  REPEAT_ALL,
+  REPEAT_ONE,
+  UNSET_REPEAT,
 } from '../actions/audioPlayer'
 
 const initialState = {
@@ -15,6 +18,7 @@ const initialState = {
   currentTrack: { url: '' },
   tracks: [{}],
   isShuffle: false,
+  repeat: { one: false, all: false },
 }
 
 export default (state = initialState, action) => {
@@ -34,6 +38,24 @@ export default (state = initialState, action) => {
       return {
         ...state,
         tracks: action.tracks,
+      }
+
+    case REPEAT_ONE:
+      return {
+        ...state,
+        repeat: action.repeat,
+      }
+
+    case REPEAT_ALL:
+      return {
+        ...state,
+        repeat: action.repeat,
+      }
+
+    case UNSET_REPEAT:
+      return {
+        ...state,
+        repeat: action.repeat,
       }
 
     case SHUFFLE_TRACKS:

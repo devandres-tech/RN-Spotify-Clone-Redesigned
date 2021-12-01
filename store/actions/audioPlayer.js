@@ -10,6 +10,9 @@ export const SEEK_TO_POSITION = 'SEEK_TO_POSITION'
 export const SET_TRACKS = 'SET_TRACKS'
 export const SHUFFLE_TRACKS = 'SHUFFLE_TRACKS'
 export const UN_SHUFFLE_TRACKS = 'UN_SHUFFLE_TRACKS'
+export const REPEAT_ONE = 'REPEAT_ONE'
+export const REPEAT_ALL = 'REPEAT_ALL'
+export const UNSET_REPEAT = 'UNSET_REPEAT'
 
 export const init = () => {
   return async (dispatch) => {
@@ -152,5 +155,32 @@ export const unShuffleTracks = () => {
   return async (dispatch, getState) => {
     const originalTracks = getState().track.tracks.items
     dispatch({ type: UN_SHUFFLE_TRACKS, isShuffle: false, originalTracks })
+  }
+}
+
+export const repeatOne = () => {
+  return async (dispatch) => {
+    dispatch({
+      type: REPEAT_ONE,
+      repeat: { one: true, all: false },
+    })
+  }
+}
+
+export const repeatAll = () => {
+  return async (dispatch) => {
+    dispatch({
+      type: REPEAT_ALL,
+      repeat: { one: false, all: true },
+    })
+  }
+}
+
+export const unsetRepeat = () => {
+  return async (dispatch) => {
+    dispatch({
+      type: UNSET_REPEAT,
+      repeat: { one: false, all: false },
+    })
   }
 }
