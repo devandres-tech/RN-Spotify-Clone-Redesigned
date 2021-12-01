@@ -15,13 +15,12 @@ const initialState = {
     {
       id: '',
       name: '',
-      // images: [{ url: '' }],
       owner: { display_name: '' },
       tracks: { total: '' },
     },
   ],
   recentlyPlayed: [],
-  topArtists: [{ images: [{ url: '' }] }],
+  topArtists: [{ images: undefined }],
   follows: [],
 }
 

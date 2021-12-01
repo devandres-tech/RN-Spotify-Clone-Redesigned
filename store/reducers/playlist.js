@@ -6,7 +6,7 @@ import {
 
 const initialState = {
   topLists: [],
-  featured: [{ images: [{ url: '' }] }],
+  featured: [{ images: undefined }],
   newReleases: [],
   album: {
     tracks: { items: [] },

@@ -68,12 +68,14 @@ const Home = ({ navigation }) => {
               Your top tracks and artist throughout your listening history
             </Text>
           </View>
-          {user.topArtists.reverse().map((artist) => {
+          {user.topArtists.reverse().map((artist, index) => {
             return (
-              <View style={{ width: 30 }}>
+              <View key={`${artist.id}`} style={{ width: 30 }}>
                 <Image
                   style={styles.topArtistAndTracksImage}
-                  source={{ uri: artist.images[0].url }}
+                  source={{
+                    uri: artist.images ? artist.images[0].url : undefined,
+                  }}
                 />
               </View>
             )
@@ -118,7 +120,11 @@ const Home = ({ navigation }) => {
               <View style={styles.featuredContainer}>
                 <ImageBackground
                   resizeMode='repeat'
-                  source={{ uri: playlist.featured[0].images[0].url }}
+                  source={{
+                    uri: playlist.featured[0].images
+                      ? playlist.featured[0].images[0].url
+                      : undefined,
+                  }}
                   style={styles.featuredImage}
                 >
                   <TextButton
