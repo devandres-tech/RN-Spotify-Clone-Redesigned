@@ -1,6 +1,7 @@
-import { GET_SEARCH_ITEM } from '../actions/search'
+import { GET_SEARCH_ITEM, GET_SEARCH_ITEM_LOADING } from '../actions/search'
 
 const initialState = {
+  isLoading: true,
   results: {
     artists: {
       items: [{ name: '', images: undefined, artists: [{ name: '' }] }],
@@ -23,6 +24,13 @@ export default (state = initialState, action) => {
       return {
         ...state,
         results: action.searchResults,
+        isLoading: action.isLoading,
+      }
+
+    case GET_SEARCH_ITEM_LOADING:
+      return {
+        ...state,
+        isLoading: action.isLoading,
       }
 
     default:

@@ -91,10 +91,11 @@ const Search = ({ navigation }) => {
   }
 
   const renderSearchResults = () => {
-    return (
+    return search.isLoading ? (
+      <LoadingSpinner />
+    ) : (
       <View>
-        <LoadingSpinner />
-        {/* <SearchItems
+        <SearchItems
           navigation={navigation}
           items={search.results.artists.items}
         />
@@ -110,7 +111,7 @@ const Search = ({ navigation }) => {
         <SearchItems
           navigation={navigation}
           items={search.results.playlists.items}
-        /> */}
+        />
       </View>
     )
   }
