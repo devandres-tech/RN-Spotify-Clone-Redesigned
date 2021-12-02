@@ -9,12 +9,11 @@ import {
   StyleSheet,
 } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
-import ProgressBar from 'react-native-progress/Bar'
 
 import { COLORS, FONTS, SIZES, icons } from '../constants'
 import * as browseActions from '../store/actions/browse'
 import * as searchActions from '../store/actions/search'
-import { Header, TextTitle, SearchItems } from '../components'
+import { Header, TextTitle, SearchItems, LoadingSpinner } from '../components'
 
 export const useDebounce = (value, delay) => {
   const [debouncedValue, setDebouncedValue] = useState(value)
@@ -94,8 +93,8 @@ const Search = ({ navigation }) => {
   const renderSearchResults = () => {
     return (
       <View>
-        <Progress.Circle size={30} indeterminate={true} />
-        <SearchItems
+        <LoadingSpinner />
+        {/* <SearchItems
           navigation={navigation}
           items={search.results.artists.items}
         />
@@ -111,7 +110,7 @@ const Search = ({ navigation }) => {
         <SearchItems
           navigation={navigation}
           items={search.results.playlists.items}
-        />
+        /> */}
       </View>
     )
   }

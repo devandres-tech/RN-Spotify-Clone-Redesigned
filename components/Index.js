@@ -10,6 +10,7 @@ import TracksHeader from './TracksHeader'
 import SearchItems from './SearchItems'
 import MainTabNavigator from './MainTabNavigator'
 import AudioPlayer from './AudioPlayer'
+import LoadingSpinner from './LoadingSpinner'
 
 export {
   MainTabNavigator,
@@ -24,4 +25,5 @@ export {
   HorizontalCardContainer,
   Header,
   HorizontalMenu,
+  LoadingSpinner,
 }
