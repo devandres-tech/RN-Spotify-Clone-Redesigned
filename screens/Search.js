@@ -9,6 +9,7 @@ import {
   StyleSheet,
 } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
+import ProgressBar from 'react-native-progress/Bar'
 
 import { COLORS, FONTS, SIZES, icons } from '../constants'
 import * as browseActions from '../store/actions/browse'
@@ -93,6 +94,7 @@ const Search = ({ navigation }) => {
   const renderSearchResults = () => {
     return (
       <View>
+        <Progress.Circle size={30} indeterminate={true} />
         <SearchItems
           navigation={navigation}
           items={search.results.artists.items}

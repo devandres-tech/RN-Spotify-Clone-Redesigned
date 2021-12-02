@@ -6,6 +6,7 @@ import {
   SafeAreaView,
   ImageBackground,
   StyleSheet,
+  Platform,
 } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 import LinearGradient from 'react-native-linear-gradient'
@@ -81,7 +82,12 @@ const TrackPlayerScreen = ({ navigation }) => {
         source={{ uri: player.currentTrack.artwork }}
         resizeMode='cover'
       >
-        <View style={{ flexDirection: 'row' }}>
+        <View
+          style={{
+            flexDirection: 'row',
+            marginTop: Platform.OS === 'android' ? 20 : null,
+          }}
+        >
           <LinearGradient
             style={styles.upperLinearGradient}
             start={{ x: 0, y: 1 }}
