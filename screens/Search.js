@@ -15,14 +15,18 @@ import * as browseActions from '../store/actions/browse'
 import * as searchActions from '../store/actions/search'
 import { Header, TextTitle, SearchItems, LoadingSpinner } from '../components'
 import { useDebounce } from '../hooks/useDebounce'
+import { useScrollToTop } from '@react-navigation/native'
 
 const Search = ({ navigation }) => {
   const [searchTerm, setSearchTerm] = useState('')
   const [isUserSearching, setIsUserSearching] = useState(false)
   const debouncedSearchTerm = useDebounce(searchTerm, 500)
+  const ref = React.useRef(null)
   const browse = useSelector((state) => state.browse)
   const search = useSelector((state) => state.search)
   const dispatch = useDispatch()
+
+  useScrollToTop(ref)
 
   useEffect(() => {
     dispatch(browseActions.getBrowseCategories())
@@ -104,6 +108,7 @@ const Search = ({ navigation }) => {
   return (
     <View style={styles.searchScreen}>
       <FlatList
+        ref={ref}
         showsVerticalScrollIndicator={false}
         ListHeaderComponent={
           <View>

@@ -12,15 +12,19 @@ import { COLORS, FONTS, SIZES } from '../constants'
 import * as userActions from '../store/actions/user'
 import * as playlistActions from '../store/actions/playlist'
 import { TouchableOpacity } from 'react-native-gesture-handler'
+import { useScrollToTop } from '@react-navigation/native'
 
 const Profile = ({ navigation }) => {
   const user = useSelector((state) => state.user)
+  const ref = React.useRef(null)
   const playlist = useSelector((state) => state.playlist)
   const [activeMenuItem, setActiveMenuItem] = useState({
     title: 'Overview',
     id: 1,
   })
   const dispatch = useDispatch()
+
+  useScrollToTop(ref)
 
   useEffect(() => {
     dispatch(userActions.getProfile())
@@ -170,6 +174,7 @@ const Profile = ({ navigation }) => {
   return (
     <View style={styles.profileScreen}>
       <FlatList
+        ref={ref}
         showsVerticalScrollIndicator={false}
         ListHeaderComponent={
           <View>

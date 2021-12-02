@@ -8,6 +8,7 @@ import {
   TrackItem,
 } from '../components'
 import { useSelector, useDispatch } from 'react-redux'
+import { useScrollToTop } from '@react-navigation/native'
 
 import { COLORS, SIZES, FONTS } from '../constants'
 import * as libraryActions from '../store/actions/library'
@@ -38,7 +39,10 @@ const Library = ({ navigation }) => {
   const library = useSelector((state) => state.library)
   const playlist = useSelector((state) => state.playlist)
   const user = useSelector((state) => state.user)
+  const ref = React.useRef(null)
   const dispatch = useDispatch()
+
+  useScrollToTop(ref)
 
   useEffect(() => {
     dispatch(libraryActions.getTopArtists())
@@ -96,6 +100,7 @@ const Library = ({ navigation }) => {
       }}
     >
       <FlatList
+        ref={ref}
         showsVerticalScrollIndicator={false}
         ListHeaderComponent={
           <View>

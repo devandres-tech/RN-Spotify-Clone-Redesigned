@@ -9,6 +9,7 @@ import {
   StyleSheet,
 } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
+import { useScrollToTop } from '@react-navigation/native'
 
 import { COLORS, FONTS, SIZES } from '../constants'
 import * as userActions from '../store/actions/user'
@@ -25,7 +26,10 @@ import {
 const Home = ({ navigation }) => {
   const user = useSelector((state) => state.user)
   const playlist = useSelector((state) => state.playlist)
+  const ref = React.useRef(null)
   const dispatch = useDispatch()
+
+  useScrollToTop(ref)
 
   useEffect(() => {
     dispatch(userActions.getTopArtists('long_term', 3))
@@ -89,6 +93,7 @@ const Home = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <FlatList
+        ref={ref}
         showsVerticalScrollIndicator={false}
         ListHeaderComponent={<Header />}
         ListFooterComponent={
