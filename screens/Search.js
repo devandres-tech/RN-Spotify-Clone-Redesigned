@@ -14,22 +14,7 @@ import { COLORS, FONTS, SIZES, icons } from '../constants'
 import * as browseActions from '../store/actions/browse'
 import * as searchActions from '../store/actions/search'
 import { Header, TextTitle, SearchItems, LoadingSpinner } from '../components'
-
-export const useDebounce = (value, delay) => {
-  const [debouncedValue, setDebouncedValue] = useState(value)
-
-  useEffect(() => {
-    const handler = setTimeout(() => {
-      setDebouncedValue(value)
-    }, delay)
-
-    return () => {
-      clearTimeout(handler)
-    }
-  }, [value, delay])
-
-  return debouncedValue
-}
+import { useDebounce } from '../hooks/useDebounce'
 
 const Search = ({ navigation }) => {
   const [searchTerm, setSearchTerm] = useState('')
