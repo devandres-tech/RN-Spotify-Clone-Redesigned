@@ -3,6 +3,7 @@ import { Text, Image, View, StyleSheet } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 
 import { COLORS, FONTS, SIZES } from '../constants'
+import { trimText } from '../utils/helpers'
 
 const HorizontalCardItem = ({
   imageUrl,
@@ -58,9 +59,7 @@ const HorizontalCardItem = ({
           ...cardItemTextStyle,
         }}
       >
-        {cardLabel.length > 18
-          ? cardLabel.toUpperCase().substring(0, 18) + '...'
-          : cardLabel.toUpperCase().trim()}
+        {trimText(cardLabel.toUpperCase(), 19)}
       </Text>
 
       {/* sub text */}
@@ -77,7 +76,6 @@ const HorizontalCardItem = ({
             {albumType === 'single' ? 'Single' : 'Album'}
           </Text>
           <Text style={styles.bulletDot}>{'\u25CF'}</Text>
-
           <Text
             style={{
               color: COLORS.lightGray,
@@ -85,17 +83,9 @@ const HorizontalCardItem = ({
             }}
           >
             {albumType === 'single' ? (
-              <Text>
-                {artists[0].name.length > 10
-                  ? `${artists[0].name.substring(0, 8).trim()}...`
-                  : artists[0].name}
-              </Text>
+              <Text>{trimText(artists[0].name, 8)}</Text>
             ) : (
-              <Text>
-                {albumName.length > 10
-                  ? `${albumName.substring(0, 8).trim()}...`
-                  : albumName}
-              </Text>
+              <Text>{trimText(albumName, 8)}</Text>
             )}
           </Text>
         </View>

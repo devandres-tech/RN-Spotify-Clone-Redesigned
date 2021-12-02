@@ -1,10 +1,11 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import Animated from 'react-native-reanimated'
-import { COLORS, FONTS, SIZES, icons } from '../constants'
+import { COLORS, FONTS, SIZES } from '../constants'
 import LinearGradient from 'react-native-linear-gradient'
 import HTMLView from 'react-native-htmlview'
 
+import { trimText } from '../utils/helpers'
 import TextTitle from './TextTitle'
 
 const TracksHeader = ({
@@ -87,9 +88,7 @@ const TracksHeader = ({
             bottom: 120,
           }}
         >
-          {artistsNames.length > 32
-            ? artistsNames.substring(0, 32) + '...'
-            : artistsNames.trim()}
+          {trimText(artistsNames, 32)}
         </Text>
       )}
     </Animated.View>

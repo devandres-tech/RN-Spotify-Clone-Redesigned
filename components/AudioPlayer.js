@@ -5,6 +5,7 @@ import { View, Image, Text } from 'react-native'
 import { COLORS, FONTS, icons } from '../constants'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import * as playerActions from '../store/actions/audioPlayer'
+import { trimText } from '../utils/helpers'
 
 const AudioPlayer = ({ isTracksScreen, navigation, isSearchItem }) => {
   const player = useSelector((state) => state.audioPlayer)
@@ -62,14 +63,10 @@ const AudioPlayer = ({ isTracksScreen, navigation, isSearchItem }) => {
           </View>
           <View>
             <Text style={{ color: COLORS.white, ...FONTS.bodyBold }}>
-              {player.currentTrack.title.length > 25
-                ? `${player.currentTrack.title.substring(0, 30).trim()}...`
-                : player.currentTrack.title}
+              {trimText(player.currentTrack.title, 25)}
             </Text>
             <Text style={{ color: COLORS.lightGray, ...FONTS.body }}>
-              {player.currentTrack.artist.length > 25
-                ? `${player.currentTrack.artist.substring(0, 30).trim()}...`
-                : player.currentTrack.artist}
+              {trimText(player.currentTrack.artist, 25)}
             </Text>
           </View>
         </TouchableOpacity>

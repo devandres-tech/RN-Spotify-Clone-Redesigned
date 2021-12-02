@@ -5,6 +5,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 import { useSelector, useDispatch } from 'react-redux'
 import * as playerActions from '../store/actions/audioPlayer'
 import { COLORS, SIZES, FONTS, icons } from '../constants'
+import { trimText } from '../utils/helpers'
 
 const TrackItem = ({
   trackId,
@@ -115,9 +116,7 @@ const TrackItem = ({
                 ...FONTS.body,
               }}
             >
-              {trackName.length > 30
-                ? trackName.substring(0, 30) + '...'
-                : trackName.trim()}
+              {trimText(trackName, 30)}
             </Text>
           )}
           {artists && (
@@ -138,17 +137,13 @@ const TrackItem = ({
                   ...FONTS.body,
                 }}
               >
-                {artistsNames.length > 32
-                  ? artistsNames.substring(0, 32) + '...'
-                  : artistsNames.trim()}
+                {trimText(artistsNames, 32)}
               </Text>
             </View>
           )}
           {albumName && (
             <Text style={{ color: COLORS.lightGray, ...FONTS.body }}>
-              {albumName.length > 30
-                ? albumName.substring(0, 30) + '...'
-                : albumName.trim()}
+              {trimText(albumName, 30)}
             </Text>
           )}
         </View>

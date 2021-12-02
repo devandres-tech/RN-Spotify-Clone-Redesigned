@@ -94,28 +94,28 @@ const Home = ({ navigation }) => {
         ListFooterComponent={
           <View style={{ paddingBottom: 120 }}>
             <HorizontalCardContainer
+              label='MY PLAYLISTS'
               navigation={navigation}
               cardItemTextStyle={styles.playlistTextStyle}
               data={user.playlists}
-              label='MY PLAYLISTS'
             />
             {renderButtons()}
             <HorizontalCardContainer
+              label='RECENTLY PLAYED'
               navigation={navigation}
               cardItemImageStyle={{ opacity: 1 }}
               cardItemTextStyle={{ position: 'relative', paddingTop: 15 }}
               data={user.recentlyPlayed}
-              label='RECENTLY PLAYED'
             />
             {renderTopArtistsAndTracksContainer()}
             <HorizontalCardContainer
+              label='POPULAR'
               navigation={navigation}
               cardItemImageStyle={{ opacity: 1 }}
               cardItemTextStyle={{ position: 'relative', paddingTop: 15 }}
               data={playlist.topLists}
-              label='POPULAR'
             />
-            {/* featured */}
+            {/* Featured */}
             <View style={{ paddingBottom: SIZES.paddingBottom }}>
               <TextTitle label='FEATURED' />
               <View style={styles.featuredContainer}>
@@ -139,11 +139,11 @@ const Home = ({ navigation }) => {
               </View>
             </View>
             <HorizontalCardContainer
+              label='NEW RELEASES'
               navigation={navigation}
               cardItemImageStyle={{ opacity: 1 }}
               cardItemTextStyle={{ position: 'relative', paddingTop: 15 }}
               data={playlist.newReleases}
-              label='NEW RELEASES'
             />
           </View>
         }

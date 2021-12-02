@@ -20,7 +20,6 @@ const SearchItems = ({ items, navigation, searchTerm }) => {
       })
     } else {
       if (itemSelected.preview_url) {
-        // need to create trackActions.setTrack(itemSelected)
         await dispatch(playerActions.resetPlayer())
         await dispatch(trackActions.setTrack(itemSelected))
         await dispatch(playerActions.setTracks([itemSelected]))
