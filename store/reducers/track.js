@@ -2,6 +2,7 @@ import {
   GET_ALBUM_TRACKS,
   GET_PLAYLIST_TRACKS,
   GET_ARTIST_TRACKS,
+  SET_TRACK,
 } from '../actions/track'
 
 const initialState = {
@@ -31,6 +32,11 @@ export default (state = initialState, action) => {
     case GET_ARTIST_TRACKS:
       return {
         ...action.artistTracks,
+      }
+
+    case SET_TRACK:
+      return {
+        ...action.transformedData,
       }
 
     default:

@@ -112,6 +112,8 @@ const TrackPlayerScreen = ({ navigation }) => {
             <Text style={{ color: COLORS.white, ...FONTS.bodyBold }}>
               {player.currentTrack.searchTerm
                 ? ` "${player.currentTrack.searchTerm}" in Songs`
+                : track.type === 'artist'
+                ? player.currentTrack.artist.toUpperCase()
                 : track.name.toUpperCase()}
             </Text>
           </View>

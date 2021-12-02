@@ -92,6 +92,9 @@ export const playNextTrack = () => {
           ? getState().track.images[0].url
           : nextTrack.album.images[0].url,
         duration: nextTrack.duration_ms,
+        searchTerm: player.currentTrack.searchTerm
+          ? player.currentTrack.searchTerm
+          : '',
       })
     )
     if (currentTrackIndex === lastIndex && !player.repeat.all) {
@@ -128,6 +131,9 @@ export const playPrevTrack = () => {
               ? getState().track.images[0].url
               : prevTrack.album.images[0].url,
             duration: prevTrack.duration_ms,
+            searchTerm: player.currentTrack.searchTerm
+              ? player.currentTrack.searchTerm
+              : '',
           })
         )
         dispatch(playTrack())
@@ -152,6 +158,9 @@ export const playPrevTrack = () => {
             ? getState().track.images[0].url
             : prevTrack.album.images[0].url,
           duration: prevTrack.duration_ms,
+          searchTerm: player.currentTrack.searchTerm
+            ? player.currentTrack.searchTerm
+            : '',
         })
       )
       dispatch(playTrack())
@@ -176,7 +185,12 @@ export const shuffleTracks = () => {
 
 export const unShuffleTracks = () => {
   return async (dispatch, getState) => {
-    const originalTracks = getState().track.tracks.items
+    const track = getState().track
+
+    // const originalTracks = getState().track.tracks.items
+    console.log('unSHIF()', [track])
+    const originalTracks =
+      track.type === 'track' ? [track] : getState().track.tracks.items
     dispatch({ type: UN_SHUFFLE_TRACKS, isShuffle: false, originalTracks })
   }
 }

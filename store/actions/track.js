@@ -3,6 +3,7 @@ import { BASE_URL } from '@env'
 export const GET_ALBUM_TRACKS = 'GET_ALBUM_TRACKS'
 export const GET_PLAYLIST_TRACKS = 'GET_PLAYLIST_TRACKS'
 export const GET_ARTIST_TRACKS = 'GET_ARTIST_TRACKS'
+export const SET_TRACK = 'SET_TRACK'
 
 const setHeaders = (accessToken) => {
   return {
@@ -82,5 +83,18 @@ export const getArtistTracks = (artistId) => {
       console.log('error')
       throw error
     }
+  }
+}
+
+export const setTrack = (track) => {
+  return async (dispatch) => {
+    const transformedData = {
+      ...track,
+      tracks: {
+        items: [track],
+      },
+    }
+    console.log('tranfordata', transformedData)
+    dispatch({ type: SET_TRACK, transformedData })
   }
 }

@@ -9,10 +9,10 @@ import {
   Text,
 } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
-// import Animated, {
-//   useSharedValue,
-//   useAnimatedScrollHandler,
-// } from 'react-native-reanimated'
+import Animated, {
+  useSharedValue,
+  useAnimatedScrollHandler,
+} from 'react-native-reanimated'
 import LinearGradient from 'react-native-linear-gradient'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 
@@ -22,19 +22,18 @@ import * as playerActions from '../store/actions/audioPlayer'
 import { animateOpacity, animateHeight, animateScale } from '../utils/helpers'
 import { TrackItem, TracksHeader, AudioPlayer } from '../components'
 
-// const AnimatedFlatList = Animated.createAnimatedComponent(FlatList)
+const AnimatedFlatList = Animated.createAnimatedComponent(FlatList)
 
 const Tracks = ({ route: { params }, navigation }) => {
-  // const scrollY = useSharedValue(0)
+  const scrollY = useSharedValue(0)
   const track = useSelector((state) => state.track)
   const player = useSelector((state) => state.audioPlayer)
   const dispatch = useDispatch()
   const { mediaId, mediaType, artist, isSearchItem } = params
-  console.log('isSearch item', isSearchItem)
 
   useEffect(() => {
-    // console.log('meadia changes', track.tracks)
     if (mediaType === 'playlist') {
+      console.log('getting pulbic playing....')
       dispatch(tracksActions.getPlaylistTracks(mediaId))
     } else if (mediaType === 'album') {
       dispatch(tracksActions.getAlbumTracks(mediaId))
@@ -44,15 +43,14 @@ const Tracks = ({ route: { params }, navigation }) => {
   }, [mediaId, dispatch, mediaType])
 
   useEffect(() => {
-    // console.log('set tracksss', track.tracks)
     dispatch(playerActions.setTracks(track.tracks.items))
   }, [track])
 
-  // const scrollHandler = useAnimatedScrollHandler({
-  //   onScroll: (e) => {
-  //     scrollY.value = e.contentOffset.y
-  //   },
-  // })
+  const scrollHandler = useAnimatedScrollHandler({
+    onScroll: (e) => {
+      scrollY.value = e.contentOffset.y
+    },
+  })
 
   const trimText = (text) => {
     return text.length > 35 ? text.substring(0, 35) + '...' : text.trim()
@@ -74,14 +72,13 @@ const Tracks = ({ route: { params }, navigation }) => {
   }
 
   return (
-    // <View />
     <SafeAreaView style={{ backgroundColor: COLORS.black, flex: 1 }}>
       <StatusBar
         animated={true}
         barStyle={'light-content'}
         backgroundColor={COLORS.black}
       />
-      {/* <Animated.View
+      <Animated.View
         style={[
           styles.headerContainer,
           animateOpacity(scrollY),
@@ -138,26 +135,26 @@ const Tracks = ({ route: { params }, navigation }) => {
               animateScale={() => animateScale(scrollY)}
             />
           }
-          ListFooterComponent={<View style={{ paddingBottom: 120 }} />}
+          ListFooterComponent={<View style={{ paddingBottom: 160 }} />}
           data={track.tracks.items}
           renderItem={renderTracks}
         />
-      </Animated.View> */}
-
+      </Animated.View>
+      {player.currentTrack.url.length > 0 && (
+        <AudioPlayer
+          navigation={navigation}
+          isSearchItem={isSearchItem}
+          isTracksScreen={true}
+        />
+      )}
+      {/* 
       <View>
         <FlatList
           ListFooterComponent={<View style={{ paddingBottom: 120 }} />}
           data={track.tracks.items}
           renderItem={renderTracks}
         />
-        {player.currentTrack.url.length > 0 && (
-          <AudioPlayer
-            navigation={navigation}
-            isSearchItem={isSearchItem}
-            isTracksScreen={true}
-          />
-        )}
-      </View>
+      </View> */}
     </SafeAreaView>
   )
 }

@@ -1,9 +1,10 @@
 import React from 'react'
 import { View, Text, Image, StyleSheet } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-import * as playerActions from '../store/actions/audioPlayer'
 import { useDispatch } from 'react-redux'
 
+import * as playerActions from '../store/actions/audioPlayer'
+import * as trackActions from '../store/actions/track'
 import { COLORS, FONTS } from '../constants'
 
 const SearchItems = ({ items, navigation, searchTerm }) => {
@@ -19,7 +20,10 @@ const SearchItems = ({ items, navigation, searchTerm }) => {
       })
     } else {
       if (itemSelected.preview_url) {
+        // need to create trackActions.setTrack(itemSelected)
         await dispatch(playerActions.resetPlayer())
+        await dispatch(trackActions.setTrack(itemSelected))
+        await dispatch(playerActions.setTracks([itemSelected]))
         await dispatch(
           playerActions.setCurrentTrack({
             id: itemSelected.id,

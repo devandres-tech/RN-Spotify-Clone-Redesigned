@@ -30,7 +30,7 @@ const AudioPlayer = ({ isTracksScreen, navigation, isSearchItem }) => {
         width: '94%',
         backgroundColor: COLORS.primaryDark,
         position: 'absolute',
-        bottom: isTracksScreen ? 0 : 91,
+        bottom: isTracksScreen ? 10 : 91,
       }}
     >
       <View
