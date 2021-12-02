@@ -6,6 +6,7 @@ import {
 } from '../actions/track'
 
 const initialState = {
+  isLoading: true,
   name: '',
   tracks: {
     items: [{ explicit: false, album: { images: [{ url: '' }] }, artists: [] }],
@@ -21,22 +22,28 @@ export default (state = initialState, action) => {
       return {
         ...state,
         ...action.albumTracks,
+        isLoading: action.isLoading,
       }
 
     case GET_PLAYLIST_TRACKS:
       return {
         ...state,
         ...action.playlistTracks,
+        isLoading: action.isLoading,
       }
 
     case GET_ARTIST_TRACKS:
       return {
+        ...state,
         ...action.artistTracks,
+        isLoading: action.isLoading,
       }
 
     case SET_TRACK:
       return {
+        ...state,
         ...action.transformedData,
+        isLoading: action.isLoading,
       }
 
     default:

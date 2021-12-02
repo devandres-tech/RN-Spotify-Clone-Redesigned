@@ -20,7 +20,12 @@ import { COLORS, icons, FONTS } from '../constants'
 import * as tracksActions from '../store/actions/track'
 import * as playerActions from '../store/actions/audioPlayer'
 import { animateOpacity, animateHeight, animateScale } from '../utils/helpers'
-import { TrackItem, TracksHeader, AudioPlayer } from '../components'
+import {
+  TrackItem,
+  TracksHeader,
+  AudioPlayer,
+  LoadingSpinner,
+} from '../components'
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList)
 
@@ -33,7 +38,6 @@ const Tracks = ({ route: { params }, navigation }) => {
 
   useEffect(() => {
     if (mediaType === 'playlist') {
-      console.log('getting pulbic playing....')
       dispatch(tracksActions.getPlaylistTracks(mediaId))
     } else if (mediaType === 'album') {
       dispatch(tracksActions.getAlbumTracks(mediaId))
@@ -107,39 +111,43 @@ const Tracks = ({ route: { params }, navigation }) => {
             : trimText(track.name)}
         </Text>
       </Animated.View>
-      <Animated.View>
-        <AnimatedFlatList
-          scrollEventThrottle={1}
-          onScroll={scrollHandler}
-          ListHeaderComponent={
-            <TracksHeader
-              type={mediaType === 'artist' ? artist.type : track.type}
-              imageUrl={
-                mediaType == 'artist'
-                  ? artist.images[0].url
-                  : track.images[0].url
-              }
-              title={mediaType === 'artist' ? artist.name : track.name}
-              totalTracks={track.tracks.items.length}
-              mediaDescription={
-                track.type === 'playlist' && mediaType !== 'artist'
-                  ? track.description
-                  : ''
-              }
-              followers={
-                mediaType === 'artist'
-                  ? artist.followers.total
-                  : track.followers.total
-              }
-              scrollY={scrollY}
-              animateScale={() => animateScale(scrollY)}
-            />
-          }
-          ListFooterComponent={<View style={{ paddingBottom: 160 }} />}
-          data={track.tracks.items}
-          renderItem={renderTracks}
-        />
-      </Animated.View>
+      {track.isLoading ? (
+        <LoadingSpinner />
+      ) : (
+        <Animated.View>
+          <AnimatedFlatList
+            scrollEventThrottle={1}
+            onScroll={scrollHandler}
+            ListHeaderComponent={
+              <TracksHeader
+                type={mediaType === 'artist' ? artist.type : track.type}
+                imageUrl={
+                  mediaType == 'artist'
+                    ? artist.images[0].url
+                    : track.images[0].url
+                }
+                title={mediaType === 'artist' ? artist.name : track.name}
+                totalTracks={track.tracks.items.length}
+                mediaDescription={
+                  track.type === 'playlist' && mediaType !== 'artist'
+                    ? track.description
+                    : ''
+                }
+                followers={
+                  mediaType === 'artist'
+                    ? artist.followers.total
+                    : track.followers.total
+                }
+                scrollY={scrollY}
+                animateScale={() => animateScale(scrollY)}
+              />
+            }
+            ListFooterComponent={<View style={{ paddingBottom: 160 }} />}
+            data={track.tracks.items}
+            renderItem={renderTracks}
+          />
+        </Animated.View>
+      )}
       {player.currentTrack.url.length > 0 && (
         <AudioPlayer
           navigation={navigation}

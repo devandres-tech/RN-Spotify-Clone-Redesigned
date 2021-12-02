@@ -17,6 +17,10 @@ export const getAlbumTracks = (albumId) => {
   return async (dispatch, getState) => {
     const accessToken = getState().auth.accessToken
     try {
+      dispatch({
+        type: GET_ALBUM_TRACKS,
+        isLoading: true,
+      })
       const response = await fetch(`${BASE_URL}/albums/${albumId}`, {
         method: 'GET',
         headers: setHeaders(accessToken),
@@ -26,7 +30,7 @@ export const getAlbumTracks = (albumId) => {
         (track) => track.preview_url !== null
       )
       data.tracks.items = filteredTracks
-      dispatch({ type: GET_ALBUM_TRACKS, albumTracks: data })
+      dispatch({ type: GET_ALBUM_TRACKS, albumTracks: data, isLoading: false })
     } catch (error) {
       console.log(error)
       throw error
@@ -38,6 +42,10 @@ export const getPlaylistTracks = (playlistId) => {
   return async (dispatch, getState) => {
     const accessToken = getState().auth.accessToken
     try {
+      dispatch({
+        type: GET_PLAYLIST_TRACKS,
+        isLoading: true,
+      })
       const response = await fetch(`${BASE_URL}/playlists/${playlistId}`, {
         method: 'GET',
         headers: setHeaders(accessToken),
@@ -49,7 +57,11 @@ export const getPlaylistTracks = (playlistId) => {
       data.tracks.items = flattenPlaylistTracks.filter(
         (track) => track.preview_url !== null
       )
-      dispatch({ type: GET_PLAYLIST_TRACKS, playlistTracks: data })
+      dispatch({
+        type: GET_PLAYLIST_TRACKS,
+        playlistTracks: data,
+        isLoading: false,
+      })
     } catch (error) {
       console.log('error')
       throw error
@@ -78,7 +90,11 @@ export const getArtistTracks = (artistId) => {
           items: [...filteredTracks],
         },
       }
-      dispatch({ type: GET_ARTIST_TRACKS, artistTracks: transformedData })
+      dispatch({
+        type: GET_ARTIST_TRACKS,
+        artistTracks: transformedData,
+        isLoading: false,
+      })
     } catch (error) {
       console.log('error')
       throw error
@@ -94,7 +110,6 @@ export const setTrack = (track) => {
         items: [track],
       },
     }
-    console.log('tranfordata', transformedData)
-    dispatch({ type: SET_TRACK, transformedData })
+    dispatch({ type: SET_TRACK, transformedData, isLoading: false })
   }
 }
