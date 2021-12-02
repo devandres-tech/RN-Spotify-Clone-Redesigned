@@ -19,7 +19,12 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 import { COLORS, icons, FONTS } from '../constants'
 import * as tracksActions from '../store/actions/track'
 import * as playerActions from '../store/actions/audioPlayer'
-import { animateOpacity, animateHeight, animateScale } from '../utils/helpers'
+import {
+  animateOpacity,
+  animateHeight,
+  animateScale,
+  trimText,
+} from '../utils/helpers'
 import {
   TrackItem,
   TracksHeader,
@@ -55,10 +60,6 @@ const Tracks = ({ route: { params }, navigation }) => {
       scrollY.value = e.contentOffset.y
     },
   })
-
-  const trimText = (text) => {
-    return text.length > 35 ? text.substring(0, 35) + '...' : text.trim()
-  }
 
   const renderTracks = ({ item }) => {
     return (
@@ -107,8 +108,8 @@ const Tracks = ({ route: { params }, navigation }) => {
           }}
         >
           {mediaType === 'artist'
-            ? trimText(artist.name)
-            : trimText(track.name)}
+            ? trimText(artist.name, 34)
+            : trimText(track.name, 34)}
         </Text>
       </Animated.View>
       {track.isLoading ? (
