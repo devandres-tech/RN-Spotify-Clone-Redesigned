@@ -34,7 +34,6 @@ export default (state = initialState, action) => {
 
     case GET_LIBRARY_USER_ALBUMS:
       return {
-        ...state,
         userAlbums: action.userAlbums,
       }
 

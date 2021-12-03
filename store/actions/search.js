@@ -25,7 +25,16 @@ export const searchItems = (query) => {
           headers: setHeaders(accessToken),
         }
       )
-      const data = await response.json()
+      let data = await response.json()
+      if (
+        data.albums.items.length <= 0 &&
+        data.artists.items.length <= 0 &&
+        data.tracks.items.length <= 0 &&
+        data.playlists.items.length <= 0
+      ) {
+        data = null
+      }
+
       dispatch({ type: GET_SEARCH_ITEM, searchResults: data, isLoading: false })
     } catch (error) {
       console.log(error)

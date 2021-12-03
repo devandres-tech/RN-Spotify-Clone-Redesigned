@@ -80,9 +80,41 @@ const Search = ({ navigation }) => {
   }
 
   const renderSearchResults = () => {
-    return search.isLoading ? (
-      <LoadingSpinner />
-    ) : (
+    if (search.isLoading) return <LoadingSpinner />
+    if (!search.results) {
+      return (
+        <View
+          style={{
+            height: '100%',
+            justifyContent: 'center',
+            alignItems: 'center',
+            paddingHorizontal: SIZES.padding,
+          }}
+        >
+          <Text style={{ color: COLORS.white, ...FONTS.h1 }}>Could't find</Text>
+          <Text
+            style={{
+              color: COLORS.white,
+              marginBottom: SIZES.padding,
+              ...FONTS.h1,
+            }}
+          >
+            "{searchTerm}"
+          </Text>
+          <Text
+            style={{
+              color: COLORS.lightGray,
+              textAlign: 'center',
+              ...FONTS.body,
+            }}
+          >
+            Try searching again using a different spelling or keyword
+          </Text>
+        </View>
+      )
+    }
+
+    return (
       <View>
         <SearchItems
           navigation={navigation}
@@ -188,7 +220,10 @@ const styles = StyleSheet.create({
     width: 25,
     tintColor: COLORS.white,
   },
-  footerContainer: { paddingBottom: 120, paddingHorizontal: SIZES.padding },
+  footerContainer: {
+    paddingBottom: 120,
+    paddingHorizontal: SIZES.padding,
+  },
   bulletDot: { color: COLORS.lightGray, paddingHorizontal: 4, fontSize: 4 },
 })
 
