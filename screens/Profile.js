@@ -93,7 +93,7 @@ const Profile = ({ navigation }) => {
 
   const renderUserPublicPlaylists = () => {
     return (
-      <View>
+      <View style={{ paddingBottom: 40 }}>
         {user.playlists
           .filter(
             (playlist) =>

@@ -54,6 +54,7 @@ const Library = ({ navigation }) => {
   }, [dispatch])
 
   const renderMadeForYouContainer = () => {
+    const { topTracks } = library
     return (
       <View>
         <HorizontalCardContainer
@@ -65,7 +66,7 @@ const Library = ({ navigation }) => {
         />
         <TextTitle label='YOUR TOP TRACKS' />
         <View style={{ paddingBottom: SIZES.paddingBottom }}>
-          {library.topTracks.map((track, idx) => {
+          {topTracks.map((track, idx) => {
             return (
               <TrackItem
                 key={`${track.id}-${idx}`}
@@ -114,7 +115,7 @@ const Library = ({ navigation }) => {
           </View>
         }
         ListFooterComponent={
-          <View style={{ paddingBottom: 120 }}>
+          <View style={{ paddingBottom: 160 }}>
             {activeMenuItem.id === 1 && renderMadeForYouContainer()}
             {activeMenuItem.id === 2 &&
               user.recentlyPlayed.map((track) => {
