@@ -156,8 +156,8 @@ const Tracks = ({ route: { params }, navigation }) => {
           isTracksScreen={true}
         />
       )}
-      {/* 
-      <View>
+
+      {/* <View>
         <FlatList
           ListFooterComponent={<View style={{ paddingBottom: 120 }} />}
           data={track.tracks.items}

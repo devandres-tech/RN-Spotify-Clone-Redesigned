@@ -186,9 +186,6 @@ export const shuffleTracks = () => {
 export const unShuffleTracks = () => {
   return async (dispatch, getState) => {
     const track = getState().track
-
-    // const originalTracks = getState().track.tracks.items
-    console.log('unSHIF()', [track])
     const originalTracks =
       track.type === 'track' ? [track] : getState().track.tracks.items
     dispatch({ type: UN_SHUFFLE_TRACKS, isShuffle: false, originalTracks })

@@ -12,6 +12,8 @@ import { useScrollToTop } from '@react-navigation/native'
 
 import { COLORS, SIZES, FONTS } from '../constants'
 import * as libraryActions from '../store/actions/library'
+import * as playerActions from '../store/actions/audioPlayer'
+import * as trackActions from '../store/actions/track'
 import * as playlistActions from '../store/actions/playlist'
 import * as userActions from '../store/actions/user'
 
@@ -36,11 +38,15 @@ const menuItems = [
 
 const Library = ({ navigation }) => {
   const [activeMenuItem, setActiveMenuItem] = useState(menuItems[0])
+  const track = useSelector((state) => state.track)
   const library = useSelector((state) => state.library)
   const playlist = useSelector((state) => state.playlist)
   const user = useSelector((state) => state.user)
   const ref = React.useRef(null)
   const dispatch = useDispatch()
+  const filteredUserTracks = library.userTracks.filter(
+    (track) => track.preview_url !== null
+  )
 
   useScrollToTop(ref)
 
@@ -52,6 +58,12 @@ const Library = ({ navigation }) => {
     dispatch(userActions.getRecentlyPlayed(10))
     dispatch(playlistActions.getNewReleases(10))
   }, [dispatch])
+
+  useEffect(() => {
+    if (activeMenuItem.id === 3) {
+      dispatch(playerActions.setTracks(filteredUserTracks))
+    }
+  }, [activeMenuItem])
 
   const renderMadeForYouContainer = () => {
     const { topTracks } = library
@@ -89,6 +101,22 @@ const Library = ({ navigation }) => {
         />
       </View>
     )
+  }
+
+  const renderUserLibrarySongs = () => {
+    return filteredUserTracks.map((track) => {
+      return (
+        <TrackItem
+          key={track.id}
+          albumName={track.album.name}
+          id={track.id}
+          url={track.preview_url}
+          artists={track.artists}
+          trackName={track.name}
+          albumImages={track.album.images}
+        />
+      )
+    })
   }
 
   return (
@@ -129,22 +157,7 @@ const Library = ({ navigation }) => {
                   />
                 )
               })}
-            {activeMenuItem.id === 3 &&
-              library.userTracks
-                .filter((track) => track.preview_url !== null)
-                .map((track) => {
-                  return (
-                    <TrackItem
-                      key={track.id}
-                      albumName={track.album.name}
-                      id={track.id}
-                      url={track.preview_url}
-                      artists={track.artists}
-                      trackName={track.name}
-                      albumImages={track.album.images}
-                    />
-                  )
-                })}
+            {activeMenuItem.id === 3 && renderUserLibrarySongs()}
             {activeMenuItem.id === 4 &&
               library.userAlbums.map((album) => {
                 return (
