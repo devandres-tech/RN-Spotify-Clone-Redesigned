@@ -13,7 +13,6 @@ import { useScrollToTop } from '@react-navigation/native'
 import { COLORS, SIZES, FONTS } from '../constants'
 import * as libraryActions from '../store/actions/library'
 import * as playerActions from '../store/actions/audioPlayer'
-import * as trackActions from '../store/actions/track'
 import * as playlistActions from '../store/actions/playlist'
 import * as userActions from '../store/actions/user'
 
@@ -38,7 +37,6 @@ const menuItems = [
 
 const Library = ({ navigation }) => {
   const [activeMenuItem, setActiveMenuItem] = useState(menuItems[0])
-  const track = useSelector((state) => state.track)
   const library = useSelector((state) => state.library)
   const playlist = useSelector((state) => state.playlist)
   const user = useSelector((state) => state.user)
