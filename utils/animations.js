@@ -44,7 +44,7 @@ export const animateHeight = (property) =>
     }
   })
 
-// Only on IOS
+// Only available on IOS
 export const verticalAnimation = {
   gestureDirection: 'vertical',
   presentation: 'modal',

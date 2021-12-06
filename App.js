@@ -9,7 +9,8 @@ import { SafeAreaProvider } from 'react-native-safe-area-context'
 
 import { Authorize, Tracks, TrackPlayer } from './screens'
 import { COLORS, SIZES } from './constants'
-import { MainTabNavigator } from './components'
+import { MainTabNavigator, LoadingSpinner } from './components'
+import { verticalAnimation } from './utils/animations'
 import * as authActions from './store/actions/auth'
 
 const Stack = createNativeStackNavigator()
@@ -57,18 +58,7 @@ const App = () => {
   }, [dispatch, auth])
 
   if (auth.tokenIsLoading) {
-    return (
-      <View
-        style={{
-          flex: 1,
-          justifyContent: 'center',
-          backgroundColor: COLORS.black,
-          paddingHorizontal: SIZES.paddingTop,
-        }}
-      >
-        <ActivityIndicator size='large' color={COLORS.primary} />
-      </View>
-    )
+    return <LoadingSpinner />
   }
 
   return (
@@ -89,7 +79,11 @@ const App = () => {
             <Stack.Group>
               <Stack.Screen name='Main' component={MainTabNavigator} />
               <Stack.Screen name='Tracks' component={Tracks} />
-              <Stack.Screen name='TrackPlayer' component={TrackPlayer} />
+              <Stack.Screen
+                name='TrackPlayer'
+                options={verticalAnimation}
+                component={TrackPlayer}
+              />
             </Stack.Group>
           ) : (
             <Stack.Screen name='Authorize' component={Authorize} />

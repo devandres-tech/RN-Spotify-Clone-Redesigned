@@ -19,12 +19,12 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 import { COLORS, icons, FONTS } from '../constants'
 import * as tracksActions from '../store/actions/track'
 import * as playerActions from '../store/actions/audioPlayer'
+import { trimText } from '../utils/helpers'
 import {
   animateOpacity,
   animateHeight,
   animateScale,
-  trimText,
-} from '../utils/helpers'
+} from '../utils/animations'
 import {
   TrackItem,
   TracksHeader,
