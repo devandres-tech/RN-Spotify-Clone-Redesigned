@@ -1,10 +1,16 @@
-// const spotifyConfig = {
-//   clientId: '*******',
-//   clientSecret: '**********',
-//   redirectUrl: 'com.authdemo://oauthredirect',
-// }
+import dotenv from 'dotenv'
+import SpotifyWebApi from 'spotify-web-api-node'
+dotenv.config()
 
-export const proxySpotifyToken = (req, res) => {
+const spotifyConfig = {
+  clientId: process.env.CLIENT_ID,
+  clientSecret: process.env.CLIENT_SECRET,
+  redirectUri: process.env.REDIRECT_URL,
+}
+
+const spotifyApi = new SpotifyWebApi(spotifyConfig)
+
+export const proxySpotifyToken = async (req, res) => {
   const { code } = req.body
   const refreshToken = req.body.refresh_token
 
@@ -13,11 +19,36 @@ export const proxySpotifyToken = (req, res) => {
   }
 
   if (refreshToken) {
-    return res.json({ todo: 'Refresh accesstoken' })
+    spotifyApi.setRefreshToken(refreshToken)
+    spotifyApi
+      .refreshAccessToken()
+      .then(
+        (data) => {
+          data.body.refreshToken = refreshToken
+          return res.json(data.body)
+        },
+        (error) => {
+          console.log('Could not refresh access token', error)
+        }
+      )
+      .catch((onError) => {
+        return res.json(onError)
+      })
   }
 
   if (code) {
-    console.log('CLIENT_SECRETE', process.env.CLIENT_ID)
-    return res.json({ todo: 'Get refresh token & access token' })
+    spotifyApi
+      .authorizationCodeGrant(code)
+      .then(
+        (data) => {
+          return res.json(data.body)
+        },
+        (err) => {
+          console.log('Something went wrong,', err)
+        }
+      )
+      .catch((error) => {
+        return res.json(error)
+      })
   }
 }

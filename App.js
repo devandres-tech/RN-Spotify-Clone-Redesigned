@@ -26,8 +26,12 @@ const App = () => {
   useEffect(() => {
     const getTokensFromAsyncStorage = async () => {
       const authData = await AsyncStorage.getItem('authData')
-      const { accessToken, refreshToken } = await JSON.parse(authData)
-      dispatch(authActions.setTokens(accessToken, refreshToken))
+      try {
+        const { accessToken, refreshToken } = await JSON.parse(authData)
+        dispatch(authActions.setTokens(accessToken, refreshToken))
+      } catch (error) {
+        console.log('error', error)
+      }
     }
     getTokensFromAsyncStorage()
   }, [dispatch])
@@ -67,25 +71,6 @@ const App = () => {
     )
   }
 
-  const verticalAnimation = {
-    gestureDirection: 'vertical',
-    presentation: 'modal',
-    cardStyleInterpolator: ({ current, layouts }) => {
-      return {
-        cardStyle: {
-          transform: [
-            {
-              translateY: current.progress.interpolate({
-                inputRange: [0, 1],
-                outputRange: [layouts.screen.height, 0],
-              }),
-            },
-          ],
-        },
-      }
-    },
-  }
-
   return (
     <SafeAreaProvider>
       <StatusBar
@@ -104,11 +89,7 @@ const App = () => {
             <Stack.Group>
               <Stack.Screen name='Main' component={MainTabNavigator} />
               <Stack.Screen name='Tracks' component={Tracks} />
-              <Stack.Screen
-                name='TrackPlayer'
-                options={verticalAnimation}
-                component={TrackPlayer}
-              />
+              <Stack.Screen name='TrackPlayer' component={TrackPlayer} />
             </Stack.Group>
           ) : (
             <Stack.Screen name='Authorize' component={Authorize} />

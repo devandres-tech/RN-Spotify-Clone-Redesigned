@@ -1,5 +1,5 @@
 import { authorize, refresh } from 'react-native-app-auth'
-import { CLIENT_ID, CLIENT_SECRET, REDIRECT_URL } from '@env'
+import { CLIENT_ID, REDIRECT_URL } from '@env'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export const AUTHENTICATE_SUCCESS = 'AUTHENTICATE_SUCCESS'
@@ -10,8 +10,8 @@ export const REQUEST_REFRESHED_TOKEN = 'REQUEST_REFRESHED_TOKEN'
 
 const spotifyAuthConfig = {
   clientId: CLIENT_ID,
-  clientSecret: CLIENT_SECRET,
   redirectUrl: REDIRECT_URL,
+  usePKCE: false,
   issuer: 'https://accounts.spotify.com',
   scopes: [
     'playlist-read-private',
@@ -28,7 +28,7 @@ const spotifyAuthConfig = {
   ],
   serviceConfiguration: {
     authorizationEndpoint: 'https://accounts.spotify.com/authorize',
-    tokenEndpoint: 'https://accounts.spotify.com/api/token',
+    tokenEndpoint: 'http://localhost:5000/api/user/authentication',
   },
 }
 
