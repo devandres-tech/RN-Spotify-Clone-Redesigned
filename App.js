@@ -31,7 +31,8 @@ const App = () => {
         const { accessToken, refreshToken } = await JSON.parse(authData)
         dispatch(authActions.setTokens(accessToken, refreshToken))
       } catch (error) {
-        console.log('error', error)
+        console.log('ERROR', error)
+        return
       }
     }
     getTokensFromAsyncStorage()
@@ -81,7 +82,7 @@ const App = () => {
               <Stack.Screen name='Tracks' component={Tracks} />
               <Stack.Screen
                 name='TrackPlayer'
-                options={verticalAnimation}
+                // options={verticalAnimation}
                 component={TrackPlayer}
               />
             </Stack.Group>

@@ -2,11 +2,11 @@ import React from 'react'
 import { View } from 'react-native'
 import { useDispatch } from 'react-redux'
 
-import { COLORS, FONTS } from '../constants'
+import { COLORS } from '../constants'
 import * as authActions from '../store/actions/auth'
 import { TextButton } from '../components'
 
-const Authorize = ({ navigation }) => {
+const Authorize = () => {
   const dispatch = useDispatch()
 
   return (

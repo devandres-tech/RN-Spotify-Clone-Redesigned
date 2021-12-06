@@ -52,7 +52,6 @@ export const getTopTracks = () => {
         const id = item.id
         return { ...item.album, name: trackName, albumName, id }
       })
-      console.log('loading::', albums)
       dispatch({ type: GET_LIBRARY_TOP_TRACKS, topTracks: albums })
     } catch (error) {
       console.log('error')

@@ -12,7 +12,8 @@ const spotifyAuthConfig = {
   clientId: CLIENT_ID,
   redirectUrl: REDIRECT_URL,
   usePKCE: false,
-  issuer: 'https://accounts.spotify.com',
+  dangerouslyAllowInsecureHttpRequests: true,
+  clientAuthMethod: 'post',
   scopes: [
     'playlist-read-private',
     'user-read-private',
@@ -28,7 +29,8 @@ const spotifyAuthConfig = {
   ],
   serviceConfiguration: {
     authorizationEndpoint: 'https://accounts.spotify.com/authorize',
-    tokenEndpoint: 'http://localhost:5000/api/user/authentication',
+    // tokenEndpoint: 'http://localhost:5000/api/user/authentication',
+    tokenEndpoint: 'http://10.0.2.2:5000/api/user/authentication',
   },
 }
 
@@ -53,7 +55,6 @@ export const authenticate = () => {
       dispatch({ type: AUTHENTICATE_LOADING, tokenIsLoading: true })
       const { accessToken, refreshToken, accessTokenExpirationDate } =
         await authorize(spotifyAuthConfig)
-
       dispatch({
         type: AUTHENTICATE_SUCCESS,
         accessToken,
