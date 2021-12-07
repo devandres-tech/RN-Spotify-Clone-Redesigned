@@ -7,7 +7,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 import * as playerActions from '../store/actions/audioPlayer'
 import { trimText } from '../utils/helpers'
 
-const AudioPlayer = ({ isTracksScreen, navigation, isSearchItem }) => {
+const AudioPlayer = ({ isTracksScreen, navigation }) => {
   const player = useSelector((state) => state.audioPlayer)
   const dispatch = useDispatch()
 
@@ -20,7 +20,7 @@ const AudioPlayer = ({ isTracksScreen, navigation, isSearchItem }) => {
   }
 
   const onAudioPressHandler = () => {
-    navigation.navigate('TrackPlayer', { isSearchItem })
+    navigation.navigate('TrackPlayer')
   }
 
   return (

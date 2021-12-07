@@ -58,7 +58,6 @@ export const authenticate = () => {
       dispatch({ type: AUTHENTICATE_LOADING, tokenIsLoading: true })
       const { accessToken, refreshToken, accessTokenExpirationDate } =
         await authorize(spotifyAuthConfig)
-      console.log('Authenticate', accessToken, refreshToken)
       dispatch({
         type: AUTHENTICATE_SUCCESS,
         accessToken,
