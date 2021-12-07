@@ -22,21 +22,6 @@ const App = () => {
     SplashScreen.hide()
   }, [])
 
-  // initial render
-  useEffect(() => {
-    const getTokensFromAsyncStorage = async () => {
-      const authData = await AsyncStorage.getItem('authData')
-      try {
-        const { accessToken, refreshToken } = await JSON.parse(authData)
-        dispatch(authActions.setTokens(accessToken, refreshToken))
-      } catch (error) {
-        console.log('ERROR', error)
-        return
-      }
-    }
-    getTokensFromAsyncStorage()
-  }, [dispatch])
-
   useEffect(() => {
     const tryLogin = async () => {
       const authData = await AsyncStorage.getItem('authData')
@@ -53,9 +38,10 @@ const App = () => {
         dispatch(authActions.requestRefreshedAccessToken(refreshToken))
         return
       }
+      dispatch(authActions.setTokens(accessToken, refreshToken))
     }
     tryLogin()
-  }, [dispatch, auth])
+  }, [dispatch])
 
   if (auth.tokenIsLoading) {
     return <LoadingSpinner />

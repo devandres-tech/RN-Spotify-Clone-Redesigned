@@ -31,7 +31,7 @@ const spotifyAuthConfig = {
   serviceConfiguration: {
     authorizationEndpoint: 'https://accounts.spotify.com/authorize',
     tokenEndpoint:
-      Platform.OS === 'IOS'
+      Platform.OS === 'ios'
         ? 'http://localhost:5000/api/user/authentication'
         : 'http://10.0.2.2:5000/api/user/authentication',
   },
@@ -58,6 +58,7 @@ export const authenticate = () => {
       dispatch({ type: AUTHENTICATE_LOADING, tokenIsLoading: true })
       const { accessToken, refreshToken, accessTokenExpirationDate } =
         await authorize(spotifyAuthConfig)
+      console.log('Authenticate', accessToken, refreshToken)
       dispatch({
         type: AUTHENTICATE_SUCCESS,
         accessToken,
