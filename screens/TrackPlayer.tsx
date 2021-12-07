@@ -17,12 +17,13 @@ import Slider from '@react-native-community/slider'
 import * as playerActions from '../store/actions/audioPlayer'
 import { COLORS, FONTS, icons } from '../constants'
 import { secondsToHHMMSS } from '../utils/helpers'
+import { useAppSelector } from '../hooks/hooks'
 
 const MAX_PROGRESS = 30
 
 const TrackPlayerScreen = ({ navigation }) => {
-  const player = useSelector((state) => state.audioPlayer)
-  const track = useSelector((state) => state.track)
+  const player = useAppSelector((state) => state.audioPlayer)
+  const track = useAppSelector((state) => state.track)
   const progress = useProgress()
   const dispatch = useDispatch()
 

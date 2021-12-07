@@ -2,11 +2,12 @@ import React, { useEffect } from 'react'
 import SplashScreen from 'react-native-splash-screen'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { StatusBar } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 
+import { useAppSelector } from './hooks/hooks'
 import { Authorize, Tracks, TrackPlayer } from './screens'
 import { MainTabNavigator, LoadingSpinner } from './components'
 import { verticalAnimation } from './utils/animations'
@@ -15,7 +16,7 @@ import * as authActions from './store/actions/auth'
 const Stack = createNativeStackNavigator()
 
 const App = () => {
-  const auth = useSelector((state) => state.auth)
+  const auth = useAppSelector((state) => state.auth)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -35,9 +36,11 @@ const App = () => {
         !accessToken ||
         !refreshToken
       ) {
+        console.log('Invalid Tokens', authData)
         dispatch(authActions.requestRefreshedAccessToken(refreshToken))
         return
       }
+      console.log('Valid tokens from storage')
       dispatch(authActions.setTokens(accessToken, refreshToken))
     }
     tryLogin()

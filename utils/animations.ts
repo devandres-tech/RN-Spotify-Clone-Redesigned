@@ -1,16 +1,20 @@
 import { Dimensions } from 'react-native'
-import { useAnimatedStyle, interpolate } from 'react-native-reanimated'
+import Animated, {
+  useAnimatedStyle,
+  interpolate,
+  Extrapolate,
+} from 'react-native-reanimated'
 const { height } = Dimensions.get('window')
 
 const DERIVED_HEIGHT = height * (1 - 1 / (1 + Math.sqrt(5) / 2))
 
-export const animateScale = (property) =>
+export const animateScale = (property: Animated.SharedValue<number>) =>
   useAnimatedStyle(() => {
     const scale = interpolate(
       property.value,
       [DERIVED_HEIGHT, 0],
       [-0.5, 1],
-      'clamp'
+      Extrapolate.CLAMP
     )
 
     return {
@@ -18,26 +22,26 @@ export const animateScale = (property) =>
     }
   })
 
-export const animateOpacity = (property) =>
+export const animateOpacity = (property: Animated.SharedValue<number>) =>
   useAnimatedStyle(() => {
     const opacity = interpolate(
       property.value,
       [0, 200, 400, DERIVED_HEIGHT],
       [0, 0, 0, 1],
-      'clamp'
+      Extrapolate.CLAMP
     )
     return {
       opacity: opacity,
     }
   })
 
-export const animateHeight = (property) =>
+export const animateHeight = (property: Animated.SharedValue<number>) =>
   useAnimatedStyle(() => {
     const heightAnim = interpolate(
       property.value,
       [0, 200, 400, DERIVED_HEIGHT],
       [0, 0, 90, 100],
-      'clamp'
+      Extrapolate.CLAMP
     )
     return {
       height: heightAnim,
@@ -45,7 +49,7 @@ export const animateHeight = (property) =>
   })
 
 // Only available on IOS
-export const verticalAnimation = {
+export const verticalAnimation: any = {
   gestureDirection: 'vertical',
   presentation: 'modal',
   cardStyleInterpolator: ({ current, layouts }) => {

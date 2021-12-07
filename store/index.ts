@@ -12,11 +12,11 @@ import search from './reducers/search'
 import audioPlayer from './reducers/audioPlayer'
 
 const rootReducer = combineReducers({
+  auth,
   audioPlayer,
   search,
   track,
   user,
-  auth,
   playlist,
   browse,
   library,
@@ -26,5 +26,8 @@ const store = createStore(
   rootReducer,
   composeWithDevTools(applyMiddleware(thunk))
 )
+
+export type RootState = ReturnType<typeof store.getState>
+export type AppDispatch = typeof store.dispatch
 
 export default store
