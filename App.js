@@ -3,12 +3,11 @@ import SplashScreen from 'react-native-splash-screen'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { useSelector, useDispatch } from 'react-redux'
-import { ActivityIndicator, StatusBar, View } from 'react-native'
+import { StatusBar } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 
 import { Authorize, Tracks, TrackPlayer } from './screens'
-import { COLORS, SIZES } from './constants'
 import { MainTabNavigator, LoadingSpinner } from './components'
 import { verticalAnimation } from './utils/animations'
 import * as authActions from './store/actions/auth'
@@ -82,7 +81,7 @@ const App = () => {
               <Stack.Screen name='Tracks' component={Tracks} />
               <Stack.Screen
                 name='TrackPlayer'
-                // options={verticalAnimation}
+                options={verticalAnimation}
                 component={TrackPlayer}
               />
             </Stack.Group>

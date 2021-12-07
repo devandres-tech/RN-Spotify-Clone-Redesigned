@@ -1,3 +1,4 @@
+import { Platform } from 'react-native'
 import { authorize, refresh } from 'react-native-app-auth'
 import { CLIENT_ID, REDIRECT_URL } from '@env'
 import AsyncStorage from '@react-native-async-storage/async-storage'
@@ -29,8 +30,10 @@ const spotifyAuthConfig = {
   ],
   serviceConfiguration: {
     authorizationEndpoint: 'https://accounts.spotify.com/authorize',
-    // tokenEndpoint: 'http://localhost:5000/api/user/authentication',
-    tokenEndpoint: 'http://10.0.2.2:5000/api/user/authentication',
+    tokenEndpoint:
+      Platform.OS === 'IOS'
+        ? 'http://localhost:5000/api/user/authentication'
+        : 'http://10.0.2.2:5000/api/user/authentication',
   },
 }
 

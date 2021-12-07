@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, Image, Animated } from 'react-native'
+import { Text, Animated } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { SvgXml } from 'react-native-svg'
 // svg icons
