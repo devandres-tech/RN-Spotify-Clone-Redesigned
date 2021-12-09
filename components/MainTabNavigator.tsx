@@ -47,10 +47,7 @@ const MainTabNavigator = () => {
         <Tab.Screen name='Library' component={Library} />
         <Tab.Screen name='Profile' component={Profile} />
       </Tab.Navigator>
-
-      {player.currentTrack.url.length > 0 && (
-        <AudioPlayer navigation={navigation} />
-      )}
+      {player.currentTrack.url.length > 0 && <AudioPlayer />}
     </View>
   )
 }

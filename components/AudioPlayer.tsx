@@ -13,7 +13,7 @@ import { trimText } from '../utils/helpers'
 type audioPlayerScreenProps = StackNavigationProp<RootStackParamList, 'Tracks'>
 
 interface IAudioPlayer {
-  isTracksScreen: boolean
+  isTracksScreen?: boolean
 }
 
 const AudioPlayer = ({ isTracksScreen }: IAudioPlayer) => {
