@@ -2,10 +2,22 @@ import React, { useState } from 'react'
 import { View, Text, Image, StyleSheet } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 
-import { useSelector, useDispatch } from 'react-redux'
+import { useAppSelector, useAppDispatch } from '../hooks/hooks'
 import * as playerActions from '../store/actions/audioPlayer'
 import { COLORS, SIZES, FONTS, icons } from '../constants'
 import { trimText } from '../utils/helpers'
+
+interface ITrackItem {
+  trackId: string
+  url: string
+  trackName: string
+  albumName: string
+  albumImages: Array<{ url: string }>
+  artists: Array<{ name: string }>
+  duration: string
+  explicit: boolean
+  trackNumber: number
+}
 
 const TrackItem = ({
   trackId,
@@ -17,11 +29,11 @@ const TrackItem = ({
   duration,
   explicit,
   trackNumber,
-}) => {
+}: ITrackItem) => {
   const [isPlaying, setIsPlaying] = useState(false)
-  const player = useSelector((state) => state.audioPlayer)
-  const track = useSelector((state) => state.track)
-  const dispatch = useDispatch()
+  const player = useAppSelector((state) => state.audioPlayer)
+  const track = useAppSelector((state) => state.track)
+  const dispatch = useAppDispatch()
   const date = new Date(duration)
   const artistsNames = artists.map((artist) => artist.name).join(', ')
 
@@ -46,9 +58,9 @@ const TrackItem = ({
         setIsPlaying(true)
       }
     } else {
-      await dispatch(playerActions.resetPlayer())
-      await dispatch(playerActions.setCurrentTrack(selectedTrack))
-      await dispatch(playerActions.playTrack())
+      dispatch(playerActions.resetPlayer())
+      dispatch(playerActions.setCurrentTrack(selectedTrack))
+      dispatch(playerActions.playTrack())
       setIsPlaying(true)
     }
     if (player.isShuffle) {
