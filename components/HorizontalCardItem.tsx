@@ -11,7 +11,7 @@ import { StackNavigationProp } from '@react-navigation/stack'
 type horizontalCardItemNavProps = StackNavigationProp<RootStackParamList>
 
 interface IHorizontalCardItem {
-  imageUrl: string
+  imageUrl: string | undefined
   cardLabel?: string
   cardItemImageStyle?: object
   cardItemTextStyle?: object

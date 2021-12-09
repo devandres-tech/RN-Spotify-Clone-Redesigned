@@ -1,16 +1,16 @@
 import React from 'react'
 import { View } from 'react-native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { useSelector } from 'react-redux'
 
+import { useAppSelector } from '../hooks/hooks'
 import { Home, Library, Search, Profile } from '../screens'
 import { COLORS } from '../constants'
-import { TabBarIcon, AudioPlayer } from '../components'
+import { TabBarIcon, AudioPlayer } from './index'
 
 const Tab = createBottomTabNavigator()
 
-const MainTabNavigator = ({ navigation }) => {
-  const player = useSelector((state) => state.audioPlayer)
+const MainTabNavigator = () => {
+  const player = useAppSelector((state) => state.audioPlayer)
 
   return (
     <View style={{ flex: 1, width: '100%' }}>
@@ -31,7 +31,6 @@ const MainTabNavigator = ({ navigation }) => {
             borderRadius: 100,
             height: 80,
             borderTopColor: COLORS.black,
-            shadowColor: '#000',
             shadowColor: '#000',
             shadowOffset: {
               width: 0,
