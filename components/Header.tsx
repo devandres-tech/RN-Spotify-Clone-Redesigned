@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react'
 import { View, Text, Image } from 'react-native'
-import { useSelector, useDispatch } from 'react-redux'
 
+import { useAppDispatch, useAppSelector } from '../hooks/hooks'
 import { COLORS, FONTS, SIZES, icons } from '../constants'
 import * as userActions from '../store/actions/user'
 
 const Header = () => {
-  const user = useSelector((state) => state.user)
-  const dispatch = useDispatch()
+  const user = useAppSelector((state) => state.user)
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
     dispatch(userActions.getProfile())

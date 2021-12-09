@@ -5,14 +5,21 @@ import { SIZES } from '../constants'
 import TextTitle from './TextTitle'
 import HorizontalCardItem from './HorizontalCardItem'
 
+interface IHorizontalCardContainer {
+  data: Array<object>
+  label: string
+  containerStyle?: object
+  cardItemImageStyle?: object
+  cardItemTextStyle?: object
+}
+
 const HorizontalCardContainer = ({
   data,
   label,
   containerStyle,
   cardItemImageStyle,
   cardItemTextStyle,
-  navigation,
-}) => {
+}: IHorizontalCardContainer) => {
   return (
     <View
       style={{
@@ -30,7 +37,6 @@ const HorizontalCardContainer = ({
           return (
             <HorizontalCardItem
               artist={item.type === 'artist' ? item : null}
-              navigation={navigation}
               id={item.id}
               index={index}
               cardItemTextStyle={cardItemTextStyle}

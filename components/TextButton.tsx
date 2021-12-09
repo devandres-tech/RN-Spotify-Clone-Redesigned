@@ -4,7 +4,19 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 
 import { COLORS, FONTS } from '../constants'
 
-const TextButton = ({ label, labelStyle, onPress, buttonContainerStyle }) => {
+interface ITextButton {
+  label: string
+  labelStyle?: object
+  onPress?: () => void
+  buttonContainerStyle?: object
+}
+
+const TextButton = ({
+  label,
+  labelStyle,
+  onPress,
+  buttonContainerStyle,
+}: ITextButton) => {
   return (
     <TouchableOpacity
       onPress={onPress}

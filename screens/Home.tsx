@@ -1,16 +1,17 @@
 import React, { useEffect } from 'react'
 import {
   View,
-  FlatList,
   Image,
   Text,
   TouchableOpacity,
   ImageBackground,
+  SafeAreaView,
   StyleSheet,
 } from 'react-native'
-import { useSelector, useDispatch } from 'react-redux'
 import { useScrollToTop } from '@react-navigation/native'
+import { ScrollView } from 'react-native-gesture-handler'
 
+import { useAppDispatch, useAppSelector } from '../hooks/hooks'
 import { COLORS, FONTS, SIZES } from '../constants'
 import * as userActions from '../store/actions/user'
 import * as playlistActions from '../store/actions/playlist'
@@ -23,12 +24,11 @@ import {
   TextTitle,
 } from '../components'
 
-const Home = ({ navigation }) => {
-  const user = useSelector((state) => state.user)
-  const playlist = useSelector((state) => state.playlist)
+const Home = () => {
+  const user = useAppSelector((state) => state.user)
+  const playlist = useAppSelector((state) => state.playlist)
+  const dispatch = useAppDispatch()
   const ref = React.useRef(null)
-  const dispatch = useDispatch()
-
   useScrollToTop(ref)
 
   useEffect(() => {
@@ -91,69 +91,61 @@ const Home = ({ navigation }) => {
   }
 
   return (
-    <View style={styles.container}>
-      <FlatList
-        ref={ref}
-        showsVerticalScrollIndicator={false}
-        ListHeaderComponent={<Header />}
-        ListFooterComponent={
-          <View style={{ paddingBottom: 120 }}>
-            <HorizontalCardContainer
-              label='MY PLAYLISTS'
-              navigation={navigation}
-              cardItemTextStyle={styles.playlistTextStyle}
-              data={user.playlists}
-            />
-            {renderButtons()}
-            <HorizontalCardContainer
-              label='RECENTLY PLAYED'
-              navigation={navigation}
-              cardItemImageStyle={{ opacity: 1 }}
-              cardItemTextStyle={{ position: 'relative', paddingTop: 15 }}
-              data={user.recentlyPlayed}
-            />
-            {renderTopArtistsAndTracksContainer()}
-            <HorizontalCardContainer
-              label='POPULAR'
-              navigation={navigation}
-              cardItemImageStyle={{ opacity: 1 }}
-              cardItemTextStyle={{ position: 'relative', paddingTop: 15 }}
-              data={playlist.topLists}
-            />
-            {/* Featured */}
-            <View style={{ paddingBottom: SIZES.paddingBottom }}>
-              <TextTitle label='FEATURED' />
-              <View style={styles.featuredContainer}>
-                <ImageBackground
-                  resizeMode='repeat'
-                  source={{
-                    uri: playlist.featured[0].images
-                      ? playlist.featured[0].images[0].url
-                      : undefined,
+    <SafeAreaView style={styles.container}>
+      <ScrollView>
+        <Header />
+        <View style={{ paddingBottom: 120 }}>
+          <HorizontalCardContainer
+            label='MY PLAYLISTS'
+            cardItemTextStyle={styles.playlistTextStyle}
+            data={user.playlists}
+          />
+          {renderButtons()}
+          <HorizontalCardContainer
+            label='RECENTLY PLAYED'
+            cardItemImageStyle={{ opacity: 1 }}
+            cardItemTextStyle={{ position: 'relative', paddingTop: 15 }}
+            data={user.recentlyPlayed}
+          />
+          {renderTopArtistsAndTracksContainer()}
+          <HorizontalCardContainer
+            label='POPULAR'
+            cardItemImageStyle={{ opacity: 1 }}
+            cardItemTextStyle={{ position: 'relative', paddingTop: 15 }}
+            data={playlist.topLists}
+          />
+          {/* Featured */}
+          <View style={{ paddingBottom: SIZES.paddingBottom }}>
+            <TextTitle label='FEATURED' />
+            <View style={styles.featuredContainer}>
+              <ImageBackground
+                resizeMode='repeat'
+                source={{
+                  uri: playlist.featured[0].images
+                    ? playlist.featured[0].images[0].url
+                    : undefined,
+                }}
+                style={styles.featuredImage}
+              >
+                <TextButton
+                  label='CHECK IT OUT'
+                  buttonContainerStyle={{
+                    backgroundColor: COLORS.black,
+                    borderWidth: 1,
                   }}
-                  style={styles.featuredImage}
-                >
-                  <TextButton
-                    label='CHECK IT OUT'
-                    buttonContainerStyle={{
-                      backgroundColor: COLORS.black,
-                      borderWidth: 1,
-                    }}
-                  />
-                </ImageBackground>
-              </View>
+                />
+              </ImageBackground>
             </View>
-            <HorizontalCardContainer
-              label='NEW RELEASES'
-              navigation={navigation}
-              cardItemImageStyle={{ opacity: 1 }}
-              cardItemTextStyle={{ position: 'relative', paddingTop: 15 }}
-              data={playlist.newReleases}
-            />
           </View>
-        }
-      />
-    </View>
+          <HorizontalCardContainer
+            label='NEW RELEASES'
+            cardItemImageStyle={{ opacity: 1 }}
+            cardItemTextStyle={{ position: 'relative', paddingTop: 15 }}
+            data={playlist.newReleases}
+          />
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   )
 }
 

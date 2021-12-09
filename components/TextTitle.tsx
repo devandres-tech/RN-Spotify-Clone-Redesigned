@@ -3,7 +3,12 @@ import { Text } from 'react-native'
 
 import { COLORS, FONTS, SIZES } from '../constants'
 
-const TextTitle = ({ label, containerStyle }) => {
+interface ITextTitle {
+  label: string
+  containerStyle?: object
+}
+
+const TextTitle = ({ label, containerStyle }: ITextTitle) => {
   return (
     <Text
       style={{
