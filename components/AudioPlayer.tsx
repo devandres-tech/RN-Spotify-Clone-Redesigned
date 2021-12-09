@@ -1,15 +1,25 @@
 import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
 import { View, Image, Text } from 'react-native'
+import { StackNavigationProp } from '@react-navigation/stack'
+import { useNavigation } from '@react-navigation/native'
 
+import { useAppDispatch, useAppSelector } from '../hooks/hooks'
+import { RootStackParamList } from '../screens/RootStackParams'
 import { COLORS, FONTS, icons } from '../constants'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import * as playerActions from '../store/actions/audioPlayer'
 import { trimText } from '../utils/helpers'
 
-const AudioPlayer = ({ isTracksScreen, navigation }) => {
-  const player = useSelector((state) => state.audioPlayer)
-  const dispatch = useDispatch()
+type audioPlayerScreenProps = StackNavigationProp<RootStackParamList, 'Tracks'>
+
+interface IAudioPlayer {
+  isTracksScreen: boolean
+}
+
+const AudioPlayer = ({ isTracksScreen }: IAudioPlayer) => {
+  const player = useAppSelector((state) => state.audioPlayer)
+  const dispatch = useAppDispatch()
+  const navigation = useNavigation<audioPlayerScreenProps>()
 
   const onPlayPauseHandler = async () => {
     if (player.isTrackPlaying) {
