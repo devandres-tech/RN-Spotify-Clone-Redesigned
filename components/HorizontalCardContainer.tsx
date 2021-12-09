@@ -1,16 +1,29 @@
 import React from 'react'
-import { View, FlatList } from 'react-native'
+import { View, FlatList, ListRenderItemInfo } from 'react-native'
 
 import { SIZES } from '../constants'
 import TextTitle from './TextTitle'
 import HorizontalCardItem from './HorizontalCardItem'
 
 interface IHorizontalCardContainer {
-  data: Array<object>
+  data: Array<ItemType>
   label: string
   containerStyle?: object
   cardItemImageStyle?: object
   cardItemTextStyle?: object
+}
+
+interface ItemType {
+  item: object
+  index: number
+  type: string
+  id: string
+  name: string
+  images: Array<{ url: string }>
+  release_date: string
+  albumName: string
+  album_type: string
+  artists: Array<{}>
 }
 
 const HorizontalCardContainer = ({
@@ -33,7 +46,7 @@ const HorizontalCardContainer = ({
         horizontal
         showsHorizontalScrollIndicator={false}
         keyExtractor={(item, index) => `${item.id}-${item.name}-${index}`}
-        renderItem={({ item, index }) => {
+        renderItem={({ item, index }: ListRenderItemInfo<ItemType>) => {
           return (
             <HorizontalCardItem
               artist={item.type === 'artist' ? item : null}

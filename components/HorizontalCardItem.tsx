@@ -1,9 +1,30 @@
 import React from 'react'
 import { Text, Image, View, StyleSheet } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
+import { useNavigation } from '@react-navigation/native'
 
+import { RootStackParamList } from '../screens/RootStackParams'
 import { COLORS, FONTS, SIZES } from '../constants'
 import { trimText } from '../utils/helpers'
+import { StackNavigationProp } from '@react-navigation/stack'
+
+type horizontalCardItemNavProps = StackNavigationProp<RootStackParamList>
+
+interface IHorizontalCardItem {
+  imageUrl: string
+  cardLabel?: string
+  cardItemImageStyle?: object
+  cardItemTextStyle?: object
+  cardItemContainerStyle?: object
+  date: string
+  type: string
+  index: number
+  albumName: string
+  albumType: string
+  artists: Array<{ name: string }>
+  id: string
+  artist: object | null
+}
 
 const HorizontalCardItem = ({
   imageUrl,
@@ -18,9 +39,10 @@ const HorizontalCardItem = ({
   albumType,
   artists,
   id,
-  navigation,
   artist,
-}) => {
+}: IHorizontalCardItem) => {
+  const navigation = useNavigation<horizontalCardItemNavProps>()
+
   const onCardItemHandler = () => {
     navigation.navigate('Tracks', {
       mediaId: id,
