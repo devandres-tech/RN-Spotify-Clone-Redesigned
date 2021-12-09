@@ -3,13 +3,27 @@ import { View, Text, FlatList, TouchableOpacity } from 'react-native'
 
 import { COLORS, SIZES, FONTS } from '../constants'
 
-const HorizontalMenu = ({ menuItems, activeMenuItem, setActiveMenuItem }) => {
+interface IHorizontalMenu {
+  menuItems: Array<IMenuItemType>
+  activeMenuItem: IMenuItemType
+  setActiveMenuItem: (item: IMenuItemType) => void
+}
+
+interface IMenuItemType {
+  title: string
+  id: number
+}
+
+const HorizontalMenu = ({
+  menuItems,
+  activeMenuItem,
+  setActiveMenuItem,
+}: IHorizontalMenu) => {
   return (
     <View
       style={{
         alignItems: 'center',
         justifyContent: 'center',
-        paddingHorizontal: 5,
         paddingHorizontal: SIZES.padding,
         width: '100%',
       }}

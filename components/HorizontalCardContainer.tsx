@@ -23,7 +23,7 @@ interface ItemType {
   release_date: string
   albumName: string
   album_type: string
-  artists: Array<{}>
+  artists: Array<{ name: string }>
 }
 
 const HorizontalCardContainer = ({
@@ -46,7 +46,7 @@ const HorizontalCardContainer = ({
         horizontal
         showsHorizontalScrollIndicator={false}
         keyExtractor={(item, index) => `${item.id}-${item.name}-${index}`}
-        renderItem={({ item, index }: ListRenderItemInfo<ItemType>) => {
+        renderItem={({ item, index }) => {
           return (
             <HorizontalCardItem
               artist={item.type === 'artist' ? item : null}
