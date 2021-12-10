@@ -1,10 +1,11 @@
 import { BASE_URL } from '@env'
 import { CATEGORY_ITEMS } from '../../constants'
+import { Dispatch } from 'redux'
 
 export const GET_BROWSE_CATEGORIES = 'GET_BROWSE_CATEGORIES'
 export const GET_BROWSE_CATEGORIES_PLAYLISTS = 'GET_BROWSE_CATEGORIES_PLAYLISTS'
 
-const setHeaders = (accessToken) => {
+const setHeaders = (accessToken: string) => {
   return {
     'Content-Type': 'application/json',
     Accept: 'application/json',
@@ -13,13 +14,13 @@ const setHeaders = (accessToken) => {
 }
 
 export const getBrowseCategories = () => {
-  return async (dispatch) => {
+  return async (dispatch: Dispatch) => {
     dispatch({ type: GET_BROWSE_CATEGORIES, browseCategories: CATEGORY_ITEMS })
   }
 }
 
-export const getBrowseCategoriesPlaylists = (limit, id) => {
-  return async (dispatch, getState) => {
+export const getBrowseCategoriesPlaylists = (limit: string, id: string) => {
+  return async (dispatch: Dispatch, getState: any) => {
     const accessToken = getState().auth.accessToken
     try {
       const response = await fetch(
