@@ -1,3 +1,5 @@
+import { AnyAction } from 'redux'
+
 import {
   GET_LIBRARY_TOP_ARTISTS,
   GET_LIBRARY_TOP_TRACKS,
@@ -12,7 +14,7 @@ const initialState = {
   userAlbums: [],
 }
 
-export default (state = initialState, action) => {
+export default (state = initialState, action: AnyAction) => {
   switch (action.type) {
     case GET_LIBRARY_TOP_ARTISTS:
       return {

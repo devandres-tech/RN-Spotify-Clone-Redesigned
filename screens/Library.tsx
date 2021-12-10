@@ -7,41 +7,22 @@ import {
   HorizontalCardContainer,
   TrackItem,
 } from '../components'
-import { useSelector, useDispatch } from 'react-redux'
 import { useScrollToTop } from '@react-navigation/native'
 
-import { COLORS, SIZES, FONTS } from '../constants'
+import { useAppDispatch, useAppSelector } from '../hooks/hooks'
+import { COLORS, SIZES, FONTS, LIBRARY_MENU_ITEMS } from '../constants'
 import * as libraryActions from '../store/actions/library'
 import * as playerActions from '../store/actions/audioPlayer'
 import * as playlistActions from '../store/actions/playlist'
 import * as userActions from '../store/actions/user'
 
-const menuItems = [
-  {
-    title: 'Made For You',
-    id: 1,
-  },
-  {
-    title: 'Recently Played',
-    id: 2,
-  },
-  {
-    title: 'Liked Songs',
-    id: 3,
-  },
-  {
-    title: 'Albums',
-    id: 4,
-  },
-]
-
 const Library = ({ navigation }) => {
-  const [activeMenuItem, setActiveMenuItem] = useState(menuItems[0])
-  const library = useSelector((state) => state.library)
-  const playlist = useSelector((state) => state.playlist)
-  const user = useSelector((state) => state.user)
+  const [activeMenuItem, setActiveMenuItem] = useState(LIBRARY_MENU_ITEMS[0])
+  const library = useAppSelector((state) => state.library)
+  const playlist = useAppSelector((state) => state.playlist)
+  const user = useAppSelector((state) => state.user)
   const ref = React.useRef(null)
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const filteredUserTracks = library.userTracks.filter(
     (track) => track.preview_url !== null
   )
@@ -105,7 +86,6 @@ const Library = ({ navigation }) => {
     return filteredUserTracks.map((track) => {
       return (
         <TrackItem
-          key={track.id}
           albumName={track.album.name}
           id={track.id}
           url={track.preview_url}
@@ -136,7 +116,7 @@ const Library = ({ navigation }) => {
             <HorizontalMenu
               activeMenuItem={activeMenuItem}
               setActiveMenuItem={setActiveMenuItem}
-              menuItems={menuItems}
+              menuItems={LIBRARY_MENU_ITEMS}
             />
           </View>
         }

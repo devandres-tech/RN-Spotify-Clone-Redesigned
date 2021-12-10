@@ -1,4 +1,6 @@
-import TrackPlayer from 'react-native-track-player'
+import TrackPlayer, { Track } from 'react-native-track-player'
+import { Dispatch } from 'redux'
+
 import { shuffle } from '../../utils/helpers'
 
 export const PLAY_TRACK = 'PLAY_TRACK'
@@ -14,63 +16,72 @@ export const REPEAT_ONE = 'REPEAT_ONE'
 export const REPEAT_ALL = 'REPEAT_ALL'
 export const UNSET_REPEAT = 'UNSET_REPEAT'
 
+interface ITrack {
+  artists: [{ name: string }]
+  id: string
+  preview_url: string
+  name: string
+  album: { name: string; images: [{ url: string }] }
+  duration_ms: string
+}
+
 export const init = () => {
-  return async (dispatch) => {
+  return async (dispatch: Dispatch) => {
     await TrackPlayer.setupPlayer({})
     dispatch({ type: INIT_PLAYER })
   }
 }
 
 export const playTrack = () => {
-  return async (dispatch) => {
+  return async (dispatch: Dispatch) => {
     await TrackPlayer.play()
     dispatch({ type: PLAY_TRACK, isTrackPlaying: true })
   }
 }
 
 export const pauseTrack = () => {
-  return async (dispatch) => {
+  return async (dispatch: Dispatch) => {
     await TrackPlayer.pause()
     dispatch({ type: PAUSE_TRACK, isTrackPlaying: false })
   }
 }
 
-export const setCurrentTrack = (currentTrack) => {
-  return async (dispatch) => {
+export const setCurrentTrack = (currentTrack: Track | Track[]) => {
+  return async (dispatch: Dispatch) => {
     await TrackPlayer.add(currentTrack)
     dispatch({ type: SET_CURRENT_TRACK, currentTrack })
   }
 }
 
-export const setTracks = (tracks) => {
-  return async (dispatch) => {
+export const setTracks = (tracks: []) => {
+  return async (dispatch: Dispatch) => {
     dispatch({ type: SET_TRACKS, tracks })
   }
 }
 
 export const resetPlayer = () => {
-  return async (dispatch) => {
+  return async (dispatch: Dispatch) => {
     await TrackPlayer.reset()
     dispatch({ type: RESET_PLAYER })
   }
 }
 
-export const seekToPosition = (value) => {
-  return async (dispatch) => {
+export const seekToPosition = (value: number) => {
+  return async (dispatch: Dispatch) => {
     await TrackPlayer.seekTo(value)
     dispatch({ type: SEEK_TO_POSITION })
   }
 }
 
 export const playNextTrack = () => {
-  return async (dispatch, getState) => {
+  return async (dispatch: Dispatch, getState: any) => {
     const player = getState().audioPlayer
     const isAlbum = getState().track.type === 'album'
     const lastIndex = player.tracks.length - 1
     const currentTrackIndex = player.tracks.findIndex(
-      (track) => track.id === player.currentTrack.id
+      (track: ITrack) => track.id === player.currentTrack.id
     )
-    let nextTrack
+    let nextTrack: ITrack
     if (currentTrackIndex === lastIndex) {
       nextTrack = player.tracks[0]
     } else {
@@ -79,9 +90,27 @@ export const playNextTrack = () => {
     const artistsNames = nextTrack.artists
       .map((artist) => artist.name)
       .join(', ')
-    dispatch(resetPlayer())
-    dispatch(
-      setCurrentTrack({
+    // dispatch(resetPlayer())
+    // dispatch(
+    //   setCurrentTrack({
+    //     id: nextTrack.id,
+    //     url: nextTrack.preview_url,
+    //     title: nextTrack.name,
+    //     artist: artistsNames,
+    //     album: isAlbum ? getState().track.name : nextTrack.album.name,
+    //     genre: '',
+    //     artwork: isAlbum
+    //       ? getState().track.images[0].url
+    //       : nextTrack.album.images[0].url,
+    //     duration: nextTrack.duration_ms,
+    //     searchTerm: player.currentTrack.searchTerm
+    //       ? player.currentTrack.searchTerm
+    //       : '',
+    //   })
+    dispatch({ type: RESET_PLAYER })
+    dispatch({
+      type: SET_CURRENT_TRACK,
+      currentTrack: {
         id: nextTrack.id,
         url: nextTrack.preview_url,
         title: nextTrack.name,
@@ -95,32 +124,53 @@ export const playNextTrack = () => {
         searchTerm: player.currentTrack.searchTerm
           ? player.currentTrack.searchTerm
           : '',
-      })
-    )
+      },
+    })
+
     if (currentTrackIndex === lastIndex && !player.repeat.all) {
-      dispatch(pauseTrack())
+      // dispatch(pauseTrack())
+      dispatch({ type: PAUSE_TRACK })
     } else {
-      dispatch(playTrack())
+      dispatch({ type: PLAY_TRACK })
     }
   }
 }
 
 export const playPrevTrack = () => {
-  return async (dispatch, getState) => {
+  return async (dispatch: Dispatch, getState: any) => {
     const player = getState().audioPlayer
     const isAlbum = getState().track.type === 'album'
     const currentTrackIndex = player.tracks.findIndex(
-      (track) => track.id === player.currentTrack.id
+      (track: ITrack) => track.id === player.currentTrack.id
     )
     if (currentTrackIndex < 1) {
       if (player.repeat.all) {
-        const prevTrack = player.tracks[player.tracks.length - 1]
+        const prevTrack: ITrack = player.tracks[player.tracks.length - 1]
         const artistsNames = prevTrack.artists
-          .map((artist) => artist.name)
+          .map((artist: { name: any }) => artist.name)
           .join(', ')
-        dispatch(resetPlayer())
-        dispatch(
-          setCurrentTrack({
+        // dispatch(resetPlayer())
+        dispatch({ type: RESET_PLAYER })
+        // dispatch(
+        //   setCurrentTrack({
+        //     id: prevTrack.id,
+        //     url: prevTrack.preview_url,
+        //     title: prevTrack.name,
+        //     artist: artistsNames,
+        //     album: isAlbum ? getState().track.name : prevTrack.album.name,
+        //     genre: '',
+        //     artwork: isAlbum
+        //       ? getState().track.images[0].url
+        //       : prevTrack.album.images[0].url,
+        //     duration: prevTrack.duration_ms,
+        //     searchTerm: player.currentTrack.searchTerm
+        //       ? player.currentTrack.searchTerm
+        //       : '',
+        //   })
+        // )
+        dispatch({
+          type: SET_CURRENT_TRACK,
+          currentTrack: {
             id: prevTrack.id,
             url: prevTrack.preview_url,
             title: prevTrack.name,
@@ -134,20 +184,40 @@ export const playPrevTrack = () => {
             searchTerm: player.currentTrack.searchTerm
               ? player.currentTrack.searchTerm
               : '',
-          })
-        )
-        dispatch(playTrack())
+          },
+        })
+        // dispatch(playTrack())
+        dispatch({ type: PLAY_TRACK })
       } else {
         TrackPlayer.seekTo(0)
       }
     } else {
       const prevTrack = player.tracks[currentTrackIndex - 1]
       const artistsNames = prevTrack.artists
-        .map((artist) => artist.name)
+        .map((artist: { name: any }) => artist.name)
         .join(', ')
-      dispatch(resetPlayer())
-      dispatch(
-        setCurrentTrack({
+      // dispatch(resetPlayer())
+      dispatch({ type: RESET_PLAYER })
+      // dispatch(
+      //   setCurrentTrack({
+      //     id: prevTrack.id,
+      //     url: prevTrack.preview_url,
+      //     title: prevTrack.name,
+      //     artist: artistsNames,
+      //     album: isAlbum ? getState().track.name : prevTrack.album.name,
+      //     genre: '',
+      //     artwork: isAlbum
+      //       ? getState().track.images[0].url
+      //       : prevTrack.album.images[0].url,
+      //     duration: prevTrack.duration_ms,
+      //     searchTerm: player.currentTrack.searchTerm
+      //       ? player.currentTrack.searchTerm
+      //       : '',
+      //   })
+      // )
+      dispatch({
+        type: SET_CURRENT_TRACK,
+        currentTrack: {
           id: prevTrack.id,
           url: prevTrack.preview_url,
           title: prevTrack.name,
@@ -161,21 +231,23 @@ export const playPrevTrack = () => {
           searchTerm: player.currentTrack.searchTerm
             ? player.currentTrack.searchTerm
             : '',
-        })
-      )
-      dispatch(playTrack())
+        },
+      })
+
+      // dispatch(playTrack())
+      dispatch({ type: PLAY_TRACK })
     }
   }
 }
 
 export const shuffleTracks = () => {
-  return async (dispatch, getState) => {
+  return async (dispatch: Dispatch, getState: any) => {
     const player = getState().audioPlayer
     const currentTrack = player.tracks.find(
-      (track) => track.id === player.currentTrack.id
+      (track: ITrack) => track.id === player.currentTrack.id
     )
     const filteredTracks = player.tracks.filter(
-      (track) => track.id !== currentTrack.id
+      (track: ITrack) => track.id !== currentTrack.id
     )
     const randomTracks = shuffle(filteredTracks)
     randomTracks.unshift(currentTrack)
@@ -184,7 +256,7 @@ export const shuffleTracks = () => {
 }
 
 export const unShuffleTracks = () => {
-  return async (dispatch, getState) => {
+  return async (dispatch: Dispatch, getState: any) => {
     const track = getState().track
     const originalTracks =
       track.type === 'track' ? [track] : getState().track.tracks.items
@@ -193,7 +265,7 @@ export const unShuffleTracks = () => {
 }
 
 export const repeatOne = () => {
-  return async (dispatch) => {
+  return async (dispatch: Dispatch) => {
     dispatch({
       type: REPEAT_ONE,
       repeat: { one: true, all: false },
@@ -202,7 +274,7 @@ export const repeatOne = () => {
 }
 
 export const repeatAll = () => {
-  return async (dispatch) => {
+  return async (dispatch: Dispatch) => {
     dispatch({
       type: REPEAT_ALL,
       repeat: { one: false, all: true },

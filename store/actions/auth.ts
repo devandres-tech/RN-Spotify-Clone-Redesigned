@@ -2,6 +2,7 @@ import { Platform } from 'react-native'
 import { authorize, refresh } from 'react-native-app-auth'
 import { CLIENT_ID, REDIRECT_URL } from '@env'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { Dispatch } from 'redux'
 
 export const AUTHENTICATE_SUCCESS = 'AUTHENTICATE_SUCCESS'
 export const AUTHENTICATE_FAIL = 'AUTHENTICATE_FAIL'
@@ -14,7 +15,7 @@ const spotifyAuthConfig = {
   redirectUrl: REDIRECT_URL,
   usePKCE: false,
   dangerouslyAllowInsecureHttpRequests: true,
-  clientAuthMethod: 'post',
+  issuer: 'https://accounts.spotify.com',
   scopes: [
     'playlist-read-private',
     'user-read-private',
@@ -38,9 +39,9 @@ const spotifyAuthConfig = {
 }
 
 const saveTokensToAsyncStorage = (
-  accessToken,
-  refreshToken,
-  accessTokenExpirationDate
+  accessToken: string,
+  refreshToken: string,
+  accessTokenExpirationDate: string
 ) => {
   AsyncStorage.setItem(
     'authData',
@@ -53,7 +54,7 @@ const saveTokensToAsyncStorage = (
 }
 
 export const authenticate = () => {
-  return async (dispatch) => {
+  return async (dispatch: Dispatch) => {
     try {
       dispatch({ type: AUTHENTICATE_LOADING, tokenIsLoading: true })
       const { accessToken, refreshToken, accessTokenExpirationDate } =
@@ -81,8 +82,8 @@ export const authenticate = () => {
   }
 }
 
-export const setTokens = (accessToken, refreshToken) => {
-  return async (dispatch) => {
+export const setTokens = (accessToken: string, refreshToken: string) => {
+  return async (dispatch: Dispatch) => {
     dispatch({
       type: SET_TOKENS,
       accessToken,
@@ -91,8 +92,10 @@ export const setTokens = (accessToken, refreshToken) => {
   }
 }
 
-export const requestRefreshedAccessToken = (refreshTokenFromStorage) => {
-  return async (dispatch) => {
+export const requestRefreshedAccessToken = (
+  refreshTokenFromStorage: string
+) => {
+  return async (dispatch: Dispatch) => {
     try {
       const { accessToken, refreshToken, accessTokenExpirationDate } =
         await refresh(spotifyAuthConfig, {

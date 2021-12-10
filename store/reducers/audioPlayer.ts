@@ -1,3 +1,5 @@
+import { AnyAction } from 'redux'
+
 import {
   PAUSE_TRACK,
   PLAY_TRACK,
@@ -13,7 +15,15 @@ import {
   UNSET_REPEAT,
 } from '../actions/audioPlayer'
 
-const initialState = {
+interface AudioPlayerState {
+  isTrackPlaying: boolean
+  currentTrack: { url: string }
+  tracks: Array<{}>
+  isShuffle: boolean
+  repeat: { one: boolean; all: boolean }
+}
+
+const initialState: AudioPlayerState = {
   isTrackPlaying: false,
   currentTrack: { url: '' },
   tracks: [{}],
@@ -21,7 +31,7 @@ const initialState = {
   repeat: { one: false, all: false },
 }
 
-export default (state = initialState, action) => {
+export default (state = initialState, action: AnyAction) => {
   switch (action.type) {
     case INIT_PLAYER:
       return {

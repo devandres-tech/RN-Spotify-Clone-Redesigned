@@ -1,3 +1,4 @@
+import { AnyAction } from 'redux'
 import {
   GET_ALBUM_TRACKS,
   GET_PLAYLIST_TRACKS,
@@ -16,7 +17,7 @@ const initialState = {
   followers: { total: 0 },
 }
 
-export default (state = initialState, action) => {
+export default (state = initialState, action: AnyAction) => {
   switch (action.type) {
     case GET_ALBUM_TRACKS:
       return {

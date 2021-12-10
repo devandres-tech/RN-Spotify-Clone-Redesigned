@@ -1,22 +1,36 @@
+import { AnyAction } from 'redux'
+
 import {
   GET_CATEGORIES_PLAYLISTS,
   GET_FEATURED_PLAYLISTS,
   GET_NEW_RELEASES,
 } from '../actions/playlist'
 
-const initialState = {
+interface PlaylistState {
+  topLists: Array<{}>
+  featured: Array<{ images: string | undefined }>
+  newReleases: Array<{}>
+  album: {
+    tracks: { items: Array<{}> }
+    images: Array<{ url: string }>
+    followers: { total: number }
+    name: string
+  }
+}
+
+const initialState: PlaylistState = {
   topLists: [],
   featured: [{ images: undefined }],
   newReleases: [],
   album: {
     tracks: { items: [] },
-    images: [{ url: 'hii' }],
+    images: [{ url: '' }],
     followers: { total: 0 },
     name: '',
   },
 }
 
-export default (state = initialState, action) => {
+export default (state = initialState, action: AnyAction) => {
   switch (action.type) {
     case GET_CATEGORIES_PLAYLISTS:
       return {

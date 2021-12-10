@@ -8,6 +8,7 @@ import { COLORS, SIZES, FONTS, icons } from '../constants'
 import { trimText } from '../utils/helpers'
 
 interface ITrackItem {
+  id: string
   trackId: string
   url: string
   trackName: string

@@ -1,3 +1,4 @@
+import { AnyAction } from 'redux'
 import {
   GET_USER_PLAYLISTS,
   GET_USER_PROFILE,
@@ -24,7 +25,7 @@ const initialState = {
   follows: [],
 }
 
-export default (state = initialState, action) => {
+export default (state = initialState, action: AnyAction) => {
   switch (action.type) {
     case GET_USER_PROFILE:
       return {

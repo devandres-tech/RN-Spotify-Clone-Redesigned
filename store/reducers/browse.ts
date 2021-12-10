@@ -1,25 +1,29 @@
+import { AnyAction } from 'redux'
+
 import {
   GET_BROWSE_CATEGORIES,
   GET_BROWSE_CATEGORIES_PLAYLISTS,
 } from '../actions/browse'
 
-const initialState = {
+interface BrowseState {
+  categories: []
+  toplists: Array<{ description: string; images: Array<{ url: string }> }>
+  hiphop: Array<{ description: string; images: Array<{ url: string }> }>
+  pop: Array<{ description: string; images: Array<{ url: string }> }>
+  country: Array<{ description: string; images: Array<{ url: string }> }>
+  rock: Array<{ description: string; images: Array<{ url: string }> }>
+}
+
+const initialState: BrowseState = {
   categories: [],
   toplists: [{ description: '', images: [{ url: '' }] }],
   hiphop: [{ description: '', images: [{ url: '' }] }],
   pop: [{ description: '', images: [{ url: '' }] }],
   country: [{ description: '', images: [{ url: '' }] }],
   rock: [{ description: '', images: [{ url: '' }] }],
-  latin: [{ description: '', images: [{ url: '' }] }],
-  in_the_car: [{ description: '', images: [{ url: '' }] }],
-  regional_mexican: [{ description: '', images: [{ url: '' }] }],
-  mood: [{ description: '', images: [{ url: '' }] }],
-  equal: [{ description: '', images: [{ url: '' }] }],
-  at_home: [{ description: '', images: [{ url: '' }] }],
-  pride: [{ description: '', images: [{ url: '' }] }],
 }
 
-export default (state = initialState, action) => {
+export default (state = initialState, action: AnyAction) => {
   switch (action.type) {
     case GET_BROWSE_CATEGORIES:
       return {

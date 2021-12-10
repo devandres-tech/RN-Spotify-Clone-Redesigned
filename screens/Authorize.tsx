@@ -1,13 +1,13 @@
 import React from 'react'
 import { View } from 'react-native'
-import { useDispatch } from 'react-redux'
 
+import { useAppDispatch } from '../hooks/hooks'
 import { COLORS } from '../constants'
 import * as authActions from '../store/actions/auth'
 import { TextButton } from '../components'
 
 const Authorize = () => {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
   return (
     <View

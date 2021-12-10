@@ -1,6 +1,32 @@
+import { AnyAction } from 'redux'
+
 import { GET_SEARCH_ITEM, GET_SEARCH_ITEM_LOADING } from '../actions/search'
 
-const initialState = {
+type searchItem = {
+  items: Array<{
+    name: string
+    images: undefined | []
+    artists: Array<{ name: string }>
+  }>
+}
+
+interface SearchState {
+  isLoading: boolean
+  results: {
+    artists: searchItem
+    albums: searchItem
+    tracks: {
+      items: Array<{
+        name: string
+        album: undefined | []
+        artists: Array<{ name: string }>
+      }>
+    }
+    playlists: searchItem
+  }
+}
+
+const initialState: SearchState = {
   isLoading: true,
   results: {
     artists: {
@@ -18,7 +44,7 @@ const initialState = {
   },
 }
 
-export default (state = initialState, action) => {
+export default (state = initialState, action: AnyAction) => {
   switch (action.type) {
     case GET_SEARCH_ITEM:
       return {
