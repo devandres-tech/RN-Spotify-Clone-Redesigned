@@ -1,6 +1,8 @@
 import TrackPlayer, { Track } from 'react-native-track-player'
-import { Dispatch } from 'redux'
+import { AnyAction } from 'redux'
+import { ThunkAction } from 'redux-thunk'
 
+import { RootState } from '../index'
 import { shuffle } from '../../utils/helpers'
 
 export const PLAY_TRACK = 'PLAY_TRACK'
@@ -39,8 +41,14 @@ export const playTrack = () => {
   }
 }
 
-export const pauseTrack = () => {
-  return async (dispatch: Dispatch) => {
+// Make the stand the type a stand along function
+export const pauseTrack = (): ThunkAction<
+  void,
+  RootState,
+  unknown,
+  AnyAction
+> => {
+  return async (dispatch) => {
     await TrackPlayer.pause()
     dispatch({ type: PAUSE_TRACK, isTrackPlaying: false })
   }
@@ -74,7 +82,7 @@ export const seekToPosition = (value: number) => {
 }
 
 export const playNextTrack = () => {
-  return async (dispatch: Dispatch, getState: any) => {
+  return async (dispatch, getState) => {
     const player = getState().audioPlayer
     const isAlbum = getState().track.type === 'album'
     const lastIndex = player.tracks.length - 1
@@ -283,7 +291,7 @@ export const repeatAll = () => {
 }
 
 export const unsetRepeat = () => {
-  return async (dispatch) => {
+  return async (dispatch: Dispatch) => {
     dispatch({
       type: UNSET_REPEAT,
       repeat: { one: false, all: false },

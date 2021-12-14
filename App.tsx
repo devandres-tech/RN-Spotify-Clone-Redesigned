@@ -23,26 +23,26 @@ const App = () => {
     SplashScreen.hide()
   }, [])
 
-  useEffect(() => {
-    const tryLogin = async () => {
-      const authData = await AsyncStorage.getItem('authData')
-      if (!authData) {
-        return
-      }
-      const { accessToken, refreshToken, accessTokenExpirationDate } =
-        await JSON.parse(authData)
-      if (
-        new Date(accessTokenExpirationDate) <= new Date() ||
-        !accessToken ||
-        !refreshToken
-      ) {
-        dispatch(authActions.requestRefreshedAccessToken(refreshToken))
-        return
-      }
-      dispatch(authActions.setTokens(accessToken, refreshToken))
-    }
-    tryLogin()
-  }, [dispatch])
+  // useEffect(() => {
+  //   const tryLogin = async () => {
+  //     const authData = await AsyncStorage.getItem('authData')
+  //     if (!authData) {
+  //       return
+  //     }
+  //     const { accessToken, refreshToken, accessTokenExpirationDate } =
+  //       await JSON.parse(authData)
+  //     if (
+  //       new Date(accessTokenExpirationDate) <= new Date() ||
+  //       !accessToken ||
+  //       !refreshToken
+  //     ) {
+  //       dispatch(authActions.requestRefreshedAccessToken(refreshToken))
+  //       return
+  //     }
+  //     dispatch(authActions.setTokens(accessToken, refreshToken))
+  //   }
+  //   tryLogin()
+  // }, [dispatch])
 
   if (auth.tokenIsLoading) {
     return <LoadingSpinner />

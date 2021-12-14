@@ -1,11 +1,12 @@
 import { BASE_URL } from '@env'
+import { Dispatch } from 'redux'
 
 export const GET_LIBRARY_TOP_ARTISTS = 'GET_LIBRARY_TOP_ARTISTS'
 export const GET_LIBRARY_TOP_TRACKS = 'GET_LIBRARY_TOP_TRACKS'
 export const GET_LIBRARY_USER_TRACKS = 'GET_LIBRARY_USER_TRACKS'
 export const GET_LIBRARY_USER_ALBUMS = 'GET_LIBRARY_USER_ALBUMS'
 
-const setHeaders = (accessToken) => {
+const setHeaders = (accessToken: string) => {
   return {
     'Content-Type': 'application/json',
     Accept: 'application/json',
@@ -14,7 +15,7 @@ const setHeaders = (accessToken) => {
 }
 
 export const getTopArtists = () => {
-  return async (dispatch, getState) => {
+  return async (dispatch: Dispatch, getState: any) => {
     const accessToken = getState().auth.accessToken
     try {
       const response = await fetch(
@@ -34,7 +35,7 @@ export const getTopArtists = () => {
 }
 
 export const getTopTracks = () => {
-  return async (dispatch, getState) => {
+  return async (dispatch: Dispatch, getState: any) => {
     const accessToken = getState().auth.accessToken
     try {
       const response = await fetch(
@@ -46,7 +47,7 @@ export const getTopTracks = () => {
       )
 
       const data = await response.json()
-      const albums = data.items.map((item) => {
+      const albums = data.items.map((item: any) => {
         const trackName = item.name
         const albumName = item.album.name
         const id = item.id
@@ -61,7 +62,7 @@ export const getTopTracks = () => {
 }
 
 export const getUserTracks = () => {
-  return async (dispatch, getState) => {
+  return async (dispatch: Dispatch, getState: any) => {
     const accessToken = getState().auth.accessToken
     try {
       const response = await fetch(`${BASE_URL}/me/tracks?limit=20`, {
@@ -70,7 +71,7 @@ export const getUserTracks = () => {
       })
 
       const data = await response.json()
-      const albums = data.items.map((item) => {
+      const albums = data.items.map((item: any) => {
         const trackName = item.track.name
         const albumName = item.track.album.name
         const id = item.track.id

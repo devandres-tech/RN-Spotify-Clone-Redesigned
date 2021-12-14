@@ -3,8 +3,9 @@ import { View } from 'react-native'
 
 import { useAppDispatch } from '../hooks/hooks'
 import { COLORS } from '../constants'
-import * as authActions from '../store/actions/auth'
+// import * as authActions from '../store/actions/auth'
 import { TextButton } from '../components'
+import { authenticateUserAsync } from '../store/slices/authSlice'
 
 const Authorize = () => {
   const dispatch = useAppDispatch()
@@ -19,7 +20,7 @@ const Authorize = () => {
       }}
     >
       <TextButton
-        onPress={() => dispatch(authActions.authenticate())}
+        onPress={() => dispatch(authenticateUserAsync())}
         label='LOG IN TO SPOTIFY'
       />
     </View>
