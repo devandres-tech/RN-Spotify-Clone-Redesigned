@@ -19,7 +19,7 @@ export const getBrowseCategoriesPlaylistsAsync = createAsyncThunk<
   any,
   { state: RootState }
 >(
-  'browse/getCategories',
+  'browse/getCategoriesPlaylists',
   async (
     args: { limit: string; id: string },
     { getState, rejectWithValue }
