@@ -37,11 +37,61 @@ export const getAlbumTracksAsync = createAsyncThunk<
   }
 )
 
+export const getPlaylistTracksAsync = createAsyncThunk<
+  any,
+  any,
+  { state: RootState; rejectValue: any }
+>(
+  'track/getPlaylistTracks',
+  async (playlistId: string, { getState, rejectWithValue }) => {
+    const accessToken = getState().auth.accessToken
+    try {
+      const response = await fetch(`${BASE_URL}/playlists/${playlistId}`, {
+        method: 'GET',
+        headers: setHeaders(accessToken),
+      })
+      const data = await response.json()
+      return data
+    } catch (error) {
+      return rejectWithValue(error)
+    }
+  }
+)
+
+export const getArtistTracksAsync = createAsyncThunk<
+  any,
+  any,
+  { state: RootState; rejectValue: any }
+>(
+  'track/getArtistTracks',
+  async (artistId: string, { getState, rejectWithValue }) => {
+    const accessToken = getState().auth.accessToken
+    try {
+      const response = await fetch(
+        `${BASE_URL}/artists/${artistId}/top-tracks?market=US`,
+        {
+          method: 'GET',
+          headers: setHeaders(accessToken),
+        }
+      )
+      const data = await response.json()
+      return data
+    } catch (error) {
+      return rejectWithValue(error)
+    }
+  }
+)
+
 // TODO finish creating playlist, artist, and set track
 const trackSlice = createSlice({
   name: 'track',
   initialState,
-  reducers: {},
+  reducers: {
+    setTrack: (state, action) => {
+      const { track } = action.payload
+      return { ...track, tracks: { items: [track] } }
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(getAlbumTracksAsync.pending, (state) => {
       state.isLoading = true
@@ -53,9 +103,35 @@ const trackSlice = createSlice({
       payload.data.tracks.items = filteredTracks
       return { ...payload.data, isLoading: false }
     })
-    builder.addCase(getAlbumTracksAsync.rejected, (state, action) => {
-      state.isLoading = false
-      state.error = action.payload
+    builder.addCase(getPlaylistTracksAsync.pending, (state, action) => {
+      state.isLoading = true
+    })
+    builder.addCase(getPlaylistTracksAsync.fulfilled, (state, action) => {
+      const { data } = action.payload
+      const flattenPlaylistTracks = data.tracks.items.map(
+        (track: { track: any }) => {
+          return { ...track, ...track.track }
+        }
+      )
+      data.tracks.items = flattenPlaylistTracks.filter(
+        (track: { preview_url: null }) => track.preview_url !== null
+      )
+      return { ...data, isLoading: false }
+    })
+    builder.addCase(getArtistTracksAsync.pending, (state, action) => {
+      state.isLoading = true
+    })
+    builder.addCase(getArtistTracksAsync.fulfilled, (state, action) => {
+      const { data } = action.payload
+      const flattenPlaylistTracks = data.tracks.items.map(
+        (track: { track: any }) => {
+          return { ...track, ...track.track }
+        }
+      )
+      data.tracks.items = flattenPlaylistTracks.filter(
+        (track: { preview_url: null }) => track.preview_url !== null
+      )
+      return { ...data, isLoading: false }
     })
   },
 })
