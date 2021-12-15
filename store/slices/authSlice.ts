@@ -19,6 +19,61 @@ const initialState: IAuthState = {
   error: null,
 }
 
+const saveTokensToAsyncStorage = (
+  accessToken: string,
+  refreshToken: string | null,
+  accessTokenExpirationDate: string
+) => {
+  AsyncStorage.setItem(
+    'authData',
+    JSON.stringify({
+      accessToken,
+      refreshToken,
+      accessTokenExpirationDate,
+    })
+  )
+}
+
+export const authenticateUserAsync = createAsyncThunk(
+  'auth/authenticateUser',
+  async (_, { rejectWithValue }) => {
+    try {
+      const { accessToken, refreshToken, accessTokenExpirationDate } =
+        await authorize(spotifyAuthConfig)
+      // save to device storage
+      saveTokensToAsyncStorage(
+        accessToken,
+        refreshToken,
+        accessTokenExpirationDate
+      )
+      return { accessToken, refreshToken, accessTokenExpirationDate }
+    } catch (error) {
+      return rejectWithValue(error)
+    }
+  }
+)
+
+export const requestRefreshedAccessTokenAsync = createAsyncThunk(
+  'auth/refreshAccessToken',
+  async (refreshTokenFromStorage: string, { rejectWithValue }) => {
+    try {
+      const { accessToken, refreshToken, accessTokenExpirationDate } =
+        await refresh(spotifyAuthConfig, {
+          refreshToken: refreshTokenFromStorage,
+        })
+      // save to device storage
+      saveTokensToAsyncStorage(
+        accessToken,
+        refreshToken,
+        accessTokenExpirationDate
+      )
+      return { accessToken, refreshToken, accessTokenExpirationDate }
+    } catch (error) {
+      return rejectWithValue(error)
+    }
+  }
+)
+
 const authSlice = createSlice({
   name: 'auth',
   initialState,
@@ -74,60 +129,5 @@ const authSlice = createSlice({
 })
 
 export const { setTokens } = authSlice.actions
-
-const saveTokensToAsyncStorage = (
-  accessToken: string,
-  refreshToken: string | null,
-  accessTokenExpirationDate: string
-) => {
-  AsyncStorage.setItem(
-    'authData',
-    JSON.stringify({
-      accessToken,
-      refreshToken,
-      accessTokenExpirationDate,
-    })
-  )
-}
-
-export const authenticateUserAsync = createAsyncThunk(
-  'auth/authenticateUser',
-  async (_, { rejectWithValue }) => {
-    try {
-      const { accessToken, refreshToken, accessTokenExpirationDate } =
-        await authorize(spotifyAuthConfig)
-      // save to device storage
-      saveTokensToAsyncStorage(
-        accessToken,
-        refreshToken,
-        accessTokenExpirationDate
-      )
-      return { accessToken, refreshToken, accessTokenExpirationDate }
-    } catch (error) {
-      return rejectWithValue(error)
-    }
-  }
-)
-
-export const requestRefreshedAccessTokenAsync = createAsyncThunk(
-  'auth/refreshAccessToken',
-  async (refreshTokenFromStorage: string, { rejectWithValue }) => {
-    try {
-      const { accessToken, refreshToken, accessTokenExpirationDate } =
-        await refresh(spotifyAuthConfig, {
-          refreshToken: refreshTokenFromStorage,
-        })
-      // save to device storage
-      saveTokensToAsyncStorage(
-        accessToken,
-        refreshToken,
-        accessTokenExpirationDate
-      )
-      return { accessToken, refreshToken, accessTokenExpirationDate }
-    } catch (error) {
-      return rejectWithValue(error)
-    }
-  }
-)
 
 export default authSlice.reducer

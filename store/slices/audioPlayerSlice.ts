@@ -196,6 +196,7 @@ export const unShuffleTracksAsync = createAsyncThunk<
     track.type === 'track' ? [track] : getState().track.tracks.items
   return originalTracks
 })
+
 const audioPlayerSlice = createSlice({
   name: 'audioPlayer',
   initialState,
@@ -236,7 +237,7 @@ const audioPlayerSlice = createSlice({
   },
 })
 
-const { setTracks, repeatOne, repeatAll, unsetRepeat } =
+export const { setTracks, repeatOne, repeatAll, unsetRepeat } =
   audioPlayerSlice.actions
 
 export default audioPlayerSlice.reducer

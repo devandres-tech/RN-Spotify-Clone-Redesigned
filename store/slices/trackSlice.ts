@@ -82,7 +82,6 @@ export const getArtistTracksAsync = createAsyncThunk<
   }
 )
 
-// TODO finish creating playlist, artist, and set track
 const trackSlice = createSlice({
   name: 'track',
   initialState,
@@ -135,5 +134,7 @@ const trackSlice = createSlice({
     })
   },
 })
+
+export const { setTrack } = trackSlice.actions
 
 export default trackSlice.reducer
