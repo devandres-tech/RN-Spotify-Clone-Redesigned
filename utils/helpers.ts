@@ -1,4 +1,4 @@
-export const secondsToHHMMSS = (seconds) => {
+export const secondsToHHMMSS = (seconds: number) => {
   seconds = Number(seconds)
   const h = Math.floor(seconds / 3600)
   const m = Math.floor((seconds % 3600) / 60)
@@ -11,7 +11,7 @@ export const secondsToHHMMSS = (seconds) => {
 }
 
 // fisher yates algorithm
-export const shuffle = (arrayItems) => {
+export const shuffle = (arrayItems: {}[]) => {
   var i = arrayItems.length,
     randIndex,
     temp
@@ -24,8 +24,22 @@ export const shuffle = (arrayItems) => {
   return [...arrayItems]
 }
 
-export const trimText = (text, maxLength) => {
+export const trimText = (text: string, maxLength: number) => {
   return text.length > maxLength
     ? text.substring(0, maxLength) + '...'
     : text.trim()
+}
+
+export const formatText = (
+  textArr: {
+    name: string
+  }[]
+) => textArr.map((text) => text.name).join(', ')
+
+export const setHeaders = (accessToken: string) => {
+  return {
+    'Content-Type': 'application/json',
+    Accept: 'application/json',
+    Authorization: `Bearer ${accessToken}`,
+  }
 }

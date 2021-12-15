@@ -11,7 +11,10 @@ import { useAppSelector, useAppDispatch } from './hooks/hooks'
 import { Authorize, Tracks, TrackPlayer } from './screens'
 import { MainTabNavigator, LoadingSpinner } from './components'
 import { verticalAnimation } from './utils/animations'
-import * as authActions from './store/actions/auth'
+import {
+  setTokens,
+  requestRefreshedAccessTokenAsync,
+} from './store/slices/authSlice'
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
 
@@ -23,26 +26,26 @@ const App = () => {
     SplashScreen.hide()
   }, [])
 
-  // useEffect(() => {
-  //   const tryLogin = async () => {
-  //     const authData = await AsyncStorage.getItem('authData')
-  //     if (!authData) {
-  //       return
-  //     }
-  //     const { accessToken, refreshToken, accessTokenExpirationDate } =
-  //       await JSON.parse(authData)
-  //     if (
-  //       new Date(accessTokenExpirationDate) <= new Date() ||
-  //       !accessToken ||
-  //       !refreshToken
-  //     ) {
-  //       dispatch(authActions.requestRefreshedAccessToken(refreshToken))
-  //       return
-  //     }
-  //     dispatch(authActions.setTokens(accessToken, refreshToken))
-  //   }
-  //   tryLogin()
-  // }, [dispatch])
+  useEffect(() => {
+    const tryLogin = async () => {
+      const authData = await AsyncStorage.getItem('authData')
+      if (!authData) {
+        return
+      }
+      const { accessToken, refreshToken, accessTokenExpirationDate } =
+        await JSON.parse(authData)
+      if (
+        new Date(accessTokenExpirationDate) <= new Date() ||
+        !accessToken ||
+        !refreshToken
+      ) {
+        dispatch(requestRefreshedAccessTokenAsync(refreshToken))
+        return
+      }
+      dispatch(setTokens({ accessToken, refreshToken }))
+    }
+    tryLogin()
+  }, [dispatch])
 
   if (auth.tokenIsLoading) {
     return <LoadingSpinner />

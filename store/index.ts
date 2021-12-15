@@ -1,7 +1,7 @@
 import thunk from 'redux-thunk'
 import { createStore, applyMiddleware, combineReducers } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
-import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit'
+import { configureStore } from '@reduxjs/toolkit'
 
 import user from './reducers/user'
 import auth from './reducers/auth'
@@ -13,10 +13,14 @@ import search from './reducers/search'
 import audioPlayer from './reducers/audioPlayer'
 // slices
 import authReducer from './slices/authSlice'
+import audioPlayerReducer from './slices/audioPlayerSlice'
+import trackReducer from './slices/trackSlice'
 
 export const store = configureStore({
   reducer: {
     auth: authReducer,
+    audioPlayer: audioPlayerReducer,
+    track: trackReducer,
     // audioPlayer,
     // search,
     // track,

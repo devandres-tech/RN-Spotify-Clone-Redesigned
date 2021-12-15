@@ -9,6 +9,7 @@ export type RootStackParamList = {
   Authorize: undefined
   Library: undefined
   Home: undefined
+  Main: undefined
   Profile: undefined
   Search: undefined
 }
