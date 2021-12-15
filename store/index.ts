@@ -12,8 +12,9 @@ import track from './reducers/track'
 import search from './reducers/search'
 import audioPlayer from './reducers/audioPlayer'
 // slices
-import authReducer from './slices/authSlice'
 import audioPlayerReducer from './slices/audioPlayerSlice'
+import authReducer from './slices/authSlice'
+import browseReducer from './slices/browseSlice'
 import trackReducer from './slices/trackSlice'
 
 export const store = configureStore({
