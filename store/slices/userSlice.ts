@@ -24,7 +24,7 @@ const initialState = {
 
 export const getUserProfileAsync = createAsyncThunk<
   any,
-  any,
+  void,
   { state: RootState }
 >('user/getProfile', async (_, { getState }) => {
   const accessToken = getState().auth.accessToken
@@ -38,9 +38,9 @@ export const getUserProfileAsync = createAsyncThunk<
 
 export const getUserPlaylistAsync = createAsyncThunk<
   any,
-  any,
+  string,
   { state: RootState }
->('user/getPlaylist', async (limit: string, { getState }) => {
+>('user/getPlaylist', async (limit, { getState }) => {
   const accessToken = getState().auth.accessToken
   const response = await fetch(`${BASE_URL}/me/playlists?limit=${limit}`, {
     method: 'GET',
@@ -52,9 +52,9 @@ export const getUserPlaylistAsync = createAsyncThunk<
 
 export const getUserRecentlyPlayedAsync = createAsyncThunk<
   any,
-  any,
+  string,
   { state: RootState }
->('user/getRecentlyPlayed', async (limit: string, { getState }) => {
+>('user/getRecentlyPlayed', async (limit, { getState }) => {
   const accessToken = getState().auth.accessToken
   const response = await fetch(
     `${BASE_URL}/me/player/recently-played?limit=${limit}`,
@@ -69,29 +69,26 @@ export const getUserRecentlyPlayedAsync = createAsyncThunk<
 
 export const getUserTopArtistsAsync = createAsyncThunk<
   any,
-  any,
+  { time_range: string; limit: string },
   { state: RootState }
->(
-  'user/getTopArtists',
-  async (args: { time_range: string; limit: string }, { getState }) => {
-    const accessToken = getState().auth.accessToken
-    const response = await fetch(
-      `${BASE_URL}/me/top/artists?time_range=${args.time_range}&limit=${args.limit}`,
-      {
-        method: 'GET',
-        headers: setHeaders(accessToken),
-      }
-    )
-    const data = await response.json()
-    return data
-  }
-)
+>('user/getTopArtists', async (args, { getState }) => {
+  const accessToken = getState().auth.accessToken
+  const response = await fetch(
+    `${BASE_URL}/me/top/artists?time_range=${args.time_range}&limit=${args.limit}`,
+    {
+      method: 'GET',
+      headers: setHeaders(accessToken),
+    }
+  )
+  const data = await response.json()
+  return data
+})
 
 export const getUserFollowsAsync = createAsyncThunk<
   any,
-  any,
+  string,
   { state: RootState }
->('user/getFollows', async (limit: string, { getState }) => {
+>('user/getFollows', async (limit, { getState }) => {
   const accessToken = getState().auth.accessToken
   const response = await fetch(
     `${BASE_URL}/me/following?type=artist&limit=${limit}`,

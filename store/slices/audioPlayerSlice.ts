@@ -1,12 +1,19 @@
 import TrackPlayer, { Track } from 'react-native-track-player'
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 
 import { shuffle, formatText } from '../../utils/helpers'
 import { RootState } from '../index'
 
 const initialState = {
   isTrackPlaying: false,
-  currentTrack: { url: '', id: '', searchTerm: '' },
+  currentTrack: {
+    url: '',
+    id: '',
+    searchTerm: '',
+    artwork: '',
+    title: '',
+    artist: '',
+  },
   tracks: [
     {
       id: '',
@@ -66,7 +73,7 @@ export const seekToPositionAsync = createAsyncThunk(
 
 export const playNextTrackAsync = createAsyncThunk<
   any,
-  any,
+  void,
   { state: RootState }
 >('audioPlayer/playNextTrack', async (_, { dispatch, getState }) => {
   const player = getState().audioPlayer
@@ -109,7 +116,7 @@ export const playNextTrackAsync = createAsyncThunk<
 
 export const playPrevTrackAsync = createAsyncThunk<
   any,
-  any,
+  void,
   { state: RootState }
 >('audioPlayer/playPrevTrack', async (_, { dispatch, getState }) => {
   const player = getState().audioPlayer
@@ -171,7 +178,7 @@ export const playPrevTrackAsync = createAsyncThunk<
 
 export const shuffleTracksAsync = createAsyncThunk<
   any,
-  any,
+  void,
   { state: RootState }
 >('audioPlayer/shuffleTracks', async (_, { getState }) => {
   const player = getState().audioPlayer
@@ -188,7 +195,7 @@ export const shuffleTracksAsync = createAsyncThunk<
 
 export const unShuffleTracksAsync = createAsyncThunk<
   any,
-  any,
+  void,
   { state: RootState }
 >('audioPlayer/usShuffleTracks', async (_, { getState }) => {
   const track = getState().track
@@ -201,8 +208,8 @@ const audioPlayerSlice = createSlice({
   name: 'audioPlayer',
   initialState,
   reducers: {
-    setTracks: (state, action) => {
-      state.tracks = action.payload.tracks
+    setTracks: (state, action: PayloadAction<typeof initialState.tracks>) => {
+      state.tracks = action.payload
     },
     repeatOne: (state) => {
       state.repeat = { one: true, all: false }

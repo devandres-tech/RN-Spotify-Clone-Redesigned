@@ -13,7 +13,7 @@ const initialState = {
 
 export const getTopArtistsAsync = createAsyncThunk<
   any,
-  any,
+  void,
   { state: RootState }
 >('library/getTopArtists', async (_, { getState }) => {
   const accessToken = getState().auth.accessToken
@@ -30,7 +30,7 @@ export const getTopArtistsAsync = createAsyncThunk<
 
 export const getTopTracksAsync = createAsyncThunk<
   any,
-  any,
+  void,
   { state: RootState }
 >('library/getTopTracks', async (_, { getState }) => {
   const accessToken = getState().auth.accessToken
@@ -47,7 +47,7 @@ export const getTopTracksAsync = createAsyncThunk<
 
 export const getUserTracksAsync = createAsyncThunk<
   any,
-  any,
+  void,
   { state: RootState }
 >('library/getUserTracks', async (_, { getState }) => {
   const accessToken = getState().auth.accessToken
@@ -61,7 +61,7 @@ export const getUserTracksAsync = createAsyncThunk<
 
 export const getUserAlbumsAsync = createAsyncThunk<
   any,
-  any,
+  void,
   { state: RootState }
 >('library/getUserAlbums', async (_, { getState }) => {
   const accessToken = getState().auth.accessToken

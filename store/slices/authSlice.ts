@@ -36,7 +36,7 @@ const saveTokensToAsyncStorage = (
 
 export const authenticateUserAsync = createAsyncThunk(
   'auth/authenticateUser',
-  async (_, { rejectWithValue }) => {
+  async (_: void, { rejectWithValue }) => {
     try {
       const { accessToken, refreshToken, accessTokenExpirationDate } =
         await authorize(spotifyAuthConfig)

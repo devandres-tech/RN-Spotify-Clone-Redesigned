@@ -25,36 +25,33 @@ const initialState = {
 
 export const searchItemsAsync = createAsyncThunk<
   any,
-  any,
+  string,
   { state: RootState }
->(
-  'search/searchItems',
-  async (query: string, { getState, rejectWithValue }) => {
-    const accessToken = getState().auth.accessToken
-    const encodedSearchQuery = encodeURIComponent(query)
-    try {
-      const response = await fetch(
-        `${BASE_URL}/search?q=${encodedSearchQuery}&type=track%2Cartist%2Calbum%2Cplaylist&limit=5`,
-        {
-          method: 'GET',
-          headers: setHeaders(accessToken),
-        }
-      )
-      let data = await response.json()
-      if (
-        data.albums.items.length <= 0 &&
-        data.artists.items.length <= 0 &&
-        data.tracks.items.length <= 0 &&
-        data.playlists.items.length <= 0
-      ) {
-        data = null
+>('search/searchItems', async (query, { getState, rejectWithValue }) => {
+  const accessToken = getState().auth.accessToken
+  const encodedSearchQuery = encodeURIComponent(query)
+  try {
+    const response = await fetch(
+      `${BASE_URL}/search?q=${encodedSearchQuery}&type=track%2Cartist%2Calbum%2Cplaylist&limit=5`,
+      {
+        method: 'GET',
+        headers: setHeaders(accessToken),
       }
-      return data
-    } catch (error) {
-      return rejectWithValue(error)
+    )
+    let data = await response.json()
+    if (
+      data.albums.items.length <= 0 &&
+      data.artists.items.length <= 0 &&
+      data.tracks.items.length <= 0 &&
+      data.playlists.items.length <= 0
+    ) {
+      data = null
     }
+    return data
+  } catch (error) {
+    return rejectWithValue(error)
   }
-)
+})
 
 const searchSlice = createSlice({
   name: 'search',

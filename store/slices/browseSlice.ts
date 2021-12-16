@@ -16,14 +16,11 @@ const initialState = {
 
 export const getBrowseCategoriesPlaylistsAsync = createAsyncThunk<
   any,
-  any,
+  { limit: string; id: string },
   { state: RootState }
 >(
   'browse/getCategoriesPlaylists',
-  async (
-    args: { limit: string; id: string },
-    { getState, rejectWithValue }
-  ) => {
+  async (args, { getState, rejectWithValue }) => {
     const accessToken = getState().auth.accessToken
     try {
       const response = await fetch(

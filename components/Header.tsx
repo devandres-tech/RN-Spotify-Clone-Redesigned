@@ -3,14 +3,16 @@ import { View, Text, Image } from 'react-native'
 
 import { useAppDispatch, useAppSelector } from '../hooks/hooks'
 import { COLORS, FONTS, SIZES, icons } from '../constants'
-import * as userActions from '../store/actions/user'
+// import * as userActions from '../store/actions/user'
+// import { getUserProfileAsync } from '../store/slices/userSlice'
+import * as userActions from '../store/slices/userSlice'
 
 const Header = () => {
   const user = useAppSelector((state) => state.user)
   const dispatch = useAppDispatch()
 
   useEffect(() => {
-    dispatch(userActions.getProfile())
+    dispatch(userActions.getUserProfileAsync())
   }, [dispatch])
 
   return (

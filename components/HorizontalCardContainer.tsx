@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, FlatList, ListRenderItemInfo } from 'react-native'
+import { View, FlatList } from 'react-native'
 
 import { SIZES } from '../constants'
 import TextTitle from './TextTitle'

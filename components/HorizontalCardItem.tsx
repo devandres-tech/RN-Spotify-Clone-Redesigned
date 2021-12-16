@@ -81,7 +81,7 @@ const HorizontalCardItem = ({
           ...cardItemTextStyle,
         }}
       >
-        {trimText(cardLabel.toUpperCase(), 19)}
+        {trimText(cardLabel?.toUpperCase() as string, 19)}
       </Text>
 
       {/* sub text */}

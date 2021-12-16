@@ -18,52 +18,46 @@ const initialState = {
 
 export const getCategoryPlaylistAsync = createAsyncThunk<
   any,
-  any,
+  { categoryId: string; limit: string },
   { state: RootState }
->(
-  'playlist/getCategoryPlaylist',
-  async (args: { categoryId: string; limit: string }, { getState }) => {
-    const accessToken = getState().auth.accessToken
-    const response = await fetch(
-      `${BASE_URL}/browse/categories/${args.categoryId}/playlists?limit=${args.limit}`,
-      {
-        method: 'GET',
-        headers: setHeaders(accessToken),
-      }
-    )
-    const data = await response.json()
-    return data
-  }
-)
+>('playlist/getCategoryPlaylist', async (args, { getState }) => {
+  const accessToken = getState().auth.accessToken
+  const response = await fetch(
+    `${BASE_URL}/browse/categories/${args.categoryId}/playlists?limit=${args.limit}`,
+    {
+      method: 'GET',
+      headers: setHeaders(accessToken),
+    }
+  )
+  const data = await response.json()
+  return data
+})
 
 export const getFeaturedPlaylistAsync = createAsyncThunk<
   any,
-  any,
+  string,
   { state: RootState }
->(
-  'playlist/getFeaturedPlaylist',
-  async (args: { limit: string }, { getState }) => {
-    const accessToken = getState().auth.accessToken
-    const response = await fetch(
-      `${BASE_URL}/browse/featured-playlists?limit=${args.limit}&country=US`,
-      {
-        method: 'GET',
-        headers: setHeaders(accessToken),
-      }
-    )
-    const data = await response.json()
-    return data
-  }
-)
+>('playlist/getFeaturedPlaylist', async (limit, { getState }) => {
+  const accessToken = getState().auth.accessToken
+  const response = await fetch(
+    `${BASE_URL}/browse/featured-playlists?limit=${limit}&country=US`,
+    {
+      method: 'GET',
+      headers: setHeaders(accessToken),
+    }
+  )
+  const data = await response.json()
+  return data
+})
 
 export const getNewReleasesAsync = createAsyncThunk<
   any,
-  any,
+  string,
   { state: RootState }
->('playlist/getNewReleases', async (args: { limit: string }, { getState }) => {
+>('playlist/getNewReleases', async (limit, { getState }) => {
   const accessToken = getState().auth.accessToken
   const response = await fetch(
-    `${BASE_URL}/browse/new-releases?limit=${args.limit}`,
+    `${BASE_URL}/browse/new-releases?limit=${limit}`,
     {
       method: 'GET',
       headers: setHeaders(accessToken),

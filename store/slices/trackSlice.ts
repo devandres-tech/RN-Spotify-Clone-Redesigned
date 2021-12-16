@@ -18,32 +18,29 @@ const initialState = {
 
 export const getAlbumTracksAsync = createAsyncThunk<
   any,
-  any,
+  string,
   { state: RootState; rejectValue: any }
->(
-  'track/getAlbumTracks',
-  async (albumId: string, { getState, rejectWithValue }) => {
-    const accessToken = getState().auth.accessToken
-    try {
-      const response = await fetch(`${BASE_URL}/albums/${albumId}`, {
-        method: 'GET',
-        headers: setHeaders(accessToken),
-      })
-      const data = await response.json()
-      return data
-    } catch (error) {
-      return rejectWithValue(error)
-    }
+>('track/getAlbumTracks', async (albumId, { getState, rejectWithValue }) => {
+  const accessToken = getState().auth.accessToken
+  try {
+    const response = await fetch(`${BASE_URL}/albums/${albumId}`, {
+      method: 'GET',
+      headers: setHeaders(accessToken),
+    })
+    const data = await response.json()
+    return data
+  } catch (error) {
+    return rejectWithValue(error)
   }
-)
+})
 
 export const getPlaylistTracksAsync = createAsyncThunk<
   any,
-  any,
+  string,
   { state: RootState; rejectValue: any }
 >(
   'track/getPlaylistTracks',
-  async (playlistId: string, { getState, rejectWithValue }) => {
+  async (playlistId, { getState, rejectWithValue }) => {
     const accessToken = getState().auth.accessToken
     try {
       const response = await fetch(`${BASE_URL}/playlists/${playlistId}`, {
@@ -60,27 +57,24 @@ export const getPlaylistTracksAsync = createAsyncThunk<
 
 export const getArtistTracksAsync = createAsyncThunk<
   any,
-  any,
+  string,
   { state: RootState; rejectValue: any }
->(
-  'track/getArtistTracks',
-  async (artistId: string, { getState, rejectWithValue }) => {
-    const accessToken = getState().auth.accessToken
-    try {
-      const response = await fetch(
-        `${BASE_URL}/artists/${artistId}/top-tracks?market=US`,
-        {
-          method: 'GET',
-          headers: setHeaders(accessToken),
-        }
-      )
-      const data = await response.json()
-      return data
-    } catch (error) {
-      return rejectWithValue(error)
-    }
+>('track/getArtistTracks', async (artistId, { getState, rejectWithValue }) => {
+  const accessToken = getState().auth.accessToken
+  try {
+    const response = await fetch(
+      `${BASE_URL}/artists/${artistId}/top-tracks?market=US`,
+      {
+        method: 'GET',
+        headers: setHeaders(accessToken),
+      }
+    )
+    const data = await response.json()
+    return data
+  } catch (error) {
+    return rejectWithValue(error)
   }
-)
+})
 
 const trackSlice = createSlice({
   name: 'track',

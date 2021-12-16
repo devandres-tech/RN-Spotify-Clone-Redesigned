@@ -5,7 +5,15 @@ import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 
 import { useAppDispatch } from '../hooks/hooks'
-import * as playerActions from '../store/actions/audioPlayer'
+// import * as playerActions from '../store/actions/audioPlayer'
+// import {
+//   resetPlayerAsync,
+//   setTracks,
+//   setCurrentTrackAsync,
+
+// } from '../store/slices/audioPlayerSlice'
+// import * as trackActions from '../store/actions/track'
+import * as audioPlayerActions from '../store/slices/audioPlayerSlice'
 import * as trackActions from '../store/actions/track'
 import { COLORS, FONTS } from '../constants'
 import { RootStackParamList } from '../screens/RootStackParams'
@@ -15,15 +23,15 @@ interface ISearchItems {
   searchTerm?: string
 }
 
-interface ISearchItem {
+type ISearchItem = {
   id: string
   type: string
-  album: { images: Array<{ url: string }> }
+  album: { images: Array<{ url: string }>; name: string }
   images: Array<{ url: string }>
   name: string
   artists: Array<{ name: string }>
   preview_url: string
-  duration_ms: string
+  duration_ms: number
 }
 
 type searchItemsNavProps = StackNavigationProp<RootStackParamList, 'Search'>
@@ -43,11 +51,11 @@ const SearchItems = ({ items, searchTerm }: ISearchItems) => {
         isSearchItem: true,
       })
     } else {
-      dispatch(playerActions.resetPlayer())
+      dispatch(audioPlayerActions.resetPlayerAsync())
       dispatch(trackActions.setTrack(searchItemSelected))
-      dispatch(playerActions.setTracks([searchItemSelected]))
+      dispatch(audioPlayerActions.setTracks([searchItemSelected]))
       dispatch(
-        playerActions.setCurrentTrack({
+        audioPlayerActions.setCurrentTrackAsync({
           id: id,
           url: preview_url,
           title: name,
@@ -59,7 +67,7 @@ const SearchItems = ({ items, searchTerm }: ISearchItems) => {
           searchTerm,
         })
       )
-      dispatch(playerActions.playTrack())
+      dispatch(audioPlayerActions.playTrackAsync())
     }
   }
   return (
@@ -67,7 +75,7 @@ const SearchItems = ({ items, searchTerm }: ISearchItems) => {
       {items
         .filter((filteredItem) => filteredItem.preview_url !== null)
         .map((item, index) => {
-          let albumImageUrl: string
+          let albumImageUrl: string | undefined
           const isTrack = item.type === 'track'
           if (isTrack) {
             albumImageUrl = item.album.images[0].url
