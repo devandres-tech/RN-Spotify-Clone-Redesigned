@@ -83,7 +83,6 @@ const TabBarIcon = ({ isFocused, name }: ITabBarIcon) => {
         <Text
           style={{
             color: isFocused ? COLORS.white : COLORS.lightGray,
-            fontSize: 10,
             marginTop: 5,
             ...FONTS.icon,
           }}

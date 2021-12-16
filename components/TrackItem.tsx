@@ -3,7 +3,7 @@ import { View, Text, Image, StyleSheet } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 
 import { useAppSelector, useAppDispatch } from '../hooks/hooks'
-import * as playerActions from '../store/actions/audioPlayer'
+import * as audioPlayerActions from '../store/slices/audioPlayerSlice'
 import { COLORS, SIZES, FONTS, icons } from '../constants'
 import { trimText } from '../utils/helpers'
 
@@ -15,7 +15,7 @@ interface ITrackItem {
   albumName: string
   albumImages: Array<{ url: string }>
   artists: Array<{ name: string }>
-  duration: string
+  duration: number
   explicit: boolean
   trackNumber: number
 }
@@ -52,20 +52,20 @@ const TrackItem = ({
     }
     if (player.currentTrack.url === url) {
       if (isPlaying) {
-        dispatch(playerActions.pauseTrack())
+        dispatch(audioPlayerActions.pauseTrackAsync())
         setIsPlaying(false)
       } else {
-        dispatch(playerActions.playTrack())
+        dispatch(audioPlayerActions.playTrackAsync())
         setIsPlaying(true)
       }
     } else {
-      dispatch(playerActions.resetPlayer())
-      dispatch(playerActions.setCurrentTrack(selectedTrack))
-      dispatch(playerActions.playTrack())
+      dispatch(audioPlayerActions.resetPlayerAsync())
+      dispatch(audioPlayerActions.setCurrentTrackAsync(selectedTrack))
+      dispatch(audioPlayerActions.playTrackAsync())
       setIsPlaying(true)
     }
     if (player.isShuffle) {
-      dispatch(playerActions.shuffleTracks())
+      dispatch(audioPlayerActions.shuffleTracksAsync())
     }
   }
 
@@ -92,9 +92,9 @@ const TrackItem = ({
           <Image
             style={{
               ...styles.albumImage,
-              borderColor: isSelectedTrackPlaying ? COLORS.primary : null,
+              borderColor: isSelectedTrackPlaying ? COLORS.primary : undefined,
               borderWidth: isSelectedTrackPlaying ? 2 : 0,
-              tintColor: albumImages ? null : COLORS.lightGray,
+              tintColor: albumImages ? undefined : COLORS.lightGray,
             }}
             source={
               albumImages

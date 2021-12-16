@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, ImageStyle } from 'react-native'
 import Animated from 'react-native-reanimated'
 import { COLORS, FONTS, SIZES } from '../constants'
 import LinearGradient from 'react-native-linear-gradient'
@@ -7,6 +7,21 @@ import HTMLView from 'react-native-htmlview'
 
 import { trimText } from '../utils/helpers'
 import TextTitle from './TextTitle'
+
+interface ITracksHeader {
+  imageUrl: string
+  title: string
+  totalTracks: number
+  mediaDescription: string
+  followers: number
+  releaseDate: string
+  animateScale: (
+    scrollY: Animated.SharedValue<number>
+  ) => Animated.AnimateStyle<ImageStyle>
+  type: string
+  scrollY: Animated.SharedValue<number>
+  artists: { name: string }[]
+}
 
 const TracksHeader = ({
   imageUrl,
@@ -19,7 +34,7 @@ const TracksHeader = ({
   type,
   scrollY,
   artists = [],
-}) => {
+}: ITracksHeader) => {
   const artistsNames = artists.map((artist) => artist.name).join(', ')
 
   return (

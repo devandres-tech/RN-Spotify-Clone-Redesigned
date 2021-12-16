@@ -1842,7 +1842,15 @@
   "resolved" "https://registry.npmjs.org/@types/react-native-dotenv/-/react-native-dotenv-0.2.0.tgz"
   "version" "0.2.0"
 
-"@types/react-native@^0.66.8":
+"@types/react-native-htmlview@^0.12.3":
+  "integrity" "sha512-ok7X6KnMlEwMKkTCOdLpI2IS0l0EAV7OE1xU00fCK1SS/vcP6XOOyHGhDAWEVNC0z6hHTXa7XDFemTGgN1+71A=="
+  "resolved" "https://registry.npmjs.org/@types/react-native-htmlview/-/react-native-htmlview-0.12.3.tgz"
+  "version" "0.12.3"
+  dependencies:
+    "@types/react" "*"
+    "@types/react-native" "*"
+
+"@types/react-native@*", "@types/react-native@^0.66.8":
   "integrity" "sha512-xiW7MfTPzd6xsJB8VEtheF9RH1Vyr1FlbM5jguMa+3ZtnFlE38H4TZSCFAaA3YGIZDnAOlG7qT13RUWyFpW2uw=="
   "resolved" "https://registry.npmjs.org/@types/react-native/-/react-native-0.66.8.tgz"
   "version" "0.66.8"
