@@ -13,9 +13,9 @@ import { ScrollView } from 'react-native-gesture-handler'
 
 import { useAppDispatch, useAppSelector } from '../hooks/hooks'
 import { COLORS, FONTS, SIZES } from '../constants'
-import * as userActions from '../store/actions/user'
-import * as playlistActions from '../store/actions/playlist'
-import * as playerActions from '../store/actions/audioPlayer'
+import * as userActions from '../store/slices/userSlice'
+import * as playlistActions from '../store/slices/playlistSlice'
+import * as audioPlayerActions from '../store/slices/audioPlayerSlice'
 
 import {
   TextButton,
@@ -32,13 +32,23 @@ const Home = () => {
   useScrollToTop(ref)
 
   useEffect(() => {
-    dispatch(userActions.getTopArtists('long_term', 3))
-    dispatch(userActions.getPlaylists(40))
-    dispatch(userActions.getRecentlyPlayed(10))
-    dispatch(playlistActions.getFeaturedPlaylists(1))
-    dispatch(playlistActions.getCategoryPlaylist('toplists', 10))
-    dispatch(playlistActions.getNewReleases(10))
-    dispatch(playerActions.init())
+    dispatch(
+      userActions.getUserTopArtistsAsync({
+        time_range: 'long_term',
+        limit: '3',
+      })
+    )
+    dispatch(userActions.getUserPlaylistsAsync('40'))
+    dispatch(userActions.getUserRecentlyPlayedAsync('10'))
+    dispatch(playlistActions.getFeaturedPlaylistsAsync('1'))
+    dispatch(
+      playlistActions.getCategoryPlaylistsAsync({
+        categoryId: 'toplists',
+        limit: '10',
+      })
+    )
+    dispatch(playlistActions.getNewReleasesAsync('10'))
+    dispatch(audioPlayerActions.initAsync())
   }, [dispatch])
 
   const renderButtons = () => {

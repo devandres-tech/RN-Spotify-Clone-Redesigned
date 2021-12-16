@@ -12,13 +12,21 @@ const initialState = {
   playlists: [
     {
       id: '',
+      item: {},
       name: '',
+      index: 0,
       owner: { display_name: '' },
       tracks: { total: '' },
+      type: '',
+      release_date: '',
+      album_type: '',
+      images: [{ url: '' }],
+      artists: [{ name: '' }],
+      albumName: '',
     },
   ],
   recentlyPlayed: [],
-  topArtists: [{ images: undefined }],
+  topArtists: [{ images: [{ url: '' }], id: '' }],
   follows: [],
 }
 
@@ -36,7 +44,7 @@ export const getUserProfileAsync = createAsyncThunk<
   return data
 })
 
-export const getUserPlaylistAsync = createAsyncThunk<
+export const getUserPlaylistsAsync = createAsyncThunk<
   any,
   string,
   { state: RootState }
@@ -109,7 +117,7 @@ const userSlice = createSlice({
     builder.addCase(getUserProfileAsync.fulfilled, (state, { payload }) => {
       state.data = payload.data
     })
-    builder.addCase(getUserPlaylistAsync.fulfilled, (state, { payload }) => {
+    builder.addCase(getUserPlaylistsAsync.fulfilled, (state, { payload }) => {
       state.playlists = payload.data.items
     })
     builder.addCase(
