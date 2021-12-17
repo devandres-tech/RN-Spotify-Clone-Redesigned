@@ -1,4 +1,5 @@
 import { CLIENT_ID, REDIRECT_URL } from '@env'
+import { Platform } from 'react-native'
 
 export const spotifyAuthConfig = {
   clientId: CLIENT_ID,

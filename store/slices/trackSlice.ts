@@ -8,7 +8,17 @@ const initialState = {
   isLoading: false,
   name: '',
   tracks: {
-    items: [{ explicit: false, album: { images: [{ url: '' }] }, artists: [] }],
+    items: [
+      {
+        id: '',
+        artists: [{ name: '' }],
+        preview_url: '',
+        name: '',
+        explicit: false,
+        album: { name: '', images: [{ url: '' }] },
+        duration_ms: 0,
+      },
+    ],
   },
   type: '',
   images: [{ url: '' }],

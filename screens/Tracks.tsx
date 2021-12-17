@@ -16,11 +16,11 @@ import Animated, {
 import LinearGradient from 'react-native-linear-gradient'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 
-// import {} from '../hooks/hooks'
+import { useAppDispatch, useAppSelector } from '../hooks/hooks'
 import { COLORS, icons, FONTS } from '../constants'
-import * as tracksActions from '../store/actions/track'
-import * as playerActions from '../store/actions/audioPlayer'
 import { trimText } from '../utils/helpers'
+import * as tracksActions from '../store/slices/trackSlice'
+import * as audioPlayerActions from '../store/slices/audioPlayerSlice'
 import {
   animateOpacity,
   animateHeight,
@@ -37,23 +37,23 @@ const AnimatedFlatList = Animated.createAnimatedComponent(FlatList)
 
 const Tracks = ({ route: { params }, navigation }) => {
   const scrollY = useSharedValue(0)
-  const track = useSelector((state) => state.track)
-  const player = useSelector((state) => state.audioPlayer)
-  const dispatch = useDispatch()
+  const track = useAppSelector((state) => state.track)
+  const player = useAppSelector((state) => state.audioPlayer)
+  const dispatch = useAppDispatch()
   const { mediaId, mediaType, artist, isSearchItem } = params
 
   useEffect(() => {
     if (mediaType === 'playlist') {
-      dispatch(tracksActions.getPlaylistTracks(mediaId))
+      dispatch(tracksActions.getPlaylistTracksAsync(mediaId))
     } else if (mediaType === 'album') {
-      dispatch(tracksActions.getAlbumTracks(mediaId))
+      dispatch(tracksActions.getAlbumTracksAsync(mediaId))
     } else if (mediaType === 'artist') {
-      dispatch(tracksActions.getArtistTracks(mediaId))
+      dispatch(tracksActions.getArtistTracksAsync(mediaId))
     }
   }, [mediaId, dispatch, mediaType])
 
   useEffect(() => {
-    dispatch(playerActions.setTracks(track.tracks.items))
+    dispatch(audioPlayerActions.setTracks(track.tracks.items))
   }, [track])
 
   const scrollHandler = useAnimatedScrollHandler({
@@ -175,7 +175,6 @@ const styles = StyleSheet.create({
     height: 280,
     width: '100%',
     backgroundColor: COLORS.lightGray3,
-    position: 'static',
     flexDirection: 'row',
     alignItems: 'center',
   },
