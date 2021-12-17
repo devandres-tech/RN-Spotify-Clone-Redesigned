@@ -14,7 +14,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 import { useProgress } from 'react-native-track-player'
 import Slider from '@react-native-community/slider'
 
-import * as playerActions from '../store/actions/audioPlayer'
+import * as audioPlayerActions from '../store/slices/audioPlayerSlice'
 import { COLORS, FONTS, icons } from '../constants'
 import { secondsToHHMMSS } from '../utils/helpers'
 import { useAppSelector } from '../hooks/hooks'
@@ -28,50 +28,50 @@ const TrackPlayerScreen = ({ navigation }) => {
   const dispatch = useDispatch()
 
   const onPlayPauseHandler = async () => {
-    if (player.isTrackPlaying) dispatch(playerActions.pauseTrack())
-    else dispatch(playerActions.playTrack())
+    if (player.isTrackPlaying) dispatch(audioPlayerActions.pauseTrackAsync())
+    else dispatch(audioPlayerActions.playTrackAsync())
   }
 
   const onShuffleHandler = () => {
-    if (player.isShuffle) dispatch(playerActions.unShuffleTracks())
-    else dispatch(playerActions.shuffleTracks())
+    if (player.isShuffle) dispatch(audioPlayerActions.unShuffleTracksAsync())
+    else dispatch(audioPlayerActions.shuffleTracksAsync())
   }
 
-  const onSliderChange = (value) => {
-    dispatch(playerActions.seekToPosition(value))
+  const onSliderChange = (value: number) => {
+    dispatch(audioPlayerActions.seekToPositionAsync(value))
   }
 
   const onPreviousTrackHandler = async () => {
-    dispatch(playerActions.playPrevTrack())
+    dispatch(audioPlayerActions.playPrevTrackAsync())
     if (player.repeat.one) {
-      dispatch(playerActions.repeatAll())
+      dispatch(audioPlayerActions.repeatAll())
     }
   }
 
   const onNextTrackHandler = () => {
-    dispatch(playerActions.playNextTrack())
+    dispatch(audioPlayerActions.playTrackAsync())
     if (player.repeat.one) {
-      dispatch(playerActions.repeatAll())
+      dispatch(audioPlayerActions.repeatAll())
     }
   }
 
   const onRepeatHandler = () => {
     if (!player.repeat.one && !player.repeat.all) {
-      dispatch(playerActions.repeatAll())
+      dispatch(audioPlayerActions.repeatAll())
     } else if (!player.repeat.one && player.repeat.all) {
-      dispatch(playerActions.repeatOne())
+      dispatch(audioPlayerActions.repeatOne())
     } else {
-      dispatch(playerActions.unsetRepeat())
+      dispatch(audioPlayerActions.unsetRepeat())
     }
   }
 
   useEffect(() => {
     if (Math.round(progress.position) === MAX_PROGRESS) {
       if (player.repeat.one) {
-        dispatch(playerActions.seekToPosition(0))
-        dispatch(playerActions.playTrack())
+        dispatch(audioPlayerActions.seekToPositionAsync(0))
+        dispatch(audioPlayerActions.playTrackAsync())
       } else {
-        dispatch(playerActions.playNextTrack())
+        dispatch(audioPlayerActions.playNextTrackAsync())
       }
     }
   }, [progress])
@@ -86,7 +86,7 @@ const TrackPlayerScreen = ({ navigation }) => {
         <View
           style={{
             flexDirection: 'row',
-            marginTop: Platform.OS === 'android' ? 20 : null,
+            marginTop: Platform.OS === 'android' ? 20 : undefined,
           }}
         >
           <LinearGradient

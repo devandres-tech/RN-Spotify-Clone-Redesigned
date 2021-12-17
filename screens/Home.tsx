@@ -16,7 +16,6 @@ import { COLORS, FONTS, SIZES } from '../constants'
 import * as userActions from '../store/slices/userSlice'
 import * as playlistActions from '../store/slices/playlistSlice'
 import * as audioPlayerActions from '../store/slices/audioPlayerSlice'
-
 import {
   TextButton,
   HorizontalCardContainer,

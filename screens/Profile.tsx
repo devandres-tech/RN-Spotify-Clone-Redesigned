@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { View, FlatList, Image, Text, StyleSheet } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
+import { TouchableOpacity } from 'react-native-gesture-handler'
+import { useScrollToTop } from '@react-navigation/native'
 
 import {
   Header,
@@ -9,29 +11,32 @@ import {
   TextButton,
 } from '../components'
 import { COLORS, FONTS, SIZES } from '../constants'
-import * as userActions from '../store/actions/user'
-import * as playlistActions from '../store/actions/playlist'
-import { TouchableOpacity } from 'react-native-gesture-handler'
-import { useScrollToTop } from '@react-navigation/native'
+import { useAppDispatch, useAppSelector } from '../hooks/hooks'
+import * as userActions from '../store/slices/userSlice'
+import * as playlistActions from '../store/slices/playlistSlice'
+import { RootStackParamList } from './RootStackParams'
+import { NativeStackScreenProps } from '@react-navigation/native-stack'
 
-const Profile = ({ navigation }) => {
-  const user = useSelector((state) => state.user)
+type profileScreenProp = NativeStackScreenProps<RootStackParamList, 'Profile'>
+
+const Profile = ({ navigation }: profileScreenProp) => {
   const ref = React.useRef(null)
-  const playlist = useSelector((state) => state.playlist)
+  const user = useAppSelector((state) => state.user)
+  const playlist = useAppSelector((state) => state.playlist)
   const [activeMenuItem, setActiveMenuItem] = useState({
     title: 'Overview',
     id: 1,
   })
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
   useScrollToTop(ref)
 
   useEffect(() => {
-    dispatch(userActions.getProfile())
-    dispatch(userActions.getUserFollows(10))
-    dispatch(userActions.getRecentlyPlayed(10))
-    dispatch(userActions.getPlaylists(40))
-    dispatch(playlistActions.getNewReleases(10))
+    dispatch(userActions.getUserProfileAsync())
+    dispatch(userActions.getUserFollowsAsync('10'))
+    dispatch(userActions.getUserRecentlyPlayedAsync('10'))
+    dispatch(userActions.getUserPlaylistsAsync('40'))
+    dispatch(playlistActions.getNewReleasesAsync('10'))
   }, [dispatch])
 
   const menuItems = [
@@ -74,14 +79,12 @@ const Profile = ({ navigation }) => {
     return (
       <View>
         <HorizontalCardContainer
-          navigation={navigation}
           cardItemImageStyle={{ opacity: 1 }}
           cardItemTextStyle={{ position: 'relative', paddingTop: 15 }}
           data={user.recentlyPlayed}
           label='RECENTLY PLAYED'
         />
         <HorizontalCardContainer
-          navigation={navigation}
           cardItemImageStyle={{ opacity: 1 }}
           cardItemTextStyle={{ position: 'relative', paddingTop: 15 }}
           data={playlist.newReleases}

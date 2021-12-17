@@ -8,23 +8,24 @@ import {
   TextInput,
   StyleSheet,
 } from 'react-native'
-import { useSelector, useDispatch } from 'react-redux'
+import { useScrollToTop } from '@react-navigation/native'
+// import { useSelector, useDispatch } from 'react-redux'
 
+import { useAppDispatch, useAppSelector } from '../hooks/hooks'
 import { COLORS, FONTS, SIZES, icons } from '../constants'
-import * as browseActions from '../store/actions/browse'
-import * as searchActions from '../store/actions/search'
+import * as browseActions from '../store/slices/browseSlice'
+import * as searchActions from '../store/slices/searchSlice'
 import { Header, TextTitle, SearchItems, LoadingSpinner } from '../components'
 import { useDebounce } from '../hooks/useDebounce'
-import { useScrollToTop } from '@react-navigation/native'
 
 const Search = ({ navigation }) => {
   const [searchTerm, setSearchTerm] = useState('')
   const [isUserSearching, setIsUserSearching] = useState(false)
   const debouncedSearchTerm = useDebounce(searchTerm, 500)
   const ref = React.useRef(null)
-  const browse = useSelector((state) => state.browse)
-  const search = useSelector((state) => state.search)
-  const dispatch = useDispatch()
+  const browse = useAppSelector((state) => state.browse)
+  const search = useAppSelector((state) => state.search)
+  const dispatch = useAppDispatch()
 
   useScrollToTop(ref)
 
@@ -33,10 +34,11 @@ const Search = ({ navigation }) => {
   }, [dispatch])
 
   useEffect(() => {
-    if (debouncedSearchTerm) dispatch(searchActions.searchItems(searchTerm))
+    if (debouncedSearchTerm)
+      dispatch(searchActions.searchItemsAsync(searchTerm))
   }, [debouncedSearchTerm])
 
-  const searchTermHandler = (item) => {
+  const searchTermHandler = (item: string) => {
     setSearchTerm(item)
     if (item.length > 0) {
       setIsUserSearching(true)

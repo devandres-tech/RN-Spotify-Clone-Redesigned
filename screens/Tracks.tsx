@@ -8,7 +8,7 @@ import {
   StyleSheet,
   Text,
 } from 'react-native'
-import { useSelector, useDispatch } from 'react-redux'
+// import { useSelector, useDispatch } from 'react-redux'
 import Animated, {
   useSharedValue,
   useAnimatedScrollHandler,
@@ -16,6 +16,7 @@ import Animated, {
 import LinearGradient from 'react-native-linear-gradient'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 
+// import {} from '../hooks/hooks'
 import { COLORS, icons, FONTS } from '../constants'
 import * as tracksActions from '../store/actions/track'
 import * as playerActions from '../store/actions/audioPlayer'

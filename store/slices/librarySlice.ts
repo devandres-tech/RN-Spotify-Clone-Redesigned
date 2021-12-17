@@ -4,10 +4,44 @@ import { BASE_URL } from '@env'
 import { setHeaders } from '../../utils/helpers'
 import { RootState } from '../index'
 
+// id, artists, name, album, duration_ms
+//  album: {
+//       name: string;
+//       images: {
+//           url: string;
+//       }[];
+//   };
+
 const initialState = {
   topArtists: [],
-  topTracks: [],
-  userTracks: [],
+  topTracks: [
+    {
+      preview_url: '',
+      id: '',
+      name: '',
+      album: {
+        name: '',
+        images: [{ url: '' }],
+      },
+      duration_ms: 0,
+      artists: [{ name: '' }],
+      images: [],
+    },
+  ],
+  userTracks: [
+    {
+      preview_url: '',
+      id: '',
+      name: '',
+      album: {
+        name: '',
+        images: [{ url: '' }],
+      },
+      duration_ms: 0,
+      artists: [{ name: '' }],
+      images: [],
+    },
+  ],
   userAlbums: [],
 }
 

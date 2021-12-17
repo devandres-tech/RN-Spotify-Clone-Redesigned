@@ -8,16 +8,16 @@ import { COLORS, SIZES, FONTS, icons } from '../constants'
 import { trimText } from '../utils/helpers'
 
 interface ITrackItem {
-  id: string
+  index?: number
   trackId: string
   url: string
   trackName: string
-  albumName: string
+  albumName?: string
   albumImages: Array<{ url: string }>
   artists: Array<{ name: string }>
-  duration: number
-  explicit: boolean
-  trackNumber: number
+  duration?: number
+  explicit?: boolean
+  trackNumber?: number
 }
 
 const TrackItem = ({

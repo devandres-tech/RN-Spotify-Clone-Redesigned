@@ -7,7 +7,8 @@ import { setHeaders } from '../../utils/helpers'
 const initialState = {
   data: {
     display_name: '',
-    images: undefined,
+    images: [{ url: '' }],
+    product: '',
   },
   playlists: [
     {
@@ -23,11 +24,14 @@ const initialState = {
       images: [{ url: '' }],
       artists: [{ name: '' }],
       albumName: '',
+      public: '',
     },
   ],
   recentlyPlayed: [],
   topArtists: [{ images: [{ url: '' }], id: '' }],
-  follows: [],
+  follows: [
+    { id: '', images: [{ url: '' }], name: '', followers: { total: 0 } },
+  ],
 }
 
 export const getUserProfileAsync = createAsyncThunk<

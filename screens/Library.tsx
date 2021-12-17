@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { View, FlatList } from 'react-native'
+import { View, FlatList, ScrollView } from 'react-native'
+import { useScrollToTop } from '@react-navigation/native'
+import { NativeStackScreenProps } from '@react-navigation/native-stack'
+
 import {
   Header,
   TextTitle,
@@ -7,16 +10,17 @@ import {
   HorizontalCardContainer,
   TrackItem,
 } from '../components'
-import { useScrollToTop } from '@react-navigation/native'
-
+import { RootStackParamList } from './RootStackParams'
 import { useAppDispatch, useAppSelector } from '../hooks/hooks'
 import { COLORS, SIZES, FONTS, LIBRARY_MENU_ITEMS } from '../constants'
-import * as libraryActions from '../store/actions/library'
-import * as playerActions from '../store/actions/audioPlayer'
-import * as playlistActions from '../store/actions/playlist'
-import * as userActions from '../store/actions/user'
+import * as libraryActions from '../store/slices/librarySlice'
+import * as audioPlayerActions from '../store/slices/audioPlayerSlice'
+import * as playlistActions from '../store/slices/playlistSlice'
+import * as userActions from '../store/slices/userSlice'
 
-const Library = ({ navigation }) => {
+type libraryScreenProp = NativeStackScreenProps<RootStackParamList, 'Library'>
+
+const Library = ({ navigation }: libraryScreenProp) => {
   const [activeMenuItem, setActiveMenuItem] = useState(LIBRARY_MENU_ITEMS[0])
   const library = useAppSelector((state) => state.library)
   const playlist = useAppSelector((state) => state.playlist)
@@ -30,17 +34,17 @@ const Library = ({ navigation }) => {
   useScrollToTop(ref)
 
   useEffect(() => {
-    dispatch(libraryActions.getTopArtists())
-    dispatch(libraryActions.getTopTracks())
-    dispatch(libraryActions.getUserTracks())
-    dispatch(libraryActions.getUserAlbums())
-    dispatch(userActions.getRecentlyPlayed(10))
-    dispatch(playlistActions.getNewReleases(10))
+    dispatch(libraryActions.getTopArtistsAsync())
+    dispatch(libraryActions.getTopTracksAsync())
+    dispatch(libraryActions.getUserTracksAsync())
+    dispatch(libraryActions.getUserAlbumsAsync())
+    dispatch(userActions.getUserRecentlyPlayedAsync('10'))
+    dispatch(playlistActions.getNewReleasesAsync('10'))
   }, [dispatch])
 
   useEffect(() => {
     if (activeMenuItem.id === 3) {
-      dispatch(playerActions.setTracks(filteredUserTracks))
+      dispatch(audioPlayerActions.setTracks(filteredUserTracks))
     }
   }, [activeMenuItem])
 
@@ -49,7 +53,6 @@ const Library = ({ navigation }) => {
     return (
       <View>
         <HorizontalCardContainer
-          navigation={navigation}
           cardItemImageStyle={{ opacity: 1 }}
           cardItemTextStyle={{ position: 'relative', paddingTop: 15 }}
           data={library.topArtists}
@@ -72,7 +75,6 @@ const Library = ({ navigation }) => {
           })}
         </View>
         <HorizontalCardContainer
-          navigation={navigation}
           cardItemImageStyle={{ opacity: 1 }}
           cardItemTextStyle={{ position: 'relative', paddingTop: 15 }}
           data={playlist.newReleases}
@@ -87,7 +89,7 @@ const Library = ({ navigation }) => {
       return (
         <TrackItem
           albumName={track.album.name}
-          id={track.id}
+          trackId={track.id}
           url={track.preview_url}
           artists={track.artists}
           trackName={track.name}

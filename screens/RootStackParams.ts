@@ -2,7 +2,7 @@ export type RootStackParamList = {
   Tracks: {
     mediaId: string
     mediaType: string
-    artist: object | null
+    artist?: object | null
     isSearchItem?: boolean
   }
   TrackPlayer: undefined
