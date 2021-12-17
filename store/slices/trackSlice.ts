@@ -5,7 +5,7 @@ import { RootState } from '../index'
 import { setHeaders } from '../../utils/helpers'
 
 const initialState = {
-  isLoading: false,
+  isLoading: true,
   name: '',
   tracks: {
     items: [
@@ -132,7 +132,7 @@ const trackSlice = createSlice({
       payload.tracks.items = flattenPlaylistTracks.filter(
         (track: { preview_url: null }) => track.preview_url !== null
       )
-      return { ...payload, isLoading: false }
+      return { ...initialState, ...payload, isLoading: false }
     })
   },
 })
