@@ -88,9 +88,8 @@ const authSlice = createSlice({
     builder.addCase(authenticateUserAsync.pending, (state) => {
       state.tokenIsLoading = true
     })
-    builder.addCase(authenticateUserAsync.fulfilled, (state, action) => {
-      const { accessToken, refreshToken, accessTokenExpirationDate } =
-        action.payload
+    builder.addCase(authenticateUserAsync.fulfilled, (state, { payload }) => {
+      const { accessToken, refreshToken, accessTokenExpirationDate } = payload
       Object.assign(state, {
         accessToken,
         refreshToken,
@@ -98,18 +97,17 @@ const authSlice = createSlice({
         tokenIsLoading: false,
       })
     })
-    builder.addCase(authenticateUserAsync.rejected, (state, action) => {
+    builder.addCase(authenticateUserAsync.rejected, (state, { payload }) => {
       state.tokenIsLoading = false
-      state.error = action.payload
+      state.error = payload
     })
     builder.addCase(requestRefreshedAccessTokenAsync.pending, (state) => {
       state.tokenIsLoading = true
     })
     builder.addCase(
       requestRefreshedAccessTokenAsync.fulfilled,
-      (state, action) => {
-        const { accessToken, refreshToken, accessTokenExpirationDate } =
-          action.payload
+      (state, { payload }) => {
+        const { accessToken, refreshToken, accessTokenExpirationDate } = payload
         Object.assign(state, {
           accessToken,
           refreshToken,
@@ -120,9 +118,9 @@ const authSlice = createSlice({
     )
     builder.addCase(
       requestRefreshedAccessTokenAsync.rejected,
-      (state, action) => {
+      (state, { payload }) => {
         state.tokenIsLoading = false
-        state.error = action.payload
+        state.error = payload
       }
     )
   },

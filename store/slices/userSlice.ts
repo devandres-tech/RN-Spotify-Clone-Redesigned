@@ -1,5 +1,5 @@
 import { BASE_URL } from '@env'
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk, current } from '@reduxjs/toolkit'
 import { RootState } from '../index'
 
 import { setHeaders } from '../../utils/helpers'
@@ -45,6 +45,7 @@ export const getUserProfileAsync = createAsyncThunk<
     headers: setHeaders(accessToken),
   })
   const data = await response.json()
+  console.log('USER-----', data)
   return data
 })
 
@@ -119,15 +120,15 @@ const userSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getUserProfileAsync.fulfilled, (state, { payload }) => {
-      state.data = payload.data
+      state.data = payload
     })
     builder.addCase(getUserPlaylistsAsync.fulfilled, (state, { payload }) => {
-      state.playlists = payload.data.items
+      state.playlists = payload.items
     })
     builder.addCase(
       getUserRecentlyPlayedAsync.fulfilled,
       (state, { payload }) => {
-        state.recentlyPlayed = payload.data.items.map((item: any) => {
+        state.recentlyPlayed = payload.items.map((item: any) => {
           const trackName = item.track.name
           const albumName = item.track.album.name
           return { ...item.track.album, name: trackName, albumName }
@@ -135,10 +136,10 @@ const userSlice = createSlice({
       }
     )
     builder.addCase(getUserTopArtistsAsync.fulfilled, (state, { payload }) => {
-      state.topArtists = payload.data.items
+      state.topArtists = payload.items
     })
     builder.addCase(getUserFollowsAsync.fulfilled, (state, { payload }) => {
-      state.follows = payload.data.artists.items
+      state.follows = payload.artists.items
     })
   },
 })

@@ -105,10 +105,10 @@ const librarySlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getTopArtistsAsync.fulfilled, (state, { payload }) => {
-      state.topArtists = payload.data.items
+      state.topArtists = payload.items
     })
     builder.addCase(getTopTracksAsync.fulfilled, (state, { payload }) => {
-      state.topTracks = payload.data.items.map((item: any) => {
+      state.topTracks = payload.items.map((item: any) => {
         const trackName = item.name
         const albumName = item.album.name
         const id = item.id
@@ -116,7 +116,7 @@ const librarySlice = createSlice({
       })
     })
     builder.addCase(getUserTracksAsync.fulfilled, (state, { payload }) => {
-      state.userTracks = payload.data.items.map((item: any) => {
+      state.userTracks = payload.items.map((item: any) => {
         const trackName = item.track.name
         const albumName = item.track.album.name
         const id = item.track.id
@@ -124,7 +124,7 @@ const librarySlice = createSlice({
       })
     })
     builder.addCase(getUserAlbumsAsync.fulfilled, (state, { payload }) => {
-      state.userAlbums = payload.data.items.map((item: any) => {
+      state.userAlbums = payload.items.map((item: any) => {
         const albumName = item.album.name
         const id = item.album.id
         return { ...item.album, albumName, id }

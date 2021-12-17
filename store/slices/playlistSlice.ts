@@ -75,17 +75,17 @@ const playlistSlice = createSlice({
     builder.addCase(
       getCategoryPlaylistsAsync.fulfilled,
       (state, { payload }) => {
-        state.topLists = payload.data.playlists.items
+        state.topLists = payload.playlists.items
       }
     )
     builder.addCase(
       getFeaturedPlaylistsAsync.fulfilled,
       (state, { payload }) => {
-        state.featured = payload.data.playlists.items
+        state.featured = payload.playlists.items
       }
     )
     builder.addCase(getNewReleasesAsync.fulfilled, (state, { payload }) => {
-      state.newReleases = payload.data.albums.items.map((item: any) => {
+      state.newReleases = payload.albums.items.map((item: any) => {
         const albumName = item.name
         return { ...item, name: albumName, albumName }
       })

@@ -100,41 +100,39 @@ const trackSlice = createSlice({
       state.isLoading = true
     })
     builder.addCase(getAlbumTracksAsync.fulfilled, (state, { payload }) => {
-      const filteredTracks = payload.data.tracks.items.filter(
+      const filteredTracks = payload.tracks.items.filter(
         (track: { preview_url: string | null }) => track.preview_url !== null
       )
-      payload.data.tracks.items = filteredTracks
-      return { ...payload.data, isLoading: false }
+      payload.tracks.items = filteredTracks
+      return { ...payload, isLoading: false }
     })
     builder.addCase(getPlaylistTracksAsync.pending, (state, action) => {
       state.isLoading = true
     })
-    builder.addCase(getPlaylistTracksAsync.fulfilled, (state, action) => {
-      const { data } = action.payload
-      const flattenPlaylistTracks = data.tracks.items.map(
+    builder.addCase(getPlaylistTracksAsync.fulfilled, (state, { payload }) => {
+      const flattenPlaylistTracks = payload.tracks.items.map(
         (track: { track: any }) => {
           return { ...track, ...track.track }
         }
       )
-      data.tracks.items = flattenPlaylistTracks.filter(
+      payload.tracks.items = flattenPlaylistTracks.filter(
         (track: { preview_url: null }) => track.preview_url !== null
       )
-      return { ...data, isLoading: false }
+      return { ...payload, isLoading: false }
     })
     builder.addCase(getArtistTracksAsync.pending, (state, action) => {
       state.isLoading = true
     })
-    builder.addCase(getArtistTracksAsync.fulfilled, (state, action) => {
-      const { data } = action.payload
-      const flattenPlaylistTracks = data.tracks.items.map(
+    builder.addCase(getArtistTracksAsync.fulfilled, (state, { payload }) => {
+      const flattenPlaylistTracks = payload.tracks.items.map(
         (track: { track: any }) => {
           return { ...track, ...track.track }
         }
       )
-      data.tracks.items = flattenPlaylistTracks.filter(
+      payload.tracks.items = flattenPlaylistTracks.filter(
         (track: { preview_url: null }) => track.preview_url !== null
       )
-      return { ...data, isLoading: false }
+      return { ...payload, isLoading: false }
     })
   },
 })

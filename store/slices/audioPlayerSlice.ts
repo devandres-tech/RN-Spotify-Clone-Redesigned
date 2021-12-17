@@ -229,17 +229,17 @@ const audioPlayerSlice = createSlice({
     builder.addCase(pauseTrackAsync.fulfilled, (state) => {
       state.isTrackPlaying = false
     })
-    builder.addCase(setCurrentTrackAsync.fulfilled, (state, action) => {
-      state.currentTrack = action.payload.currentTrack
+    builder.addCase(setCurrentTrackAsync.fulfilled, (state, { payload }) => {
+      state.currentTrack = payload.currentTrack
     })
     builder.addCase(resetPlayerAsync.fulfilled, () => {})
     builder.addCase(seekToPositionAsync.fulfilled, () => {})
     builder.addCase(playNextTrackAsync.fulfilled, () => {})
-    builder.addCase(shuffleTracksAsync.fulfilled, (state, action) => {
-      state.tracks = action.payload.randomTracks
+    builder.addCase(shuffleTracksAsync.fulfilled, (state, { payload }) => {
+      state.tracks = payload.randomTracks
     })
-    builder.addCase(unShuffleTracksAsync.fulfilled, (state, action) => {
-      state.tracks = action.payload.originalTracks
+    builder.addCase(unShuffleTracksAsync.fulfilled, (state, { payload }) => {
+      state.tracks = payload.originalTracks
     })
   },
 })

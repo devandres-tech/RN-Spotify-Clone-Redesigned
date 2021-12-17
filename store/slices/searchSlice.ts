@@ -63,11 +63,7 @@ const searchSlice = createSlice({
     })
     builder.addCase(searchItemsAsync.fulfilled, (state, { payload }) => {
       state.isLoading = false
-      state.results = payload.data
-    })
-    builder.addCase(searchItemsAsync.fulfilled, (state, { payload }) => {
-      state.isLoading = false
-      state.error = payload
+      state.results = payload
     })
   },
 })
