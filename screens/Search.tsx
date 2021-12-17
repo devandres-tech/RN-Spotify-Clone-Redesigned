@@ -48,7 +48,8 @@ const Search = ({ navigation }) => {
   }
 
   const renderCategoryCardItems = () => {
-    return browse.categories.map((category) => {
+    const browseCategories = [...browse.categories]
+    return browseCategories.map((category) => {
       return (
         <TouchableOpacity
           key={category.id}
@@ -56,17 +57,20 @@ const Search = ({ navigation }) => {
           style={{ paddingBottom: SIZES.paddingBottom }}
         >
           <View style={styles.cardItemContainer}>
-            {category.images.reverse().map((image, index) => (
-              <View
-                key={`${image.url}-${index}`}
-                style={styles.cardItemImageContainer}
-              >
-                <Image
-                  style={styles.cardItemImage}
-                  source={{ uri: image.url }}
-                />
-              </View>
-            ))}
+            {category.images
+              .slice()
+              .reverse()
+              .map((image, index) => (
+                <View
+                  key={`${image.url}-${index}`}
+                  style={styles.cardItemImageContainer}
+                >
+                  <Image
+                    style={styles.cardItemImage}
+                    source={{ uri: image.url }}
+                  />
+                </View>
+              ))}
             <View style={styles.cardItemCategory}>
               <Text style={styles.categoryName}>
                 {category.name.toUpperCase()}
