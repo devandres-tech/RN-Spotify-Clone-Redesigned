@@ -53,10 +53,10 @@ const Library = ({ navigation }: libraryScreenProp) => {
     return (
       <View>
         <HorizontalCardContainer
+          label='YOUR TOP ARTISTS'
           cardItemImageStyle={{ opacity: 1 }}
           cardItemTextStyle={{ position: 'relative', paddingTop: 15 }}
           data={library.topArtists}
-          label='YOUR TOP ARTISTS'
         />
         <TextTitle label='YOUR TOP TRACKS' />
         <View style={{ paddingBottom: SIZES.paddingBottom }}>
@@ -75,10 +75,10 @@ const Library = ({ navigation }: libraryScreenProp) => {
           })}
         </View>
         <HorizontalCardContainer
+          label='NEW RELEASES'
           cardItemImageStyle={{ opacity: 1 }}
           cardItemTextStyle={{ position: 'relative', paddingTop: 15 }}
           data={playlist.newReleases}
-          label='NEW RELEASES'
         />
       </View>
     )

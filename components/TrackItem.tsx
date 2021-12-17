@@ -110,7 +110,7 @@ const TrackItem = ({
           />
         )}
         {url !== undefined && renderPlayPauseIcon()}
-        {trackNumber && (
+        {trackNumber !== undefined && (
           <Text
             style={{
               color: COLORS.lightGray,
@@ -166,7 +166,7 @@ const TrackItem = ({
             alignItems: 'flex-end',
           }}
         >
-          {duration && (
+          {duration !== undefined && (
             <Text
               style={{ color: COLORS.lightGray, ...FONTS.body }}
             >{`${date.getMinutes()}:${date.getSeconds()}`}</Text>

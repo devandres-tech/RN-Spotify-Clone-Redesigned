@@ -104,7 +104,7 @@ const trackSlice = createSlice({
         (track: { preview_url: string | null }) => track.preview_url !== null
       )
       payload.tracks.items = filteredTracks
-      return { ...payload, isLoading: false }
+      return { ...payload, followers: { total: 0 }, isLoading: false }
     })
     builder.addCase(getPlaylistTracksAsync.pending, (state, action) => {
       state.isLoading = true
@@ -124,7 +124,7 @@ const trackSlice = createSlice({
       state.isLoading = true
     })
     builder.addCase(getArtistTracksAsync.fulfilled, (state, { payload }) => {
-      const flattenPlaylistTracks = payload.tracks.items.map(
+      const flattenPlaylistTracks = payload.tracks.map(
         (track: { track: any }) => {
           return { ...track, ...track.track }
         }

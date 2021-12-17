@@ -76,7 +76,9 @@ const Tracks = ({ route: { params }, navigation }) => {
       />
     )
   }
-
+  console.log('MEDIA type', mediaType)
+  console.log('name', artist.name)
+  console.log('name', track.name)
   return (
     <SafeAreaView style={{ backgroundColor: COLORS.black, flex: 1 }}>
       <StatusBar
@@ -108,9 +110,9 @@ const Tracks = ({ route: { params }, navigation }) => {
             ...FONTS.h3,
           }}
         >
-          {mediaType === 'artist'
+          {/* {mediaType === 'artist'
             ? trimText(artist.name, 34)
-            : trimText(track.name, 34)}
+            : trimText(track.name, 34)} */}
         </Text>
       </Animated.View>
       {track.isLoading ? (
@@ -138,7 +140,7 @@ const Tracks = ({ route: { params }, navigation }) => {
                 followers={
                   mediaType === 'artist'
                     ? artist.followers.total
-                    : track.followers.total
+                    : track?.followers.total
                 }
                 scrollY={scrollY}
                 animateScale={() => animateScale(scrollY)}
