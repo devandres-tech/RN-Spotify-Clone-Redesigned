@@ -66,6 +66,7 @@ const Home = () => {
   }
 
   const renderTopArtistsAndTracksContainer = () => {
+    const topArtists = [...user.topArtists]
     return (
       <TouchableOpacity
         activeOpacity={0.7}
@@ -81,8 +82,8 @@ const Home = () => {
               Your top tracks and artist throughout your listening history
             </Text>
           </View>
-          {user.topArtists &&
-            user.topArtists.reverse().map((artist) => {
+          {topArtists &&
+            topArtists.reverse().map((artist) => {
               return (
                 <View key={`${artist.id}`} style={{ width: 30 }}>
                   <Image

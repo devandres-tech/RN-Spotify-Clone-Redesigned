@@ -45,7 +45,6 @@ export const getUserProfileAsync = createAsyncThunk<
     headers: setHeaders(accessToken),
   })
   const data = await response.json()
-  console.log('USER-----', data)
   return data
 })
 
