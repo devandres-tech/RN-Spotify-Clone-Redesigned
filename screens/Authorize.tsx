@@ -3,7 +3,6 @@ import { View } from 'react-native'
 
 import { useAppDispatch } from '../hooks/hooks'
 import { COLORS } from '../constants'
-// import * as authActions from '../store/actions/auth'
 import { TextButton } from '../components'
 import { authenticateUserAsync } from '../store/slices/authSlice'
 

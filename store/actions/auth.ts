@@ -55,7 +55,7 @@ const initialState: IAuthState = {
 
 const saveTokensToAsyncStorage = (
   accessToken: string,
-  refreshToken: string,
+  refreshToken: string | null,
   accessTokenExpirationDate: string
 ) => {
   AsyncStorage.setItem(

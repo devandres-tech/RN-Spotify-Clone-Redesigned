@@ -49,7 +49,7 @@ const TrackPlayerScreen = ({ navigation }) => {
   }
 
   const onNextTrackHandler = () => {
-    dispatch(audioPlayerActions.playTrackAsync())
+    dispatch(audioPlayerActions.playNextTrackAsync())
     if (player.repeat.one) {
       dispatch(audioPlayerActions.repeatAll())
     }
@@ -115,6 +115,7 @@ const TrackPlayerScreen = ({ navigation }) => {
               {player.currentTrack.searchTerm
                 ? 'SEARCH'
                 : track.type.toUpperCase()}
+              {console.log('TrackPlayer()', player.currentTrack)}
             </Text>
             <Text style={{ color: COLORS.white, ...FONTS.bodyBold }}>
               {player.currentTrack.searchTerm

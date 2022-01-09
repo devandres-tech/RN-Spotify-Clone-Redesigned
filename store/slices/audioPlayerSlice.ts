@@ -13,6 +13,9 @@ const initialState = {
     artwork: '',
     title: '',
     artist: '',
+    album: '',
+    genre: '',
+    duration: 0,
   },
   tracks: [
     {
@@ -51,7 +54,7 @@ export const pauseTrackAsync = createAsyncThunk(
 
 export const setCurrentTrackAsync = createAsyncThunk(
   'audioPlayer/setCurrentTrack',
-  async (currentTrack: Track) => {
+  async (currentTrack: typeof initialState.currentTrack) => {
     await TrackPlayer.add(currentTrack)
     return currentTrack
   }
@@ -230,16 +233,18 @@ const audioPlayerSlice = createSlice({
       state.isTrackPlaying = false
     })
     builder.addCase(setCurrentTrackAsync.fulfilled, (state, { payload }) => {
-      state.currentTrack = payload.currentTrack
+      state.currentTrack = payload
     })
     builder.addCase(resetPlayerAsync.fulfilled, () => {})
     builder.addCase(seekToPositionAsync.fulfilled, () => {})
     builder.addCase(playNextTrackAsync.fulfilled, () => {})
     builder.addCase(shuffleTracksAsync.fulfilled, (state, { payload }) => {
-      state.tracks = payload.randomTracks
+      state.tracks = payload
+      state.isShuffle = true
     })
     builder.addCase(unShuffleTracksAsync.fulfilled, (state, { payload }) => {
-      state.tracks = payload.originalTracks
+      state.tracks = payload
+      state.isShuffle = false
     })
   },
 })

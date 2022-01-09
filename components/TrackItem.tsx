@@ -47,8 +47,7 @@ const TrackItem = ({
       album: albumName,
       genre: '',
       date: '',
-      artwork:
-        albumImages.length > 0 ? albumImages[0].url : track.images[0].url,
+      artwork: albumImages ? albumImages[0].url : track.images[0].url,
       duration,
     }
     if (player.currentTrack.url === url) {
@@ -82,7 +81,7 @@ const TrackItem = ({
   }
 
   const isSelectedTrackPlaying = player.currentTrack.url === url
-  // console.log('ALBUM_____', trackName.length)
+
   return (
     <TouchableOpacity
       activeOpacity={0.7}
