@@ -5,17 +5,8 @@ import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 
 import { useAppDispatch } from '../hooks/hooks'
-// import * as playerActions from '../store/actions/audioPlayer'
-// import {
-//   resetPlayerAsync,
-//   setTracks,
-//   setCurrentTrackAsync,
-
-// } from '../store/slices/audioPlayerSlice'
-// import * as trackActions from '../store/actions/track'
 import * as audioPlayerActions from '../store/slices/audioPlayerSlice'
 import * as trackActions from '../store/slices/trackSlice'
-// import * as trackActions from '../store/actions/track'
 import { COLORS, FONTS } from '../constants'
 import { RootStackParamList } from '../screens/RootStackParams'
 

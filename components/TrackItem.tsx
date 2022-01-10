@@ -12,10 +12,10 @@ interface ITrackItem {
   trackId: string
   url: string
   trackName: string
-  albumName?: string
+  albumName: string
   albumImages: Array<{ url: string }>
   artists: Array<{ name: string }>
-  duration?: number
+  duration: number
   explicit?: boolean
   trackNumber?: number
 }
@@ -49,6 +49,7 @@ const TrackItem = ({
       date: '',
       artwork: albumImages ? albumImages[0].url : track.images[0].url,
       duration,
+      searchTerm: '',
     }
     if (player.currentTrack.url === url) {
       if (isPlaying) {

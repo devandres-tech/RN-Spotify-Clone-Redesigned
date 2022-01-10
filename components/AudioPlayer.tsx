@@ -2,17 +2,11 @@ import React from 'react'
 import { View, Image, Text } from 'react-native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { useNavigation } from '@react-navigation/native'
-import { useDispatch } from 'react-redux'
 
 import { useAppDispatch, useAppSelector } from '../hooks/hooks'
 import { RootStackParamList } from '../screens/RootStackParams'
 import { COLORS, FONTS, icons } from '../constants'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-// import {
-//   pauseTrackAsync,
-//   playTrackAsync,
-// } from '../store/slices/audioPlayerSlice'
-// import * as playerActions from '../store/actions/audioPlayer'
 import * as audioPlayerActions from '../store/slices/audioPlayerSlice'
 import { trimText } from '../utils/helpers'
 
@@ -30,10 +24,8 @@ const AudioPlayer = ({ isTracksScreen }: IAudioPlayer) => {
   const onPlayPauseHandler = async () => {
     if (player.isTrackPlaying) {
       dispatch(audioPlayerActions.pauseTrackAsync())
-      // dispatch({ type: playerActions.PAUSE_TRACK })
     } else {
       dispatch(audioPlayerActions.playTrackAsync())
-      // dispatch({ type: playerActions.PLAY_TRACK })
     }
   }
 

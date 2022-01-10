@@ -8,7 +8,6 @@ import {
   StyleSheet,
   Text,
 } from 'react-native'
-// import { useSelector, useDispatch } from 'react-redux'
 import Animated, {
   useSharedValue,
   useAnimatedScrollHandler,

@@ -8,7 +8,7 @@ import {
   StyleSheet,
   Platform,
 } from 'react-native'
-import { useSelector, useDispatch } from 'react-redux'
+import { useAppDispatch, useAppSelector } from '../hooks/hooks'
 import LinearGradient from 'react-native-linear-gradient'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { useProgress } from 'react-native-track-player'
@@ -17,7 +17,6 @@ import Slider from '@react-native-community/slider'
 import * as audioPlayerActions from '../store/slices/audioPlayerSlice'
 import { COLORS, FONTS, icons } from '../constants'
 import { secondsToHHMMSS } from '../utils/helpers'
-import { useAppSelector } from '../hooks/hooks'
 
 const MAX_PROGRESS = 30
 
@@ -25,7 +24,7 @@ const TrackPlayerScreen = ({ navigation }) => {
   const player = useAppSelector((state) => state.audioPlayer)
   const track = useAppSelector((state) => state.track)
   const progress = useProgress()
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
   const onPlayPauseHandler = async () => {
     if (player.isTrackPlaying) dispatch(audioPlayerActions.pauseTrackAsync())
