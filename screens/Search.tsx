@@ -9,7 +9,6 @@ import {
   StyleSheet,
 } from 'react-native'
 import { useScrollToTop } from '@react-navigation/native'
-// import { useSelector, useDispatch } from 'react-redux'
 
 import { useAppDispatch, useAppSelector } from '../hooks/hooks'
 import { COLORS, FONTS, SIZES, icons } from '../constants'

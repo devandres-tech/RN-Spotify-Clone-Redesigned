@@ -14,13 +14,14 @@ import { useAppDispatch } from '../hooks/hooks'
 // } from '../store/slices/audioPlayerSlice'
 // import * as trackActions from '../store/actions/track'
 import * as audioPlayerActions from '../store/slices/audioPlayerSlice'
-import * as trackActions from '../store/actions/track'
+import * as trackActions from '../store/slices/trackSlice'
+// import * as trackActions from '../store/actions/track'
 import { COLORS, FONTS } from '../constants'
 import { RootStackParamList } from '../screens/RootStackParams'
 
 interface ISearchItems {
   items: Array<ISearchItem>
-  searchTerm?: string
+  searchTerm: string
 }
 
 type ISearchItem = {
@@ -65,6 +66,7 @@ const SearchItems = ({ items, searchTerm }: ISearchItems) => {
           artwork: album.images[0].url,
           duration: duration_ms,
           searchTerm,
+          album: '',
         })
       )
       dispatch(audioPlayerActions.playTrackAsync())

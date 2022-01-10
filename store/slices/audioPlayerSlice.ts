@@ -1,4 +1,4 @@
-import TrackPlayer, { Track } from 'react-native-track-player'
+import TrackPlayer from 'react-native-track-player'
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 
 import { shuffle, formatText } from '../../utils/helpers'
@@ -16,6 +16,7 @@ const initialState = {
     album: '',
     genre: '',
     duration: 0,
+    date: '',
   },
   tracks: [
     {
@@ -108,6 +109,7 @@ export const playNextTrackAsync = createAsyncThunk<
       searchTerm: player.currentTrack.searchTerm
         ? player.currentTrack.searchTerm
         : '',
+      date: '',
     })
   )
   if (currentTrackIndex === lastIndex && !player.repeat.all) {
@@ -148,6 +150,7 @@ export const playPrevTrackAsync = createAsyncThunk<
           searchTerm: player.currentTrack.searchTerm
             ? player.currentTrack.searchTerm
             : '',
+          date: '',
         })
       )
       dispatch(playTrackAsync())
@@ -173,6 +176,7 @@ export const playPrevTrackAsync = createAsyncThunk<
         searchTerm: player.currentTrack.searchTerm
           ? player.currentTrack.searchTerm
           : '',
+        date: '',
       })
     )
     dispatch(playTrackAsync())
