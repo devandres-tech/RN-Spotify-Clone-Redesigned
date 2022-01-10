@@ -52,7 +52,7 @@ export const animateHeight = (property: Animated.SharedValue<number>) =>
 export const verticalAnimation: any = {
   gestureDirection: 'vertical',
   presentation: 'modal',
-  cardStyleInterpolator: ({ current, layouts }) => {
+  cardStyleInterpolator: ({ current, layouts }: any) => {
     return {
       cardStyle: {
         transform: [
