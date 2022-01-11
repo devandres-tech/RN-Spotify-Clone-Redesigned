@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { View, FlatList, ScrollView } from 'react-native'
+import { View, ScrollView } from 'react-native'
 import { useScrollToTop } from '@react-navigation/native'
-import { NativeStackScreenProps } from '@react-navigation/native-stack'
 
 import {
   Header,
@@ -10,7 +9,6 @@ import {
   HorizontalCardContainer,
   TrackItem,
 } from '../components'
-import { RootStackParamList } from './RootStackParams'
 import { useAppDispatch, useAppSelector } from '../hooks/hooks'
 import { COLORS, SIZES, FONTS, LIBRARY_MENU_ITEMS } from '../constants'
 import * as libraryActions from '../store/slices/librarySlice'
@@ -18,9 +16,7 @@ import * as audioPlayerActions from '../store/slices/audioPlayerSlice'
 import * as playlistActions from '../store/slices/playlistSlice'
 import * as userActions from '../store/slices/userSlice'
 
-type libraryScreenProp = NativeStackScreenProps<RootStackParamList, 'Library'>
-
-const Library = ({ navigation }: libraryScreenProp) => {
+const Library = () => {
   const [activeMenuItem, setActiveMenuItem] = useState(LIBRARY_MENU_ITEMS[0])
   const library = useAppSelector((state) => state.library)
   const playlist = useAppSelector((state) => state.playlist)
@@ -63,6 +59,7 @@ const Library = ({ navigation }: libraryScreenProp) => {
           {topTracks.map((track, idx) => {
             return (
               <TrackItem
+                duration={0}
                 key={`${track.id}-${idx}`}
                 index={idx}
                 trackId={track.id}
@@ -88,6 +85,7 @@ const Library = ({ navigation }: libraryScreenProp) => {
     return filteredUserTracks.map((track) => {
       return (
         <TrackItem
+          duration={0}
           albumName={track.album.name}
           trackId={track.id}
           url={track.preview_url}
@@ -108,50 +106,48 @@ const Library = ({ navigation }: libraryScreenProp) => {
         paddingTop: SIZES.paddingTop,
       }}
     >
-      <FlatList
-        ref={ref}
-        showsVerticalScrollIndicator={false}
-        ListHeaderComponent={
-          <View>
-            <Header />
-            <TextTitle containerStyle={{ ...FONTS.h1 }} label='YOUR LIBRARY' />
-            <HorizontalMenu
-              activeMenuItem={activeMenuItem}
-              setActiveMenuItem={setActiveMenuItem}
-              menuItems={LIBRARY_MENU_ITEMS}
-            />
-          </View>
-        }
-        ListFooterComponent={
-          <View style={{ paddingBottom: 160 }}>
-            {activeMenuItem.id === 1 && renderMadeForYouContainer()}
-            {activeMenuItem.id === 2 &&
-              user.recentlyPlayed.map((track) => {
-                return (
-                  <TrackItem
-                    key={track.id}
-                    url={track.preview_url}
-                    artists={track.artists}
-                    trackName={track.name}
-                    albumImages={track.images}
-                  />
-                )
-              })}
-            {activeMenuItem.id === 3 && renderUserLibrarySongs()}
-            {activeMenuItem.id === 4 &&
-              library.userAlbums.map((album) => {
-                return (
-                  <TrackItem
-                    key={album.id}
-                    artists={album.artists}
-                    albumName={album.albumName}
-                    albumImages={album.images}
-                  />
-                )
-              })}
-          </View>
-        }
-      />
+      <ScrollView ref={ref} showsVerticalScrollIndicator={false}>
+        <Header />
+        <TextTitle containerStyle={{ ...FONTS.h1 }} label='YOUR LIBRARY' />
+        <HorizontalMenu
+          activeMenuItem={activeMenuItem}
+          setActiveMenuItem={setActiveMenuItem}
+          menuItems={LIBRARY_MENU_ITEMS}
+        />
+        <View style={{ paddingBottom: 160 }}>
+          {activeMenuItem.id === 1 && renderMadeForYouContainer()}
+          {activeMenuItem.id === 2 &&
+            user.recentlyPlayed.map((track: any) => {
+              return (
+                <TrackItem
+                  duration={0}
+                  trackId={track.id}
+                  key={track.id}
+                  url={track.preview_url}
+                  artists={track.artists}
+                  trackName={track.name}
+                  albumImages={track.images}
+                />
+              )
+            })}
+          {activeMenuItem.id === 3 && renderUserLibrarySongs()}
+          {activeMenuItem.id === 4 &&
+            library.userAlbums.map((album: any) => {
+              return (
+                <TrackItem
+                  url={''}
+                  trackName={''}
+                  duration={0}
+                  trackId={album.id}
+                  key={album.id}
+                  artists={album.artists}
+                  albumName={album.albumName}
+                  albumImages={album.images}
+                />
+              )
+            })}
+        </View>
+      </ScrollView>
     </View>
   )
 }

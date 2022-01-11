@@ -12,7 +12,7 @@ interface ITrackItem {
   trackId: string
   url: string
   trackName: string
-  albumName: string
+  albumName?: string
   albumImages: Array<{ url: string }>
   artists: Array<{ name: string }>
   duration: number
@@ -109,7 +109,7 @@ const TrackItem = ({
             }
           />
         )}
-        {url !== undefined && renderPlayPauseIcon()}
+        {url !== undefined && url.length > 0 && renderPlayPauseIcon()}
         {trackNumber !== undefined && (
           <Text
             style={{
@@ -122,15 +122,17 @@ const TrackItem = ({
           </Text>
         )}
         <View>
-          <Text
-            style={{
-              color: isSelectedTrackPlaying ? COLORS.primary : COLORS.white,
-              fontWeight: 'bold',
-              ...FONTS.body,
-            }}
-          >
-            {trackName && trimText(trackName, 30)}
-          </Text>
+          {trackName.length > 0 && (
+            <Text
+              style={{
+                color: isSelectedTrackPlaying ? COLORS.primary : COLORS.white,
+                fontWeight: 'bold',
+                ...FONTS.body,
+              }}
+            >
+              {trackName && trimText(trackName, 30)}
+            </Text>
+          )}
           {artists && (
             <View
               style={{
@@ -166,7 +168,7 @@ const TrackItem = ({
             alignItems: 'flex-end',
           }}
         >
-          {duration !== undefined && (
+          {duration > 0 && (
             <Text
               style={{ color: COLORS.lightGray, ...FONTS.body }}
             >{`${date.getMinutes()}:${date.getSeconds()}`}</Text>

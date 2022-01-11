@@ -13,7 +13,7 @@ const initialState = {
     artwork: '',
     title: '',
     artist: '',
-    album: '',
+    album: '' ? '' : undefined,
     genre: '',
     duration: 0,
     date: '',
