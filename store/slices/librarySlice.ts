@@ -5,7 +5,7 @@ import { setHeaders } from '../../utils/helpers'
 import { RootState } from '../index'
 
 const initialState = {
-  topArtists: [],
+  topArtists: [] as any,
   topTracks: [
     {
       preview_url: '',
@@ -17,7 +17,7 @@ const initialState = {
       },
       duration_ms: 0,
       artists: [{ name: '' }],
-      images: [],
+      images: [] as any,
     },
   ],
   userTracks: [
@@ -31,10 +31,10 @@ const initialState = {
       },
       duration_ms: 0,
       artists: [{ name: '' }],
-      images: [],
+      images: [] as any,
     },
   ],
-  userAlbums: [],
+  userAlbums: [] as any,
 }
 
 export const getTopArtistsAsync = createAsyncThunk<

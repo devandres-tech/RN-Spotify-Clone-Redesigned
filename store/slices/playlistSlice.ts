@@ -5,11 +5,11 @@ import { setHeaders } from '../../utils/helpers'
 import { RootState } from '../index'
 
 const initialState = {
-  topLists: [],
+  topLists: [] as any,
   featured: [{ images: [{ url: '' }] }],
-  newReleases: [],
+  newReleases: [] as any,
   album: {
-    tracks: { items: [] },
+    tracks: { items: [] as any },
     images: [{ url: '' }],
     followers: { total: 0 },
     name: '',

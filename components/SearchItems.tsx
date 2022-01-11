@@ -24,6 +24,7 @@ type ISearchItem = {
   artists: Array<{ name: string }>
   preview_url: string
   duration_ms: number
+  followers: { total: number }
 }
 
 type searchItemsNavProps = StackNavigationProp<RootStackParamList, 'Search'>

@@ -23,7 +23,12 @@ interface IHorizontalCardItem {
   albumType: string
   artists: Array<{ name: string }>
   id: string
-  artist: object | null
+  artist: {
+    name: string
+    type: string
+    images: { url: string }[]
+    followers?: { total: number }
+  } | null
 }
 
 const HorizontalCardItem = ({

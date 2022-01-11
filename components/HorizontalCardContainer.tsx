@@ -24,6 +24,7 @@ interface ItemType {
   albumName: string
   album_type: string
   artists: Array<{ name: string }>
+  followers?: { total: number }
 }
 
 const HorizontalCardContainer = ({

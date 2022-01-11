@@ -3,10 +3,11 @@ export type RootStackParamList = {
     mediaId: string
     mediaType: string
     artist?: {
-      name: ''
-      type: ''
-      images: [{ url: '' }]
-      followers: { total: 0 }
+      name: string
+      type: string
+      images: { url: string }[]
+      // followers?: number | { total: number }
+      followers?: { total: number }
     } | null
     isSearchItem?: boolean
   }

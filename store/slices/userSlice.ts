@@ -27,7 +27,7 @@ const initialState = {
       public: '',
     },
   ],
-  recentlyPlayed: [],
+  recentlyPlayed: [] as any,
   topArtists: [{ images: [{ url: '' }], id: '' }],
   follows: [
     { id: '', images: [{ url: '' }], name: '', followers: { total: 0 } },
