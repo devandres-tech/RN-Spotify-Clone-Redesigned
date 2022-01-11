@@ -1,8 +1,8 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { View } from 'react-native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
-import { useAppSelector } from '../hooks/hooks'
+import { useAppSelector } from '../hooks/redux-hooks'
 import { Home, Library, Search, Profile } from '../screens'
 import { COLORS } from '../constants'
 import { TabBarIcon, AudioPlayer } from './index'

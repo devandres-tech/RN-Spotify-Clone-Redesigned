@@ -10,7 +10,7 @@ import {
 } from 'react-native'
 import { useScrollToTop } from '@react-navigation/native'
 
-import { useAppDispatch, useAppSelector } from '../hooks/hooks'
+import { useAppDispatch, useAppSelector } from '../hooks/redux-hooks'
 import { COLORS, FONTS, SIZES, icons } from '../constants'
 import * as browseActions from '../store/slices/browseSlice'
 import * as searchActions from '../store/slices/searchSlice'

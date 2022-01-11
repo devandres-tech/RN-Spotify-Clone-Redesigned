@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, FlatList, Image, Text, StyleSheet } from 'react-native'
+import { View, Image, Text, StyleSheet, ScrollView } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { useScrollToTop } from '@react-navigation/native'
 
@@ -10,7 +10,7 @@ import {
   TextButton,
 } from '../components'
 import { COLORS, FONTS, SIZES } from '../constants'
-import { useAppDispatch, useAppSelector } from '../hooks/hooks'
+import { useAppDispatch, useAppSelector } from '../hooks/redux-hooks'
 import * as userActions from '../store/slices/userSlice'
 import * as playlistActions from '../store/slices/playlistSlice'
 import { RootStackParamList } from './RootStackParams'
@@ -175,28 +175,23 @@ const Profile = ({ navigation }: profileScreenProp) => {
 
   return (
     <View style={styles.profileScreen}>
-      <FlatList
-        ref={ref}
-        showsVerticalScrollIndicator={false}
-        ListHeaderComponent={
-          <View>
-            <Header />
-            {renderUserProfile()}
-            <HorizontalMenu
-              activeMenuItem={activeMenuItem}
-              setActiveMenuItem={setActiveMenuItem}
-              menuItems={menuItems}
-            />
-          </View>
-        }
-        ListFooterComponent={
-          <View style={{ paddingBottom: 120 }}>
-            {activeMenuItem.id === 1 && renderOverview()}
-            {activeMenuItem.id === 2 && renderUserPublicPlaylists()}
-            {activeMenuItem.id === 3 && renderUserFollows()}
-          </View>
-        }
-      />
+      <ScrollView ref={ref} showsVerticalScrollIndicator={false}>
+        <View>
+          <Header />
+          {renderUserProfile()}
+          <HorizontalMenu
+            activeMenuItem={activeMenuItem}
+            setActiveMenuItem={setActiveMenuItem}
+            menuItems={menuItems}
+          />
+        </View>
+
+        <View style={{ paddingBottom: 120 }}>
+          {activeMenuItem.id === 1 && renderOverview()}
+          {activeMenuItem.id === 2 && renderUserPublicPlaylists()}
+          {activeMenuItem.id === 3 && renderUserFollows()}
+        </View>
+      </ScrollView>
     </View>
   )
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 import { View } from 'react-native'
 
-import { useAppDispatch } from '../hooks/hooks'
+import { useAppDispatch } from '../hooks/redux-hooks'
 import { COLORS } from '../constants'
 import { TextButton } from '../components'
 import { authenticateUserAsync } from '../store/slices/authSlice'

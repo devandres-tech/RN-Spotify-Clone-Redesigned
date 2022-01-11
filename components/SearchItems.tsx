@@ -4,7 +4,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 
-import { useAppDispatch } from '../hooks/hooks'
+import { useAppDispatch } from '../hooks/redux-hooks'
 import * as audioPlayerActions from '../store/slices/audioPlayerSlice'
 import * as trackActions from '../store/slices/trackSlice'
 import { COLORS, FONTS } from '../constants'

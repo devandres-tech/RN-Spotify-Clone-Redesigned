@@ -15,7 +15,7 @@ import Animated, {
 import LinearGradient from 'react-native-linear-gradient'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 
-import { useAppDispatch, useAppSelector } from '../hooks/hooks'
+import { useAppDispatch, useAppSelector } from '../hooks/redux-hooks'
 import { COLORS, icons, FONTS } from '../constants'
 import { trimText } from '../utils/helpers'
 import * as tracksActions from '../store/slices/trackSlice'

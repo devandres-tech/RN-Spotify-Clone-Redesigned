@@ -11,7 +11,7 @@ import {
 import { useScrollToTop } from '@react-navigation/native'
 import { ScrollView } from 'react-native-gesture-handler'
 
-import { useAppDispatch, useAppSelector } from '../hooks/hooks'
+import { useAppDispatch, useAppSelector } from '../hooks/redux-hooks'
 import { COLORS, FONTS, SIZES } from '../constants'
 import * as userActions from '../store/slices/userSlice'
 import * as playlistActions from '../store/slices/playlistSlice'

@@ -3,7 +3,7 @@ import { View, Image, Text } from 'react-native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { useNavigation } from '@react-navigation/native'
 
-import { useAppDispatch, useAppSelector } from '../hooks/hooks'
+import { useAppDispatch, useAppSelector } from '../hooks/redux-hooks'
 import { RootStackParamList } from '../screens/RootStackParams'
 import { COLORS, FONTS, icons } from '../constants'
 import { TouchableOpacity } from 'react-native-gesture-handler'

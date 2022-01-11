@@ -7,7 +7,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 
 import { RootStackParamList } from './screens/RootStackParams'
-import { useAppSelector, useAppDispatch } from './hooks/hooks'
+import { useAppSelector, useAppDispatch } from './hooks/redux-hooks'
 import { Authorize, Tracks, TrackPlayer } from './screens'
 import { MainTabNavigator, LoadingSpinner } from './components'
 import { verticalAnimation } from './utils/animations'

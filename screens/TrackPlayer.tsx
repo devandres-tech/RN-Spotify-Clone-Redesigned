@@ -8,7 +8,7 @@ import {
   StyleSheet,
   Platform,
 } from 'react-native'
-import { useAppDispatch, useAppSelector } from '../hooks/hooks'
+import { useAppDispatch, useAppSelector } from '../hooks/redux-hooks'
 import LinearGradient from 'react-native-linear-gradient'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { useProgress } from 'react-native-track-player'

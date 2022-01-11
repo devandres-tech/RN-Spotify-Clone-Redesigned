@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { View, Text, Image, StyleSheet } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 
-import { useAppSelector, useAppDispatch } from '../hooks/hooks'
+import { useAppSelector, useAppDispatch } from '../hooks/redux-hooks'
 import * as audioPlayerActions from '../store/slices/audioPlayerSlice'
 import { COLORS, SIZES, FONTS, icons } from '../constants'
 import { trimText } from '../utils/helpers'
