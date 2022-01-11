@@ -4,20 +4,66 @@ import { RootState } from '../index'
 
 import { setHeaders } from '../../utils/helpers'
 
+// id, type, album, preview_url, duration_ms
+
 const initialState = {
   isLoading: true,
   results: {
     artists: {
-      items: [{ name: '', images: undefined, artists: [{ name: '' }] }],
+      items: [
+        {
+          name: '',
+          images: [{ url: '' }],
+          artists: [{ name: '' }],
+          id: '',
+          album: { images: [{ url: '' }], name: '' },
+          preview_url: '',
+          duration_ms: 0,
+          type: '',
+        },
+      ],
     },
     albums: {
-      items: [{ name: '', images: undefined, artists: [{ name: '' }] }],
+      items: [
+        {
+          name: '',
+          images: [{ url: '' }],
+          artists: [{ name: '' }],
+          id: '',
+          album: { images: [{ url: '' }], name: '' },
+          preview_url: '',
+          duration_ms: 0,
+          type: '',
+        },
+      ],
     },
     tracks: {
-      items: [{ name: '', album: undefined, artists: [{ name: '' }] }],
+      items: [
+        {
+          name: '',
+          images: [{ url: '' }],
+          artists: [{ name: '' }],
+          id: '',
+          album: { images: [{ url: '' }], name: '' },
+          preview_url: '',
+          duration_ms: 0,
+          type: '',
+        },
+      ],
     },
     playlists: {
-      items: [{ name: '', images: undefined, artists: [{ name: '' }] }],
+      items: [
+        {
+          name: '',
+          images: [{ url: '' }],
+          artists: [{ name: '' }],
+          id: '',
+          album: { images: [{ url: '' }], name: '' },
+          preview_url: '',
+          duration_ms: 0,
+          type: '',
+        },
+      ],
     },
   },
   error: {},

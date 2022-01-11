@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import {
   View,
-  FlatList,
   Image,
   Text,
   TouchableOpacity,
   TextInput,
   StyleSheet,
+  ScrollView,
 } from 'react-native'
 import { useScrollToTop } from '@react-navigation/native'
 
@@ -17,7 +17,7 @@ import * as searchActions from '../store/slices/searchSlice'
 import { Header, TextTitle, SearchItems, LoadingSpinner } from '../components'
 import { useDebounce } from '../hooks/useDebounce'
 
-const Search = ({ navigation }) => {
+const Search = () => {
   const [searchTerm, setSearchTerm] = useState('')
   const [isUserSearching, setIsUserSearching] = useState(false)
   const debouncedSearchTerm = useDebounce(searchTerm, 500)
@@ -121,58 +121,40 @@ const Search = ({ navigation }) => {
 
     return (
       <View>
-        <SearchItems
-          navigation={navigation}
-          items={search.results.artists.items}
-        />
-        <SearchItems
-          navigation={navigation}
-          items={search.results.albums.items}
-        />
+        <SearchItems searchTerm='' items={search.results.artists.items} />
+        <SearchItems searchTerm='' items={search.results.albums.items} />
         <SearchItems
           searchTerm={searchTerm}
-          navigation={navigation}
           items={search.results.tracks.items}
         />
-        <SearchItems
-          navigation={navigation}
-          items={search.results.playlists.items}
-        />
+        <SearchItems searchTerm='' items={search.results.playlists.items} />
       </View>
     )
   }
 
   return (
     <View style={styles.searchScreen}>
-      <FlatList
-        ref={ref}
-        showsVerticalScrollIndicator={false}
-        ListHeaderComponent={
-          <View>
-            <Header />
-            {/* search component */}
-            <TextTitle containerStyle={{ ...FONTS.h1 }} label='SEARCH' />
-            <View style={styles.searchContainer}>
-              <TextInput
-                value={searchTerm}
-                onChangeText={searchTermHandler}
-                placeholder='Search...'
-                selectionColor={COLORS.primary}
-                placeholderTextColor={'#fff'}
-                style={styles.textInput}
-              />
-              <Image source={icons.search} style={styles.searchIcon} />
-            </View>
+      <ScrollView ref={ref} showsVerticalScrollIndicator={false}>
+        <View>
+          <Header />
+          {/* search component */}
+          <TextTitle containerStyle={{ ...FONTS.h1 }} label='SEARCH' />
+          <View style={styles.searchContainer}>
+            <TextInput
+              value={searchTerm}
+              onChangeText={searchTermHandler}
+              placeholder='Search...'
+              selectionColor={COLORS.primary}
+              placeholderTextColor={'#fff'}
+              style={styles.textInput}
+            />
+            <Image source={icons.search} style={styles.searchIcon} />
           </View>
-        }
-        ListFooterComponent={
-          <View style={styles.footerContainer}>
-            {isUserSearching
-              ? renderSearchResults()
-              : renderCategoryCardItems()}
-          </View>
-        }
-      />
+        </View>
+        <View style={styles.footerContainer}>
+          {isUserSearching ? renderSearchResults() : renderCategoryCardItems()}
+        </View>
+      </ScrollView>
     </View>
   )
 }
