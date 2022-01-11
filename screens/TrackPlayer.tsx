@@ -17,10 +17,17 @@ import Slider from '@react-native-community/slider'
 import * as audioPlayerActions from '../store/slices/audioPlayerSlice'
 import { COLORS, FONTS, icons } from '../constants'
 import { secondsToHHMMSS } from '../utils/helpers'
+import { NativeStackScreenProps } from '@react-navigation/native-stack'
+import { RootStackParamList } from './RootStackParams'
+
+type trackPlayerScreenProp = NativeStackScreenProps<
+  RootStackParamList,
+  'TrackPlayer'
+>
 
 const MAX_PROGRESS = 30
 
-const TrackPlayerScreen = ({ navigation }) => {
+const TrackPlayerScreen = ({ navigation }: trackPlayerScreenProp) => {
   const player = useAppSelector((state) => state.audioPlayer)
   const track = useAppSelector((state) => state.track)
   const progress = useProgress()

@@ -4,8 +4,6 @@ import { RootState } from '../index'
 
 import { setHeaders } from '../../utils/helpers'
 
-// id, type, album, preview_url, duration_ms
-
 const initialState = {
   isLoading: true,
   results: {
