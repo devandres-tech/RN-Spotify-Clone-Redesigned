@@ -16,9 +16,9 @@ import * as playlistActions from '../store/slices/playlistSlice'
 import { RootStackParamList } from './RootStackParams'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 
-type profileScreenProp = NativeStackScreenProps<RootStackParamList, 'Profile'>
+type profileScreenProps = NativeStackScreenProps<RootStackParamList, 'Profile'>
 
-const Profile = ({ navigation }: profileScreenProp) => {
+const Profile = ({ navigation }: profileScreenProps) => {
   const ref = React.useRef(null)
   const user = useAppSelector((state) => state.user)
   const playlist = useAppSelector((state) => state.playlist)

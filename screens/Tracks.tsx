@@ -20,6 +20,8 @@ import { COLORS, icons, FONTS } from '../constants'
 import { trimText } from '../utils/helpers'
 import * as tracksActions from '../store/slices/trackSlice'
 import * as audioPlayerActions from '../store/slices/audioPlayerSlice'
+import { NativeStackScreenProps } from '@react-navigation/native-stack'
+import { RootStackParamList } from './RootStackParams'
 import {
   animateOpacity,
   animateHeight,
@@ -32,9 +34,11 @@ import {
   LoadingSpinner,
 } from '../components'
 
+type tracksScreenProps = NativeStackScreenProps<RootStackParamList, 'Tracks'>
+
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList)
 
-const Tracks = ({ route: { params }, navigation }) => {
+const Tracks = ({ route: { params }, navigation }: tracksScreenProps) => {
   const scrollY = useSharedValue(0)
   const track = useAppSelector((state) => state.track)
   const player = useAppSelector((state) => state.audioPlayer)
@@ -61,7 +65,7 @@ const Tracks = ({ route: { params }, navigation }) => {
     },
   })
 
-  const renderTracks = ({ item }) => {
+  const renderTracks = ({ item }: any) => {
     return (
       <TrackItem
         trackId={item.id}
@@ -92,7 +96,13 @@ const Tracks = ({ route: { params }, navigation }) => {
       >
         <LinearGradient
           style={styles.linearGradient}
-          colors={styles.linearGradientColors}
+          colors={[
+            COLORS.black,
+            COLORS.black,
+            COLORS.black,
+            'rgba(7, 7, 7, 0.55)',
+            'rgba(7, 7, 7, 0.50)',
+          ]}
         />
         <TouchableOpacity
           activeOpacity={0.7}
@@ -150,11 +160,7 @@ const Tracks = ({ route: { params }, navigation }) => {
         </Animated.View>
       )}
       {player.currentTrack.url.length > 0 && (
-        <AudioPlayer
-          navigation={navigation}
-          isSearchItem={isSearchItem}
-          isTracksScreen={true}
-        />
+        <AudioPlayer isSearchItem={isSearchItem} isTracksScreen={true} />
       )}
 
       {/* <View>
@@ -191,13 +197,6 @@ const styles = StyleSheet.create({
     bottom: 0,
     backgroundColor: 'transparent',
   },
-  linearGradientColors: [
-    COLORS.black,
-    COLORS.black,
-    COLORS.black,
-    'rgba(7, 7, 7, 0.55)',
-    'rgba(7, 7, 7, 0.50)',
-  ],
 })
 
 export default Tracks

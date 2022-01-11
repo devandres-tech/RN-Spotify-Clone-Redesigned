@@ -7,6 +7,7 @@ import { setHeaders } from '../../utils/helpers'
 const initialState = {
   isLoading: true,
   name: '',
+  description: '',
   tracks: {
     items: [
       {

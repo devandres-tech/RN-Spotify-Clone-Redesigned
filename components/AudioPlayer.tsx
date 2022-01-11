@@ -14,6 +14,7 @@ type audioPlayerScreenProps = StackNavigationProp<RootStackParamList, 'Tracks'>
 
 interface IAudioPlayer {
   isTracksScreen?: boolean
+  isSearchItem?: boolean
 }
 
 const AudioPlayer = ({ isTracksScreen }: IAudioPlayer) => {

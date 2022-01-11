@@ -20,14 +20,14 @@ import { secondsToHHMMSS } from '../utils/helpers'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { RootStackParamList } from './RootStackParams'
 
-type trackPlayerScreenProp = NativeStackScreenProps<
+type trackPlayerScreenProps = NativeStackScreenProps<
   RootStackParamList,
   'TrackPlayer'
 >
 
 const MAX_PROGRESS = 30
 
-const TrackPlayerScreen = ({ navigation }: trackPlayerScreenProp) => {
+const TrackPlayerScreen = ({ navigation }: trackPlayerScreenProps) => {
   const player = useAppSelector((state) => state.audioPlayer)
   const track = useAppSelector((state) => state.track)
   const progress = useProgress()

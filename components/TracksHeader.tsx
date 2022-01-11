@@ -14,13 +14,13 @@ interface ITracksHeader {
   totalTracks: number
   mediaDescription: string
   followers: number
-  releaseDate: string
+  releaseDate?: string
   animateScale: (
     scrollY: Animated.SharedValue<number>
   ) => Animated.AnimateStyle<ImageStyle>
   type: string
   scrollY: Animated.SharedValue<number>
-  artists: { name: string }[]
+  artists?: { name: string }[]
 }
 
 const TracksHeader = ({
