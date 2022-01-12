@@ -121,7 +121,6 @@ const TrackPlayerScreen = ({ navigation }: trackPlayerScreenProps) => {
               {player.currentTrack.searchTerm
                 ? 'SEARCH'
                 : track.type.toUpperCase()}
-              {console.log('TrackPlayer()', player.currentTrack)}
             </Text>
             <Text style={{ color: COLORS.white, ...FONTS.bodyBold }}>
               {player.currentTrack.searchTerm
