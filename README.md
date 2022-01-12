@@ -4,8 +4,10 @@ Complete source code for the YouTube tutorial React Native Spotify Clone Redesig
 
 This project uses the Spotify API. You will need to create a Spotify account to get a Client ID and Client Secret [here](https://developer.spotify.com/dashboard/). You will also need to install the React Native development environment as per docs [here](https://reactnative.dev/docs/0.65/environment-setup).
 
-![Home](./screenshots/home.png) ![search](./screenshots/search.png) ![search2](./screenshots/search2.png) ![library](./screenshots/library.png)
-![profile](./screenshots/profile.png) ![player](./screenshots/track-player.png) ![artist](./screenshots/artist.png)
+<!-- ![Home](./screenshots/home.png) ![search](./screenshots/search.png) ![search2](./screenshots/search2.png) ![library](./screenshots/library.png)
+![profile](./screenshots/profile.png) ![player](./screenshots/track-player.png) ![artist](./screenshots/artist.png) -->
+<img src="https://github.com/AndresXI/RN-Spotify-Clone-Redesigned/blob/main/screenshots/home.png?raw=true" width=350 />
+<img src="https://github.com/AndresXI/RN-Spotify-Clone-Redesigned/blob/main/screenshots/search.png?raw=true" width=350 />
 
 - Clone repo locally: `git clone https://github.com/AndresXI/RN-Spotify-Clone-Redesigned.git`
 
