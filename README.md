@@ -7,7 +7,7 @@ This project uses the Spotify API. You will need to create a Spotify account to 
 <!-- ![Home](./screenshots/home.png) ![search](./screenshots/search.png) ![search2](./screenshots/search2.png) ![library](./screenshots/library.png)
 ![profile](./screenshots/profile.png) ![player](./screenshots/track-player.png) ![artist](./screenshots/artist.png) -->
 
-<img src="https://github.com/AndresXI/RN-Spotify-Clone-Redesigned/blob/main/screenshots/home.png?raw=true" width=280 /> <img src="https://github.com/AndresXI/RN-Spotify-Clone-Redesigned/blob/main/screenshots/search.png?raw=true" width=280 /> <img src="https://github.com/AndresXI/RN-Spotify-Clone-Redesigned/blob/main/screenshots/library.png?raw=true" width=280 />
+<img src="https://github.com/AndresXI/RN-Spotify-Clone-Redesigned/blob/main/screenshots/home.png?raw=true" width=250 /> <img src="https://github.com/AndresXI/RN-Spotify-Clone-Redesigned/blob/main/screenshots/search.png?raw=true" width=250 /> <img src="https://github.com/AndresXI/RN-Spotify-Clone-Redesigned/blob/main/screenshots/library.png?raw=true" width=250 />
 
 - Clone repo locally: `git clone https://github.com/AndresXI/RN-Spotify-Clone-Redesigned.git`
 
