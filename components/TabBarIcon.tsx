@@ -10,7 +10,6 @@ import LibrarySvg from '../assets/icons/ic_library.svg'
 import LibrarySelectedSvg from '../assets/icons/ic_library_selected.svg'
 import ProfileSvg from '../assets/icons/ic_profile.svg'
 import ProfileSelectedSvg from '../assets/icons/ic_profile_selected.svg'
-
 import { COLORS, FONTS } from '../constants'
 
 interface ITabBarIcon {

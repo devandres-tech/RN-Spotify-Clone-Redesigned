@@ -20,7 +20,7 @@ const TextButton = ({
   return (
     <TouchableOpacity
       onPress={onPress}
-      activeOpacity={0.5}
+      activeOpacity={0.7}
       style={{
         backgroundColor: COLORS.primary,
         alignItems: 'center',
