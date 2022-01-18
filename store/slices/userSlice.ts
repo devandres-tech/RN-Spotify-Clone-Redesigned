@@ -1,5 +1,5 @@
 import { BASE_URL } from '@env'
-import { createSlice, createAsyncThunk, current } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { RootState } from '../index'
 
 import { setHeaders } from '../../utils/helpers'

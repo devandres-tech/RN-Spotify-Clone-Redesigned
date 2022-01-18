@@ -47,9 +47,7 @@ const App = () => {
     tryLogin()
   }, [dispatch])
 
-  if (auth.tokenIsLoading) {
-    return <LoadingSpinner />
-  }
+  if (auth.tokenIsLoading) return <LoadingSpinner />
 
   return (
     <SafeAreaProvider>

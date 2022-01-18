@@ -36,10 +36,8 @@ export const formatText = (
   }[]
 ) => textArr.map((text) => text.name).join(', ')
 
-export const setHeaders = (accessToken: string) => {
-  return {
-    'Content-Type': 'application/json',
-    Accept: 'application/json',
-    Authorization: `Bearer ${accessToken}`,
-  }
-}
+export const setHeaders = (accessToken: string) => ({
+  'Content-Type': 'application/json',
+  Accept: 'application/json',
+  Authorization: `Bearer ${accessToken}`,
+})
