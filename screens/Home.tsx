@@ -5,7 +5,6 @@ import {
   Text,
   TouchableOpacity,
   ImageBackground,
-  SafeAreaView,
   StyleSheet,
 } from 'react-native'
 import { useScrollToTop } from '@react-navigation/native'
@@ -101,7 +100,7 @@ const Home = () => {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <ScrollView>
         <Header />
         <View style={{ paddingBottom: 120 }}>
@@ -113,15 +112,15 @@ const Home = () => {
           {renderButtons()}
           <HorizontalCardContainer
             label='RECENTLY PLAYED'
-            cardItemImageStyle={{ opacity: 1 }}
-            cardItemTextStyle={{ position: 'relative', paddingTop: 15 }}
+            cardItemImageStyle={styles.cardItemImageStyle}
+            cardItemTextStyle={styles.cardItemTextStyle}
             data={user.recentlyPlayed}
           />
           {renderTopArtistsAndTracksContainer()}
           <HorizontalCardContainer
             label='POPULAR'
-            cardItemImageStyle={{ opacity: 1 }}
-            cardItemTextStyle={{ position: 'relative', paddingTop: 15 }}
+            cardItemImageStyle={styles.cardItemImageStyle}
+            cardItemTextStyle={styles.cardItemTextStyle}
             data={playlist.topLists}
           />
           {/* Featured */}
@@ -149,13 +148,13 @@ const Home = () => {
           </View>
           <HorizontalCardContainer
             label='NEW RELEASES'
-            cardItemImageStyle={{ opacity: 1 }}
-            cardItemTextStyle={{ position: 'relative', paddingTop: 15 }}
+            cardItemImageStyle={styles.cardItemImageStyle}
+            cardItemTextStyle={styles.cardItemTextStyle}
             data={playlist.newReleases}
           />
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   )
 }
 
@@ -219,6 +218,13 @@ const styles = StyleSheet.create({
     height: 210,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  cardItemImageStyle: {
+    opacity: 1,
+  },
+  cardItemTextStyle: {
+    position: 'relative',
+    paddingTop: 15,
   },
 })
 

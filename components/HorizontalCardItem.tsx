@@ -2,11 +2,11 @@ import React from 'react'
 import { Text, Image, View, StyleSheet } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { useNavigation } from '@react-navigation/native'
+import { StackNavigationProp } from '@react-navigation/stack'
 
 import { RootStackParamList } from '../screens/RootStackParams'
 import { COLORS, FONTS, SIZES } from '../constants'
 import { trimText } from '../utils/helpers'
-import { StackNavigationProp } from '@react-navigation/stack'
 
 type horizontalCardItemNavProps = StackNavigationProp<RootStackParamList>
 
@@ -58,7 +58,7 @@ const HorizontalCardItem = ({
 
   return (
     <TouchableOpacity
-      onPress={() => onCardItemHandler()}
+      onPress={onCardItemHandler}
       activeOpacity={0.7}
       style={{
         marginRight: 10,
@@ -97,7 +97,7 @@ const HorizontalCardItem = ({
             alignItems: 'center',
           }}
         >
-          <Text style={styles.date}>{date.substr(0, 4)}</Text>
+          <Text style={styles.date}>{date.substring(0, 4)}</Text>
           <Text style={styles.bulletDot}>{'\u25CF'}</Text>
           <Text style={styles.albumType}>
             {albumType === 'single' ? 'Single' : 'Album'}
