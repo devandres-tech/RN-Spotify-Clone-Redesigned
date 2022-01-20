@@ -35,7 +35,7 @@ const TrackItem = ({
   const player = useAppSelector((state) => state.audioPlayer)
   const track = useAppSelector((state) => state.track)
   const dispatch = useAppDispatch()
-  const date = new Date(duration)
+  const dateTimeDuration = new Date(duration)
   const artistsNames = artists.map((artist) => artist.name).join(', ')
 
   const onTrackItemHandler = async () => {
@@ -82,6 +82,9 @@ const TrackItem = ({
   }
 
   const isSelectedTrackPlaying = player.currentTrack.url === url
+  let imageUrl
+  if (albumImages[0])
+    imageUrl = albumImages[0].url !== '' ? albumImages[0].url : undefined
 
   return (
     <TouchableOpacity
@@ -97,16 +100,7 @@ const TrackItem = ({
               borderWidth: isSelectedTrackPlaying ? 2 : 0,
               tintColor: albumImages.length > 0 ? undefined : COLORS.lightGray,
             }}
-            source={
-              albumImages[0] !== undefined
-                ? {
-                    uri:
-                      albumImages[0].url !== ''
-                        ? albumImages[0].url
-                        : undefined,
-                  }
-                : icons.musicAlbum
-            }
+            source={imageUrl ? { uri: imageUrl } : icons.musicAlbum}
           />
         )}
         {url !== undefined && url.length > 0 && renderPlayPauseIcon()}
@@ -171,7 +165,7 @@ const TrackItem = ({
           {duration > 0 && (
             <Text
               style={{ color: COLORS.lightGray, ...FONTS.body }}
-            >{`${date.getMinutes()}:${date.getSeconds()}`}</Text>
+            >{`${dateTimeDuration.getMinutes()}:${dateTimeDuration.getSeconds()}`}</Text>
           )}
         </View>
       </View>
