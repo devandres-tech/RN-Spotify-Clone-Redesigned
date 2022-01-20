@@ -114,12 +114,14 @@ const SearchItems = ({ items, searchTerm }: ISearchItems) => {
                       {item.type === 'track' ? 'song' : item.type}
                     </Text>
                     {item.type !== 'artist' && item.type !== 'playlist' && (
-                      <Text style={styles.bulletDot}>{'\u25CF'}</Text>
-                    )}
-                    {item.type !== 'artist' && item.type !== 'playlist' && (
-                      <Text style={{ color: COLORS.lightGray, ...FONTS.body }}>
-                        {item.artists.map((artist) => artist.name).join(', ')}
-                      </Text>
+                      <>
+                        <Text style={styles.bulletDot}>{'\u25CF'}</Text>
+                        <Text
+                          style={{ color: COLORS.lightGray, ...FONTS.body }}
+                        >
+                          {item.artists.map((artist) => artist.name).join(', ')}
+                        </Text>
+                      </>
                     )}
                   </View>
                 </View>
