@@ -23,9 +23,6 @@ const Library = () => {
   const user = useAppSelector((state) => state.user)
   const ref = React.useRef(null)
   const dispatch = useAppDispatch()
-  const filteredUserTracks = library.userTracks.filter(
-    (track) => track.preview_url !== null
-  )
 
   useScrollToTop(ref)
 
@@ -40,7 +37,7 @@ const Library = () => {
 
   useEffect(() => {
     if (activeMenuItem.id === 3) {
-      dispatch(audioPlayerActions.setTracks(filteredUserTracks))
+      dispatch(audioPlayerActions.setTracks(library.userTracks))
     }
   }, [activeMenuItem])
 
@@ -81,22 +78,6 @@ const Library = () => {
     )
   }
 
-  const renderUserLibrarySongs = () => {
-    return filteredUserTracks.map((track) => {
-      return (
-        <TrackItem
-          duration={0}
-          albumName={track.album.name}
-          trackId={track.id}
-          url={track.preview_url}
-          artists={track.artists}
-          trackName={track.name}
-          albumImages={track.album.images}
-        />
-      )
-    })
-  }
-
   return (
     <View
       style={{
@@ -130,7 +111,20 @@ const Library = () => {
                 />
               )
             })}
-          {activeMenuItem.id === 3 && renderUserLibrarySongs()}
+          {activeMenuItem.id === 3 &&
+            library.userTracks.map((track) => {
+              return (
+                <TrackItem
+                  duration={0}
+                  albumName={track.album.name}
+                  trackId={track.id}
+                  url={track.preview_url}
+                  artists={track.artists}
+                  trackName={track.name}
+                  albumImages={track.album.images}
+                />
+              )
+            })}
           {activeMenuItem.id === 4 &&
             library.userAlbums.map((album: any) => {
               return (

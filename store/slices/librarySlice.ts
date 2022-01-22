@@ -116,12 +116,14 @@ const librarySlice = createSlice({
       })
     })
     builder.addCase(getUserTracksAsync.fulfilled, (state, { payload }) => {
-      state.userTracks = payload.items.map((item: any) => {
-        const trackName = item.track.name
-        const albumName = item.track.album.name
-        const id = item.track.id
-        return { ...item.track, name: trackName, albumName, id }
-      })
+      state.userTracks = payload.items
+        .filter((track: any) => track.preview_url !== null)
+        .map((item: any) => {
+          const trackName = item.track.name
+          const albumName = item.track.album.name
+          const id = item.track.id
+          return { ...item.track, name: trackName, albumName, id }
+        })
     })
     builder.addCase(getUserAlbumsAsync.fulfilled, (state, { payload }) => {
       state.userAlbums = payload.items.map((item: any) => {
