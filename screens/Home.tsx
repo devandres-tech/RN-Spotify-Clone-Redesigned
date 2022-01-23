@@ -106,23 +106,17 @@ const Home = () => {
         <View style={{ paddingBottom: 120 }}>
           <HorizontalCardContainer
             label='MY PLAYLISTS'
+            cardItemImageStyle={{ opacity: 0.6 }}
             cardItemTextStyle={styles.playlistTextStyle}
             data={user.playlists}
           />
           {renderButtons()}
           <HorizontalCardContainer
             label='RECENTLY PLAYED'
-            cardItemImageStyle={styles.cardItemImageStyle}
-            cardItemTextStyle={styles.cardItemTextStyle}
             data={user.recentlyPlayed}
           />
           {renderTopArtistsAndTracksContainer()}
-          <HorizontalCardContainer
-            label='POPULAR'
-            cardItemImageStyle={styles.cardItemImageStyle}
-            cardItemTextStyle={styles.cardItemTextStyle}
-            data={playlist.topLists}
-          />
+          <HorizontalCardContainer label='POPULAR' data={playlist.topLists} />
           {/* Featured */}
           <View style={{ paddingBottom: SIZES.paddingBottom }}>
             <TextTitle label='FEATURED' />
@@ -148,8 +142,6 @@ const Home = () => {
           </View>
           <HorizontalCardContainer
             label='NEW RELEASES'
-            cardItemImageStyle={styles.cardItemImageStyle}
-            cardItemTextStyle={styles.cardItemTextStyle}
             data={playlist.newReleases}
           />
         </View>
@@ -218,13 +210,6 @@ const styles = StyleSheet.create({
     height: 210,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  cardItemImageStyle: {
-    opacity: 1,
-  },
-  cardItemTextStyle: {
-    position: 'relative',
-    paddingTop: 15,
   },
 })
 

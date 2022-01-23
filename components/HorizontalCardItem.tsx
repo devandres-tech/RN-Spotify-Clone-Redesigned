@@ -72,7 +72,7 @@ const HorizontalCardItem = ({
         style={{
           height: 135,
           borderRadius: type === 'album' ? 15 : type === 'artist' ? 70 : 0,
-          opacity: 0.6,
+          opacity: 1,
           marginBottom: -5,
           ...cardItemImageStyle,
         }}
@@ -80,6 +80,8 @@ const HorizontalCardItem = ({
       {/* main text */}
       <Text
         style={{
+          position: 'relative',
+          paddingTop: 15,
           color: COLORS.white,
           alignSelf: type === 'artist' ? 'center' : 'flex-start',
           ...FONTS.cardItemText,

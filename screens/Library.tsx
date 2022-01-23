@@ -47,8 +47,6 @@ const Library = () => {
       <View>
         <HorizontalCardContainer
           label='YOUR TOP ARTISTS'
-          cardItemImageStyle={{ opacity: 1 }}
-          cardItemTextStyle={{ position: 'relative', paddingTop: 15 }}
           data={library.topArtists}
         />
         <TextTitle label='YOUR TOP TRACKS' />
@@ -70,8 +68,6 @@ const Library = () => {
         </View>
         <HorizontalCardContainer
           label='NEW RELEASES'
-          cardItemImageStyle={{ opacity: 1 }}
-          cardItemTextStyle={{ position: 'relative', paddingTop: 15 }}
           data={playlist.newReleases}
         />
       </View>

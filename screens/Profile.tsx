@@ -78,14 +78,10 @@ const Profile = ({ navigation }: profileScreenProps) => {
     return (
       <View>
         <HorizontalCardContainer
-          cardItemImageStyle={{ opacity: 1 }}
-          cardItemTextStyle={{ position: 'relative', paddingTop: 15 }}
           data={user.recentlyPlayed}
           label='RECENTLY PLAYED'
         />
         <HorizontalCardContainer
-          cardItemImageStyle={{ opacity: 1 }}
-          cardItemTextStyle={{ position: 'relative', paddingTop: 15 }}
           data={playlist.newReleases}
           label='DISCOVER NEW MUSIC'
         />
