@@ -203,8 +203,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: SIZES.padding,
   },
   userImage: {
-    width: 100,
-    height: 100,
+    width: 80,
+    height: 80,
     borderRadius: 60,
     marginRight: 18,
   },
