@@ -80,7 +80,7 @@ const TracksHeader = ({
         )}
         {releaseDate.length > 0 && (
           <>
-            <Text style={styles.date}>{' \u25CF '}</Text>
+            <BulletDot />
             <Text
               style={{
                 color: COLORS.lightGray,
@@ -150,7 +150,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  date: { color: COLORS.lightGray, paddingHorizontal: 4, fontSize: 5 },
 })
 
 export default TracksHeader
