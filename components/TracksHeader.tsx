@@ -7,6 +7,7 @@ import HTMLView from 'react-native-htmlview'
 
 import { trimText } from '../utils/helpers'
 import TextTitle from './TextTitle'
+import BulletDot from './BulletDot'
 
 interface ITracksHeader {
   imageUrl: string
@@ -60,13 +61,13 @@ const TracksHeader = ({
         <Text style={{ color: COLORS.lightGray, ...FONTS.body }}>
           {type.toUpperCase()}
         </Text>
-        <Text style={styles.bulletDot}>{' \u25CF '}</Text>
+        <BulletDot />
         <Text style={{ color: COLORS.lightGray, ...FONTS.body }}>
           {totalTracks} songs
         </Text>
         {followers > 0 && (
           <>
-            <Text style={styles.bulletDot}>{' \u25CF '}</Text>
+            <BulletDot />
             <Text
               style={{
                 color: COLORS.lightGray,
@@ -148,11 +149,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  bulletDot: {
-    color: COLORS.lightGray,
-    paddingHorizontal: 4,
-    fontSize: 5,
   },
   date: { color: COLORS.lightGray, paddingHorizontal: 4, fontSize: 5 },
 })

@@ -211,7 +211,6 @@ const styles = StyleSheet.create({
     paddingBottom: 120,
     paddingHorizontal: SIZES.padding,
   },
-  bulletDot: { color: COLORS.lightGray, paddingHorizontal: 4, fontSize: 4 },
 })
 
 export default Search

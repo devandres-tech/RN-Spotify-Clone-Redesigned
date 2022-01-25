@@ -122,6 +122,7 @@ const Tracks = ({ route: { params }, navigation }: tracksScreenProps) => {
             : trimText(track.name, 34)}
         </Text>
       </Animated.View>
+
       {track.isLoading ? (
         <LoadingSpinner />
       ) : (
@@ -162,14 +163,6 @@ const Tracks = ({ route: { params }, navigation }: tracksScreenProps) => {
       {player.currentTrack.url.length > 0 && (
         <AudioPlayer isSearchItem={isSearchItem} isTracksScreen={true} />
       )}
-
-      {/* <View>
-        <FlatList
-          ListFooterComponent={<View style={{ paddingBottom: 120 }} />}
-          data={track.tracks.items}
-          renderItem={renderTracks}
-        />
-      </View> */}
     </SafeAreaView>
   )
 }

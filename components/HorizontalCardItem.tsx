@@ -7,6 +7,7 @@ import { StackNavigationProp } from '@react-navigation/stack'
 import { RootStackParamList } from '../screens/RootStackParams'
 import { COLORS, FONTS, SIZES } from '../constants'
 import { trimText } from '../utils/helpers'
+import BulletDot from './BulletDot'
 
 type horizontalCardItemNavProps = StackNavigationProp<RootStackParamList>
 
@@ -100,11 +101,11 @@ const HorizontalCardItem = ({
           }}
         >
           <Text style={styles.date}>{date.substring(0, 4)}</Text>
-          <Text style={styles.bulletDot}>{'\u25CF'}</Text>
+          <BulletDot />
           <Text style={styles.albumType}>
             {albumType === 'single' ? 'Single' : 'Album'}
           </Text>
-          <Text style={styles.bulletDot}>{'\u25CF'}</Text>
+          <BulletDot />
           <Text
             style={{
               color: COLORS.lightGray,
@@ -125,7 +126,6 @@ const HorizontalCardItem = ({
 
 const styles = StyleSheet.create({
   date: { color: COLORS.lightGray, ...FONTS.cardItemSubText },
-  bulletDot: { color: COLORS.lightGray, paddingHorizontal: 4, fontSize: 4 },
   albumType: { color: COLORS.lightGray, ...FONTS.cardItemSubText },
 })
 

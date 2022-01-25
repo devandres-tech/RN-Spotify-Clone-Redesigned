@@ -107,7 +107,7 @@ const trackSlice = createSlice({
       payload.tracks.items = filteredTracks
       return { ...payload, followers: { total: 0 }, isLoading: false }
     })
-    builder.addCase(getPlaylistTracksAsync.pending, (state, action) => {
+    builder.addCase(getPlaylistTracksAsync.pending, (state) => {
       state.isLoading = true
     })
     builder.addCase(getPlaylistTracksAsync.fulfilled, (state, { payload }) => {
@@ -121,16 +121,16 @@ const trackSlice = createSlice({
       )
       return { ...payload, isLoading: false }
     })
-    builder.addCase(getArtistTracksAsync.pending, (state, action) => {
+    builder.addCase(getArtistTracksAsync.pending, (state) => {
       state.isLoading = true
     })
     builder.addCase(getArtistTracksAsync.fulfilled, (state, { payload }) => {
-      const flattenPlaylistTracks = payload.tracks.map(
+      const flattenArtistTracks = payload.tracks.map(
         (track: { track: any }) => {
           return { ...track, ...track.track }
         }
       )
-      payload.tracks.items = flattenPlaylistTracks.filter(
+      payload.tracks.items = flattenArtistTracks.filter(
         (track: { preview_url: null }) => track.preview_url !== null
       )
       return { ...initialState, ...payload, isLoading: false }

@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, Image, StyleSheet } from 'react-native'
+import { View, Text, Image } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
@@ -9,6 +9,7 @@ import * as audioPlayerActions from '../store/slices/audioPlayerSlice'
 import * as trackActions from '../store/slices/trackSlice'
 import { COLORS, FONTS } from '../constants'
 import { RootStackParamList } from '../screens/RootStackParams'
+import BulletDot from './BulletDot'
 
 interface ISearchItems {
   items: Array<ISearchItem>
@@ -115,7 +116,7 @@ const SearchItems = ({ items, searchTerm }: ISearchItems) => {
                     </Text>
                     {item.type !== 'artist' && item.type !== 'playlist' && (
                       <>
-                        <Text style={styles.bulletDot}>{'\u25CF'}</Text>
+                        <BulletDot />
                         <Text
                           style={{ color: COLORS.lightGray, ...FONTS.body }}
                         >
@@ -132,9 +133,5 @@ const SearchItems = ({ items, searchTerm }: ISearchItems) => {
     </View>
   )
 }
-
-const styles = StyleSheet.create({
-  bulletDot: { color: COLORS.lightGray, paddingHorizontal: 4, fontSize: 4 },
-})
 
 export default SearchItems
