@@ -3,7 +3,7 @@ import Search from './Search'
 import Profile from './Profile'
 import Library from './Library'
 import Authorize from './Authorize'
-import Tracks from './Tracks'
+import Tracks from './Media'
 import TrackPlayer from './TrackPlayer'
 
 export { Home, Search, Profile, Library, Authorize, Tracks, TrackPlayer }
