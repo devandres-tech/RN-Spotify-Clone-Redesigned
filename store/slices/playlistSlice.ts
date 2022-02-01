@@ -6,17 +6,11 @@ import { RootState } from '../index'
 
 const initialState = {
   topLists: [] as any,
-  featured: [{ images: [{ url: '' }] }],
+  featured: [{ images: [{ url: '#' }] }],
   newReleases: [] as any,
-  album: {
-    tracks: { items: [] as any },
-    images: [{ url: '' }],
-    followers: { total: 0 },
-    name: '',
-  },
 }
 
-export const getCategoryPlaylistsAsync = createAsyncThunk<
+export const getCategoryPlaylistAsync = createAsyncThunk<
   any,
   { categoryId: string; limit: string },
   { state: RootState }
@@ -73,7 +67,7 @@ const playlistSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(
-      getCategoryPlaylistsAsync.fulfilled,
+      getCategoryPlaylistAsync.fulfilled,
       (state, { payload }) => {
         state.topLists = payload.playlists.items
       }
