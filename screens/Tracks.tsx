@@ -19,7 +19,7 @@ import { useAppDispatch, useAppSelector } from '../hooks/redux-hooks'
 import { COLORS, icons, FONTS } from '../constants'
 import { trimText } from '../utils/helpers'
 import * as tracksActions from '../store/slices/trackSlice'
-import * as audioPlayerActions from '../store/slices/audioPlayerSlice'
+import * as audioPlayerActions from '../store/slices/trackPlayerSlice'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { RootStackParamList } from './RootStackParams'
 import {

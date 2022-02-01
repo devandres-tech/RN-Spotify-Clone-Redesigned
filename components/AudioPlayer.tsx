@@ -7,14 +7,13 @@ import { useAppDispatch, useAppSelector } from '../hooks/redux-hooks'
 import { RootStackParamList } from '../screens/RootStackParams'
 import { COLORS, FONTS, icons } from '../constants'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-import * as audioPlayerActions from '../store/slices/audioPlayerSlice'
+import * as audioPlayerActions from '../store/slices/trackPlayerSlice'
 import { trimText } from '../utils/helpers'
 
 type audioPlayerScreenProps = StackNavigationProp<RootStackParamList, 'Tracks'>
 
 interface IAudioPlayer {
   isTracksScreen?: boolean
-  isSearchItem?: boolean
 }
 
 const AudioPlayer = ({ isTracksScreen }: IAudioPlayer) => {

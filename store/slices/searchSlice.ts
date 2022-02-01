@@ -1,74 +1,24 @@
 import { BASE_URL } from '@env'
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { RootState } from '../index'
 
 import { setHeaders } from '../../utils/helpers'
+import { RootState } from '../index'
 
 const initialState = {
   isLoading: true,
-  results: {
-    artists: {
-      items: [
-        {
-          name: '',
-          images: [{ url: '' }],
-          artists: [{ name: '' }],
-          id: '',
-          album: { images: [{ url: '' }], name: '' },
-          preview_url: '',
-          duration_ms: 0,
-          type: '',
-          followers: { total: 0 },
-        },
-      ],
+  results: [
+    {
+      name: '',
+      images: [{ url: '' }],
+      artists: [{ name: '' }],
+      id: '',
+      album: { images: [{ url: '' }], name: '' },
+      preview_url: '',
+      duration_ms: 0,
+      type: '',
+      followers: { total: 0 },
     },
-    albums: {
-      items: [
-        {
-          name: '',
-          images: [{ url: '' }],
-          artists: [{ name: '' }],
-          id: '',
-          album: { images: [{ url: '' }], name: '' },
-          preview_url: '',
-          duration_ms: 0,
-          type: '',
-          followers: { total: 0 },
-        },
-      ],
-    },
-    tracks: {
-      items: [
-        {
-          name: '',
-          images: [{ url: '' }],
-          artists: [{ name: '' }],
-          id: '',
-          album: { images: [{ url: '' }], name: '' },
-          preview_url: '',
-          duration_ms: 0,
-          type: '',
-          followers: { total: 0 },
-        },
-      ],
-    },
-    playlists: {
-      items: [
-        {
-          name: '',
-          images: [{ url: '' }],
-          artists: [{ name: '' }],
-          id: '',
-          album: { images: [{ url: '' }], name: '' },
-          preview_url: '',
-          duration_ms: 0,
-          type: '',
-          followers: { total: 0 },
-        },
-      ],
-    },
-  },
-  error: {},
+  ],
 }
 
 export const searchItemsAsync = createAsyncThunk<
@@ -77,10 +27,10 @@ export const searchItemsAsync = createAsyncThunk<
   { state: RootState }
 >('search/searchItems', async (query, { getState, rejectWithValue }) => {
   const accessToken = getState().auth.accessToken
-  const encodedSearchQuery = encodeURIComponent(query)
+  const encodeSearchQuery = encodeURIComponent(query)
   try {
     const response = await fetch(
-      `${BASE_URL}/search?q=${encodedSearchQuery}&type=track%2Cartist%2Calbum%2Cplaylist&limit=5`,
+      `${BASE_URL}/search?q=${encodeSearchQuery}&type=track%2Cartist%2Calbum%2Cplaylist&limit=5`,
       {
         method: 'GET',
         headers: setHeaders(accessToken),
@@ -112,6 +62,12 @@ const searchSlice = createSlice({
     builder.addCase(searchItemsAsync.fulfilled, (state, { payload }) => {
       state.isLoading = false
       state.results = payload
+      state.results = [
+        ...payload.artists.items,
+        ...payload.albums.items,
+        ...payload.tracks.items,
+        ...payload.playlists.items,
+      ]
     })
   },
 })

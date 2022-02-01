@@ -14,7 +14,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 import { useProgress } from 'react-native-track-player'
 import Slider from '@react-native-community/slider'
 
-import * as audioPlayerActions from '../store/slices/audioPlayerSlice'
+import * as audioPlayerActions from '../store/slices/trackPlayerSlice'
 import { COLORS, FONTS, icons } from '../constants'
 import { secondsToHHMMSS } from '../utils/helpers'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'

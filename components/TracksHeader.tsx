@@ -34,7 +34,7 @@ const TracksHeader = ({
   animateScale,
   type,
   scrollY,
-  artists = [],
+  artists = [], // ???
 }: ITracksHeader) => {
   const artistsNames = artists.map((artist) => artist.name).join(', ')
 

@@ -1,11 +1,11 @@
 import React from 'react'
-import { View, Text, Image } from 'react-native'
+import { View, Text, Image, StyleSheet } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 
 import { useAppDispatch } from '../hooks/redux-hooks'
-import * as audioPlayerActions from '../store/slices/audioPlayerSlice'
+import * as audioPlayerActions from '../store/slices/trackPlayerSlice'
 import * as trackActions from '../store/slices/trackSlice'
 import { COLORS, FONTS } from '../constants'
 import { RootStackParamList } from '../screens/RootStackParams'

@@ -12,7 +12,7 @@ import {
 import { useAppDispatch, useAppSelector } from '../hooks/redux-hooks'
 import { COLORS, SIZES, FONTS, LIBRARY_MENU_ITEMS } from '../constants'
 import * as libraryActions from '../store/slices/librarySlice'
-import * as audioPlayerActions from '../store/slices/audioPlayerSlice'
+import * as audioPlayerActions from '../store/slices/trackPlayerSlice'
 import * as playlistActions from '../store/slices/playlistSlice'
 import * as userActions from '../store/slices/userSlice'
 

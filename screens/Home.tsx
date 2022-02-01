@@ -14,7 +14,7 @@ import { useAppDispatch, useAppSelector } from '../hooks/redux-hooks'
 import { COLORS, FONTS, SIZES } from '../constants'
 import * as userActions from '../store/slices/userSlice'
 import * as playlistActions from '../store/slices/playlistSlice'
-import * as audioPlayerActions from '../store/slices/audioPlayerSlice'
+import * as audioPlayerActions from '../store/slices/trackPlayerSlice'
 import {
   TextButton,
   HorizontalCardContainer,

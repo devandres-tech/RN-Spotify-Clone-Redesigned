@@ -31,7 +31,7 @@ export const getAlbumTracksAsync = createAsyncThunk<
   any,
   string,
   { state: RootState; rejectValue: any }
->('track/getAlbumTracks', async (albumId, { getState, rejectWithValue }) => {
+>('media/getAlbumTracks', async (albumId, { getState, rejectWithValue }) => {
   const accessToken = getState().auth.accessToken
   try {
     const response = await fetch(`${BASE_URL}/albums/${albumId}`, {
@@ -50,7 +50,7 @@ export const getPlaylistTracksAsync = createAsyncThunk<
   string,
   { state: RootState; rejectValue: any }
 >(
-  'track/getPlaylistTracks',
+  'media/getPlaylistTracks',
   async (playlistId, { getState, rejectWithValue }) => {
     const accessToken = getState().auth.accessToken
     try {
@@ -70,7 +70,7 @@ export const getArtistTracksAsync = createAsyncThunk<
   any,
   string,
   { state: RootState; rejectValue: any }
->('track/getArtistTracks', async (artistId, { getState, rejectWithValue }) => {
+>('media/getArtistTracks', async (artistId, { getState, rejectWithValue }) => {
   const accessToken = getState().auth.accessToken
   try {
     const response = await fetch(
@@ -87,8 +87,9 @@ export const getArtistTracksAsync = createAsyncThunk<
   }
 })
 
-const trackSlice = createSlice({
-  name: 'track',
+// TODO: REFACTORING MEDIA SLICE
+const mediaSlice = createSlice({
+  name: 'media',
   initialState,
   reducers: {
     setTrack: (state, action) => {
@@ -138,6 +139,6 @@ const trackSlice = createSlice({
   },
 })
 
-export const { setTrack } = trackSlice.actions
+export const { setTrack } = mediaSlice.actions
 
-export default trackSlice.reducer
+export default mediaSlice.reducer
