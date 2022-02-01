@@ -1,49 +1,45 @@
 import React from 'react'
 import { View, Text, StyleSheet, ImageStyle } from 'react-native'
 import Animated from 'react-native-reanimated'
-import { COLORS, FONTS, SIZES } from '../constants'
 import LinearGradient from 'react-native-linear-gradient'
 import HTMLView from 'react-native-htmlview'
 
-import { trimText } from '../utils/helpers'
+import { COLORS, FONTS, SIZES } from '../constants'
 import TextTitle from './TextTitle'
 import BulletDot from './BulletDot'
 
-interface ITracksHeader {
+interface IMediaHeader {
   imageUrl: string
   title: string
   totalTracks: number
   mediaDescription: string
   followers: number
   releaseDate?: string
+  type: string
+  artists?: { name: string }[]
+  scrollY: Animated.SharedValue<number>
   animateScale: (
     scrollY: Animated.SharedValue<number>
   ) => Animated.AnimateStyle<ImageStyle>
-  type: string
-  scrollY: Animated.SharedValue<number>
-  artists?: { name: string }[]
 }
 
-const TracksHeader = ({
+const MediaHeader = ({
   imageUrl,
   title,
   totalTracks,
-  mediaDescription = '',
-  followers = 0,
+  followers,
   releaseDate = '',
-  animateScale,
+  mediaDescription = '',
   type,
   scrollY,
-  artists = [], // ???
-}: ITracksHeader) => {
-  const artistsNames = artists.map((artist) => artist.name).join(', ')
-
+  animateScale,
+}: IMediaHeader) => {
   return (
     <Animated.View style={styles.containerView}>
       <Animated.Image
-        style={[styles.image, animateScale(scrollY)]}
-        resizeMode={'cover'}
+        resizeMode='cover'
         source={{ uri: imageUrl }}
+        style={[styles.image, animateScale(scrollY)]}
       />
       <LinearGradient
         style={styles.linearGradient}
@@ -61,6 +57,14 @@ const TracksHeader = ({
         <Text style={{ color: COLORS.lightGray, ...FONTS.body }}>
           {type.toUpperCase()}
         </Text>
+        {releaseDate.length > 0 && (
+          <>
+            <BulletDot />
+            <Text style={{ color: COLORS.lightGray, ...FONTS.body }}>
+              {releaseDate.substring(0, 4)}
+            </Text>
+          </>
+        )}
         <BulletDot />
         <Text style={{ color: COLORS.lightGray, ...FONTS.body }}>
           {totalTracks} songs
@@ -68,44 +72,14 @@ const TracksHeader = ({
         {followers > 0 && (
           <>
             <BulletDot />
-            <Text
-              style={{
-                color: COLORS.lightGray,
-                ...FONTS.body,
-              }}
-            >
+            <Text style={{ color: COLORS.lightGray, ...FONTS.body }}>
               {Number(followers.toFixed(2)).toLocaleString('en-US')} followers
-            </Text>
-          </>
-        )}
-        {releaseDate.length > 0 && (
-          <>
-            <BulletDot />
-            <Text
-              style={{
-                color: COLORS.lightGray,
-                ...FONTS.body,
-              }}
-            >
-              {releaseDate.substring(0, 4)}
             </Text>
           </>
         )}
       </View>
       {mediaDescription.length > 0 && (
         <HTMLView stylesheet={styles} value={`<p>${mediaDescription}</p>`} />
-      )}
-      {artists.length > 0 && (
-        <Text
-          style={{
-            color: COLORS.white,
-            ...FONTS.body,
-            position: 'relative',
-            bottom: 120,
-          }}
-        >
-          {trimText(artistsNames, 32)}
-        </Text>
       )}
     </Animated.View>
   )
@@ -152,4 +126,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default TracksHeader
+export default MediaHeader
