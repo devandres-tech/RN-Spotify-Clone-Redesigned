@@ -22,8 +22,8 @@ const HorizontalMenu = ({
   return (
     <View
       style={{
-        alignItems: 'center',
         justifyContent: 'center',
+        alignItems: 'center',
         paddingHorizontal: SIZES.padding,
         width: '100%',
       }}
@@ -41,7 +41,7 @@ const HorizontalMenu = ({
               onPress={() => setActiveMenuItem(item)}
               style={{
                 marginRight: 20,
-                height: 55,
+                height: 50,
                 justifyContent: 'center',
                 alignItems: 'center',
               }}

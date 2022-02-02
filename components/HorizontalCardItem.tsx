@@ -4,10 +4,10 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 
-import { RootStackParamList } from '../screens/RootStackParams'
-import { COLORS, FONTS, SIZES } from '../constants'
-import { trimText } from '../utils/helpers'
 import BulletDot from './BulletDot'
+import { RootStackParamList } from '../screens/RootStackParams'
+import { COLORS, FONTS, SIZES, MEDIA } from '../constants'
+import { trimText } from '../utils/helpers'
 
 type horizontalCardItemNavProps = StackNavigationProp<RootStackParamList>
 
@@ -50,10 +50,9 @@ const HorizontalCardItem = ({
   const navigation = useNavigation<horizontalCardItemNavProps>()
 
   const onCardItemHandler = () => {
-    navigation.navigate('Tracks', {
+    navigation.navigate('Media', {
       mediaId: id,
       mediaType: type,
-      artist,
     })
   }
 
@@ -72,46 +71,36 @@ const HorizontalCardItem = ({
         source={{ uri: imageUrl }}
         style={{
           height: 135,
-          borderRadius: type === 'album' ? 15 : type === 'artist' ? 70 : 0,
+          borderRadius:
+            type === MEDIA.album ? 15 : type === MEDIA.artist ? 70 : 0,
           opacity: 1,
           marginBottom: -5,
           ...cardItemImageStyle,
         }}
       />
-      {/* main text */}
+      {/* main text  */}
       <Text
         style={{
           position: 'relative',
           paddingTop: 15,
           color: COLORS.white,
-          alignSelf: type === 'artist' ? 'center' : 'flex-start',
+          alignSelf: type === MEDIA.artist ? 'center' : 'flex-start',
           ...FONTS.cardItemText,
           ...cardItemTextStyle,
         }}
       >
         {trimText(cardLabel?.toUpperCase() as string, 19)}
       </Text>
-
-      {/* sub text */}
+      {/* sub text  */}
       {type === 'album' ? (
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-          }}
-        >
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
           <Text style={styles.date}>{date.substring(0, 4)}</Text>
           <BulletDot />
           <Text style={styles.albumType}>
             {albumType === 'single' ? 'Single' : 'Album'}
           </Text>
           <BulletDot />
-          <Text
-            style={{
-              color: COLORS.lightGray,
-              ...FONTS.cardItemSubText,
-            }}
-          >
+          <Text style={{ color: COLORS.lightGray, ...FONTS.cardItemSubText }}>
             {albumType === 'single' ? (
               <Text>{trimText(artists[0].name, 8)}</Text>
             ) : (
@@ -125,8 +114,14 @@ const HorizontalCardItem = ({
 }
 
 const styles = StyleSheet.create({
-  date: { color: COLORS.lightGray, ...FONTS.cardItemSubText },
-  albumType: { color: COLORS.lightGray, ...FONTS.cardItemSubText },
+  date: {
+    color: COLORS.lightGray,
+    ...FONTS.cardItemSubText,
+  },
+  albumType: {
+    color: COLORS.lightGray,
+    ...FONTS.cardItemSubText,
+  },
 })
 
 export default HorizontalCardItem
