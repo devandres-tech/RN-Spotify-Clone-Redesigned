@@ -1,52 +1,49 @@
 import React, { useEffect } from 'react'
 import {
   View,
-  Image,
   Text,
-  TouchableOpacity,
-  ImageBackground,
+  ScrollView,
   StyleSheet,
+  Image,
+  ImageBackground,
 } from 'react-native'
-import { useScrollToTop } from '@react-navigation/native'
-import { ScrollView } from 'react-native-gesture-handler'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 
-import { useAppDispatch, useAppSelector } from '../hooks/redux-hooks'
-import { COLORS, FONTS, SIZES } from '../constants'
-import * as userActions from '../store/slices/userSlice'
-import * as playlistActions from '../store/slices/playlistSlice'
-import * as audioPlayerActions from '../store/slices/trackPlayerSlice'
 import {
-  TextButton,
-  HorizontalCardContainer,
   Header,
+  HorizontalCardContainer,
+  TextButton,
   TextTitle,
 } from '../components'
+import { SIZES, COLORS, FONTS } from '../constants'
+import { useAppDispatch, useAppSelector } from '../hooks/redux-hooks'
+import * as userActions from '../store/slices/userSlice'
+import * as playlistActions from '../store/slices/playlistSlice'
+import * as trackPlayerActions from '../store/slices/trackPlayerSlice'
 
 const Home = () => {
   const user = useAppSelector((state) => state.user)
   const playlist = useAppSelector((state) => state.playlist)
   const dispatch = useAppDispatch()
-  const ref = React.useRef(null)
-  useScrollToTop(ref)
 
   useEffect(() => {
+    dispatch(userActions.getUserPlaylistsAsync('15'))
+    dispatch(userActions.getUserRecentlyPlayedAsync('10'))
     dispatch(
       userActions.getUserTopArtistsAsync({
         time_range: 'long_term',
         limit: '3',
       })
     )
-    dispatch(userActions.getUserPlaylistsAsync('40'))
-    dispatch(userActions.getUserRecentlyPlayedAsync('10'))
-    dispatch(playlistActions.getFeaturedPlaylistsAsync('1'))
     dispatch(
-      playlistActions.getCategoryPlaylistsAsync({
+      playlistActions.getCategoryPlaylistAsync({
         categoryId: 'toplists',
         limit: '10',
       })
     )
+    dispatch(playlistActions.getFeaturedPlaylistsAsync('1'))
     dispatch(playlistActions.getNewReleasesAsync('10'))
-    dispatch(audioPlayerActions.initAsync())
+    dispatch(trackPlayerActions.initAsync())
   }, [dispatch])
 
   const renderButtons = () => {
@@ -74,11 +71,11 @@ const Home = () => {
         <TextTitle label='TOP ARTIST AND TRACKS' />
         <View style={styles.artistsAndTracksContainer}>
           <View style={styles.textContainer}>
-            <Text style={styles.topArtistAndTracksText}>
+            <Text style={styles.topArtistsAndTracksText}>
               SEE YOUR ALL TIME TOP ARTISTS AND TRACKS
             </Text>
             <Text style={{ color: COLORS.white, ...FONTS.body }}>
-              Your top tracks and artist throughout your listening history
+              Your top tracks and artists thought your listening history
             </Text>
           </View>
           {topArtists &&
@@ -117,18 +114,16 @@ const Home = () => {
           />
           {renderTopArtistsAndTracksContainer()}
           <HorizontalCardContainer label='POPULAR' data={playlist.topLists} />
-          {/* Featured */}
+          {/* featured */}
           <View style={{ paddingBottom: SIZES.paddingBottom }}>
             <TextTitle label='FEATURED' />
             <View style={styles.featuredContainer}>
               <ImageBackground
+                style={styles.featuredImage}
                 resizeMode='repeat'
                 source={{
-                  uri: playlist.featured[0].images
-                    ? playlist.featured[0].images[0].url
-                    : undefined,
+                  uri: playlist.featured[0].images[0].url,
                 }}
-                style={styles.featuredImage}
               >
                 <TextButton
                   label='CHECK IT OUT'
@@ -157,6 +152,11 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.black,
     width: '100%',
   },
+  playlistTextStyle: {
+    paddingLeft: 10,
+    position: 'absolute',
+    bottom: SIZES.padding,
+  },
   buttonContainer: {
     flex: 1,
     flexDirection: 'row',
@@ -180,25 +180,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row-reverse',
   },
+  topArtistsAndTracksText: {
+    color: COLORS.white,
+    paddingBottom: 30,
+    ...FONTS.h3,
+  },
   textContainer: {
     paddingLeft: 45,
     paddingRight: 80,
     justifyContent: 'center',
   },
-  topArtistAndTracksText: {
-    color: COLORS.white,
-    paddingBottom: 30,
-    ...FONTS.h3,
-  },
   topArtistAndTracksImage: {
     height: 135,
     width: 68,
     borderRadius: 20,
-  },
-  playlistTextStyle: {
-    paddingLeft: 10,
-    position: 'absolute',
-    bottom: SIZES.padding,
   },
   featuredContainer: {
     flexDirection: 'column',

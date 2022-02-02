@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react'
-import { View, Image, Text, StyleSheet, ScrollView } from 'react-native'
+import React, { useState, useEffect } from 'react'
+import { View, Text, StyleSheet, ScrollView, Image } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-import { useScrollToTop } from '@react-navigation/native'
 
 import {
   Header,
@@ -9,48 +8,31 @@ import {
   HorizontalCardContainer,
   TextButton,
 } from '../components'
-import { COLORS, FONTS, SIZES } from '../constants'
-import { useAppDispatch, useAppSelector } from '../hooks/redux-hooks'
+import { SIZES, COLORS, FONTS } from '../constants/theme'
+import { useAppSelector, useAppDispatch } from '../hooks/redux-hooks'
 import * as userActions from '../store/slices/userSlice'
-import * as playlistActions from '../store/slices/playlistSlice'
-import { RootStackParamList } from './RootStackParams'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
+import { RootStackParamList } from './RootStackParams'
 
 type profileScreenProps = NativeStackScreenProps<RootStackParamList, 'Profile'>
 
 const Profile = ({ navigation }: profileScreenProps) => {
-  const ref = React.useRef(null)
   const user = useAppSelector((state) => state.user)
   const playlist = useAppSelector((state) => state.playlist)
+  const dispatch = useAppDispatch()
   const [activeMenuItem, setActiveMenuItem] = useState({
     title: 'Overview',
     id: 1,
   })
-  const dispatch = useAppDispatch()
-
-  useScrollToTop(ref)
 
   useEffect(() => {
-    dispatch(userActions.getUserProfileAsync())
     dispatch(userActions.getUserFollowsAsync('10'))
-    dispatch(userActions.getUserRecentlyPlayedAsync('10'))
-    dispatch(userActions.getUserPlaylistsAsync('40'))
-    dispatch(playlistActions.getNewReleasesAsync('10'))
-  }, [dispatch])
+  }, [])
 
   const menuItems = [
-    {
-      title: 'Overview',
-      id: 1,
-    },
-    {
-      title: 'Public Playlists',
-      id: 2,
-    },
-    {
-      title: `Following(${user.follows.length})`,
-      id: 3,
-    },
+    { title: 'Overview', id: 1 },
+    { title: 'Public Playlists', id: 2 },
+    { title: `Following(${user.follows.length})`, id: 3 },
   ]
 
   const renderUserProfile = () => {
@@ -74,16 +56,16 @@ const Profile = ({ navigation }: profileScreenProps) => {
     )
   }
 
-  const renderOverview = () => {
+  const renderOverView = () => {
     return (
       <View>
         <HorizontalCardContainer
-          data={user.recentlyPlayed}
           label='RECENTLY PLAYED'
+          data={user.recentlyPlayed}
         />
         <HorizontalCardContainer
-          data={playlist.newReleases}
           label='DISCOVER NEW MUSIC'
+          data={playlist.newReleases}
         />
       </View>
     )
@@ -104,7 +86,7 @@ const Profile = ({ navigation }: profileScreenProps) => {
                 key={filteredPlaylist.id}
                 activeOpacity={0.7}
                 onPress={() =>
-                  navigation.navigate('Tracks', {
+                  navigation.navigate('Media', {
                     mediaType: filteredPlaylist.type,
                     mediaId: filteredPlaylist.id,
                   })
@@ -147,7 +129,11 @@ const Profile = ({ navigation }: profileScreenProps) => {
               />
               <View style={{ flex: 2 }}>
                 <Text
-                  style={{ color: COLORS.white, paddingBottom: 4, ...FONTS.h3 }}
+                  style={{
+                    color: COLORS.white,
+                    paddingBottom: 4,
+                    ...FONTS.h3,
+                  }}
                 >
                   {artist.name}
                 </Text>
@@ -159,8 +145,8 @@ const Profile = ({ navigation }: profileScreenProps) => {
                 </Text>
               </View>
               <TextButton
-                buttonContainerStyle={styles.textButton}
                 label='following'
+                buttonContainerStyle={styles.textButton}
               />
             </TouchableOpacity>
           )
@@ -171,7 +157,7 @@ const Profile = ({ navigation }: profileScreenProps) => {
 
   return (
     <View style={styles.profileScreen}>
-      <ScrollView ref={ref} showsVerticalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View>
           <Header />
           {renderUserProfile()}
@@ -183,7 +169,7 @@ const Profile = ({ navigation }: profileScreenProps) => {
         </View>
 
         <View style={{ paddingBottom: 120 }}>
-          {activeMenuItem.id === 1 && renderOverview()}
+          {activeMenuItem.id === 1 && renderOverView()}
           {activeMenuItem.id === 2 && renderUserPublicPlaylists()}
           {activeMenuItem.id === 3 && renderUserFollows()}
         </View>
@@ -193,6 +179,12 @@ const Profile = ({ navigation }: profileScreenProps) => {
 }
 
 const styles = StyleSheet.create({
+  profileScreen: {
+    flex: 1,
+    justifyContent: 'center',
+    backgroundColor: COLORS.black,
+    paddingTop: SIZES.padding,
+  },
   userProfileContainer: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -210,14 +202,23 @@ const styles = StyleSheet.create({
     marginBottom: 30,
     paddingHorizontal: SIZES.padding,
   },
-  publicPlaylistTitle: { color: COLORS.white, paddingBottom: 5, ...FONTS.h3 },
+  publicPlaylistTitle: {
+    color: COLORS.white,
+    paddingBottom: 5,
+    ...FONTS.h3,
+  },
   userFollowsContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 10,
     paddingHorizontal: SIZES.padding,
   },
-  artistImage: { width: 70, height: 70, borderRadius: 35, marginRight: 10 },
+  artistImage: {
+    width: 70,
+    height: 70,
+    borderRadius: 35,
+    marginRight: 10,
+  },
   textButton: {
     alignSelf: 'flex-end',
     paddingHorizontal: 20,
@@ -225,12 +226,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: COLORS.white,
     height: 35,
-  },
-  profileScreen: {
-    flex: 1,
-    justifyContent: 'center',
-    backgroundColor: COLORS.black,
-    paddingTop: SIZES.paddingTop,
   },
 })
 

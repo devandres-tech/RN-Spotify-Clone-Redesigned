@@ -1,22 +1,26 @@
 import React, { useEffect } from 'react'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
+import { StatusBar } from 'react-native'
 import SplashScreen from 'react-native-splash-screen'
 import { NavigationContainer } from '@react-navigation/native'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { StatusBar } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { SafeAreaProvider } from 'react-native-safe-area-context'
+import {
+  CardStyleInterpolators,
+  createStackNavigator,
+} from '@react-navigation/stack'
 
 import { RootStackParamList } from './screens/RootStackParams'
+import { LoadingSpinner } from './components'
 import { useAppSelector, useAppDispatch } from './hooks/redux-hooks'
-import { Authorize, Tracks, TrackPlayer } from './screens'
-import { MainTabNavigator, LoadingSpinner } from './components'
-import { verticalAnimation } from './utils/animations'
+import { Authorize, TrackPlayer } from './screens'
+import HomeTabs from './navigation/HomeTabs'
+
 import {
   setTokens,
   requestRefreshedAccessTokenAsync,
 } from './store/slices/authSlice'
 
-const Stack = createNativeStackNavigator<RootStackParamList>()
+const Stack = createStackNavigator<RootStackParamList>()
 
 const App = () => {
   const auth = useAppSelector((state) => state.auth)
@@ -29,9 +33,7 @@ const App = () => {
   useEffect(() => {
     const tryLogin = async () => {
       const authData = await AsyncStorage.getItem('authData')
-      if (!authData) {
-        return
-      }
+      if (!authData) return
       const { accessToken, refreshToken, accessTokenExpirationDate } =
         await JSON.parse(authData)
       if (
@@ -59,17 +61,20 @@ const App = () => {
       />
       <NavigationContainer>
         <Stack.Navigator
+          initialRouteName='Home'
           screenOptions={() => ({
             headerShown: false,
+            tabBarShowLabel: false,
           })}
         >
           {auth.accessToken ? (
             <Stack.Group>
-              <Stack.Screen name='Main' component={MainTabNavigator} />
-              <Stack.Screen name='Tracks' component={Tracks} />
+              <Stack.Screen name='HomeTabs' component={HomeTabs} />
               <Stack.Screen
                 name='TrackPlayer'
-                options={verticalAnimation}
+                options={{
+                  cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+                }}
                 component={TrackPlayer}
               />
             </Stack.Group>

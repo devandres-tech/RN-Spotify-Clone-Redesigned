@@ -1,24 +1,24 @@
 import React, { useEffect } from 'react'
 import {
-  View,
   Text,
+  View,
+  StyleSheet,
+  ImageBackground,
   Image,
   SafeAreaView,
-  ImageBackground,
-  StyleSheet,
   Platform,
 } from 'react-native'
-import { useAppDispatch, useAppSelector } from '../hooks/redux-hooks'
 import LinearGradient from 'react-native-linear-gradient'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-import { useProgress } from 'react-native-track-player'
 import Slider from '@react-native-community/slider'
-
-import * as audioPlayerActions from '../store/slices/trackPlayerSlice'
-import { COLORS, FONTS, icons } from '../constants'
-import { secondsToHHMMSS } from '../utils/helpers'
+import { useProgress } from 'react-native-track-player'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
+
+import { useAppDispatch, useAppSelector } from '../hooks/redux-hooks'
+import { COLORS, FONTS, icons } from '../constants'
 import { RootStackParamList } from './RootStackParams'
+import { secondsToHHMMSS } from '../utils/helpers'
+import * as trackPlayerActions from '../store/slices/trackPlayerSlice'
 
 type trackPlayerScreenProps = NativeStackScreenProps<
   RootStackParamList,
@@ -27,67 +27,65 @@ type trackPlayerScreenProps = NativeStackScreenProps<
 
 const MAX_PROGRESS = 30
 
-const TrackPlayerScreen = ({ navigation }: trackPlayerScreenProps) => {
-  const player = useAppSelector((state) => state.audioPlayer)
-  const track = useAppSelector((state) => state.track)
-  const progress = useProgress()
+const TrackPlayer = ({ navigation }: trackPlayerScreenProps) => {
+  const trackPlayer = useAppSelector((state) => state.trackPlayer)
+  const media = useAppSelector((state) => state.media)
+  const { position } = useProgress()
   const dispatch = useAppDispatch()
 
-  const onPlayPauseHandler = async () => {
-    if (player.isTrackPlaying) dispatch(audioPlayerActions.pauseTrackAsync())
-    else dispatch(audioPlayerActions.playTrackAsync())
-  }
-
-  const onShuffleHandler = () => {
-    if (player.isShuffle) dispatch(audioPlayerActions.unShuffleTracksAsync())
-    else dispatch(audioPlayerActions.shuffleTracksAsync())
-  }
-
   const onSliderChange = (value: number) => {
-    dispatch(audioPlayerActions.seekToPositionAsync(value))
+    dispatch(trackPlayerActions.seekToPositionAsync(value))
   }
 
-  const onPreviousTrackHandler = async () => {
-    dispatch(audioPlayerActions.playPrevTrackAsync())
-    if (player.repeat.one) {
-      dispatch(audioPlayerActions.repeatAll())
-    }
+  const onPreviousTrackHandler = () => {
+    dispatch(trackPlayerActions.playPrevTrackAsync())
+    if (trackPlayer.repeat.one) dispatch(trackPlayerActions.repeatAll())
+  }
+
+  const onPlayPauseHandler = () => {
+    if (trackPlayer.isTrackPlaying)
+      dispatch(trackPlayerActions.pauseTrackAsync())
+    else dispatch(trackPlayerActions.playTrackAsync())
   }
 
   const onNextTrackHandler = () => {
-    dispatch(audioPlayerActions.playNextTrackAsync())
-    if (player.repeat.one) {
-      dispatch(audioPlayerActions.repeatAll())
-    }
+    dispatch(trackPlayerActions.playNextTrackAsync())
+    if (trackPlayer.repeat.one) dispatch(trackPlayerActions.repeatAll())
+  }
+
+  const onShuffleHandler = () => {
+    if (trackPlayer.isShuffle)
+      dispatch(trackPlayerActions.unShuffleTracksAsync())
+    else dispatch(trackPlayerActions.shuffleTracksAsync())
   }
 
   const onRepeatHandler = () => {
-    if (!player.repeat.one && !player.repeat.all) {
-      dispatch(audioPlayerActions.repeatAll())
-    } else if (!player.repeat.one && player.repeat.all) {
-      dispatch(audioPlayerActions.repeatOne())
+    if (!trackPlayer.repeat.one && !trackPlayer.repeat.all) {
+      dispatch(trackPlayerActions.repeatAll())
+    } else if (!trackPlayer.repeat.one && trackPlayer.repeat.all) {
+      dispatch(trackPlayerActions.repeatOne())
     } else {
-      dispatch(audioPlayerActions.unsetRepeat())
+      dispatch(trackPlayerActions.unsetRepeat())
     }
   }
 
   useEffect(() => {
-    if (Math.round(progress.position) === MAX_PROGRESS) {
-      if (player.repeat.one) {
-        dispatch(audioPlayerActions.seekToPositionAsync(0))
-        dispatch(audioPlayerActions.playTrackAsync())
+    if (Math.round(position) === MAX_PROGRESS) {
+      if (trackPlayer.repeat.one) {
+        dispatch(trackPlayerActions.seekToPositionAsync(0))
+        dispatch(trackPlayerActions.playTrackAsync())
       } else {
-        dispatch(audioPlayerActions.playNextTrackAsync())
+        dispatch(trackPlayerActions.playNextTrackAsync())
       }
     }
-  }, [progress])
+  }, [position])
 
   return (
     <SafeAreaView style={{ backgroundColor: COLORS.black, flex: 1 }}>
       <ImageBackground
         style={{ height: 500, width: '100%' }}
-        source={{ uri: player.currentTrack.artwork }}
-        resizeMode='cover'
+        resizeMode={'cover'}
+        source={{ uri: trackPlayer.currentTrack.artwork }}
       >
         <View
           style={{
@@ -106,9 +104,8 @@ const TrackPlayerScreen = ({ navigation }: trackPlayerScreenProps) => {
             ]}
           />
           <TouchableOpacity
-            onPress={() => navigation.goBack()}
             style={styles.downArrowContainer}
-            activeOpacity={0.7}
+            onPress={() => navigation.goBack()}
           >
             <Image
               style={{ height: 22, width: 22, tintColor: COLORS.white }}
@@ -117,17 +114,15 @@ const TrackPlayerScreen = ({ navigation }: trackPlayerScreenProps) => {
           </TouchableOpacity>
           <View style={styles.headerInfoContainer}>
             <Text style={{ color: COLORS.white, marginTop: 10, ...FONTS.body }}>
-              PlAYING FROM{' '}
-              {player.currentTrack.searchTerm
+              PLAYING FROM{' '}
+              {trackPlayer.searchTerm.length > 0
                 ? 'SEARCH'
-                : track.type.toUpperCase()}
+                : media.type.toUpperCase()}
             </Text>
             <Text style={{ color: COLORS.white, ...FONTS.bodyBold }}>
-              {player.currentTrack.searchTerm
-                ? ` "${player.currentTrack.searchTerm}" in Songs`
-                : track.type === 'artist'
-                ? player.currentTrack.artist.toUpperCase()
-                : track.name.toUpperCase()}
+              {trackPlayer.searchTerm.length > 0
+                ? `"${trackPlayer.searchTerm}" in Songs`
+                : media.name.toUpperCase()}
             </Text>
           </View>
         </View>
@@ -143,12 +138,12 @@ const TrackPlayerScreen = ({ navigation }: trackPlayerScreenProps) => {
       </ImageBackground>
       {/* foreground */}
       <View style={{ paddingHorizontal: 30 }}>
-        {/* track info  */}
+        {/* track info */}
         <View style={styles.trackInfoContainer}>
           <Text
             style={{ color: COLORS.white, textAlign: 'center', ...FONTS.h2 }}
           >
-            {player.currentTrack.title.toUpperCase()}
+            {trackPlayer.currentTrack.title.toUpperCase()}
           </Text>
           <Text
             style={{
@@ -157,7 +152,7 @@ const TrackPlayerScreen = ({ navigation }: trackPlayerScreenProps) => {
               ...FONTS.body,
             }}
           >
-            {player.currentTrack.artist.toUpperCase()}
+            {trackPlayer.currentTrack.artist.toUpperCase()}
           </Text>
         </View>
         {/* progress bar  */}
@@ -169,29 +164,32 @@ const TrackPlayerScreen = ({ navigation }: trackPlayerScreenProps) => {
             maximumValue={MAX_PROGRESS}
             tapToSeek={true}
             onValueChange={onSliderChange}
-            value={progress.position}
-            minimumTrackTintColor='#FFFFFF'
+            value={position}
+            minimumTrackTintColor={'#fff'}
             maximumTrackTintColor={COLORS.lightGray2}
           />
-          <View style={styles.progressBarTimeContainer}>
-            <Text style={{ color: COLORS.lightGray, ...FONTS.body }}>
-              {secondsToHHMMSS(progress.position)}
-            </Text>
-            <Text style={{ color: COLORS.lightGray, ...FONTS.body }}>
-              {secondsToHHMMSS(30)}
-            </Text>
-          </View>
         </View>
-        {/* controls  */}
+        {/* time */}
+        <View style={styles.progressBarTimeContainer}>
+          <Text style={{ color: COLORS.lightGray, ...FONTS.body }}>
+            {secondsToHHMMSS(position)}
+          </Text>
+          <Text style={{ color: COLORS.lightGray, ...FONTS.body }}>
+            {secondsToHHMMSS(30)}
+          </Text>
+        </View>
+        {/* controls */}
         <View style={styles.controlsContainer}>
           <TouchableOpacity onPress={onShuffleHandler} activeOpacity={0.7}>
             <Image
+              source={icons.shuffle}
               style={{
                 height: 28,
                 width: 28,
-                tintColor: player.isShuffle ? COLORS.primary : COLORS.white,
+                tintColor: trackPlayer.isShuffle
+                  ? COLORS.primary
+                  : COLORS.white,
               }}
-              source={icons.shuffle}
             />
           </TouchableOpacity>
           <TouchableOpacity
@@ -199,47 +197,43 @@ const TrackPlayerScreen = ({ navigation }: trackPlayerScreenProps) => {
             activeOpacity={0.7}
           >
             <Image
-              style={{ height: 25, width: 25, tintColor: COLORS.white }}
               source={icons.previous}
+              style={{ height: 25, width: 25, tintColor: COLORS.white }}
             />
           </TouchableOpacity>
           <TouchableOpacity
             onPress={onPlayPauseHandler}
-            activeOpacity={0.7}
             style={styles.playPauseContainer}
+            activeOpacity={0.7}
           >
             <Image
-              source={player.isTrackPlaying ? icons.pause : icons.play}
-              style={{
-                height: 25,
-                width: 25,
-                tintColor: COLORS.black,
-              }}
+              source={trackPlayer.isTrackPlaying ? icons.pause : icons.play}
+              style={{ height: 25, width: 25, tintColor: COLORS.black }}
             />
           </TouchableOpacity>
           <TouchableOpacity onPress={onNextTrackHandler} activeOpacity={0.7}>
             <Image
-              style={{ height: 25, width: 25, tintColor: COLORS.white }}
               source={icons.next}
+              style={{ height: 25, width: 25, tintColor: COLORS.white }}
             />
           </TouchableOpacity>
           <TouchableOpacity onPress={onRepeatHandler} activeOpacity={0.7}>
             <Image
-              style={{
-                height: 28,
-                width: 28,
-                tintColor:
-                  player.repeat.all || player.repeat.one
-                    ? COLORS.primary
-                    : COLORS.white,
-              }}
               source={
-                player.repeat.all
+                trackPlayer.repeat.all
                   ? icons.repeat
-                  : player.repeat.one
+                  : trackPlayer.repeat.one
                   ? icons.repeat_one
                   : icons.repeat
               }
+              style={{
+                height: 25,
+                width: 25,
+                tintColor:
+                  trackPlayer.repeat.all || trackPlayer.repeat.one
+                    ? COLORS.primary
+                    : COLORS.white,
+              }}
             />
           </TouchableOpacity>
         </View>
@@ -254,7 +248,11 @@ const styles = StyleSheet.create({
     width: '100%',
     position: 'absolute',
   },
-  downArrowContainer: { flex: 1, paddingLeft: 30, justifyContent: 'center' },
+  downArrowContainer: {
+    flex: 1,
+    paddingLeft: 30,
+    justifyContent: 'center',
+  },
   headerInfoContainer: {
     flex: 2,
     justifyContent: 'center',
@@ -267,8 +265,15 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0,
   },
-  trackInfoContainer: { alignItems: 'center', marginBottom: 30, height: 90 },
-  progressBarContainer: { alignItems: 'center', justifyContent: 'center' },
+  trackInfoContainer: {
+    alignItems: 'center',
+    marginBottom: 30,
+    height: 90,
+  },
+  progressBarContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   progressBarTimeContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -290,4 +295,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default TrackPlayerScreen
+export default TrackPlayer

@@ -35,12 +35,7 @@ const HorizontalCardContainer = ({
   cardItemTextStyle,
 }: IHorizontalCardContainer) => {
   return (
-    <View
-      style={{
-        paddingBottom: SIZES.paddingBottom,
-        ...containerStyle,
-      }}
-    >
+    <View style={{ paddingBottom: SIZES.paddingBottom, ...containerStyle }}>
       <TextTitle label={label} />
       <FlatList
         data={data}
@@ -52,16 +47,16 @@ const HorizontalCardContainer = ({
             <HorizontalCardItem
               artist={item.type === 'artist' ? item : null}
               id={item.id}
-              index={index}
               cardItemTextStyle={cardItemTextStyle}
               cardItemImageStyle={cardItemImageStyle}
-              cardLabel={item.name}
-              imageUrl={item.images ? item.images[0].url : undefined}
               type={item.type}
+              imageUrl={item.images ? item.images[0].url : undefined}
+              index={index}
+              cardLabel={item.name}
               date={item.release_date}
               albumName={item.albumName}
-              albumType={item.album_type}
               artists={item.artists}
+              albumType={item.album_type}
             />
           )
         }}
