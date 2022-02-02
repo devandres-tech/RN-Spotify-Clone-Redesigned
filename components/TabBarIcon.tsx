@@ -57,22 +57,24 @@ const TabBarIcon = ({ isFocused, name }: ITabBarIcon) => {
           { transform: [{ scale }] },
         ]}
       >
-        {name === 'Home' && (
+        {name === 'HomeStack' && (
           <SvgXml
-            width='25'
-            height='25'
+            width={'25'}
+            height={'25'}
             xml={isFocused ? HomeSelectedSvg : HomeSvg}
           />
         )}
-        {name === 'Search' && <SvgXml width='25' height='25' xml={SearchSvg} />}
-        {name === 'Library' && (
+        {name === 'SearchStack' && (
+          <SvgXml width='25' height='25' xml={SearchSvg} />
+        )}
+        {name === 'LibraryStack' && (
           <SvgXml
             width='25'
             height='25'
             xml={isFocused ? LibrarySelectedSvg : LibrarySvg}
           />
         )}
-        {name === 'Profile' && (
+        {name === 'ProfileStack' && (
           <SvgXml
             width='25'
             height='25'
@@ -86,7 +88,10 @@ const TabBarIcon = ({ isFocused, name }: ITabBarIcon) => {
             ...FONTS.icon,
           }}
         >
-          {name.toUpperCase()}
+          {name === 'HomeStack' && 'HOME'}
+          {name === 'SearchStack' && 'SEARCH'}
+          {name === 'LibraryStack' && 'Library'}
+          {name === 'ProfileStack' && 'Profile'}
         </Text>
       </Animated.View>
     </TouchableOpacity>
