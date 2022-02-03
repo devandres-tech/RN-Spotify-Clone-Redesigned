@@ -111,9 +111,8 @@ export const playPrevTrackAsync = createAsyncThunk<
   } else {
     prevTrack = trackPlayer.tracks[currentTrackIndex - 1]
   }
-
-  if (!trackPlayer.repeat.all) {
-    TrackPlayer.seekTo(0)
+  if (currentTrackIndex < 1 && !trackPlayer.repeat.all) {
+    dispatch(seekToPositionAsync(0))
   } else {
     dispatch(resetPlayerAsync())
     dispatch(
