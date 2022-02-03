@@ -38,8 +38,12 @@ const TrackPlayer = ({ navigation }: trackPlayerScreenProps) => {
   }
 
   const onPreviousTrackHandler = () => {
-    dispatch(trackPlayerActions.playPrevTrackAsync())
-    if (trackPlayer.repeat.one) dispatch(trackPlayerActions.repeatAll())
+    if (position < 3) {
+      dispatch(trackPlayerActions.playPrevTrackAsync())
+      if (trackPlayer.repeat.one) dispatch(trackPlayerActions.repeatAll())
+    } else {
+      dispatch(trackPlayerActions.seekToPositionAsync(0))
+    }
   }
 
   const onPlayPauseHandler = () => {

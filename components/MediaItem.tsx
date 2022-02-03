@@ -23,6 +23,7 @@ interface IMediaItem {
 }
 
 const MediaItem = ({
+  index,
   id,
   previewUrl,
   name,
@@ -45,7 +46,7 @@ const MediaItem = ({
   if (albumImages.length > 0)
     imageUrl = albumImages[0].url !== '' ? albumImages[0].url : undefined
 
-  const onMediaItemHandler = () => {
+  const onMediaItemHandler = async () => {
     const selectedTrack = {
       id,
       url: previewUrl,
@@ -53,10 +54,12 @@ const MediaItem = ({
       artist: artistsNames,
       artwork: imageUrl ? imageUrl : media.images[0].url,
     }
-    if (trackPlayer.searchTerm.length > 0)
+    if (trackPlayer.searchTerm.length > 0) {
       dispatch(trackPlayerActions.setSearchTerm(''))
+    }
     dispatch(trackPlayerActions.resetPlayerAsync())
-    dispatch(trackPlayerActions.setCurrentTrackAsync(selectedTrack))
+    await dispatch(trackPlayerActions.setCurrentTrackAsync(selectedTrack))
+    if (trackPlayer.isShuffle) dispatch(trackPlayerActions.shuffleTracksAsync())
     dispatch(trackPlayerActions.playTrackAsync())
   }
 
