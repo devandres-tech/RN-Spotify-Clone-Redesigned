@@ -5,6 +5,7 @@
 Complete source code for my YouTube tutorial React Native Spotify Clone Redesigned (currently in progress, will upload soon). The design used was created by Heba Zatar, you can find it [here](https://www.behance.net/gallery/110213585/SPOTIFY-REDESIGN-UIUX-DESIGN-FREE?tracking_source=).
 
 This project uses the Spotify API. You will need to create a Spotify account to get a Client ID and Client Secret [here](https://developer.spotify.com/dashboard/). You will also need to install the React Native development environment as per docs [here](https://reactnative.dev/docs/0.65/environment-setup).
+NOTE: when creating your Redirect URI make sure you name it like this: `com.<YOUR_URI_NAME>:/callback`
 
 - Clone repo locally: `git clone https://github.com/AndresXI/RN-Spotify-Clone-Redesigned.git`
 
