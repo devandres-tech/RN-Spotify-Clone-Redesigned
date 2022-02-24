@@ -10,7 +10,7 @@ import {
 } from '@react-navigation/stack'
 
 import { RootStackParamList } from './screens/RootStackParams'
-import { LoadingSpinner } from './components'
+import { LoadingSpinner, Header } from './components'
 import { useAppSelector, useAppDispatch } from './hooks/redux-hooks'
 import { Authorize, TrackPlayer } from './screens'
 import HomeTabs from './navigation/HomeTabs'
@@ -19,6 +19,7 @@ import {
   setTokens,
   requestRefreshedAccessTokenAsync,
 } from './store/slices/authSlice'
+import { ScrollView } from 'react-native-gesture-handler'
 
 const Stack = createStackNavigator<RootStackParamList>()
 
@@ -52,7 +53,7 @@ const App = () => {
   if (auth.tokenIsLoading) return <LoadingSpinner />
 
   return (
-    <SafeAreaProvider>
+    <>
       <StatusBar
         translucent={true}
         animated={true}
@@ -83,7 +84,7 @@ const App = () => {
           )}
         </Stack.Navigator>
       </NavigationContainer>
-    </SafeAreaProvider>
+    </>
   )
 }
 

@@ -84,9 +84,13 @@ const Home = () => {
                 <View key={`${artist.id}`} style={{ width: 30 }}>
                   <Image
                     style={styles.topArtistAndTracksImage}
-                    source={{
-                      uri: artist.images ? artist.images[0].url : undefined,
-                    }}
+                    source={
+                      artist.images[0].url
+                        ? {
+                            uri: artist.images[0].url,
+                          }
+                        : require('../assets/images/image-placeholder.png')
+                    }
                   />
                 </View>
               )
@@ -121,9 +125,13 @@ const Home = () => {
               <ImageBackground
                 style={styles.featuredImage}
                 resizeMode='repeat'
-                source={{
-                  uri: playlist.featured[0].images[0].url,
-                }}
+                source={
+                  playlist.featured[0].images[0].url
+                    ? {
+                        uri: playlist.featured[0].images[0].url,
+                      }
+                    : require('../assets/images/image-placeholder.png')
+                }
               >
                 <TextButton
                   label='CHECK IT OUT'
