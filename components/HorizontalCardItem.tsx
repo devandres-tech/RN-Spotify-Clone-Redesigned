@@ -24,12 +24,6 @@ interface IHorizontalCardItem {
   albumType: string
   artists: Array<{ name: string }>
   id: string
-  artist: {
-    name: string
-    type: string
-    images: { url: string }[]
-    followers?: { total: number }
-  } | null
 }
 
 const HorizontalCardItem = ({
@@ -45,7 +39,6 @@ const HorizontalCardItem = ({
   albumType,
   artists,
   id,
-  artist,
 }: IHorizontalCardItem) => {
   const navigation = useNavigation<horizontalCardItemNavProps>()
 
@@ -68,7 +61,11 @@ const HorizontalCardItem = ({
       }}
     >
       <Image
-        source={{ uri: imageUrl }}
+        source={
+          imageUrl
+            ? { uri: imageUrl }
+            : require('../assets/images/image-placeholder.png')
+        }
         style={{
           height: 135,
           borderRadius:

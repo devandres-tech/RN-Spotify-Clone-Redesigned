@@ -6,7 +6,7 @@ import { RootState } from '../index'
 
 const initialState = {
   topLists: [] as any,
-  featured: [{ images: [{ url: '#' }] }],
+  featured: [{ images: [{ url: '' }] }],
   newReleases: [] as any,
 }
 

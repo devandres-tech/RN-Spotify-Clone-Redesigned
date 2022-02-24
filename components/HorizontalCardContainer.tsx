@@ -45,7 +45,6 @@ const HorizontalCardContainer = ({
         renderItem={({ item, index }) => {
           return (
             <HorizontalCardItem
-              artist={item.type === 'artist' ? item : null}
               id={item.id}
               cardItemTextStyle={cardItemTextStyle}
               cardItemImageStyle={cardItemImageStyle}

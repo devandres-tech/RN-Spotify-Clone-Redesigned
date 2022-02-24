@@ -1,7 +1,8 @@
 import { BASE_URL } from '@env'
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { RootState } from '../index'
 
+import { icons } from '../../constants'
+import { RootState } from '../index'
 import { setHeaders } from '../../utils/helpers'
 
 const initialState = {
