@@ -44,7 +44,7 @@ const SearchItem = ({
   if (type === MEDIA.track) {
     albumImageUrl = album.images[0].url
   } else {
-    albumImageUrl = images.length > 0 ? images[0].url : '#'
+    albumImageUrl = images.length > 0 ? images[0].url : ''
   }
 
   const onSearchItemHandler = () => {
@@ -67,13 +67,12 @@ const SearchItem = ({
       dispatch(trackPlayerActions.setSearchTerm(searchTerm))
     }
   }
-
+  console.log(`${id}-${index}-${name}-${type}`)
   return (
     <TouchableOpacity
       onPress={() => onSearchItemHandler()}
       activeOpacity={0.7}
       style={{ marginBottom: 15 }}
-      key={`${id}-${index}`}
     >
       <View style={{ flexDirection: 'row' }}>
         <View style={{ height: 40, width: 40, marginRight: 15 }}>
@@ -83,7 +82,11 @@ const SearchItem = ({
               height: '100%',
               borderRadius: type === MEDIA.artist ? 20 : 0,
             }}
-            source={{ uri: albumImageUrl }}
+            source={
+              albumImageUrl
+                ? { uri: albumImageUrl }
+                : require('../assets/images/image-placeholder.png')
+            }
           />
         </View>
         <View>

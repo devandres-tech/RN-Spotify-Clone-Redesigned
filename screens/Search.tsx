@@ -84,6 +84,7 @@ const Search = () => {
           .map((item, index) => {
             return (
               <SearchItem
+                key={`${item.id}`}
                 searchTerm={searchTerm}
                 index={index}
                 id={item.id}
@@ -122,7 +123,11 @@ const Search = () => {
                 >
                   <Image
                     style={styles.cardItemImage}
-                    source={{ uri: image.url }}
+                    source={
+                      image.url
+                        ? { uri: image.url }
+                        : require('../assets/images/image-placeholder.png')
+                    }
                   />
                 </View>
               ))}
