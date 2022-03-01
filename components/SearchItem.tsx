@@ -11,7 +11,6 @@ import * as trackPlayerActions from '../store/slices/trackPlayerSlice'
 import { useAppDispatch } from '../hooks/redux-hooks'
 
 type ISearchItem = {
-  index: number
   id: string
   type: string
   album: { images: Array<{ url: string }>; name: string }
@@ -27,7 +26,6 @@ type ISearchItem = {
 type searchItemNavProps = StackNavigationProp<RootStackParamList, 'Search'>
 
 const SearchItem = ({
-  index,
   id,
   type,
   album,
@@ -67,7 +65,7 @@ const SearchItem = ({
       dispatch(trackPlayerActions.setSearchTerm(searchTerm))
     }
   }
-  console.log(`${id}-${index}-${name}-${type}`)
+
   return (
     <TouchableOpacity
       onPress={() => onSearchItemHandler()}

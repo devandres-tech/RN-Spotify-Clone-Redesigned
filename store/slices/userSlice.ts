@@ -128,11 +128,14 @@ const userSlice = createSlice({
     builder.addCase(
       getUserRecentlyPlayedAsync.fulfilled,
       (state, { payload }) => {
-        state.recentlyPlayed = payload.items.map((item: any) => {
+        const transformedItems = payload.items.map((item: any) => {
           const trackName = item.track.name
           const albumName = item.track.album.name
           return { ...item.track.album, name: trackName, albumName }
         })
+        // todo remove duplicates
+        console.log('NEW----', [...new Set(transformedItems)])
+        state.recentlyPlayed = [...new Set(transformedItems)]
       }
     )
     builder.addCase(getUserTopArtistsAsync.fulfilled, (state, { payload }) => {

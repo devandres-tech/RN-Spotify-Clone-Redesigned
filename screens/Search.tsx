@@ -81,12 +81,11 @@ const Search = () => {
       <View>
         {search.results
           .filter((filteredItem) => filteredItem.preview_url !== null)
-          .map((item, index) => {
+          .map((item) => {
             return (
               <SearchItem
                 key={`${item.id}`}
                 searchTerm={searchTerm}
-                index={index}
                 id={item.id}
                 type={item.type}
                 album={item.album}
