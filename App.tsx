@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { StatusBar } from 'react-native'
 import SplashScreen from 'react-native-splash-screen'
 import { NavigationContainer } from '@react-navigation/native'
@@ -19,7 +18,6 @@ import {
   setTokens,
   requestRefreshedAccessTokenAsync,
 } from './store/slices/authSlice'
-import { ScrollView } from 'react-native-gesture-handler'
 
 const Stack = createStackNavigator<RootStackParamList>()
 
