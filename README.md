@@ -1,10 +1,8 @@
 # React Native Spotify Clone Redesigned
 
-<img src="./demo.gif" heigth=300 width=300 />
+<img src="https://firebasestorage.googleapis.com/v0/b/senor-cocktails.appspot.com/o/spotify-demo.gif?alt=media&token=b81059a2-eafa-4d38-9996-2b550633eb27" heigth=300 width=300 />
 
 <img src="https://github.com/AndresXI/RN-Spotify-Clone-Redesigned/blob/main/screenshots/home.png?raw=true" width=250 /> <img src="https://github.com/AndresXI/RN-Spotify-Clone-Redesigned/blob/main/screenshots/search.png?raw=true" width=250 /> <img src="https://github.com/AndresXI/RN-Spotify-Clone-Redesigned/blob/main/screenshots/library.png?raw=true" width=250 /> <img src="https://github.com/AndresXI/RN-Spotify-Clone-Redesigned/blob/main/screenshots/profile.png?raw=true" width=250 /> <img src="https://github.com/AndresXI/RN-Spotify-Clone-Redesigned/blob/main/screenshots/artist.png?raw=true" width=250 /> <img src="https://github.com/AndresXI/RN-Spotify-Clone-Redesigned/blob/main/screenshots/track-player.png?raw=true" width=250 />
-
-Here is a [demo video](https://www.youtube.com/watch?v=uQRfFLWXfhc)
 
 Complete source code for my YouTube tutorial React Native Spotify Clone Redesigned (currently in progress, will upload soon). The design used was created by Heba Zatar, you can find it [here](https://www.behance.net/gallery/110213585/SPOTIFY-REDESIGN-UIUX-DESIGN-FREE?tracking_source=).
 
