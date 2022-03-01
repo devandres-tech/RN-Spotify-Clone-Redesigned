@@ -133,8 +133,6 @@ const userSlice = createSlice({
           const albumName = item.track.album.name
           return { ...item.track.album, name: trackName, albumName }
         })
-        // todo remove duplicates
-        console.log('NEW----', [...new Set(transformedItems)])
         state.recentlyPlayed = [...new Set(transformedItems)]
       }
     )
