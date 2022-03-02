@@ -1,6 +1,6 @@
 # React Native Spotify Clone Redesigned
 
-<img src="https://firebasestorage.googleapis.com/v0/b/senor-cocktails.appspot.com/o/demo3.gif?alt=media&token=0492c813-0d39-4fc2-9b1c-844650b4aba7" heigth=300 width=300 />
+<img src="https://firebasestorage.googleapis.com/v0/b/senor-cocktails.appspot.com/o/demo4.gif?alt=media&token=5a66456c-c3ab-4afc-9d89-7de32dca1957" heigth=300 width=300 />
 
 <img src="https://github.com/AndresXI/RN-Spotify-Clone-Redesigned/blob/main/screenshots/home.png?raw=true" width=250 /> <img src="https://github.com/AndresXI/RN-Spotify-Clone-Redesigned/blob/main/screenshots/search.png?raw=true" width=250 /> <img src="https://github.com/AndresXI/RN-Spotify-Clone-Redesigned/blob/main/screenshots/library.png?raw=true" width=250 /> <img src="https://github.com/AndresXI/RN-Spotify-Clone-Redesigned/blob/main/screenshots/profile.png?raw=true" width=250 /> <img src="https://github.com/AndresXI/RN-Spotify-Clone-Redesigned/blob/main/screenshots/artist.png?raw=true" width=250 /> <img src="https://github.com/AndresXI/RN-Spotify-Clone-Redesigned/blob/main/screenshots/track-player.png?raw=true" width=250 />
 
