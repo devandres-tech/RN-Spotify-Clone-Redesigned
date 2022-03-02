@@ -1,6 +1,6 @@
 # React Native Spotify Clone Redesigned
 
-<img src="https://firebasestorage.googleapis.com/v0/b/senor-cocktails.appspot.com/o/demo4.gif?alt=media&token=5a66456c-c3ab-4afc-9d89-7de32dca1957" heigth=300 width=300 />
+<img  style="display: block; margin: 0 auto" src="https://firebasestorage.googleapis.com/v0/b/senor-cocktails.appspot.com/o/demo4.gif?alt=media&token=5a66456c-c3ab-4afc-9d89-7de32dca1957" heigth=300 width=300 />
 
 Complete source code for my YouTube tutorial React Native Spotify Clone Redesigned (currently in progress, will upload soon). The design used was created by Heba Zatar, you can find it [here](https://www.behance.net/gallery/110213585/SPOTIFY-REDESIGN-UIUX-DESIGN-FREE?tracking_source=).
 
