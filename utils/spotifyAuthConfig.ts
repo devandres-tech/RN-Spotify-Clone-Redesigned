@@ -24,7 +24,7 @@ export const spotifyAuthConfig = {
     authorizationEndpoint: 'https://accounts.spotify.com/authorize',
     tokenEndpoint:
       Platform.OS === 'ios'
-        ? 'http://localhost:5000/api/user/authentication'
-        : 'http://10.0.2.2:5000/api/user/authentication',
+        ? 'http://localhost:4000/api/user/authentication'
+        : 'http://10.0.2.2:4000/api/user/authentication',
   },
 }

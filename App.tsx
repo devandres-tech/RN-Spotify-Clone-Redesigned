@@ -9,7 +9,7 @@ import {
 } from '@react-navigation/stack'
 
 import { RootStackParamList } from './screens/RootStackParams'
-import { LoadingSpinner, Header } from './components'
+import { LoadingSpinner } from './components'
 import { useAppSelector, useAppDispatch } from './hooks/redux-hooks'
 import { Authorize, TrackPlayer } from './screens'
 import HomeTabs from './navigation/HomeTabs'

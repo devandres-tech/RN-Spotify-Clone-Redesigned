@@ -5,7 +5,7 @@ dotenv.config()
 
 import userRoutes from './routes/userRoutes.js'
 
-const API_PORT = 5000
+const API_PORT = 4000
 
 const api = express()
 
